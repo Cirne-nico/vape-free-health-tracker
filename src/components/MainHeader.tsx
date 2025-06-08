@@ -114,8 +114,8 @@ const MainHeader = ({
               <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
             </div>
 
-            {/* Estadísticas en grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            {/* Estadísticas en grid - SIN mostrar ahorros aquí */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
               {/* Tiempo total */}
               <div className="text-center">
                 <div className="flex items-center justify-center mb-1">
@@ -123,15 +123,6 @@ const MainHeader = ({
                 </div>
                 <p className="text-2xl font-bold">{time.totalHours}</p>
                 <p className="text-green-100 text-sm">horas totales</p>
-              </div>
-
-              {/* Ahorros */}
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-1">
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                </div>
-                <p className="text-2xl font-bold">{savings.total.toFixed(0)}€</p>
-                <p className="text-green-100 text-sm">ahorrado</p>
               </div>
 
               {/* Logros */}
@@ -157,7 +148,7 @@ const MainHeader = ({
               </div>
             </div>
 
-            {/* Medallas desbloqueadas - ahora en la parte inferior izquierda */}
+            {/* Medallas desbloqueadas - en la parte inferior izquierda */}
             {unlockedAchievements.length > 0 && (
               <div className="mt-4 flex justify-start">
                 <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3 border border-white/20">

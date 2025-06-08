@@ -284,7 +284,7 @@ const HistoryView = () => {
                         fontSize={12}
                       />
                       <Tooltip 
-                        formatter={(value, name) => [value.toFixed(2), name]}
+                        formatter={(value: number, name: string) => [value.toFixed(2), name]}
                         labelFormatter={() => ''}
                         content={({ active, payload }) => {
                           if (active && payload && payload.length) {

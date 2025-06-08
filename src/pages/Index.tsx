@@ -162,7 +162,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="achievements">
-            <AchievementsList days={time.days} savings={savings} />
+            <AchievementsList days={time.days} savings={savings.total} />
           </TabsContent>
 
           <TabsContent value="history">

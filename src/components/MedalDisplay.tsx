@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Slider } from '@/components/ui/slider';
 import { calculateHealthProgress, getCurrentValue } from './healthData';
 import { healthCategories } from './HealthCategories';
 
@@ -22,6 +22,7 @@ interface MedalDisplayProps {
 
 const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps) => {
   const [selectedMedal, setSelectedMedal] = useState<Achievement | null>(null);
+  const [sliderValue, setSliderValue] = useState([100]); // Empezamos en 100 (oculto)
 
   const handleMedalClick = (achievement: Achievement) => {
     setSelectedMedal(achievement);
@@ -45,6 +46,10 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
       mental: getCurrentValue('mental', days, healthData)
     };
   };
+
+  // Calcular la opacidad del ahorro basado en el slider (0 = visible, 100 = oculto)
+  const savingsOpacity = Math.max(0, 1 - (sliderValue[0] / 100));
+  const revealPercentage = 100 - sliderValue[0];
 
   return (
     <>
@@ -84,12 +89,41 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                 <p className="text-green-600">{selectedMedal.reward}</p>
               </div>
               
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-3xl font-bold text-blue-600">{totalSavings.toFixed(2)}€</p>
-                <p className="text-sm text-blue-700 mb-2">ahorrados en total</p>
-                <p className="text-sm text-gray-600 italic">
-                  "Cómprate algo con esto o valora pillarte un día libre en el curro"
-                </p>
+              {/* Sección del ahorro con slider */}
+              <div className="bg-blue-50 p-4 rounded-lg relative overflow-hidden">
+                <div className="mb-4">
+                  <p className="text-sm text-blue-700 mb-2">Desliza para revelar el ahorro:</p>
+                  <Slider
+                    value={sliderValue}
+                    onValueChange={setSliderValue}
+                    max={100}
+                    min={0}
+                    step={1}
+                    className="w-full"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    {revealPercentage.toFixed(0)}% revelado
+                  </p>
+                </div>
+                
+                <div 
+                  className="transition-opacity duration-300"
+                  style={{ opacity: savingsOpacity }}
+                >
+                  <p className="text-3xl font-bold text-blue-600">{totalSavings.toFixed(2)}€</p>
+                  <p className="text-sm text-blue-700 mb-2">ahorrados en total</p>
+                  <p className="text-sm text-gray-600 italic">
+                    "Cómprate algo con esto o valora pillarte un día libre en el curro"
+                  </p>
+                </div>
+                
+                {savingsOpacity < 0.1 && (
+                  <div className="absolute inset-0 bg-blue-100/80 flex items-center justify-center backdrop-blur-sm">
+                    <p className="text-blue-800 font-medium">
+                      Desliza hacia la izquierda para revelar
+                    </p>
+                  </div>
+                )}
               </div>
               
               <div className="grid grid-cols-2 gap-3 text-xs">

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -61,25 +62,6 @@ const MainHeader = ({
   return (
     <TooltipProvider>
       <div className="space-y-6">
-        {/* Mensaje motivacional */}
-        <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/20 rounded-full">
-                <User className="w-5 h-5" />
-              </div>
-              <div>
-                <h2 className="font-semibold">
-                  {userName ? `¡Hola, ${userName}!` : '¡Hola!'}
-                </h2>
-                <p className="text-blue-100 text-sm">
-                  {getMotivationalMessage()}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Header principal con imagen de fondo y efecto blur */}
         <Card className="relative overflow-hidden text-white">
           {/* Imagen de fondo con blur */}

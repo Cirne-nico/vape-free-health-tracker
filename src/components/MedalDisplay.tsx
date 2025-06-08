@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { calculateHealthProgress, getCurrentValue } from './healthData';
+import { healthCategories } from './HealthCategories';
 
 interface Achievement {
   id: string;
@@ -33,6 +35,17 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
     return null;
   }
 
+  const getHealthDataForDay = (days: number) => {
+    const healthData = calculateHealthProgress(days);
+    return {
+      respiratory: getCurrentValue('respiratory', days, healthData),
+      cardiovascular: getCurrentValue('cardiovascular', days, healthData),
+      liver: getCurrentValue('liver', days, healthData),
+      skinEyes: getCurrentValue('skinEyes', days, healthData),
+      mental: getCurrentValue('mental', days, healthData)
+    };
+  };
+
   return (
     <>
       <div className="flex items-center gap-2 flex-wrap">
@@ -56,7 +69,7 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
 
       {selectedMedal && (
         <Dialog open={!!selectedMedal} onOpenChange={handleCloseModal}>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="text-center text-xl font-bold text-green-600">
                 {selectedMedal.icon} {selectedMedal.title}
@@ -87,6 +100,44 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                 <div className="bg-gray-50 p-2 rounded">
                   <p className="font-medium">Ahorro del hito:</p>
                   <p>{(selectedMedal.days * ((20/7) + (4/10))).toFixed(2)}€</p>
+                </div>
+              </div>
+
+              {/* Nueva sección: Logros en salud acumulados */}
+              <div className="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                <h3 className="text-lg font-bold text-purple-700 mb-3">🏥 Logros en Salud Acumulados</h3>
+                <p className="text-sm text-purple-600 mb-4">Recuperación alcanzada al día {selectedMedal.days}:</p>
+                
+                <div className="grid gap-3">
+                  {Object.entries(getHealthDataForDay(selectedMedal.days)).map(([key, data]) => {
+                    const category = healthCategories[key as keyof typeof healthCategories];
+                    return (
+                      <div key={key} className="flex items-center justify-between bg-white p-3 rounded-lg border">
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{category.icon}</span>
+                          <div>
+                            <p className="text-sm font-medium text-gray-700">{category.title}</p>
+                            <p className="text-xs text-gray-500">{data.description}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div 
+                            className="text-lg font-bold"
+                            style={{ color: category.color }}
+                          >
+                            {data.value}%
+                          </div>
+                          <div className="text-xs text-gray-500">recuperado</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                <div className="mt-4 p-3 bg-purple-100 rounded-lg">
+                  <p className="text-xs text-purple-700 text-center">
+                    📊 Datos basados en estudios médicos sobre recuperación post-vapeo
+                  </p>
                 </div>
               </div>
             </div>

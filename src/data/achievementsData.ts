@@ -47,6 +47,14 @@ export const achievements = [
     days: 365,
     icon: '🏅',
     reward: 'Riesgo de enfermedades equiparado a no fumadores'
+  },
+  {
+    id: 'two_years',
+    title: 'Dos Años de Victoria',
+    description: 'Dos años completos sin vapear - ¡Eres un campeón!',
+    days: 730,
+    icon: '🏆',
+    reward: 'Maestría completa sobre la adicción'
   }
 ];
 

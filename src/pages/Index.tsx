@@ -26,7 +26,8 @@ const Index = () => {
     calculateTimeSince, 
     calculateSavings, 
     calculateBlurLevel, 
-    calculateProgressPercentage 
+    calculateProgressPercentage,
+    getProgressInfo
   } = useQuitProgress(startDate);
 
   const {
@@ -132,6 +133,7 @@ const Index = () => {
   const time = calculateTimeSince();
   const savings = calculateSavings();
   const progressPercentage = calculateProgressPercentage();
+  const progressInfo = getProgressInfo();
   const blurLevel = calculateBlurLevel();
   const unlockedAchievements = getUnlockedAchievements(time.days);
   const unlockedHealthAchievements = getUnlockedHealthAchievements(time.days);
@@ -150,6 +152,7 @@ const Index = () => {
           time={time}
           savings={savings}
           progressPercentage={progressPercentage}
+          progressInfo={progressInfo}
           blurLevel={blurLevel}
           unlockedAchievements={unlockedAchievements}
           unlockedHealthAchievements={unlockedHealthAchievements}

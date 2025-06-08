@@ -58,7 +58,34 @@ export const useQuitProgress = (startDate: Date | null) => {
 
   const calculateProgressPercentage = () => {
     const time = calculateTimeSince();
-    return Math.min((time.days / 90) * 100, 100);
+    
+    // Si aún no ha llegado a los 90 días, mostrar progreso hacia 90 días
+    if (time.days < 90) {
+      return Math.min((time.days / 90) * 100, 100);
+    }
+    
+    // Si ya pasó los 90 días, mostrar progreso hacia 2 años (730 días)
+    // El progreso va desde los 90 días hasta los 730 días
+    const progressFrom90To730 = ((time.days - 90) / (730 - 90)) * 100;
+    return Math.min(progressFrom90To730, 100);
+  };
+
+  const getProgressInfo = () => {
+    const time = calculateTimeSince();
+    
+    if (time.days < 90) {
+      return {
+        target: 90,
+        targetLabel: "90 días",
+        isFirstPhase: true
+      };
+    }
+    
+    return {
+      target: 730,
+      targetLabel: "2 años",
+      isFirstPhase: false
+    };
   };
 
   return {
@@ -66,6 +93,7 @@ export const useQuitProgress = (startDate: Date | null) => {
     calculateTimeSince,
     calculateSavings,
     calculateBlurLevel,
-    calculateProgressPercentage
+    calculateProgressPercentage,
+    getProgressInfo
   };
 };

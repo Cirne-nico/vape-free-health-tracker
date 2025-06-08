@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,11 @@ interface MainHeaderProps {
     daily: number;
   };
   progressPercentage: number;
+  progressInfo: {
+    target: number;
+    targetLabel: string;
+    isFirstPhase: boolean;
+  };
   blurLevel: number;
   unlockedAchievements: any[];
   unlockedHealthAchievements: any[];
@@ -29,6 +35,7 @@ const MainHeader = ({
   time, 
   savings, 
   progressPercentage, 
+  progressInfo,
   blurLevel, 
   unlockedAchievements,
   unlockedHealthAchievements,
@@ -104,10 +111,15 @@ const MainHeader = ({
               {/* Progreso visual */}
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span>Progreso hacia los 90 días</span>
+                  <span>Progreso hacia {progressInfo.targetLabel}</span>
                   <span>{Math.min(progressPercentage, 100).toFixed(1)}%</span>
                 </div>
                 <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
+                {!progressInfo.isFirstPhase && (
+                  <div className="text-xs text-green-200 text-center">
+                    ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
+                  </div>
+                )}
               </div>
 
               {/* Estadísticas centrales */}

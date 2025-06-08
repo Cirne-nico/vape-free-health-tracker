@@ -131,7 +131,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
           <CardContent className="space-y-4">
             <div className="space-y-3">
               <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="text-sm font-medium text-blue-700 mb-1">📋 Síntesis:</p>
+                <p className="text-sm font-medium text-blue-700 mb-1">📋 Evolución:</p>
                 <p className="text-gray-700">{dayContent.sintesis}</p>
               </div>
               
@@ -146,7 +146,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
               </div>
               
               <div className="bg-purple-50 p-3 rounded-lg border border-purple-200">
-                <p className="text-sm font-medium text-purple-700 mb-1">💪 Contrarréplica:</p>
+                <p className="text-sm font-medium text-purple-700 mb-1">💪 Pensamiento intrusivo:</p>
                 <p className="text-gray-700 font-medium italic">"{dayContent.contrareplica}"</p>
               </div>
             </div>

@@ -129,7 +129,7 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
             <TooltipTrigger>
               <button
                 onClick={() => handleMedalClick(medal)}
-                className={`hover:scale-110 transition-transform duration-200 rounded-full p-1 backdrop-blur-sm border ${
+                className={`hover:scale-110 transition-transform duration-200 rounded-full p-1 backdrop-blur-sm border relative ${
                   medal.type === 'victory' 
                     ? 'bg-yellow-100/80 border-yellow-300' 
                     : 'bg-white/20 border-white/30'
@@ -140,6 +140,14 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                   alt={medal.title}
                   className="w-12 h-12 rounded-full object-cover"
                 />
+                {/* Superponer número de días solo en medallas de Dioniso */}
+                {medal.type === 'vigor' && medal.days && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-white font-bold text-xs bg-black/60 rounded-full w-6 h-6 flex items-center justify-center backdrop-blur-sm border border-white/30">
+                      {medal.days}
+                    </span>
+                  </div>
+                )}
               </button>
             </TooltipTrigger>
             <TooltipContent>

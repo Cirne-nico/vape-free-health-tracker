@@ -34,7 +34,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
   return (
     <Card>
       <CardHeader>
-        <CardTitle>¿Cómo te sientes ahora?</CardTitle>
+        <CardTitle>¿Cómo te sientes hoy?</CardTitle>
         {todayLog && (
           <p className="text-sm text-green-600">
             ✓ Ya registraste tus emociones hoy a las {todayLog.timestamp}
@@ -51,7 +51,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
                 selectedEmotions.includes(emotion.id) 
                   ? emotion.color + ' text-white' 
                   : 'hover:' + emotion.color.replace('bg-', 'bg-') + '/20'
-              }`}
+              } ${emotion.id === 'disgusted' ? 'text-[10px]' : ''}`}
               onClick={() => toggleEmotion(emotion.id)}
             >
               <span className="text-lg">{emotion.emoji}</span>

@@ -34,6 +34,11 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
     };
   };
 
+  // Type guard to check if medal has days property
+  const medalHasDays = (medal: Medal): medal is Medal & { days: number } => {
+    return 'days' in medal && typeof medal.days === 'number';
+  };
+
   return (
     <Dialog open={!!selectedMedal} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -202,7 +207,7 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
               </div>
 
               {/* Logro específico alcanzado */}
-              {selectedMedal.type === 'health' && 'days' in selectedMedal && 'healthCategory' in selectedMedal && (
+              {selectedMedal.type === 'health' && medalHasDays(selectedMedal) && 'healthCategory' in selectedMedal && (
                 <div className="bg-green-200 p-4 rounded-lg border-2 border-green-400">
                   <h4 className="text-lg font-semibold text-green-800 mb-2 text-center">🎯 Tu Logro Específico</h4>
                   <div className="grid grid-cols-2 gap-3 text-sm">
@@ -225,7 +230,7 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
           )}
 
           {/* Solo mostrar ahorros y salud para medallas de Vigor */}
-          {selectedMedal.type === 'vigor' && 'days' in selectedMedal && (
+          {selectedMedal.type === 'vigor' && medalHasDays(selectedMedal) && (
             <>
               {/* Sección del ahorro con slider */}
               <div className="bg-blue-50 p-4 rounded-lg relative overflow-hidden">
@@ -325,7 +330,7 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
                   sobre las estadísticas. Esta medalla no otorga beneficios materiales, 
                   sino el reconocimiento de tu fortaleza excepcional.
                 </p>
-                {'days' in selectedMedal && (
+                {medalHasDays(selectedMedal) && (
                   <div className="bg-yellow-100 p-3 rounded border">
                     <p className="font-medium mb-2">Estadística actual:</p>
                     <p>Solo el {getSuccessRate(selectedMedal.days)}% de las personas llegan donde tú has llegado.</p>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -51,7 +50,7 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
       }
     });
 
-    const mostVulnerableHour = Object.entries(hourlyVulnerability)
+    const mostVulnerableHourEntry = Object.entries(hourlyVulnerability)
       .sort(([,a], [,b]) => b - a)[0];
 
     // Tendencia general
@@ -72,11 +71,11 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
 
     // Predicciones y recomendaciones
     const predictions = generatePredictions(currentDay, trend, vulnerableDays.length);
-    const recommendations = generateRecommendations(trend, mostVulnerableHour, vulnerableDays.length);
+    const recommendations = generateRecommendations(trend, mostVulnerableHourEntry ? parseInt(mostVulnerableHourEntry[0]) : null, vulnerableDays.length);
 
     setAnalysis({
       vulnerableDays: vulnerableDays.length,
-      mostVulnerableHour: mostVulnerableHour ? parseInt(mostVulnerableHour[0]) : null,
+      mostVulnerableHour: mostVulnerableHourEntry ? parseInt(mostVulnerableHourEntry[0]) : null,
       trend,
       predictions,
       recommendations,

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -65,6 +64,15 @@ const Index = () => {
   const savings = calculateSavings();
   const progressPercentage = Math.min((time.days / 90) * 100, 100);
 
+  // Calcular el nivel de blur basado en los días transcurridos
+  const calculateBlurLevel = () => {
+    const maxBlur = 8; // Blur máximo al inicio
+    const blurReduction = (time.days / 90) * maxBlur;
+    return Math.max(0, maxBlur - blurReduction);
+  };
+
+  const blurLevel = calculateBlurLevel();
+
   const handleReset = () => {
     if (confirm('¿Estás seguro de que quieres reiniciar tu progreso? Se perderán todos los datos.')) {
       localStorage.removeItem('vaping-quit-date');
@@ -85,9 +93,19 @@ const Index = () => {
         
         {/* Header con estadísticas principales - diseño mejorado */}
         <Card className="relative overflow-hidden border-0 shadow-xl">
-          {/* Fondo con gradiente sutil y patrones geométricos */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-600 via-blue-700 to-teal-600"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+          {/* Imagen de fondo de playa griega */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`,
+              filter: `blur(${blurLevel}px)`,
+              transition: 'filter 0.5s ease-in-out'
+            }}
+          />
+          
+          {/* Overlay con gradiente para legibilidad del texto */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-blue-900/60 to-teal-800/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
           
           {/* Patrón geométrico sutil */}
           <div className="absolute inset-0 opacity-10">
@@ -114,6 +132,11 @@ const Index = () => {
                   Ya sin nicotina, el cuerpo escucha:<br/>
                   <span className="font-semibold text-emerald-200">comienza la sociabilidad mínima</span>
                 </h1>
+                {blurLevel > 0 && (
+                  <p className="text-sm text-blue-200 mt-2 opacity-80">
+                    La claridad llega con cada día... ({(90 - time.days)} días para la imagen completa)
+                  </p>
+                )}
               </CardTitle>
             </CardHeader>
             

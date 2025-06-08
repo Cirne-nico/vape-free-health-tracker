@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from '@/components/EmotionLogger';
@@ -178,7 +177,7 @@ const Index = () => {
       {/* Pop-up de nuevo logro */}
       <AchievementPopup 
         achievement={newAchievement}
-        savings={savings}
+        savings={savings.total}
         onClose={handleCloseAchievementPopup}
       />
     </div>

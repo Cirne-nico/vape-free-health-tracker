@@ -1,12 +1,19 @@
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Clock, TrendingUp, AlertTriangle, Trophy, User, Info } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { AlertTriangle, Clock, Euro, Trophy, Zap } from 'lucide-react';
 import MedalDisplay from './MedalDisplay';
+
+interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  days: number;
+  icon: string;
+  reward: string;
+}
 
 interface MainHeaderProps {
   time: {
@@ -17,11 +24,12 @@ interface MainHeaderProps {
   };
   savings: {
     total: number;
-    daily: number;
+    daily: any;
   };
   progressPercentage: number;
   blurLevel: number;
-  unlockedAchievements: any[];
+  unlockedAchievements: Achievement[];
+  currentDay: number;
   onRelapse: () => void;
 }
 
@@ -30,155 +38,131 @@ const MainHeader = ({
   savings, 
   progressPercentage, 
   blurLevel, 
-  unlockedAchievements, 
+  unlockedAchievements,
+  currentDay,
   onRelapse 
 }: MainHeaderProps) => {
-  const [userName, setUserName] = useState<string>('');
+  const [showRelapseDialog, setShowRelapseDialog] = useState(false);
 
-  useEffect(() => {
-    const savedUserName = localStorage.getItem('user-name');
-    if (savedUserName) {
-      setUserName(savedUserName);
-    }
-  }, []);
-
-  const getMotivationalMessage = () => {
-    const messages = [
-      `¡Excelente trabajo${userName ? `, ${userName}` : ''}! Cada minuto sin vapear es una victoria.`,
-      `¡Sigue así${userName ? `, ${userName}` : ''}! Tu salud te lo agradece.`,
-      `¡Increíble progreso${userName ? `, ${userName}` : ''}! Estás transformando tu vida.`,
-      `¡Eres imparable${userName ? `, ${userName}` : ''}! Cada día es un nuevo logro.`,
-      `¡Fantástico${userName ? `, ${userName}` : ''}! Tu determinación es inspiradora.`,
+  const calculateQuote = () => {
+    const quotes = [
+      "Cada día sin vapear es una victoria.",
+      "El cambio comienza con una decisión.",
+      "Tu salud es tu mayor riqueza.",
+      "Respira profundo y sigue adelante.",
+      "El futuro es libre de humo."
     ];
-    
-    if (time.days === 0) {
-      return `¡Bienvenido${userName ? `, ${userName}` : ''}! Has dado el primer paso más importante.`;
-    }
-    
-    const messageIndex = time.days % messages.length;
-    return messages[messageIndex];
+    return quotes[Math.floor(Math.random() * quotes.length)];
   };
 
+  const handleRelapseClick = () => {
+    setShowRelapseDialog(true);
+  };
+
+  const handleConfirmRelapse = () => {
+    onRelapse();
+    setShowRelapseDialog(false);
+  };
+
+  const handleCancelRelapse = () => {
+    setShowRelapseDialog(false);
+  };
+
+  const quote = calculateQuote();
+
   return (
-    <TooltipProvider>
-      <div className="space-y-6">
-        {/* Header principal con imagen de fondo y efecto blur */}
-        <Card className="relative overflow-hidden text-white">
-          {/* Imagen de fondo con blur */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              filter: `blur(${blurLevel}px)`,
-            }}
-          />
-          
-          {/* Overlay para mejorar legibilidad */}
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
-          
-          <CardContent className="relative p-6 z-10">
-            <div className="flex flex-col space-y-4">
-              {/* Título principal fijo */}
-              <div className="text-center mb-4">
-                <h1 className="text-2xl font-bold text-white mb-2">
-                  Ya sin nicotina, el cuerpo escucha:
-                </h1>
-                <h2 className="text-xl font-semibold text-green-100">
-                  comienza la sociabilidad mínima
-                </h2>
-              </div>
-
-              {/* Tiempo transcurrido */}
-              <div className="text-center">
-                <h3 className="text-3xl font-bold mb-2">
-                  {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
-                </h3>
-                <p className="text-green-100">sin vapear</p>
-              </div>
-
-              {/* Progreso visual */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Progreso hacia los 90 días</span>
-                  <span>{Math.min(progressPercentage, 100).toFixed(1)}%</span>
+    <div className="relative">
+      <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 shadow-lg">
+        <CardContent className="p-6">
+          {/* Header principal */}
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6">
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                🌟 Tu Progreso Sin Vapear
+              </h1>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                <div className="bg-white/60 p-3 rounded-lg">
+                  <div className="text-2xl font-bold text-blue-600">{time.days}</div>
+                  <div className="text-sm text-gray-600">días</div>
                 </div>
-                <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
-              </div>
-
-              {/* Estadísticas centrales */}
-              <div className="mt-6 grid grid-cols-2 gap-4 text-center">
-                <div className="bg-black/20 backdrop-blur-sm rounded p-3">
-                  <div className="flex items-center justify-center mb-1">
-                    <Clock className="w-4 h-4 mr-1" />
-                  </div>
-                  <p className="text-2xl font-bold">{time.totalHours}</p>
-                  <p className="text-green-100 text-sm">horas totales</p>
+                <div className="bg-white/60 p-3 rounded-lg">
+                  <div className="text-2xl font-bold text-green-600">{time.hours}</div>
+                  <div className="text-sm text-gray-600">horas</div>
                 </div>
-                <div className="bg-black/20 backdrop-blur-sm rounded p-3">
-                  <div className="flex items-center justify-center mb-1">
-                    <Trophy className="w-4 h-4 mr-1" />
-                  </div>
-                  <p className="text-2xl font-bold">{unlockedAchievements.length}</p>
-                  <p className="text-green-100 text-sm">logros</p>
+                <div className="bg-white/60 p-3 rounded-lg">
+                  <div className="text-2xl font-bold text-purple-600">{time.minutes}</div>
+                  <div className="text-sm text-gray-600">minutos</div>
                 </div>
-              </div>
-
-              {/* Margen inferior: medallas de izquierda a derecha + botón recaída a la derecha */}
-              <div className="mt-6 flex items-center justify-between">
-                {/* Medallas acumulándose de izquierda a derecha */}
-                <div className="flex-1">
-                  {unlockedAchievements.length > 0 ? (
-                    <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3 border border-white/20 inline-block">
-                      <MedalDisplay
-                        unlockedAchievements={unlockedAchievements}
-                        totalSavings={savings.total}
-                      />
-                    </div>
-                  ) : (
-                    <div className="text-green-100/60 text-sm">
-                      Las medallas aparecerán aquí conforme consigas logros
-                    </div>
-                  )}
-                </div>
-
-                {/* Botón de recaída en el margen derecho */}
-                <div className="ml-4">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        onClick={onRelapse}
-                        variant="outline"
-                        size="sm"
-                        className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative"
-                      >
-                        <AlertTriangle className="w-4 h-4 mr-1" />
-                        Recaída
-                        <Info className="w-3 h-3 ml-1 opacity-70" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-xs p-3 text-sm">
-                      <div className="space-y-1">
-                        <p className="font-semibold">Penalizaciones por recaída:</p>
-                        <p>• 1ª recaída: -1 semana</p>
-                        <p>• 2ª recaída: -1 mes</p>
-                        <p>• 3ª recaída: -3 meses</p>
-                        <p>• 4ª recaída: -9 meses</p>
-                        <p>• 5ª recaída: reinicia el proceso</p>
-                        <p className="text-muted-foreground text-xs mt-2">
-                          Si el retroceso supera los días acumulados, el contador se pondrá en cero.
-                        </p>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
+                <div className="bg-white/60 p-3 rounded-lg">
+                  <div className="text-2xl font-bold text-orange-600">{savings.total.toFixed(2)}€</div>
+                  <div className="text-sm text-gray-600">ahorrados</div>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    </TooltipProvider>
+            
+            {/* Medallas */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                <Trophy className="w-4 h-4" />
+                Medallas conseguidas
+              </div>
+              <MedalDisplay 
+                unlockedAchievements={unlockedAchievements}
+                totalSavings={savings.total}
+                currentDay={time.days}
+              />
+            </div>
+          </div>
+
+          {/* Barra de progreso */}
+          <div className="mb-4">
+            <div className="text-sm font-medium text-gray-700 flex items-center gap-1 mb-1">
+              <Zap className="w-4 h-4" />
+              Progreso total
+            </div>
+            <Progress value={progressPercentage} className="h-4" style={{ filter: `blur(${blurLevel}px)` }} />
+            <div className="text-xs text-gray-600 mt-1 text-right">{progressPercentage}%</div>
+          </div>
+
+          {/* Frase motivacional */}
+          <div className="mb-4 p-4 bg-white/60 rounded-lg italic text-gray-700">
+            {quote}
+          </div>
+
+          {/* Botón de recaída */}
+          <Button 
+            variant="destructive"
+            onClick={handleRelapseClick}
+            className="w-full flex items-center justify-center gap-2"
+          >
+            <AlertTriangle className="w-4 h-4" />
+            He tenido una recaída
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Diálogo de confirmación de recaída */}
+      {showRelapseDialog && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-lg font-bold text-gray-800 mb-4">
+              ¿Confirmas que has tenido una recaída?
+            </h2>
+            <p className="text-gray-700 mb-4">
+              Al confirmar, se ajustará tu progreso.
+            </p>
+            <div className="flex justify-end gap-2">
+              <Button variant="ghost" onClick={handleCancelRelapse}>
+                Cancelar
+              </Button>
+              <Button variant="destructive" onClick={handleConfirmRelapse}>
+                Confirmar Recaída
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

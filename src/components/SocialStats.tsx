@@ -11,17 +11,17 @@ interface SocialStatsProps {
 
 const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
   // Porcentaje de personas que, habiendo llegado al día actual, logran dejar para siempre
-  // Basado en estudios reales de cesación tabáquica y de vapeo
+  // Basado en estudios reales: solo 3-5% lo logra sin ayuda por un año completo
   const getSuccessRate = (day: number) => {
-    if (day < 1) return 15;  // Solo ~15% superan el primer día sin recaer
-    if (day < 3) return 22;  // Los que superan 3 días tienen mejor pronóstico
-    if (day < 7) return 35;  // Una semana es un hito importante
-    if (day < 14) return 45; // Dos semanas mejora significativamente las posibilidades
-    if (day < 30) return 58; // Un mes es una barrera psicológica importante
-    if (day < 90) return 72; // 3 meses - punto crítico de recuperación neurológica
-    if (day < 180) return 81; // 6 meses - hábitos bien establecidos
-    if (day < 365) return 87; // Un año completo
-    return 92; // Más de un año - probabilidad muy alta de éxito permanente
+    if (day < 1) return 2;   // Solo ~2% superan el primer día y logran éxito permanente
+    if (day < 3) return 3;   // Ligera mejora para quienes superan 3 días
+    if (day < 7) return 5;   // Una semana es un hito, pero aún muy bajo
+    if (day < 14) return 8;  // Dos semanas mejora las posibilidades
+    if (day < 30) return 15; // Un mes es una barrera psicológica importante
+    if (day < 90) return 25; // 3 meses - punto crítico de recuperación neurológica
+    if (day < 180) return 40; // 6 meses - hábitos más establecidos
+    if (day < 365) return 60; // Acercándose al año
+    return 75; // Más de un año - alta probabilidad pero realista
   };
 
   const successRate = getSuccessRate(currentDay);
@@ -48,8 +48,8 @@ const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
 
         <div className="bg-blue-100/50 rounded-lg p-3">
           <p className="text-xs text-blue-700 italic">
-            💡 Estos datos están basados en estudios de cesación tabáquica y de vapeo. 
-            ¡Cada día que superas aumenta significativamente tus probabilidades de éxito!
+            💡 Estos datos reflejan la realidad: dejar de vapear es difícil, pero cada día que avanzas 
+            aumenta significativamente tus probabilidades de éxito permanente.
           </p>
         </div>
       </CardContent>

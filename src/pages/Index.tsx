@@ -127,6 +127,7 @@ const Index = () => {
           progressPercentage={progressPercentage}
           blurLevel={blurLevel}
           unlockedAchievements={unlockedAchievements}
+          currentDay={time.days}
           onRelapse={handleRelapse}
         />
 

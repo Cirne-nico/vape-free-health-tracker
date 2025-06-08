@@ -43,6 +43,7 @@ const MainHeader = ({
 
   const getMotivationalMessage = () => {
     const messages = [
+      "Ya sin nicotina, el cuerpo escucha: comienza la sociabilidad mínima",
       `¡Excelente trabajo${userName ? `, ${userName}` : ''}! Cada minuto sin vapear es una victoria.`,
       `¡Sigue así${userName ? `, ${userName}` : ''}! Tu salud te lo agradece.`,
       `¡Increíble progreso${userName ? `, ${userName}` : ''}! Estás transformando tu vida.`,

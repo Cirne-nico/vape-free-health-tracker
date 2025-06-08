@@ -126,7 +126,7 @@ const Index = () => {
           <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm">
             <TabsTrigger value="emotions" className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              Emociones
+              General
             </TabsTrigger>
             <TabsTrigger value="health" className="flex items-center gap-2">
               <Heart className="w-4 h-4" />

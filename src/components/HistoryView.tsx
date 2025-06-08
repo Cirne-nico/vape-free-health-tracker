@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, ScatterChart, Scatter, ReferenceLine } from 'recharts';
 
 const HistoryView = () => {
   const [emotionLogs, setEmotionLogs] = useState<any[]>([]);
@@ -14,34 +15,56 @@ const HistoryView = () => {
   }, []);
 
   const emotionTypes = {
-    euphoric: { text: 'Eufórico', type: 'positive', color: '#22C55E' },
-    happy: { text: 'Alegre', type: 'positive', color: '#10B981' },
-    calm: { text: 'Tranquilo', type: 'positive', color: '#3B82F6' },
-    neutral: { text: 'Neutral', type: 'neutral', color: '#6B7280' },
-    irritable: { text: 'Irritable', type: 'negative', color: '#F97316' },
-    sad: { text: 'Triste', type: 'negative', color: '#EF4444' },
-    depressed: { text: 'Deprimido', type: 'negative', color: '#DC2626' },
-    disgusted: { text: 'Disgusto', type: 'negative', color: '#8B5CF6' },
+    euphoric: { text: 'Eufórico', type: 'positive', color: '#22C55E', energy: 1, valence: 1 },
+    happy: { text: 'Alegre', type: 'positive', color: '#10B981', energy: 1, valence: 1 },
+    calm: { text: 'Tranquilo', type: 'positive', color: '#3B82F6', energy: -1, valence: 1 },
+    proud: { text: 'Orgulloso', type: 'positive', color: '#8B5CF6', energy: 0.5, valence: 1 },
+    hopeful: { text: 'Esperanzado', type: 'positive', color: '#F59E0B', energy: 0.5, valence: 1 },
+    motivated: { text: 'Motivado', type: 'positive', color: '#6366F1', energy: 1, valence: 1 },
+    relaxed: { text: 'Relajado', type: 'positive', color: '#14B8A6', energy: -1, valence: 1 },
+    satisfied: { text: 'Satisfecho', type: 'positive', color: '#059669', energy: -0.5, valence: 1 },
+    optimistic: { text: 'Optimista', type: 'positive', color: '#EC4899', energy: 0.5, valence: 1 },
+    neutral: { text: 'Neutral', type: 'neutral', color: '#6B7280', energy: 0, valence: 0 },
+    irritable: { text: 'Irritable', type: 'negative', color: '#F97316', energy: 1, valence: -1 },
+    sad: { text: 'Triste', type: 'negative', color: '#EF4444', energy: -0.5, valence: -1 },
+    depressed: { text: 'Deprimido', type: 'negative', color: '#DC2626', energy: -1, valence: -1 },
+    disgusted: { text: 'Disgusto', type: 'negative', color: '#8B5CF6', energy: -0.5, valence: -1 },
+    anxious: { text: 'Ansioso', type: 'negative', color: '#CA8A04', energy: 0.5, valence: -1 },
+    frustrated: { text: 'Frustrado', type: 'negative', color: '#DC2626', energy: 0.5, valence: -1 },
+    craving: { text: 'Con antojos', type: 'negative', color: '#EA580C', energy: 0.5, valence: -1 },
+    overwhelmed: { text: 'Abrumado', type: 'negative', color: '#B91C1C', energy: 1, valence: -1 },
+    restless: { text: 'Inquieto', type: 'negative', color: '#FB923C', energy: 1, valence: -1 },
+    foggy: { text: 'Confuso', type: 'negative', color: '#6B7280', energy: -0.5, valence: -1 }
   };
 
   const getEmotionBalance = () => {
     const balance = emotionLogs.map(log => {
       const positiveCount = log.emotions.filter((id: string) => 
-        ['euphoric', 'happy', 'calm'].includes(id)
+        emotionTypes[id as keyof typeof emotionTypes]?.type === 'positive'
       ).length;
       const negativeCount = log.emotions.filter((id: string) => 
-        ['irritable', 'sad', 'depressed', 'disgusted'].includes(id)
+        emotionTypes[id as keyof typeof emotionTypes]?.type === 'negative'
       ).length;
-      const neutralCount = log.emotions.filter((id: string) => id === 'neutral').length;
       
-      const total = positiveCount + negativeCount + neutralCount;
+      // Lógica de jerarquía: alegría/euforia > cualquier negativa
+      const hasStrongPositive = log.emotions.some((id: string) => ['euphoric', 'happy'].includes(id));
+      const hasNegative = negativeCount > 0;
+      
+      let dayScore = 0;
+      if (hasStrongPositive) {
+        dayScore = 1; // Día positivo
+      } else if (positiveCount > negativeCount) {
+        dayScore = 1; // Mayoría positiva
+      } else if (negativeCount > positiveCount) {
+        dayScore = -1; // Día negativo
+      }
       
       return {
         date: new Date(log.date).toLocaleDateString(),
         day: log.day,
-        positive: total > 0 ? Math.round((positiveCount / total) * 100) : 0,
-        negative: total > 0 ? Math.round((negativeCount / total) * 100) : 0,
-        neutral: total > 0 ? Math.round((neutralCount / total) * 100) : 0
+        score: dayScore,
+        positive: positiveCount,
+        negative: negativeCount
       };
     }).reverse();
 
@@ -64,8 +87,73 @@ const HistoryView = () => {
     }));
   };
 
+  const getQuadrantData = () => {
+    return emotionLogs.map(log => {
+      // Calcular promedio de energía y valencia para el día
+      let totalEnergy = 0;
+      let totalValence = 0;
+      let count = 0;
+
+      log.emotions.forEach((emotionId: string) => {
+        const emotion = emotionTypes[emotionId as keyof typeof emotionTypes];
+        if (emotion && emotion.type !== 'neutral') {
+          totalEnergy += emotion.energy;
+          totalValence += emotion.valence;
+          count++;
+        }
+      });
+
+      if (count === 0) return null;
+
+      return {
+        day: log.day,
+        date: new Date(log.date).toLocaleDateString(),
+        energy: totalEnergy / count,
+        valence: totalValence / count,
+        emotions: log.emotions.map((id: string) => 
+          emotionTypes[id as keyof typeof emotionTypes]?.text
+        ).join(', ')
+      };
+    }).filter(Boolean).reverse();
+  };
+
+  const getWeeklyData = () => {
+    const weeklyGroups: { [week: number]: any[] } = {};
+    
+    emotionLogs.forEach(log => {
+      const week = Math.floor(log.day / 7) + 1;
+      if (!weeklyGroups[week]) weeklyGroups[week] = [];
+      weeklyGroups[week].push(log);
+    });
+
+    return Object.entries(weeklyGroups).map(([week, logs]) => {
+      const positiveCount = logs.reduce((acc, log) => 
+        acc + log.emotions.filter((id: string) => 
+          emotionTypes[id as keyof typeof emotionTypes]?.type === 'positive'
+        ).length, 0
+      );
+      const negativeCount = logs.reduce((acc, log) => 
+        acc + log.emotions.filter((id: string) => 
+          emotionTypes[id as keyof typeof emotionTypes]?.type === 'negative'
+        ).length, 0
+      );
+
+      const total = positiveCount + negativeCount;
+      const score = total > 0 ? (positiveCount - negativeCount) / total : 0;
+
+      return {
+        week: `Semana ${week}`,
+        score: score,
+        positive: positiveCount,
+        negative: negativeCount
+      };
+    });
+  };
+
   const emotionBalance = getEmotionBalance();
   const emotionDistribution = getEmotionDistribution();
+  const quadrantData = getQuadrantData();
+  const weeklyData = getWeeklyData();
 
   const exportData = () => {
     const dataStr = JSON.stringify(emotionLogs, null, 2);
@@ -98,7 +186,7 @@ const HistoryView = () => {
             </div>
             <div>
               <div className="text-2xl font-bold text-green-600">
-                {emotionBalance.filter(b => b.positive > b.negative).length}
+                {emotionBalance.filter(b => b.score > 0).length}
               </div>
               <div className="text-sm text-gray-600">días positivos</div>
             </div>
@@ -112,83 +200,207 @@ const HistoryView = () => {
         </CardContent>
       </Card>
 
-      {/* Gráficas */}
+      {/* Pestañas para las diferentes visualizaciones */}
       {emotionBalance.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2">
-          
-          {/* Balance emocional en el tiempo */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Balance Emocional</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={emotionBalance}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis 
-                      dataKey="day" 
-                      fontSize={12}
-                      tickFormatter={(value) => `Día ${value}`}
-                    />
-                    <YAxis 
-                      fontSize={12}
-                      domain={[0, 100]}
-                      tickFormatter={(value) => `${value}%`}
-                    />
-                    <Tooltip 
-                      formatter={(value: number, name: string) => [`${value}%`, name]}
-                      labelFormatter={(value) => `Día ${value}`}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="positive"
-                      stroke="#22C55E"
-                      strokeWidth={2}
-                      name="Positivo"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="negative"
-                      stroke="#EF4444"
-                      strokeWidth={2}
-                      name="Negativo"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
+        <Tabs defaultValue="evolution" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="evolution">Evolución Bipolar</TabsTrigger>
+            <TabsTrigger value="quadrants">4 Cuadrantes</TabsTrigger>
+            <TabsTrigger value="weekly">Por Semanas</TabsTrigger>
+            <TabsTrigger value="distribution">Distribución</TabsTrigger>
+          </TabsList>
 
-          {/* Distribución de emociones */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Distribución de Emociones</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={emotionDistribution}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {emotionDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+          <TabsContent value="evolution">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Evolución Emocional: Días Buenos vs Malos</CardTitle>
+                <p className="text-sm text-gray-600">
+                  Los valores positivos representan días buenos, los negativos días malos
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={emotionBalance}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        dataKey="day" 
+                        fontSize={12}
+                        tickFormatter={(value) => `Día ${value}`}
+                      />
+                      <YAxis 
+                        fontSize={12}
+                        domain={[-1, 1]}
+                        tickFormatter={(value) => value > 0 ? 'Bueno' : value < 0 ? 'Malo' : 'Neutral'}
+                      />
+                      <Tooltip 
+                        formatter={(value: number) => [
+                          value > 0 ? 'Día Bueno' : value < 0 ? 'Día Malo' : 'Neutral', 
+                          'Estado'
+                        ]}
+                        labelFormatter={(value) => `Día ${value}`}
+                      />
+                      <ReferenceLine y={0} stroke="#666" strokeDasharray="5 5" />
+                      <Line
+                        type="monotone"
+                        dataKey="score"
+                        stroke="#3B82F6"
+                        strokeWidth={3}
+                        dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
+                        name="Estado del día"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="quadrants">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Mapa Emocional de 4 Cuadrantes</CardTitle>
+                <p className="text-sm text-gray-600">
+                  Energía vs Valencia. Cada punto representa un día, el tamaño indica la intensidad
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <ScatterChart data={quadrantData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        type="number"
+                        dataKey="valence"
+                        domain={[-1.2, 1.2]}
+                        tickFormatter={(value) => value > 0 ? 'Positivo' : value < 0 ? 'Negativo' : ''}
+                        fontSize={12}
+                      />
+                      <YAxis 
+                        type="number"
+                        dataKey="energy"
+                        domain={[-1.2, 1.2]}
+                        tickFormatter={(value) => value > 0 ? 'Activo' : value < 0 ? 'Tranquilo' : ''}
+                        fontSize={12}
+                      />
+                      <Tooltip 
+                        formatter={(value, name) => [value.toFixed(2), name]}
+                        labelFormatter={() => ''}
+                        content={({ active, payload }) => {
+                          if (active && payload && payload.length) {
+                            const data = payload[0].payload;
+                            return (
+                              <div className="bg-white p-3 border rounded shadow-lg">
+                                <p className="font-semibold">Día {data.day}</p>
+                                <p className="text-sm text-gray-600">{data.date}</p>
+                                <p className="text-sm">{data.emotions}</p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <ReferenceLine x={0} stroke="#666" strokeDasharray="5 5" />
+                      <ReferenceLine y={0} stroke="#666" strokeDasharray="5 5" />
+                      <Scatter
+                        dataKey="energy"
+                        fill="#3B82F6"
+                        fillOpacity={0.7}
+                      />
+                      {/* Etiquetas de cuadrantes */}
+                      <text x="85%" y="15%" textAnchor="middle" fontSize={12} fill="#666">
+                        Alegre
+                      </text>
+                      <text x="15%" y="15%" textAnchor="middle" fontSize={12} fill="#666">
+                        Sereno
+                      </text>
+                      <text x="85%" y="90%" textAnchor="middle" fontSize={12} fill="#666">
+                        Irritable
+                      </text>
+                      <text x="15%" y="90%" textAnchor="middle" fontSize={12} fill="#666">
+                        Deprimido
+                      </text>
+                    </ScatterChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="weekly">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Progreso Semanal</CardTitle>
+                <p className="text-sm text-gray-600">
+                  Evolución del estado emocional agrupado por semanas
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={weeklyData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        dataKey="week" 
+                        fontSize={12}
+                      />
+                      <YAxis 
+                        fontSize={12}
+                        domain={[-1, 1]}
+                        tickFormatter={(value) => value > 0 ? 'Buena' : value < 0 ? 'Mala' : 'Neutral'}
+                      />
+                      <Tooltip 
+                        formatter={(value: number) => [
+                          value > 0 ? 'Semana Buena' : value < 0 ? 'Semana Mala' : 'Neutral', 
+                          'Tendencia'
+                        ]}
+                      />
+                      <ReferenceLine y={0} stroke="#666" strokeDasharray="5 5" />
+                      <Line
+                        type="monotone"
+                        dataKey="score"
+                        stroke="#10B981"
+                        strokeWidth={3}
+                        dot={{ fill: '#10B981', strokeWidth: 2, r: 6 }}
+                        name="Tendencia semanal"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="distribution">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Distribución de Emociones</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={emotionDistribution}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      >
+                        {emotionDistribution.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       )}
 
       {/* Lista de registros */}

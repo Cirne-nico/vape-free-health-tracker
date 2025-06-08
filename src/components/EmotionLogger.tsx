@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,10 @@ const emotions = [
   { id: 'calm', text: 'Tranquilo', emoji: '😌', type: 'positive', color: 'bg-blue-400' },
   { id: 'proud', text: 'Orgulloso', emoji: '💪', type: 'positive', color: 'bg-purple-400' },
   { id: 'hopeful', text: 'Esperanzado', emoji: '🌟', type: 'positive', color: 'bg-yellow-400' },
+  { id: 'motivated', text: 'Motivado', emoji: '🚀', type: 'positive', color: 'bg-indigo-400' },
+  { id: 'relaxed', text: 'Relajado', emoji: '🧘‍♂️', type: 'positive', color: 'bg-teal-400' },
+  { id: 'satisfied', text: 'Satisfecho', emoji: '😌', type: 'positive', color: 'bg-emerald-400' },
+  { id: 'optimistic', text: 'Optimista', emoji: '✨', type: 'positive', color: 'bg-pink-400' },
   { id: 'neutral', text: 'Neutral', emoji: '😐', type: 'neutral', color: 'bg-gray-400' },
   { id: 'anxious', text: 'Ansioso', emoji: '😰', type: 'negative', color: 'bg-yellow-600' },
   { id: 'irritable', text: 'Irritable', emoji: '😤', type: 'negative', color: 'bg-orange-500' },

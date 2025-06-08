@@ -134,7 +134,7 @@ const MainHeader = ({
                 <p className="text-green-100 text-sm">logros</p>
               </div>
 
-              {/* Botón de recaída */}
+              {/* Botón de recaída con ícono de información */}
               <div className="text-center">
                 <Button
                   onClick={onRelapse}

@@ -21,11 +21,40 @@ export const useAchievements = (startDate: Date | null, currentTime: Date) => {
     }
   }, []);
 
+  // Función para ajustar medallas según los días actuales (eliminar las que ya no corresponden)
+  const adjustMedalsForCurrentDays = (currentDays: number) => {
+    // Filtrar logros regulares que ya no deberían estar desbloqueados
+    const validAchievements = checkedAchievements.filter(achievementId => {
+      const achievement = achievements.find(a => a.id === achievementId);
+      return achievement && currentDays >= achievement.days;
+    });
+
+    // Filtrar logros de salud que ya no deberían estar desbloqueados
+    const validHealthAchievements = checkedHealthAchievements.filter(achievementId => {
+      const healthAchievement = healthAchievements.find(ha => ha.id === achievementId);
+      return healthAchievement && currentDays >= healthAchievement.days;
+    });
+
+    // Solo actualizar si hay cambios
+    if (validAchievements.length !== checkedAchievements.length) {
+      setCheckedAchievements(validAchievements);
+      localStorage.setItem('checked-achievements', JSON.stringify(validAchievements));
+    }
+
+    if (validHealthAchievements.length !== checkedHealthAchievements.length) {
+      setCheckedHealthAchievements(validHealthAchievements);
+      localStorage.setItem('checked-health-achievements', JSON.stringify(validHealthAchievements));
+    }
+  };
+
   // Verificar nuevos logros cuando cambie el tiempo
   useEffect(() => {
     if (!startDate) return;
 
     const currentDays = Math.floor((currentTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    
+    // Primero ajustar las medallas según los días actuales (por si hubo retroceso)
+    adjustMedalsForCurrentDays(currentDays);
     
     // Verificar logros regulares
     for (const achievement of achievements) {
@@ -69,6 +98,11 @@ export const useAchievements = (startDate: Date | null, currentTime: Date) => {
     localStorage.setItem('checked-health-achievements', JSON.stringify([]));
   };
 
+  // Nueva función para forzar el ajuste de medallas tras una recaída
+  const adjustMedalsAfterRelapse = (newDays: number) => {
+    adjustMedalsForCurrentDays(newDays);
+  };
+
   return {
     newAchievement,
     checkedAchievements,
@@ -79,6 +113,7 @@ export const useAchievements = (startDate: Date | null, currentTime: Date) => {
     getUnlockedAchievements,
     getUnlockedHealthAchievements,
     resetAchievements,
+    adjustMedalsAfterRelapse,
     achievements,
     healthAchievements
   };

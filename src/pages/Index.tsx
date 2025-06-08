@@ -38,7 +38,8 @@ const Index = () => {
     handleCloseAchievementPopup,
     getUnlockedAchievements,
     getUnlockedHealthAchievements,
-    resetAchievements
+    resetAchievements,
+    adjustMedalsAfterRelapse
   } = useAchievements(startDate, currentTime);
 
   // Verificar si existe fecha de inicio guardada
@@ -77,24 +78,33 @@ const Index = () => {
     
     let newStartDate = new Date();
     let penaltyMessage = '';
+    let daysLost = 0;
     
     switch (relapseCount) {
       case 0:
-        newStartDate = new Date(currentTime.getTime() - (7 * 24 * 60 * 60 * 1000));
-        penaltyMessage = 'Primera recaída: se ha restado una semana de tu progreso.';
+        daysLost = 7;
+        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        penaltyMessage = 'Primera recaída: se ha restado una semana de tu progreso y las medallas correspondientes.';
         break;
       case 1:
-        newStartDate = new Date(currentTime.getTime() - (30 * 24 * 60 * 60 * 1000));
-        penaltyMessage = 'Segunda recaída: se ha restado un mes de tu progreso.';
+        daysLost = 30;
+        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        penaltyMessage = 'Segunda recaída: se ha restado un mes de tu progreso y las medallas correspondientes.';
         break;
       case 2:
-        newStartDate = new Date(currentTime.getTime() - (365 * 24 * 60 * 60 * 1000));
-        penaltyMessage = 'Tercera recaída: se ha restado un año de tu progreso.';
+        daysLost = 90;
+        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        penaltyMessage = 'Tercera recaída: se han restado 3 meses de tu progreso y las medallas correspondientes.';
         break;
       case 3:
+        daysLost = 270;
+        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        penaltyMessage = 'Cuarta recaída: se han restado 9 meses de tu progreso y las medallas correspondientes.';
+        break;
+      case 4:
       default:
         newStartDate = new Date();
-        penaltyMessage = 'Cuarta recaída: se ha reiniciado todo el proceso.';
+        penaltyMessage = 'Quinta recaída: se ha reiniciado todo el proceso.';
         setRelapseCount(-1);
         resetAchievements();
         break;
@@ -106,6 +116,14 @@ const Index = () => {
     
     localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
     localStorage.setItem('relapse-count', newRelapseCount.toString());
+    
+    // Calcular los nuevos días tras la penalización
+    const newDays = Math.floor((currentTime.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24));
+    
+    // Si no es un reset completo, ajustar las medallas según los nuevos días
+    if (relapseCount < 4) {
+      adjustMedalsAfterRelapse(newDays);
+    }
     
     alert(penaltyMessage);
   };

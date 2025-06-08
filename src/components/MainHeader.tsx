@@ -60,24 +60,24 @@ const MainHeader = ({
 
   return (
     <div className="space-y-6">
-      {/* Mensaje de bienvenida personalizado */}
-      {userName && (
-        <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/20 rounded-full">
-                <User className="w-5 h-5" />
-              </div>
-              <div>
-                <h2 className="font-semibold">¡Hola, {userName}!</h2>
-                <p className="text-blue-100 text-sm">
-                  {getMotivationalMessage()}
-                </p>
-              </div>
+      {/* Mensaje motivacional */}
+      <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-white/20 rounded-full">
+              <User className="w-5 h-5" />
             </div>
-          </CardContent>
-        </Card>
-      )}
+            <div>
+              <h2 className="font-semibold">
+                {userName ? `¡Hola, ${userName}!` : '¡Hola!'}
+              </h2>
+              <p className="text-blue-100 text-sm">
+                {getMotivationalMessage()}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Header principal con imagen de fondo y efecto blur */}
       <Card className="relative overflow-hidden text-white">
@@ -114,8 +114,8 @@ const MainHeader = ({
               <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
             </div>
 
-            {/* Estadísticas en grid - SIN mostrar ahorros aquí */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+            {/* Estadísticas en grid */}
+            <div className="grid grid-cols-3 gap-4 mt-6">
               {/* Tiempo total */}
               <div className="text-center">
                 <div className="flex items-center justify-center mb-1">

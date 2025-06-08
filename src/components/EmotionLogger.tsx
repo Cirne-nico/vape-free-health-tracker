@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import contenidosData from '@/data/contenidos.json';
 
 interface EmotionLoggerProps {
   startDate: Date | null;
@@ -81,55 +82,62 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
     toast.success('Estado emocional guardado');
   };
 
-  const getCurrentDayInfo = () => {
+  const getCurrentDayContent = () => {
     if (!startDate) return null;
     
-    const daysSince = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    const hoursSince = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60));
     
-    // Contenido motivacional por días
-    const dayContent = {
-      1: {
-        title: "Primer Día - ¡Has comenzado!",
-        message: "Los primeros síntomas de abstinencia pueden aparecer. Es normal sentir ansiedad o irritabilidad.",
-        tip: "Mantente hidratado y busca actividades que te distraigan."
-      },
-      2: {
-        title: "48 Horas - Primer hito importante",
-        message: "La nicotina ya ha salido de tu sistema. Es un momento crucial.",
-        tip: "Respira profundo y recuerda por qué decidiste dejar el vapeo."
-      },
-      7: {
-        title: "Una Semana Completa",
-        message: "¡Increíble! Has superado la primera semana. Los antojos empiezan a disminuir.",
-        tip: "Celebra este logro. Tu cuerpo ya está empezando a recuperarse."
-      },
-      30: {
-        title: "¡Un Mes de Libertad!",
-        message: "Tu capacidad pulmonar ha mejorado significativamente. Los antojos son menos frecuentes.",
-        tip: "Nota cómo respiras mejor y tienes más energía."
-      }
-    };
-
-    return dayContent[daysSince as keyof typeof dayContent] || {
-      title: `Día ${daysSince} - Sigue adelante`,
-      message: "Cada día sin vapear es una victoria. Tu salud mejora continuamente.",
-      tip: "Mantén el rumbo. Cada día libre de vapeo cuenta."
-    };
+    // Buscar el contenido más reciente según las horas transcurridas
+    const availableContent = contenidosData.filter(content => content.hora <= hoursSince);
+    
+    if (availableContent.length === 0) {
+      return {
+        sintesis: "¡Has comenzado tu viaje! Los primeros minutos son cruciales.",
+        consejo: "Respira profundo y mantente hidratado. Cada minuto cuenta.",
+        recordatorio: "Tu cuerpo está iniciando el proceso de recuperación.",
+        contrareplica: "No es una pérdida. Es el comienzo de mi libertad."
+      };
+    }
+    
+    // Obtener el contenido más reciente
+    return availableContent[availableContent.length - 1];
   };
 
-  const dayInfo = getCurrentDayInfo();
+  const dayContent = getCurrentDayContent();
+  const hoursSince = startDate ? Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60)) : 0;
 
   return (
     <div className="space-y-6">
-      {/* Información del día */}
-      {dayInfo && (
+      {/* Información del momento actual */}
+      {dayContent && (
         <Card className="bg-gradient-to-r from-blue-50 to-green-50">
           <CardHeader>
-            <CardTitle className="text-blue-700">{dayInfo.title}</CardTitle>
+            <CardTitle className="text-blue-700">
+              {hoursSince >= 24 ? `Día ${Math.floor(hoursSince / 24)}` : `${hoursSince} horas`} sin vapear
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <p className="text-gray-700">{dayInfo.message}</p>
-            <p className="text-sm text-green-600 font-medium">💡 {dayInfo.tip}</p>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="text-sm font-medium text-blue-700 mb-1">📋 Síntesis:</p>
+                <p className="text-gray-700">{dayContent.sintesis}</p>
+              </div>
+              
+              <div className="bg-green-50 p-3 rounded-lg">
+                <p className="text-sm font-medium text-green-700 mb-1">💡 Consejo:</p>
+                <p className="text-gray-700">{dayContent.consejo}</p>
+              </div>
+              
+              <div className="bg-yellow-50 p-3 rounded-lg">
+                <p className="text-sm font-medium text-yellow-700 mb-1">🔔 Recordatorio:</p>
+                <p className="text-gray-700">{dayContent.recordatorio}</p>
+              </div>
+              
+              <div className="bg-purple-50 p-3 rounded-lg border border-purple-200">
+                <p className="text-sm font-medium text-purple-700 mb-1">💪 Contrarréplica:</p>
+                <p className="text-gray-700 font-medium italic">"{dayContent.contrareplica}"</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
       )}
@@ -137,7 +145,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
       {/* Logger de emociones */}
       <Card>
         <CardHeader>
-          <CardTitle>¿Cómo te sientes hoy?</CardTitle>
+          <CardTitle>¿Cómo te sientes ahora?</CardTitle>
           {todayLog && (
             <p className="text-sm text-green-600">
               ✓ Ya registraste tus emociones hoy a las {todayLog.timestamp}

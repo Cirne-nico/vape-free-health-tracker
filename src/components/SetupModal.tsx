@@ -1,9 +1,10 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calendar, CalendarIcon, ChevronRight } from 'lucide-react';
+import { Calendar, CalendarIcon, ChevronRight, User } from 'lucide-react';
 import Logo from './Logo';
 import ConsumptionSurvey from './ConsumptionSurvey';
 
@@ -15,6 +16,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
   const [showSurvey, setShowSurvey] = useState(false);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [userName, setUserName] = useState('');
   const [showMain, setShowMain] = useState(false);
 
   useEffect(() => {
@@ -25,9 +27,13 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
   }, []);
   
   const handleDateTimeSubmit = () => {
-    if (!date || !time) return;
+    if (!date || !time || !userName.trim()) return;
     
     const selectedDate = new Date(`${date}T${time}`);
+    
+    // Guardar el nombre del usuario en localStorage
+    localStorage.setItem('user-name', userName.trim());
+    
     onComplete(selectedDate);
   };
 
@@ -87,6 +93,23 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
+              {/* Campo para el nombre del usuario */}
+              <div className="space-y-2">
+                <Label htmlFor="user-name" className="text-white flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  ¿Cómo te gustaría que te llamemos?
+                </Label>
+                <Input
+                  id="user-name"
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  placeholder="Tu nombre o apodo"
+                  className="bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                  required
+                />
+              </div>
+
               <div className="text-center">
                 <p className="text-blue-100 mb-4">
                   Antes de comenzar, ¿te gustaría configurar el cálculo de ahorros personalizado?
@@ -137,7 +160,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
 
                 <Button 
                   onClick={handleDateTimeSubmit}
-                  disabled={!date || !time}
+                  disabled={!date || !time || !userName.trim()}
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                 >
                   Iniciar el proceso

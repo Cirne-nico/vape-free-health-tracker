@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -64,9 +63,23 @@ const Index = () => {
   const calculateSavings = () => {
     if (!startDate) return 0;
     const days = Math.floor((currentTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-    // Estimación: 20€ líquido/semana + 4€ resistencias/10 días
-    const dailyCost = (20/7) + (4/10);
-    return days * dailyCost;
+    
+    // Obtener configuración guardada
+    const settings = JSON.parse(localStorage.getItem('app-settings') || '{}');
+    
+    if (settings.costPerWeek && settings.coilCost && settings.coilDays) {
+      // Usar datos del cuestionario
+      const dailyLiquidCost = settings.costPerWeek / 7;
+      const dailyCoilCost = settings.coilCost / settings.coilDays;
+      const additionalDailyCost = settings.additionalDailyCost || 0;
+      const totalDailyCost = dailyLiquidCost + dailyCoilCost + additionalDailyCost;
+      
+      return days * totalDailyCost;
+    } else {
+      // Fallback a cálculo original
+      const dailyCost = (20/7) + (4/10);
+      return days * dailyCost;
+    }
   };
 
   const handleRelapse = () => {

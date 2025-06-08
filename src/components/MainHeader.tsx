@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -126,48 +125,51 @@ const MainHeader = ({
                 <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
               </div>
 
-              {/* Medallas destacadas en el centro */}
-              {unlockedAchievements.length > 0 && (
-                <div className="mt-6 flex justify-center">
-                  <div className="bg-black/20 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                    <h3 className="text-sm font-medium mb-3 text-green-100 text-center">Logros conseguidos:</h3>
-                    <MedalDisplay
-                      unlockedAchievements={unlockedAchievements.slice(-3)}
-                      totalSavings={savings.total}
-                    />
+              {/* Estadísticas centrales */}
+              <div className="mt-6 grid grid-cols-2 gap-4 text-center">
+                <div className="bg-black/20 backdrop-blur-sm rounded p-3">
+                  <div className="flex items-center justify-center mb-1">
+                    <Clock className="w-4 h-4 mr-1" />
                   </div>
+                  <p className="text-2xl font-bold">{time.totalHours}</p>
+                  <p className="text-green-100 text-sm">horas totales</p>
                 </div>
-              )}
+                <div className="bg-black/20 backdrop-blur-sm rounded p-3">
+                  <div className="flex items-center justify-center mb-1">
+                    <Trophy className="w-4 h-4 mr-1" />
+                  </div>
+                  <p className="text-2xl font-bold">{unlockedAchievements.length}</p>
+                  <p className="text-green-100 text-sm">logros</p>
+                </div>
+              </div>
 
-              {/* Estadísticas compactas en la parte inferior */}
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                {/* Estadísticas a la izquierda */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm bg-black/20 backdrop-blur-sm rounded p-2">
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-2" />
-                      <span>Horas totales:</span>
+              {/* Margen inferior: medallas de izquierda a derecha + botón recaída a la derecha */}
+              <div className="mt-6 flex items-center justify-between">
+                {/* Medallas acumulándose de izquierda a derecha */}
+                <div className="flex-1">
+                  {unlockedAchievements.length > 0 ? (
+                    <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3 border border-white/20 inline-block">
+                      <MedalDisplay
+                        unlockedAchievements={unlockedAchievements}
+                        totalSavings={savings.total}
+                      />
                     </div>
-                    <span className="font-bold">{time.totalHours}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm bg-black/20 backdrop-blur-sm rounded p-2">
-                    <div className="flex items-center">
-                      <Trophy className="w-4 h-4 mr-2" />
-                      <span>Logros:</span>
+                  ) : (
+                    <div className="text-green-100/60 text-sm">
+                      Las medallas aparecerán aquí conforme consigas logros
                     </div>
-                    <span className="font-bold">{unlockedAchievements.length}</span>
-                  </div>
+                  )}
                 </div>
 
-                {/* Botón de recaída a la derecha */}
-                <div className="flex items-center justify-center">
+                {/* Botón de recaída en el margen derecho */}
+                <div className="ml-4">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
                         onClick={onRelapse}
                         variant="outline"
                         size="sm"
-                        className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 w-full relative"
+                        className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative"
                       >
                         <AlertTriangle className="w-4 h-4 mr-1" />
                         Recaída

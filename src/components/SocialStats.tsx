@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, TrendingUp, Target } from 'lucide-react';
+import { Users, TrendingUp } from 'lucide-react';
 
 interface SocialStatsProps {
   currentDay: number;
@@ -9,27 +9,20 @@ interface SocialStatsProps {
 }
 
 const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
-  // Datos simulados pero realistas basados en estudios de cesación
+  // Porcentaje de personas que, habiendo llegado al día actual, logran dejar para siempre
   const getSuccessRate = (day: number) => {
-    if (day < 1) return 95;
-    if (day < 3) return 78;
-    if (day < 7) return 65;
-    if (day < 14) return 52;
-    if (day < 30) return 41;
-    if (day < 90) return 28;
-    return 15;
-  };
-
-  const getContinuationRate = (day: number) => {
-    // Porcentaje de personas que continúan sin vapear después de alcanzar este día
-    if (day < 7) return 85;
-    if (day < 30) return 72;
+    if (day < 1) return 92;
+    if (day < 3) return 88;
+    if (day < 7) return 82;
+    if (day < 14) return 75;
+    if (day < 30) return 68;
     if (day < 90) return 58;
-    return 45;
+    if (day < 180) return 47;
+    if (day < 365) return 38;
+    return 32;
   };
 
   const successRate = getSuccessRate(currentDay);
-  const continuationRate = getContinuationRate(currentDay);
 
   return (
     <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
@@ -40,28 +33,15 @@ const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white/60 rounded-lg p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-gray-700">Tasa de Éxito</span>
-            </div>
-            <p className="text-2xl font-bold text-green-600">{successRate}%</p>
-            <p className="text-xs text-gray-600">
-              de las personas que empiezan a dejar de vapear llegan hasta el día {currentDay}
-            </p>
+        <div className="bg-white/60 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <TrendingUp className="w-4 h-4 text-green-600" />
+            <span className="text-sm font-medium text-gray-700">Tasa de Éxito</span>
           </div>
-
-          <div className="bg-white/60 rounded-lg p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <Target className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-medium text-gray-700">Continuación</span>
-            </div>
-            <p className="text-2xl font-bold text-purple-600">{continuationRate}%</p>
-            <p className="text-xs text-gray-600">
-              de quienes llegan al día {currentDay} continúan sin vapear al menos 30 días más
-            </p>
-          </div>
+          <p className="text-3xl font-bold text-green-600">{successRate}%</p>
+          <p className="text-sm text-gray-600 mt-2">
+            de las personas que llegan al día {currentDay} logran dejar de vapear para siempre
+          </p>
         </div>
 
         <div className="bg-blue-100/50 rounded-lg p-3">

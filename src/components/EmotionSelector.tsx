@@ -23,6 +23,14 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
     }
   };
 
+  const clearEmotions = () => {
+    // Limpiar todas las emociones seleccionadas
+    selectedEmotions.forEach(emotionId => {
+      onEmotionToggle(emotionId);
+    });
+    toast.success('Emociones limpiadas');
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -64,13 +72,24 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
             })}
           </div>
           
-          <Button 
-            onClick={onSave}
-            disabled={selectedEmotions.length === 0}
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            Guardar Estado
-          </Button>
+          <div className="flex gap-2">
+            {selectedEmotions.length > 0 && (
+              <Button 
+                onClick={clearEmotions}
+                variant="outline"
+                className="text-red-600 border-red-300 hover:bg-red-50"
+              >
+                Limpiar emociones
+              </Button>
+            )}
+            <Button 
+              onClick={onSave}
+              disabled={selectedEmotions.length === 0}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              Guardar Estado
+            </Button>
+          </div>
         </div>
 
         <p className="text-sm text-gray-500">

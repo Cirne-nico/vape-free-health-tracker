@@ -104,7 +104,41 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
                   </div>
                 )}
 
-                {/* Ícono del órgano para medallas de Salud (Higiea) */}
+                {/* Inscripción grabada para medallas de Salud (Higiea) */}
+                {medal.type === 'health' && 'inscription' in medal && medal.inscription && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span 
+                      className="text-green-100 font-black text-xs tracking-wider select-none pointer-events-none"
+                      style={{
+                        textShadow: `
+                          0 1px 0 #0F5132,
+                          0 2px 0 #0A3D26,
+                          0 3px 0 #082B1A,
+                          0 4px 0 #051A0E,
+                          0 5px 0 #020802,
+                          0 6px 1px rgba(0,0,0,.1),
+                          0 0 5px rgba(0,0,0,.1),
+                          0 1px 3px rgba(0,0,0,.3),
+                          0 3px 5px rgba(0,0,0,.2),
+                          0 5px 10px rgba(0,0,0,.25),
+                          inset 0 1px 0 rgba(255,255,255,0.3),
+                          inset 0 -1px 0 rgba(0,0,0,0.5)
+                        `,
+                        filter: 'drop-shadow(0 0 2px rgba(15, 81, 50, 0.8))',
+                        background: 'linear-gradient(145deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                        backgroundImage: 'linear-gradient(145deg, #A7F3D0 0%, #6EE7B7 30%, #34D399  60%, #10B981 100%)',
+                      }}
+                    >
+                      {medal.inscription}
+                    </span>
+                  </div>
+                )}
+
+                {/* Ícono del órgano para medallas de Salud (Higiea) en la esquina */}
                 {medal.type === 'health' && 'organIcon' in medal && medal.organIcon && (
                   <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
                     <span className="text-xs">{medal.organIcon}</span>

@@ -16,6 +16,7 @@ export interface HealthAchievement {
   healthCategory: string;
   icon: string;
   organIcon: string;
+  inscription: string;
   reward: string;
   medicalBasis: string;
 }

@@ -8,6 +8,7 @@ export const healthAchievements = [
     healthCategory: 'cardiovascular',
     icon: '💊',
     organIcon: '💓',
+    inscription: 'SANGRE',
     reward: 'Niveles de nicotina en sangre: 0%',
     medicalBasis: 'Eliminación completa de nicotina y cotinina del torrente sanguíneo'
   },
@@ -19,6 +20,7 @@ export const healthAchievements = [
     healthCategory: 'respiratory',
     icon: '🫁',
     organIcon: '🫁',
+    inscription: 'O₂',
     reward: 'Saturación de oxígeno: 98-100%',
     medicalBasis: 'Niveles de monóxido de carbono reducidos, oxigenación mejorada'
   },
@@ -30,6 +32,7 @@ export const healthAchievements = [
     healthCategory: 'cardiovascular',
     icon: '❤️',
     organIcon: '❤️',
+    inscription: 'FLUJO',
     reward: 'Flujo sanguíneo periférico normalizado',
     medicalBasis: 'Reducción de vasoconstricción, mejora en la perfusión tisular'
   },
@@ -41,6 +44,7 @@ export const healthAchievements = [
     healthCategory: 'skinEyes',
     icon: '👃',
     organIcon: '👅',
+    inscription: 'GUSTO',
     reward: 'Receptores sensoriales: 90% recuperados',
     medicalBasis: 'Regeneración de papilas gustativas y receptores olfativos'
   },
@@ -52,6 +56,7 @@ export const healthAchievements = [
     healthCategory: 'respiratory',
     icon: '🫁',
     organIcon: '🫁',
+    inscription: 'PULMÓN',
     reward: 'Capacidad pulmonar: +20% mejorada',
     medicalBasis: 'Reducción de la inflamación bronquial, mejora del intercambio gaseoso'
   },
@@ -63,6 +68,7 @@ export const healthAchievements = [
     healthCategory: 'cardiovascular',
     icon: '🩺',
     organIcon: '❤️',
+    inscription: 'TENSIÓN',
     reward: 'Presión arterial: 120/80 mmHg',
     medicalBasis: 'Reducción del estrés cardiovascular, vasodilatación normalizada'
   },
@@ -74,6 +80,7 @@ export const healthAchievements = [
     healthCategory: 'liver',
     icon: '🔶',
     organIcon: '🫘',
+    inscription: 'HÍGADO',
     reward: 'Enzimas hepáticas normalizadas',
     medicalBasis: 'Valores ALT, AST y GGT en rango normal'
   },
@@ -85,6 +92,7 @@ export const healthAchievements = [
     healthCategory: 'mental',
     icon: '🛡️',
     organIcon: '🧬',
+    inscription: 'INMUNE',
     reward: 'Función inmune: +40% mejorada',
     medicalBasis: 'Normalización de leucocitos y función de células T'
   },
@@ -96,6 +104,7 @@ export const healthAchievements = [
     healthCategory: 'skinEyes',
     icon: '✨',
     organIcon: '🧴',
+    inscription: 'PIEL',
     reward: 'Colágeno y elastina restaurados',
     medicalBasis: 'Mejora en la microcirculación cutánea y producción de colágeno'
   },
@@ -107,6 +116,7 @@ export const healthAchievements = [
     healthCategory: 'cardiovascular',
     icon: '💖',
     organIcon: '❤️',
+    inscription: 'CORAZÓN',
     reward: 'Riesgo cardiovascular equiparado a no fumadores',
     medicalBasis: 'Función cardíaca completamente normalizada'
   }

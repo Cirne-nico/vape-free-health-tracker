@@ -126,28 +126,41 @@ const MainHeader = ({
                 <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
               </div>
 
-              {/* Estadísticas en grid */}
-              <div className="grid grid-cols-3 gap-4 mt-6">
-                {/* Tiempo total */}
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Clock className="w-4 h-4 mr-1" />
+              {/* Medallas destacadas en el centro */}
+              {unlockedAchievements.length > 0 && (
+                <div className="mt-6 flex justify-center">
+                  <div className="bg-black/20 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                    <h3 className="text-sm font-medium mb-3 text-green-100 text-center">Logros conseguidos:</h3>
+                    <MedalDisplay
+                      unlockedAchievements={unlockedAchievements.slice(-3)}
+                      totalSavings={savings.total}
+                    />
                   </div>
-                  <p className="text-2xl font-bold">{time.totalHours}</p>
-                  <p className="text-green-100 text-sm">horas totales</p>
+                </div>
+              )}
+
+              {/* Estadísticas compactas en la parte inferior */}
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                {/* Estadísticas a la izquierda */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm bg-black/20 backdrop-blur-sm rounded p-2">
+                    <div className="flex items-center">
+                      <Clock className="w-4 h-4 mr-2" />
+                      <span>Horas totales:</span>
+                    </div>
+                    <span className="font-bold">{time.totalHours}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm bg-black/20 backdrop-blur-sm rounded p-2">
+                    <div className="flex items-center">
+                      <Trophy className="w-4 h-4 mr-2" />
+                      <span>Logros:</span>
+                    </div>
+                    <span className="font-bold">{unlockedAchievements.length}</span>
+                  </div>
                 </div>
 
-                {/* Logros */}
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Trophy className="w-4 h-4 mr-1" />
-                  </div>
-                  <p className="text-2xl font-bold">{unlockedAchievements.length}</p>
-                  <p className="text-green-100 text-sm">logros</p>
-                </div>
-
-                {/* Botón de recaída con tooltip */}
-                <div className="text-center">
+                {/* Botón de recaída a la derecha */}
+                <div className="flex items-center justify-center">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
@@ -177,19 +190,6 @@ const MainHeader = ({
                   </Tooltip>
                 </div>
               </div>
-
-              {/* Medallas desbloqueadas - en la parte inferior izquierda */}
-              {unlockedAchievements.length > 0 && (
-                <div className="mt-4 flex justify-start">
-                  <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                    <h3 className="text-sm font-medium mb-2 text-green-100">Últimos logros:</h3>
-                    <MedalDisplay
-                      unlockedAchievements={unlockedAchievements.slice(-3)}
-                      totalSavings={savings.total}
-                    />
-                  </div>
-                </div>
-              )}
             </div>
           </CardContent>
         </Card>

@@ -97,18 +97,21 @@ const MainHeader = ({
         
         <CardContent className="relative p-6 z-10">
           <div className="flex flex-col space-y-4">
-            {/* Frase fija que siempre aparece */}
-            <div className="text-center mb-2">
-              <p className="text-green-100 text-sm italic">
-                "Ya sin nicotina, el cuerpo escucha: comienza la sociabilidad mínima"
-              </p>
+            {/* Título principal fijo */}
+            <div className="text-center mb-4">
+              <h1 className="text-2xl font-bold text-white mb-2">
+                Ya sin nicotina, el cuerpo escucha:
+              </h1>
+              <h2 className="text-xl font-semibold text-green-100">
+                comienza la sociabilidad mínima
+              </h2>
             </div>
 
             {/* Tiempo transcurrido */}
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2">
+              <h3 className="text-3xl font-bold mb-2">
                 {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
-              </h1>
+              </h3>
               <p className="text-green-100">sin vapear</p>
             </div>
 

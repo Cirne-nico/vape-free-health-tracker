@@ -43,7 +43,6 @@ const MainHeader = ({
 
   const getMotivationalMessage = () => {
     const messages = [
-      "Ya sin nicotina, el cuerpo escucha: comienza la sociabilidad mínima",
       `¡Excelente trabajo${userName ? `, ${userName}` : ''}! Cada minuto sin vapear es una victoria.`,
       `¡Sigue así${userName ? `, ${userName}` : ''}! Tu salud te lo agradece.`,
       `¡Increíble progreso${userName ? `, ${userName}` : ''}! Estás transformando tu vida.`,
@@ -98,6 +97,13 @@ const MainHeader = ({
         
         <CardContent className="relative p-6 z-10">
           <div className="flex flex-col space-y-4">
+            {/* Frase fija que siempre aparece */}
+            <div className="text-center mb-2">
+              <p className="text-green-100 text-sm italic">
+                "Ya sin nicotina, el cuerpo escucha: comienza la sociabilidad mínima"
+              </p>
+            </div>
+
             {/* Tiempo transcurrido */}
             <div className="text-center">
               <h1 className="text-3xl font-bold mb-2">

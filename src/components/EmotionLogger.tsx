@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,14 +10,22 @@ interface EmotionLoggerProps {
 }
 
 const emotions = [
-  { id: 'euphoric', text: 'Eufórico', type: 'positive', color: 'bg-green-500' },
-  { id: 'happy', text: 'Alegre', type: 'positive', color: 'bg-green-400' },
-  { id: 'calm', text: 'Tranquilo', type: 'positive', color: 'bg-blue-400' },
-  { id: 'neutral', text: 'Neutral', type: 'neutral', color: 'bg-gray-400' },
-  { id: 'irritable', text: 'Irritable', type: 'negative', color: 'bg-orange-500' },
-  { id: 'sad', text: 'Triste', type: 'negative', color: 'bg-red-400' },
-  { id: 'depressed', text: 'Deprimido', type: 'negative', color: 'bg-red-600' },
-  { id: 'disgusted', text: 'Disgusto', type: 'negative', color: 'bg-purple-500' },
+  { id: 'euphoric', text: 'Eufórico', emoji: '🤩', type: 'positive', color: 'bg-green-500' },
+  { id: 'happy', text: 'Alegre', emoji: '😊', type: 'positive', color: 'bg-green-400' },
+  { id: 'calm', text: 'Tranquilo', emoji: '😌', type: 'positive', color: 'bg-blue-400' },
+  { id: 'proud', text: 'Orgulloso', emoji: '💪', type: 'positive', color: 'bg-purple-400' },
+  { id: 'hopeful', text: 'Esperanzado', emoji: '🌟', type: 'positive', color: 'bg-yellow-400' },
+  { id: 'neutral', text: 'Neutral', emoji: '😐', type: 'neutral', color: 'bg-gray-400' },
+  { id: 'anxious', text: 'Ansioso', emoji: '😰', type: 'negative', color: 'bg-yellow-600' },
+  { id: 'irritable', text: 'Irritable', emoji: '😤', type: 'negative', color: 'bg-orange-500' },
+  { id: 'sad', text: 'Triste', emoji: '😢', type: 'negative', color: 'bg-blue-600' },
+  { id: 'frustrated', text: 'Frustrado', emoji: '😫', type: 'negative', color: 'bg-red-500' },
+  { id: 'depressed', text: 'Deprimido', emoji: '😞', type: 'negative', color: 'bg-red-600' },
+  { id: 'craving', text: 'Con antojos', emoji: '🤤', type: 'negative', color: 'bg-orange-600' },
+  { id: 'disgusted', text: 'Disgusto', emoji: '🤢', type: 'negative', color: 'bg-purple-500' },
+  { id: 'overwhelmed', text: 'Abrumado', emoji: '😵', type: 'negative', color: 'bg-red-700' },
+  { id: 'restless', text: 'Inquieto', emoji: '😣', type: 'negative', color: 'bg-orange-400' },
+  { id: 'foggy', text: 'Confuso', emoji: '🌫️', type: 'negative', color: 'bg-gray-500' }
 ];
 
 const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
@@ -44,10 +51,10 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
   const toggleEmotion = (emotionId: string) => {
     if (selectedEmotions.includes(emotionId)) {
       setSelectedEmotions(prev => prev.filter(id => id !== emotionId));
-    } else if (selectedEmotions.length < 2) {
+    } else if (selectedEmotions.length < 3) {
       setSelectedEmotions(prev => [...prev, emotionId]);
     } else {
-      toast.error('Solo puedes seleccionar máximo 2 emociones');
+      toast.error('Solo puedes seleccionar máximo 3 emociones');
     }
   };
 
@@ -158,14 +165,15 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
               <Button
                 key={emotion.id}
                 variant={selectedEmotions.includes(emotion.id) ? "default" : "outline"}
-                className={`h-12 ${
+                className={`h-14 flex flex-col items-center justify-center gap-1 text-xs ${
                   selectedEmotions.includes(emotion.id) 
                     ? emotion.color + ' text-white' 
                     : 'hover:' + emotion.color.replace('bg-', 'bg-') + '/20'
                 }`}
                 onClick={() => toggleEmotion(emotion.id)}
               >
-                {emotion.text}
+                <span className="text-lg">{emotion.emoji}</span>
+                <span>{emotion.text}</span>
               </Button>
             ))}
           </div>
@@ -176,7 +184,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
                 const emotion = emotions.find(e => e.id === emotionId);
                 return emotion ? (
                   <Badge key={emotionId} className={emotion.color + ' text-white'}>
-                    {emotion.text}
+                    {emotion.emoji} {emotion.text}
                   </Badge>
                 ) : null;
               })}
@@ -192,7 +200,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
           </div>
 
           <p className="text-sm text-gray-500">
-            Selecciona hasta 2 emociones que mejor describan cómo te sientes
+            Selecciona hasta 3 emociones que mejor describan cómo te sientes
           </p>
         </CardContent>
       </Card>

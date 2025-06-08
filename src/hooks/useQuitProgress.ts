@@ -13,18 +13,19 @@ export const useQuitProgress = (startDate: Date | null) => {
   }, []);
 
   const calculateTimeSince = () => {
-    if (!startDate) return { days: 0, hours: 0, minutes: 0 };
+    if (!startDate) return { days: 0, hours: 0, minutes: 0, totalHours: 0 };
     
     const diff = currentTime.getTime() - startDate.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const totalHours = Math.floor(diff / (1000 * 60 * 60));
     
-    return { days, hours, minutes };
+    return { days, hours, minutes, totalHours };
   };
 
   const calculateSavings = () => {
-    if (!startDate) return 0;
+    if (!startDate) return { total: 0, daily: 0 };
     const days = Math.floor((currentTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
     
     const settings = JSON.parse(localStorage.getItem('app-settings') || '{}');
@@ -35,10 +36,16 @@ export const useQuitProgress = (startDate: Date | null) => {
       const additionalDailyCost = settings.additionalDailyCost || 0;
       const totalDailyCost = dailyLiquidCost + dailyCoilCost + additionalDailyCost;
       
-      return days * totalDailyCost;
+      return {
+        total: days * totalDailyCost,
+        daily: totalDailyCost
+      };
     } else {
       const dailyCost = (20/7) + (4/10);
-      return days * dailyCost;
+      return {
+        total: days * dailyCost,
+        daily: dailyCost
+      };
     }
   };
 

@@ -147,17 +147,10 @@ const MainHeader = ({
             {unlockedAchievements.length > 0 && (
               <div className="mt-4">
                 <h3 className="text-sm font-medium mb-2 text-green-100">Últimos logros:</h3>
-                <div className="flex gap-2 flex-wrap">
-                  {unlockedAchievements.slice(-3).map((achievement, index) => (
-                    <MedalDisplay
-                      key={index}
-                      medal={achievement.medal}
-                      size="sm"
-                      showTooltip={true}
-                      tooltipContent={achievement.title}
-                    />
-                  ))}
-                </div>
+                <MedalDisplay
+                  unlockedAchievements={unlockedAchievements.slice(-3)}
+                  totalSavings={savings.total}
+                />
               </div>
             )}
           </div>

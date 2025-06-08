@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Logo from './Logo';
 
 interface SetupModalProps {
   onComplete: (date: Date) => void;
@@ -54,14 +54,19 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
       </div>
 
       <div className="relative z-10 w-full max-w-md space-y-8">
-        {/* Título y subtítulo de la app */}
-        <div className="text-center space-y-3 mb-12">
-          <h1 className="text-4xl font-light text-slate-800 tracking-wide">
-            Umbral
-          </h1>
-          <p className="text-lg text-slate-600 font-light">
-            Acompañamiento en la retirada de la nicotina
-          </p>
+        {/* Logo, título y subtítulo de la app */}
+        <div className="text-center space-y-6 mb-12">
+          <div className="flex justify-center">
+            <Logo size="lg" className="text-slate-700" />
+          </div>
+          <div className="space-y-3">
+            <h1 className="text-4xl font-light text-slate-800 tracking-wide">
+              Umbral
+            </h1>
+            <p className="text-lg text-slate-600 font-light">
+              Acompañamiento en la retirada de la nicotina
+            </p>
+          </div>
         </div>
 
         {/* Frases animadas */}

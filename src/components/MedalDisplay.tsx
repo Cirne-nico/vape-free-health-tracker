@@ -58,7 +58,9 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
                 onClick={() => handleMedalClick(medal)}
                 className={`hover:scale-110 transition-transform duration-200 rounded-full p-1 backdrop-blur-sm border relative ${
                   medal.type === 'victory' 
-                    ? 'bg-yellow-100/80 border-yellow-300' 
+                    ? 'bg-yellow-100/80 border-yellow-300'
+                    : medal.type === 'athena'
+                    ? 'bg-amber-100/80 border-amber-300'
                     : medal.type === 'health'
                     ? 'bg-green-100/80 border-green-300'
                     : 'bg-white/20 border-white/30'
@@ -97,6 +99,40 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
                         backgroundClip: 'text',
                         color: 'transparent',
                         backgroundImage: 'linear-gradient(145deg, #F5E6A3 0%, #D4AF37 30%, #B8860B  60%, #8B6914 100%)',
+                      }}
+                    >
+                      {medal.days}
+                    </span>
+                  </div>
+                )}
+
+                {/* Número 90 grabado para medalla de Atenea */}
+                {medal.type === 'athena' && 'days' in medal && medal.days && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span 
+                      className="text-amber-200 font-black text-sm tracking-wider select-none pointer-events-none"
+                      style={{
+                        textShadow: `
+                          0 1px 0 #92400E,
+                          0 2px 0 #78350F,
+                          0 3px 0 #451A03,
+                          0 4px 0 #292524,
+                          0 5px 0 #1C1917,
+                          0 6px 1px rgba(0,0,0,.1),
+                          0 0 5px rgba(0,0,0,.1),
+                          0 1px 3px rgba(0,0,0,.3),
+                          0 3px 5px rgba(0,0,0,.2),
+                          0 5px 10px rgba(0,0,0,.25),
+                          inset 0 1px 0 rgba(255,255,255,0.3),
+                          inset 0 -1px 0 rgba(0,0,0,0.5)
+                        `,
+                        filter: 'drop-shadow(0 0 2px rgba(146, 64, 14, 0.8))',
+                        background: 'linear-gradient(145deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                        backgroundImage: 'linear-gradient(145deg, #FEF3C7 0%, #F59E0B 30%, #D97706  60%, #92400E 100%)',
                       }}
                     >
                       {medal.days}
@@ -151,6 +187,9 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
               <p className="text-xs text-muted-foreground">{medal.description}</p>
               {medal.type === 'victory' && (
                 <p className="text-xs text-yellow-600 font-medium">Medalla de Victoria - Nike</p>
+              )}
+              {medal.type === 'athena' && (
+                <p className="text-xs text-amber-600 font-medium">Medalla de Sabiduría - Atenea</p>
               )}
               {medal.type === 'health' && (
                 <p className="text-xs text-green-600 font-medium">Medalla de Salud - Higiea</p>

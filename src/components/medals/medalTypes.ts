@@ -33,6 +33,17 @@ export interface SpecialMedal {
   specialMessage: string;
 }
 
+export interface AthenaMedal {
+  id: string;
+  type: 'athena';
+  title: string;
+  icon: string;
+  description: string;
+  reward: string;
+  days: number;
+  specialMessage: string;
+}
+
 export interface ProcessedAchievement extends Achievement {
   type: 'vigor';
 }
@@ -41,7 +52,7 @@ export interface ProcessedHealthAchievement extends HealthAchievement {
   type: 'health';
 }
 
-export type Medal = ProcessedAchievement | ProcessedHealthAchievement | SpecialMedal;
+export type Medal = ProcessedAchievement | ProcessedHealthAchievement | SpecialMedal | AthenaMedal;
 
 export interface DetailedHealthInfo {
   scientificBasis: string;

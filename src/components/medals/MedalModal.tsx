@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
@@ -45,7 +44,9 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
         <DialogHeader>
           <DialogTitle className={`text-center text-xl font-bold ${
             selectedMedal.type === 'victory' 
-              ? 'text-yellow-600' 
+              ? 'text-yellow-600'
+              : selectedMedal.type === 'athena'
+              ? 'text-amber-600'
               : selectedMedal.type === 'health'
               ? 'text-green-600'
               : 'text-purple-600'
@@ -72,7 +73,9 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
           {/* Tipo de medalla */}
           <div className={`${
             selectedMedal.type === 'victory' 
-              ? 'bg-yellow-50 border-yellow-200' 
+              ? 'bg-yellow-50 border-yellow-200'
+              : selectedMedal.type === 'athena'
+              ? 'bg-amber-50 border-amber-200'
               : selectedMedal.type === 'health'
               ? 'bg-green-50 border-green-200'
               : 'bg-purple-50 border-purple-200'
@@ -80,19 +83,23 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
             <div className="flex items-center justify-center gap-2 mb-2">
               <img 
                 src={selectedMedal.icon} 
-                alt={selectedMedal.type === 'victory' ? 'Nike' : selectedMedal.type === 'health' ? 'Higiea' : 'Dioniso'}
+                alt={selectedMedal.type === 'victory' ? 'Nike' : selectedMedal.type === 'athena' ? 'Atenea' : selectedMedal.type === 'health' ? 'Higiea' : 'Dioniso'}
                 className="w-8 h-8 rounded-full object-cover"
               />
               <p className={`font-bold ${
                 selectedMedal.type === 'victory' 
-                  ? 'text-yellow-700' 
+                  ? 'text-yellow-700'
+                  : selectedMedal.type === 'athena'
+                  ? 'text-amber-700'
                   : selectedMedal.type === 'health'
                   ? 'text-green-700'
                   : 'text-purple-700'
               }`}>
                 Medalla de {
                   selectedMedal.type === 'victory' 
-                    ? 'Victoria - Nike' 
+                    ? 'Victoria - Nike'
+                    : selectedMedal.type === 'athena'
+                    ? 'Sabiduría - Atenea'
                     : selectedMedal.type === 'health'
                     ? 'Salud - Higiea'
                     : 'Vigor - Dioniso'
@@ -101,13 +108,17 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
             </div>
             <p className={`text-sm ${
               selectedMedal.type === 'victory' 
-                ? 'text-yellow-600' 
+                ? 'text-yellow-600'
+                : selectedMedal.type === 'athena'
+                ? 'text-amber-600'
                 : selectedMedal.type === 'health'
                 ? 'text-green-600'
                 : 'text-purple-600'
             }`}>
               {selectedMedal.type === 'victory' 
                 ? 'Símbolo de triunfo contra las adversidades estadísticas'
+                : selectedMedal.type === 'athena'
+                ? 'Símbolo de sabiduría y visión clara tras superar las adicciones'
                 : selectedMedal.type === 'health'
                 ? 'Símbolo de recuperación y sanación corporal'
                 : 'Símbolo de vitalidad, salud y beneficios de vida'
@@ -119,14 +130,18 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
           
           <div className={`${
             selectedMedal.type === 'victory' 
-              ? 'bg-yellow-50' 
+              ? 'bg-yellow-50'
+              : selectedMedal.type === 'athena'
+              ? 'bg-amber-50'
               : selectedMedal.type === 'health'
               ? 'bg-green-50'
               : 'bg-purple-50'
           } p-4 rounded-lg`}>
             <p className={`text-sm font-medium ${
               selectedMedal.type === 'victory' 
-                ? 'text-yellow-700' 
+                ? 'text-yellow-700'
+                : selectedMedal.type === 'athena'
+                ? 'text-amber-700'
                 : selectedMedal.type === 'health'
                 ? 'text-green-700'
                 : 'text-purple-700'
@@ -135,7 +150,9 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
             </p>
             <p className={`${
               selectedMedal.type === 'victory' 
-                ? 'text-yellow-600' 
+                ? 'text-yellow-600'
+                : selectedMedal.type === 'athena'
+                ? 'text-amber-600'
                 : selectedMedal.type === 'health'
                 ? 'text-green-600'
                 : 'text-purple-600'
@@ -152,14 +169,64 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
               </div>
             )}
 
-            {selectedMedal.type === 'victory' && 'specialMessage' in selectedMedal && selectedMedal.specialMessage && (
-              <div className="mt-3 p-2 bg-white/50 rounded border border-yellow-300">
-                <p className="text-xs text-yellow-700 italic">
+            {(selectedMedal.type === 'victory' || selectedMedal.type === 'athena') && 'specialMessage' in selectedMedal && selectedMedal.specialMessage && (
+              <div className={`mt-3 p-2 bg-white/50 rounded border ${
+                selectedMedal.type === 'athena' ? 'border-amber-300' : 'border-yellow-300'
+              }`}>
+                <p className={`text-xs italic ${
+                  selectedMedal.type === 'athena' ? 'text-amber-700' : 'text-yellow-700'
+                }`}>
                   {selectedMedal.specialMessage}
                 </p>
               </div>
             )}
           </div>
+          
+          {/* Información especial para medalla de Atenea */}
+          {selectedMedal.type === 'athena' && (
+            <div className="bg-amber-50 p-6 rounded-lg border-2 border-amber-200">
+              <h3 className="text-xl font-bold text-amber-700 mb-4 text-center">🏛️ El Regalo de Atenea</h3>
+              
+              {/* Mostrar ahorros en grande */}
+              <div className="bg-white p-6 rounded-lg border-2 border-amber-300 mb-4">
+                <div className="text-center">
+                  <p className="text-6xl font-bold text-amber-600 mb-2">
+                    {totalSavings.toFixed(0)}€
+                  </p>
+                  <p className="text-2xl font-bold text-amber-700 mb-4">
+                    Ya puedes comprarte un viaje a Grecia
+                  </p>
+                  <p className="text-sm text-amber-600">
+                    🏛️ La diosa de la sabiduría te invita a conocer su tierra natal
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-sm text-amber-700">
+                <p>
+                  <strong>Atenea, la diosa griega de la sabiduría</strong>, te otorga esta medalla especial 
+                  por haber demostrado sabiduría en tu decisión de dejar el vapeo y perseverancia 
+                  durante 90 días completos.
+                </p>
+                
+                <div className="bg-amber-100 p-4 rounded border">
+                  <p className="font-medium mb-2">La claridad de Atenea:</p>
+                  <p>A los 90 días, tu mente está más clara que nunca. Como la diosa de la sabiduría, 
+                  has ganado perspectiva sobre tu vida y tus decisiones. El dinero ahorrado es solo 
+                  un símbolo de la libertad que has conquistado.</p>
+                </div>
+
+                <div className="bg-white p-4 rounded border border-amber-300">
+                  <p className="font-medium mb-2">🇬🇷 Sobre tu viaje a Grecia:</p>
+                  <p className="text-xs">
+                    Con {totalSavings.toFixed(0)}€ puedes permitirte un viaje memorable a Grecia, 
+                    la cuna de la filosofía y la sabiduría. Visita el Partenón, templo dedicado 
+                    a Atenea, y celebra tu victoria personal en el lugar donde nació la sabiduría occidental.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           
           {/* Información detallada para medallas de Salud (Higiea) */}
           {selectedMedal.type === 'health' && detailedHealthInfo && (

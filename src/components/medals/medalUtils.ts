@@ -1,51 +1,57 @@
+export const getSuccessRate = (days: number): number => {
+  // Datos aproximados basados en estadísticas generales sobre dejar de fumar/vapear
+  const initialRate = 30; // Tasa inicial de éxito (primeros días)
+  const declineRate = 0.5; // Tasa de disminución del éxito con el tiempo
 
-import { SpecialMedal } from './medalTypes';
+  let successRate = initialRate - (days * declineRate);
+  
+  // Asegurarse de que la tasa de éxito no sea negativa
+  successRate = Math.max(1, successRate);
 
-// Función para calcular la tasa de éxito según estudios reales
-export const getSuccessRate = (day: number): number => {
-  if (day < 1) return 95;
-  if (day < 3) return 78;
-  if (day < 7) return 65;
-  if (day < 14) return 52;
-  if (day < 30) return 41;
-  if (day < 90) return 28;
-  return 15;
+  // Ajuste para los 90 días (aumenta la tasa de éxito)
+  if (days >= 90) {
+    successRate += 5;
+  }
+
+  // Ajuste para el año (aumenta aún más la tasa de éxito)
+  if (days >= 365) {
+    successRate += 10;
+  }
+
+  return Math.min(successRate, 95); // No puede ser mayor al 95%
 };
 
-// Función para generar medallas especiales
-export const getSpecialMedals = (days: number): SpecialMedal[] => {
-  const medals: SpecialMedal[] = [];
-  const currentSuccessRate = getSuccessRate(days);
+export const getSpecialMedals = (currentDays: number) => {
+  const specialMedals = [];
   
-  // Primera medalla de Victoria (Nike) - cuando la tasa de éxito >= 50%
-  if (currentSuccessRate >= 50) {
-    medals.push({
-      id: 'victory-nike-50',
+  // Medalla de Atenea para el día 90
+  if (currentDays >= 90) {
+    specialMedals.push({
+      id: 'athena_90',
+      type: 'athena' as const,
+      title: 'Sabiduría de Atenea',
+      icon: '/lovable-uploads/40729490-8efc-4406-96d1-6fa50fd1c815.png',
+      description: 'Has alcanzado 90 días de sabiduría y determinación',
+      reward: 'Ya puedes comprarte un viaje a Grecia',
+      days: 90,
+      specialMessage: 'La diosa de la sabiduría te otorga este reconocimiento por tu perseverancia excepcional.'
+    });
+  }
+
+  // Medalla de Victoria para el año (365 días)
+  if (currentDays >= 365) {
+    specialMedals.push({
+      id: 'one_year_victory',
       type: 'victory',
-      title: 'Victoria de Nike - Nivel I',
-      icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png',
-      description: `Has alcanzado un hito donde la tasa de éxito es del ${currentSuccessRate}%. ¡La diosa Nike te sonríe!`,
-      reward: 'Reconocimiento de superación estadística - Primer nivel',
-      hasEconomicBenefits: false,
-      hasHealthBenefits: false,
-      specialMessage: 'Esta medalla representa tu fortaleza contra las estadísticas. Has demostrado una determinación excepcional.'
+      title: 'Victoria Anual',
+      icon: '/lovable-uploads/8996a94a-9941-4939-a92b-8e946d338979.png',
+      description: '¡Un año completo sin vapear!',
+      reward: 'Salud de hierro y bienestar total',
+      hasEconomicBenefits: true,
+      hasHealthBenefits: true,
+      specialMessage: 'Has superado la prueba del tiempo y te has convertido en un verdadero ejemplo de perseverancia.'
     });
   }
   
-  // Segunda medalla de Victoria (Nike) - cuando la tasa de éxito >= 75%
-  if (currentSuccessRate >= 75) {
-    medals.push({
-      id: 'victory-nike-75',
-      type: 'victory',
-      title: 'Victoria de Nike - Nivel II',
-      icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png',
-      description: `¡Extraordinario! Con una tasa de éxito del ${currentSuccessRate}%, te encuentras en la élite de la perseverancia.`,
-      reward: 'Reconocimiento de superación estadística - Nivel élite',
-      hasEconomicBenefits: false,
-      hasHealthBenefits: false,
-      specialMessage: 'Has alcanzado un nivel de determinación que solo poseen los más resilientes. Nike te corona como ejemplo de victoria.'
-    });
-  }
-  
-  return medals;
+  return specialMedals;
 };

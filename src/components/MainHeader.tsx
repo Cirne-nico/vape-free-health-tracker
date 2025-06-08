@@ -80,15 +80,18 @@ const MainHeader = ({
       )}
 
       {/* Header principal con imagen de fondo y efecto blur */}
-      <Card 
-        className="relative overflow-hidden text-white"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: `blur(${blurLevel}px)`,
-        }}
-      >
+      <Card className="relative overflow-hidden text-white">
+        {/* Imagen de fondo con blur */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: `blur(${blurLevel}px)`,
+          }}
+        />
+        
         {/* Overlay para mejorar legibilidad */}
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
         

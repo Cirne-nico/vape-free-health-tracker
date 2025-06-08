@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from '@/components/EmotionLogger';
@@ -20,6 +21,7 @@ const Index = () => {
   const [showSetup, setShowSetup] = useState(false);
   const [relapseCount, setRelapseCount] = useState(0);
 
+  // Mover todos los hooks antes de cualquier posible retorno temprano
   const { 
     currentTime, 
     calculateTimeSince, 
@@ -106,12 +108,14 @@ const Index = () => {
     alert(penaltyMessage);
   };
 
+  // Calcular valores después de todos los hooks
   const time = calculateTimeSince();
   const savings = calculateSavings();
   const progressPercentage = calculateProgressPercentage();
   const blurLevel = calculateBlurLevel();
   const unlockedAchievements = getUnlockedAchievements(time.days);
 
+  // Ahora sí podemos hacer el retorno condicional
   if (showSetup) {
     return <SetupModal onComplete={handleSetupComplete} />;
   }

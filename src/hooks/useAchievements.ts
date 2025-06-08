@@ -21,21 +21,23 @@ export const useAchievements = (startDate: Date | null, currentTime: Date) => {
     }
   }, []);
 
-  // Función para ajustar medallas según los días actuales (eliminar las que ya no corresponden)
-  const adjustMedalsForCurrentDays = (currentDays: number) => {
-    // Filtrar logros regulares que ya no deberían estar desbloqueados
+  // Función para ajustar medallas según los días actuales tras una recaída
+  const adjustMedalsAfterRelapse = (previousDays: number, newDays: number) => {
+    // Filtrar logros regulares que estén en el rango perdido (entre newDays y previousDays)
     const validAchievements = checkedAchievements.filter(achievementId => {
       const achievement = achievements.find(a => a.id === achievementId);
-      return achievement && currentDays >= achievement.days;
+      // Mantener solo las medallas que corresponden a newDays o menos
+      return achievement && achievement.days <= newDays;
     });
 
-    // Filtrar logros de salud que ya no deberían estar desbloqueados
+    // Filtrar logros de salud que estén en el rango perdido
     const validHealthAchievements = checkedHealthAchievements.filter(achievementId => {
       const healthAchievement = healthAchievements.find(ha => ha.id === achievementId);
-      return healthAchievement && currentDays >= healthAchievement.days;
+      // Mantener solo las medallas que corresponden a newDays o menos
+      return healthAchievement && healthAchievement.days <= newDays;
     });
 
-    // Solo actualizar si hay cambios
+    // Actualizar solo si hay cambios
     if (validAchievements.length !== checkedAchievements.length) {
       setCheckedAchievements(validAchievements);
       localStorage.setItem('checked-achievements', JSON.stringify(validAchievements));
@@ -52,9 +54,6 @@ export const useAchievements = (startDate: Date | null, currentTime: Date) => {
     if (!startDate) return;
 
     const currentDays = Math.floor((currentTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-    
-    // Primero ajustar las medallas según los días actuales (por si hubo retroceso)
-    adjustMedalsForCurrentDays(currentDays);
     
     // Verificar logros regulares
     for (const achievement of achievements) {
@@ -96,11 +95,6 @@ export const useAchievements = (startDate: Date | null, currentTime: Date) => {
     setCheckedHealthAchievements([]);
     localStorage.setItem('checked-achievements', JSON.stringify([]));
     localStorage.setItem('checked-health-achievements', JSON.stringify([]));
-  };
-
-  // Nueva función para forzar el ajuste de medallas tras una recaída
-  const adjustMedalsAfterRelapse = (newDays: number) => {
-    adjustMedalsForCurrentDays(newDays);
   };
 
   return {

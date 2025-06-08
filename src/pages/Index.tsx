@@ -120,9 +120,9 @@ const Index = () => {
     // Calcular los nuevos días tras la penalización
     const newDays = Math.floor((currentTime.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24));
     
-    // Si no es un reset completo, ajustar las medallas según los nuevos días
+    // Si no es un reset completo, ajustar las medallas según los días perdidos
     if (relapseCount < 4) {
-      adjustMedalsAfterRelapse(newDays);
+      adjustMedalsAfterRelapse(currentDays, newDays);
     }
     
     alert(penaltyMessage);

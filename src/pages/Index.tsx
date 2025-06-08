@@ -8,6 +8,9 @@ import SettingsPanel from '@/components/SettingsPanel';
 import SetupModal from '@/components/SetupModal';
 import AchievementPopup from '@/components/AchievementPopup';
 import MainHeader from '@/components/MainHeader';
+import SocialStats from '@/components/SocialStats';
+import VirtualRewards from '@/components/VirtualRewards';
+import PredictiveAnalysis from '@/components/PredictiveAnalysis';
 import { useQuitProgress } from '@/hooks/useQuitProgress';
 import { useAchievements } from '@/hooks/useAchievements';
 import { Clock, Trophy, Heart, Calendar, Settings } from 'lucide-react';
@@ -153,7 +156,24 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="emotions">
-            <EmotionLogger startDate={startDate} />
+            <div className="space-y-6">
+              <EmotionLogger startDate={startDate} />
+              
+              {/* Nuevas funcionalidades en la pestaña General */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <SocialStats 
+                  currentDay={time.days}
+                  totalSavings={savings.total}
+                />
+                <VirtualRewards 
+                  currentDay={time.days}
+                  totalSavings={savings.total}
+                  unlockedAchievements={unlockedAchievements}
+                />
+              </div>
+              
+              <PredictiveAnalysis currentDay={time.days} />
+            </div>
           </TabsContent>
 
           <TabsContent value="health">

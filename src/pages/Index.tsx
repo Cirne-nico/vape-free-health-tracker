@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from '@/components/EmotionLogger';
@@ -33,9 +32,12 @@ const Index = () => {
   const {
     newAchievement,
     checkedAchievements,
+    checkedHealthAchievements,
     setCheckedAchievements,
+    setCheckedHealthAchievements,
     handleCloseAchievementPopup,
     getUnlockedAchievements,
+    getUnlockedHealthAchievements,
     resetAchievements
   } = useAchievements(startDate, currentTime);
 
@@ -114,6 +116,7 @@ const Index = () => {
   const progressPercentage = calculateProgressPercentage();
   const blurLevel = calculateBlurLevel();
   const unlockedAchievements = getUnlockedAchievements(time.days);
+  const unlockedHealthAchievements = getUnlockedHealthAchievements(time.days);
 
   // Ahora sí podemos hacer el retorno condicional
   if (showSetup) {
@@ -131,6 +134,7 @@ const Index = () => {
           progressPercentage={progressPercentage}
           blurLevel={blurLevel}
           unlockedAchievements={unlockedAchievements}
+          unlockedHealthAchievements={unlockedHealthAchievements}
           onRelapse={handleRelapse}
         />
 

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,6 +21,7 @@ interface MainHeaderProps {
   progressPercentage: number;
   blurLevel: number;
   unlockedAchievements: any[];
+  unlockedHealthAchievements: any[];
   onRelapse: () => void;
 }
 
@@ -30,7 +30,8 @@ const MainHeader = ({
   savings, 
   progressPercentage, 
   blurLevel, 
-  unlockedAchievements, 
+  unlockedAchievements,
+  unlockedHealthAchievements,
   onRelapse 
 }: MainHeaderProps) => {
   const [userName, setUserName] = useState<string>('');
@@ -41,6 +42,8 @@ const MainHeader = ({
       setUserName(savedUserName);
     }
   }, []);
+
+  const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
 
   const getMotivationalMessage = () => {
     const messages = [
@@ -120,8 +123,8 @@ const MainHeader = ({
                   <div className="flex items-center justify-center mb-1">
                     <Trophy className="w-4 h-4 mr-1" />
                   </div>
-                  <p className="text-2xl font-bold">{unlockedAchievements.length}</p>
-                  <p className="text-green-100 text-sm">logros</p>
+                  <p className="text-2xl font-bold">{totalMedals}</p>
+                  <p className="text-green-100 text-sm">medallas</p>
                 </div>
               </div>
 
@@ -129,10 +132,11 @@ const MainHeader = ({
               <div className="mt-6 flex items-center justify-between">
                 {/* Medallas acumulándose de izquierda a derecha */}
                 <div className="flex-1">
-                  {unlockedAchievements.length > 0 ? (
+                  {totalMedals > 0 ? (
                     <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3 border border-white/20 inline-block">
                       <MedalDisplay
                         unlockedAchievements={unlockedAchievements}
+                        unlockedHealthAchievements={unlockedHealthAchievements}
                         totalSavings={savings.total}
                       />
                     </div>

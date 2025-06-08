@@ -15,8 +15,21 @@ interface Achievement {
   reward: string;
 }
 
+interface HealthAchievement {
+  id: string;
+  title: string;
+  description: string;
+  days: number;
+  healthCategory: string;
+  icon: string;
+  organIcon: string;
+  reward: string;
+  medicalBasis: string;
+}
+
 interface MedalDisplayProps {
   unlockedAchievements: Achievement[];
+  unlockedHealthAchievements: HealthAchievement[];
   totalSavings: number;
 }
 
@@ -75,8 +88,8 @@ const isVigorMedal = (achievement: Achievement) => {
   return true; // Todas las medallas de achievements regulares son de Vigor
 };
 
-const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps) => {
-  const [selectedMedal, setSelectedMedal] = useState<Achievement | any | null>(null);
+const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalSavings }: MedalDisplayProps) => {
+  const [selectedMedal, setSelectedMedal] = useState<Achievement | HealthAchievement | any | null>(null);
   const [sliderValue, setSliderValue] = useState([100]);
 
   // Obtener días actuales para calcular medallas especiales
@@ -85,16 +98,23 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
   
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Asignar imagen de Dioniso a medallas de Vigor
+  // Procesar medallas de Vigor (Dioniso)
   const processedAchievements = unlockedAchievements.map(achievement => ({
     ...achievement,
-    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png', // Imagen de Dioniso
+    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
     type: 'vigor'
   }));
-  
-  const allMedals = [...processedAchievements, ...specialMedals];
 
-  const handleMedalClick = (medal: Achievement | any) => {
+  // Procesar medallas de Salud (Higiea)
+  const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({
+    ...achievement,
+    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png',
+    type: 'health'
+  }));
+  
+  const allMedals = [...processedAchievements, ...processedHealthAchievements, ...specialMedals];
+
+  const handleMedalClick = (medal: Achievement | HealthAchievement | any) => {
     setSelectedMedal(medal);
   };
 
@@ -131,6 +151,8 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                 className={`hover:scale-110 transition-transform duration-200 rounded-full p-1 backdrop-blur-sm border relative ${
                   medal.type === 'victory' 
                     ? 'bg-yellow-100/80 border-yellow-300' 
+                    : medal.type === 'health'
+                    ? 'bg-green-100/80 border-green-300'
                     : 'bg-white/20 border-white/30'
                 }`}
               >
@@ -139,7 +161,8 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                   alt={medal.title}
                   className="w-12 h-12 rounded-full object-cover"
                 />
-                {/* Número grabado artísticamente en medallas de Dioniso */}
+                
+                {/* Número grabado para medallas de Vigor (Dioniso) */}
                 {medal.type === 'vigor' && medal.days && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span 
@@ -165,12 +188,18 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
                         color: 'transparent',
-                        // Fallback para navegadores que no soporten background-clip: text
                         backgroundImage: 'linear-gradient(145deg, #F5E6A3 0%, #D4AF37 30%, #B8860B  60%, #8B6914 100%)',
                       }}
                     >
                       {medal.days}
                     </span>
+                  </div>
+                )}
+
+                {/* Ícono del órgano para medallas de Salud (Higiea) */}
+                {medal.type === 'health' && medal.organIcon && (
+                  <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
+                    <span className="text-xs">{medal.organIcon}</span>
                   </div>
                 )}
               </button>
@@ -181,7 +210,10 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
               {medal.type === 'victory' && (
                 <p className="text-xs text-yellow-600 font-medium">Medalla de Victoria - Nike</p>
               )}
-              {medal.type !== 'victory' && (
+              {medal.type === 'health' && (
+                <p className="text-xs text-green-600 font-medium">Medalla de Salud - Higiea</p>
+              )}
+              {medal.type === 'vigor' && (
                 <p className="text-xs text-purple-600 font-medium">Medalla de Vigor - Dioniso</p>
               )}
             </TooltipContent>
@@ -194,14 +226,25 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
           <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className={`text-center text-xl font-bold ${
-                selectedMedal.type === 'victory' ? 'text-yellow-600' : 'text-green-600'
+                selectedMedal.type === 'victory' 
+                  ? 'text-yellow-600' 
+                  : selectedMedal.type === 'health'
+                  ? 'text-green-600'
+                  : 'text-purple-600'
               }`}>
                 <div className="flex items-center justify-center gap-3 mb-2">
-                  <img 
-                    src={selectedMedal.icon} 
-                    alt={selectedMedal.title}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-current"
-                  />
+                  <div className="relative">
+                    <img 
+                      src={selectedMedal.icon} 
+                      alt={selectedMedal.title}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-current"
+                    />
+                    {selectedMedal.type === 'health' && selectedMedal.organIcon && (
+                      <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-6 h-6 flex items-center justify-center border-2 border-green-400 shadow-sm">
+                        <span className="text-sm">{selectedMedal.organIcon}</span>
+                      </div>
+                    )}
+                  </div>
                   <span>{selectedMedal.title}</span>
                 </div>
               </DialogTitle>
@@ -212,25 +255,43 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
               <div className={`${
                 selectedMedal.type === 'victory' 
                   ? 'bg-yellow-50 border-yellow-200' 
+                  : selectedMedal.type === 'health'
+                  ? 'bg-green-50 border-green-200'
                   : 'bg-purple-50 border-purple-200'
               } border rounded-lg p-3`}>
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <img 
                     src={selectedMedal.icon} 
-                    alt={selectedMedal.type === 'victory' ? 'Nike' : 'Dioniso'}
+                    alt={selectedMedal.type === 'victory' ? 'Nike' : selectedMedal.type === 'health' ? 'Higiea' : 'Dioniso'}
                     className="w-8 h-8 rounded-full object-cover"
                   />
                   <p className={`font-bold ${
-                    selectedMedal.type === 'victory' ? 'text-yellow-700' : 'text-purple-700'
+                    selectedMedal.type === 'victory' 
+                      ? 'text-yellow-700' 
+                      : selectedMedal.type === 'health'
+                      ? 'text-green-700'
+                      : 'text-purple-700'
                   }`}>
-                    Medalla de {selectedMedal.type === 'victory' ? 'Victoria - Nike' : 'Vigor - Dioniso'}
+                    Medalla de {
+                      selectedMedal.type === 'victory' 
+                        ? 'Victoria - Nike' 
+                        : selectedMedal.type === 'health'
+                        ? 'Salud - Higiea'
+                        : 'Vigor - Dioniso'
+                    }
                   </p>
                 </div>
                 <p className={`text-sm ${
-                  selectedMedal.type === 'victory' ? 'text-yellow-600' : 'text-purple-600'
+                  selectedMedal.type === 'victory' 
+                    ? 'text-yellow-600' 
+                    : selectedMedal.type === 'health'
+                    ? 'text-green-600'
+                    : 'text-purple-600'
                 }`}>
                   {selectedMedal.type === 'victory' 
                     ? 'Símbolo de triunfo contra las adversidades estadísticas'
+                    : selectedMedal.type === 'health'
+                    ? 'Símbolo de recuperación y sanación corporal'
                     : 'Símbolo de vitalidad, salud y beneficios de vida'
                   }
                 </p>
@@ -239,19 +300,40 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
               <p className="text-gray-600">{selectedMedal.description}</p>
               
               <div className={`${
-                selectedMedal.type === 'victory' ? 'bg-yellow-50' : 'bg-green-50'
+                selectedMedal.type === 'victory' 
+                  ? 'bg-yellow-50' 
+                  : selectedMedal.type === 'health'
+                  ? 'bg-green-50'
+                  : 'bg-purple-50'
               } p-4 rounded-lg`}>
                 <p className={`text-sm font-medium ${
-                  selectedMedal.type === 'victory' ? 'text-yellow-700' : 'text-green-700'
+                  selectedMedal.type === 'victory' 
+                    ? 'text-yellow-700' 
+                    : selectedMedal.type === 'health'
+                    ? 'text-green-700'
+                    : 'text-purple-700'
                 } mb-2`}>
                   Beneficio conseguido:
                 </p>
                 <p className={`${
-                  selectedMedal.type === 'victory' ? 'text-yellow-600' : 'text-green-600'
+                  selectedMedal.type === 'victory' 
+                    ? 'text-yellow-600' 
+                    : selectedMedal.type === 'health'
+                    ? 'text-green-600'
+                    : 'text-purple-600'
                 }`}>
                   {selectedMedal.reward}
                 </p>
                 
+                {selectedMedal.medicalBasis && (
+                  <div className="mt-3 p-2 bg-white/50 rounded border border-green-300">
+                    <p className="text-xs text-green-700 font-medium mb-1">Base médica:</p>
+                    <p className="text-xs text-green-600 italic">
+                      {selectedMedal.medicalBasis}
+                    </p>
+                  </div>
+                )}
+
                 {selectedMedal.specialMessage && (
                   <div className="mt-3 p-2 bg-white/50 rounded border border-yellow-300">
                     <p className="text-xs text-yellow-700 italic">
@@ -261,8 +343,32 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                 )}
               </div>
               
+              {/* Información específica para medallas de Salud (Higiea) */}
+              {selectedMedal.type === 'health' && (
+                <div className="bg-green-50 p-4 rounded-lg border-2 border-green-200">
+                  <h3 className="text-lg font-bold text-green-700 mb-3">🏛️ Higiea - Diosa de la Salud</h3>
+                  <div className="space-y-3 text-sm text-green-700">
+                    <p>
+                      <strong>Higiea</strong>, hija de Asclepio, representa la prevención de 
+                      enfermedades y el mantenimiento de la salud. Esta medalla celebra 
+                      hitos específicos de recuperación fisiológica.
+                    </p>
+                    <div className="bg-green-100 p-3 rounded border grid grid-cols-2 gap-3 text-xs">
+                      <div>
+                        <p className="font-medium">Logro alcanzado:</p>
+                        <p>Día {selectedMedal.days}</p>
+                      </div>
+                      <div>
+                        <p className="font-medium">Categoría:</p>
+                        <p className="capitalize">{selectedMedal.healthCategory}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Solo mostrar ahorros y salud para medallas de Vigor */}
-              {selectedMedal.type !== 'victory' && (
+              {selectedMedal.type === 'vigor' && (
                 <>
                   {/* Sección del ahorro con slider */}
                   <div className="bg-blue-50 p-4 rounded-lg relative overflow-hidden">

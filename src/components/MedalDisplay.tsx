@@ -43,7 +43,7 @@ const getSpecialMedals = (days: number) => {
       id: 'victory-nike',
       type: 'victory',
       title: 'Victoria de Nike',
-      icon: '🏛️', // Símbolo griego representando a Nike
+      icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png',
       description: `Has alcanzado un hito donde la tasa de éxito es del ${currentSuccessRate}%. ¡La diosa Nike te sonríe!`,
       reward: 'Reconocimiento de superación estadística',
       hasEconomicBenefits: false,
@@ -70,7 +70,15 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
     Math.max(...unlockedAchievements.map(a => a.days)) : 0;
   
   const specialMedals = getSpecialMedals(currentDays);
-  const allMedals = [...unlockedAchievements, ...specialMedals];
+  
+  // Asignar imagen de Dioniso a medallas de Vigor
+  const processedAchievements = unlockedAchievements.map(achievement => ({
+    ...achievement,
+    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png', // Imagen de Dioniso
+    type: 'vigor'
+  }));
+  
+  const allMedals = [...processedAchievements, ...specialMedals];
 
   const handleMedalClick = (medal: Achievement | any) => {
     setSelectedMedal(medal);
@@ -106,13 +114,17 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
             <TooltipTrigger>
               <button
                 onClick={() => handleMedalClick(medal)}
-                className={`text-2xl hover:scale-110 transition-transform duration-200 rounded-full p-2 backdrop-blur-sm border ${
+                className={`hover:scale-110 transition-transform duration-200 rounded-full p-1 backdrop-blur-sm border ${
                   medal.type === 'victory' 
                     ? 'bg-yellow-100/80 border-yellow-300' 
                     : 'bg-white/20 border-white/30'
                 }`}
               >
-                {medal.icon}
+                <img 
+                  src={medal.icon} 
+                  alt={medal.title}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
               </button>
             </TooltipTrigger>
             <TooltipContent>
@@ -136,7 +148,14 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
               <DialogTitle className={`text-center text-xl font-bold ${
                 selectedMedal.type === 'victory' ? 'text-yellow-600' : 'text-green-600'
               }`}>
-                {selectedMedal.icon} {selectedMedal.title}
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <img 
+                    src={selectedMedal.icon} 
+                    alt={selectedMedal.title}
+                    className="w-16 h-16 rounded-full object-cover border-2 border-current"
+                  />
+                  <span>{selectedMedal.title}</span>
+                </div>
               </DialogTitle>
             </DialogHeader>
             
@@ -148,9 +167,11 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                   : 'bg-purple-50 border-purple-200'
               } border rounded-lg p-3`}>
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-2xl">
-                    {selectedMedal.type === 'victory' ? '🏛️' : '🍇'}
-                  </span>
+                  <img 
+                    src={selectedMedal.icon} 
+                    alt={selectedMedal.type === 'victory' ? 'Nike' : 'Dioniso'}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
                   <p className={`font-bold ${
                     selectedMedal.type === 'victory' ? 'text-yellow-700' : 'text-purple-700'
                   }`}>

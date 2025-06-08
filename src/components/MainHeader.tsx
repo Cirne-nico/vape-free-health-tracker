@@ -79,9 +79,20 @@ const MainHeader = ({
         </Card>
       )}
 
-      {/* Header principal con estadísticas */}
-      <Card className="bg-gradient-to-r from-green-500 to-blue-600 text-white">
-        <CardContent className="p-6">
+      {/* Header principal con imagen de fondo y efecto blur */}
+      <Card 
+        className="relative overflow-hidden text-white"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: `blur(${blurLevel}px)`,
+        }}
+      >
+        {/* Overlay para mejorar legibilidad */}
+        <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
+        
+        <CardContent className="relative p-6 z-10">
           <div className="flex flex-col space-y-4">
             {/* Tiempo transcurrido */}
             <div className="text-center">
@@ -94,7 +105,7 @@ const MainHeader = ({
             {/* Progreso visual */}
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>Progreso hacia los 30 días</span>
+                <span>Progreso hacia los 90 días</span>
                 <span>{Math.min(progressPercentage, 100).toFixed(1)}%</span>
               </div>
               <Progress value={Math.min(progressPercentage, 100)} className="h-3" />
@@ -143,14 +154,16 @@ const MainHeader = ({
               </div>
             </div>
 
-            {/* Medallas desbloqueadas */}
+            {/* Medallas desbloqueadas - ahora en la parte inferior izquierda */}
             {unlockedAchievements.length > 0 && (
-              <div className="mt-4">
-                <h3 className="text-sm font-medium mb-2 text-green-100">Últimos logros:</h3>
-                <MedalDisplay
-                  unlockedAchievements={unlockedAchievements.slice(-3)}
-                  totalSavings={savings.total}
-                />
+              <div className="mt-4 flex justify-start">
+                <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3 border border-white/20">
+                  <h3 className="text-sm font-medium mb-2 text-green-100">Últimos logros:</h3>
+                  <MedalDisplay
+                    unlockedAchievements={unlockedAchievements.slice(-3)}
+                    totalSavings={savings.total}
+                  />
+                </div>
               </div>
             )}
           </div>

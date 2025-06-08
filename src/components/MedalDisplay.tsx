@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
@@ -140,10 +139,36 @@ const MedalDisplay = ({ unlockedAchievements, totalSavings }: MedalDisplayProps)
                   alt={medal.title}
                   className="w-12 h-12 rounded-full object-cover"
                 />
-                {/* Superponer número de días solo en medallas de Dioniso */}
+                {/* Número grabado artísticamente en medallas de Dioniso */}
                 {medal.type === 'vigor' && medal.days && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white font-bold text-xs bg-black/60 rounded-full w-6 h-6 flex items-center justify-center backdrop-blur-sm border border-white/30">
+                    <span 
+                      className="text-amber-100 font-black text-sm tracking-wider select-none pointer-events-none"
+                      style={{
+                        textShadow: `
+                          0 1px 0 #8B4513,
+                          0 2px 0 #654321,
+                          0 3px 0 #543622,
+                          0 4px 0 #432815,
+                          0 5px 0 #321A08,
+                          0 6px 1px rgba(0,0,0,.1),
+                          0 0 5px rgba(0,0,0,.1),
+                          0 1px 3px rgba(0,0,0,.3),
+                          0 3px 5px rgba(0,0,0,.2),
+                          0 5px 10px rgba(0,0,0,.25),
+                          inset 0 1px 0 rgba(255,255,255,0.3),
+                          inset 0 -1px 0 rgba(0,0,0,0.5)
+                        `,
+                        filter: 'drop-shadow(0 0 2px rgba(139, 69, 19, 0.8))',
+                        background: 'linear-gradient(145deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                        // Fallback para navegadores que no soporten background-clip: text
+                        backgroundImage: 'linear-gradient(145deg, #F5E6A3 0%, #D4AF37 30%, #B8860B  60%, #8B6914 100%)',
+                      }}
+                    >
                       {medal.days}
                     </span>
                   </div>

@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { emotionTypes } from './emotionTypes';
+import { getEmotionById } from '@/data/emotionsData';
 
 interface EmotionLog {
   emotions: string[];
@@ -42,7 +42,7 @@ const RecentLogs = ({ logs }: RecentLogsProps) => {
                   </div>
                   <div className="flex gap-2 flex-wrap">
                     {log.emotions.map((emotionId: string, i: number) => {
-                      const emotion = emotionTypes[emotionId as keyof typeof emotionTypes];
+                      const emotion = getEmotionById(emotionId);
                       return emotion ? (
                         <Badge 
                           key={i} 

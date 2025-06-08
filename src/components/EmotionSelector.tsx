@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { emotions, Emotion } from './emotionData';
+import { emotionsArray, getEmotionById } from '@/data/emotionsData';
 
 interface EmotionSelectorProps {
   selectedEmotions: string[];
@@ -43,14 +43,14 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {emotions.map((emotion) => (
+          {emotionsArray.map((emotion) => (
             <Button
               key={emotion.id}
               variant={selectedEmotions.includes(emotion.id) ? "default" : "outline"}
               className={`h-14 flex flex-col items-center justify-center gap-1 text-xs ${
                 selectedEmotions.includes(emotion.id) 
-                  ? emotion.color + ' text-white' 
-                  : 'hover:' + emotion.color.replace('bg-', 'bg-') + '/20'
+                  ? emotion.bgColor + ' text-white' 
+                  : 'hover:' + emotion.bgColor.replace('bg-', 'bg-') + '/20'
               } ${emotion.id === 'disgusted' ? 'text-[10px]' : ''}`}
               onClick={() => toggleEmotion(emotion.id)}
             >
@@ -63,9 +63,9 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
         <div className="flex items-center justify-between">
           <div className="flex gap-2 flex-wrap">
             {selectedEmotions.map((emotionId) => {
-              const emotion = emotions.find(e => e.id === emotionId);
+              const emotion = getEmotionById(emotionId);
               return emotion ? (
-                <Badge key={emotionId} className={emotion.color + ' text-white'}>
+                <Badge key={emotionId} className={emotion.bgColor + ' text-white'}>
                   {emotion.emoji} {emotion.text}
                 </Badge>
               ) : null;

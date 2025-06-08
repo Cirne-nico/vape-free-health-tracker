@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { emotionTypes } from './emotionTypes';
+import { emotions } from '@/data/emotionsData';
 import HistoryStats from './HistoryStats';
 import EvolutionChart from './EvolutionChart';
 import QuadrantChart from './QuadrantChart';
@@ -20,10 +19,10 @@ const HistoryView = () => {
   const getEmotionBalance = () => {
     const balance = emotionLogs.map(log => {
       const positiveCount = log.emotions.filter((id: string) => 
-        emotionTypes[id as keyof typeof emotionTypes]?.type === 'positive'
+        emotions[id as keyof typeof emotions]?.type === 'positive'
       ).length;
       const negativeCount = log.emotions.filter((id: string) => 
-        emotionTypes[id as keyof typeof emotionTypes]?.type === 'negative'
+        emotions[id as keyof typeof emotions]?.type === 'negative'
       ).length;
       
       const hasStrongPositive = log.emotions.some((id: string) => ['euphoric', 'happy'].includes(id));
@@ -59,9 +58,9 @@ const HistoryView = () => {
     });
 
     return Object.entries(distribution).map(([emotionId, count]) => ({
-      name: emotionTypes[emotionId as keyof typeof emotionTypes]?.text || emotionId,
+      name: emotions[emotionId as keyof typeof emotions]?.text || emotionId,
       value: count,
-      color: emotionTypes[emotionId as keyof typeof emotionTypes]?.color || '#6B7280'
+      color: emotions[emotionId as keyof typeof emotions]?.color || '#6B7280'
     }));
   };
 
@@ -72,7 +71,7 @@ const HistoryView = () => {
       let count = 0;
 
       log.emotions.forEach((emotionId: string) => {
-        const emotion = emotionTypes[emotionId as keyof typeof emotionTypes];
+        const emotion = emotions[emotionId as keyof typeof emotions];
         if (emotion && emotion.type !== 'neutral') {
           totalEnergy += emotion.energy;
           totalValence += emotion.valence;
@@ -88,7 +87,7 @@ const HistoryView = () => {
         energy: totalEnergy / count,
         valence: totalValence / count,
         emotions: log.emotions.map((id: string) => 
-          emotionTypes[id as keyof typeof emotionTypes]?.text
+          emotions[id as keyof typeof emotions]?.text
         ).join(', ')
       };
     }).filter(Boolean).reverse();
@@ -106,12 +105,12 @@ const HistoryView = () => {
     return Object.entries(weeklyGroups).map(([week, logs]) => {
       const positiveCount = logs.reduce((acc, log) => 
         acc + log.emotions.filter((id: string) => 
-          emotionTypes[id as keyof typeof emotionTypes]?.type === 'positive'
+          emotions[id as keyof typeof emotions]?.type === 'positive'
         ).length, 0
       );
       const negativeCount = logs.reduce((acc, log) => 
         acc + log.emotions.filter((id: string) => 
-          emotionTypes[id as keyof typeof emotionTypes]?.type === 'negative'
+          emotions[id as keyof typeof emotions]?.type === 'negative'
         ).length, 0
       );
 

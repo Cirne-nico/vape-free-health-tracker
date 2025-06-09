@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from '@/components/EmotionLogger';
@@ -15,7 +14,7 @@ import PredictiveAnalysis from '@/components/PredictiveAnalysis';
 import MedalDisplay from '@/components/MedalDisplay';
 import { useQuitProgress } from '@/hooks/useQuitProgress';
 import { useAchievements } from '@/hooks/useAchievements';
-import { Clock, Trophy, Heart, Calendar, Settings, Brain } from 'lucide-react';
+import { Clock, Trophy, Heart, Brain, Settings } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
@@ -201,9 +200,9 @@ const Index = () => {
               </Card>
             )}
 
-            {/* Pestañas principales con mejor responsive */}
+            {/* Pestañas principales con mejor responsive - ahora 5 pestañas */}
             <Tabs defaultValue="emotions" className="w-full">
-              <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
+              <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm h-14 sm:h-12">
                 <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">General</span>
@@ -219,10 +218,6 @@ const Index = () => {
                 <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Logros</span>
-                </TabsTrigger>
-                <TabsTrigger value="history" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="leading-tight">Historial</span>
                 </TabsTrigger>
                 <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -244,14 +239,18 @@ const Index = () => {
 
               <TabsContent value="emotivity" className="mt-4 sm:mt-6">
                 <div className="space-y-4 sm:space-y-6">
+                  {/* Sistema de progreso emocional */}
                   <VirtualRewards 
                     currentDay={time.days}
                     totalSavings={savings.total}
                     unlockedAchievements={unlockedAchievements}
                   />
                   
-                  {/* Análisis predictivo movido aquí */}
+                  {/* Análisis predictivo */}
                   <PredictiveAnalysis currentDay={time.days} />
+                  
+                  {/* Todo el contenido del historial emocional */}
+                  <HistoryView />
                 </div>
               </TabsContent>
 
@@ -261,10 +260,6 @@ const Index = () => {
 
               <TabsContent value="achievements" className="mt-4 sm:mt-6">
                 <AchievementsList days={time.days} savings={savings.total} />
-              </TabsContent>
-
-              <TabsContent value="history" className="mt-4 sm:mt-6">
-                <HistoryView />
               </TabsContent>
 
               <TabsContent value="settings" className="mt-4 sm:mt-6">

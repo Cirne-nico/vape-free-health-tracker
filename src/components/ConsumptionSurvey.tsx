@@ -115,6 +115,7 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="10">10ml</SelectItem>
+                    <SelectItem value="30">30ml</SelectItem>
                     <SelectItem value="50">50ml</SelectItem>
                     <SelectItem value="100">100ml</SelectItem>
                   </SelectContent>
@@ -159,13 +160,23 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
 
               <div className="space-y-2">
                 <Label htmlFor="coil-duration">¿Cada cuántos días cambias la resistencia?</Label>
-                <Input
-                  id="coil-duration"
-                  type="number"
-                  value={data.coilDurationDays || ''}
-                  onChange={(e) => updateData('coilDurationDays', parseInt(e.target.value) || 7)}
-                  placeholder="Ej: 7"
-                />
+                <Select 
+                  value={data.coilDurationDays.toString()} 
+                  onValueChange={(value) => updateData('coilDurationDays', parseInt(value))}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="3">3 días</SelectItem>
+                    <SelectItem value="5">5 días</SelectItem>
+                    <SelectItem value="7">7 días</SelectItem>
+                    <SelectItem value="10">10 días</SelectItem>
+                    <SelectItem value="14">14 días</SelectItem>
+                    <SelectItem value="21">21 días</SelectItem>
+                    <SelectItem value="30">30 días</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
@@ -197,13 +208,21 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="battery-months">Duración (meses)</Label>
-                    <Input
-                      id="battery-months"
-                      type="number"
-                      value={data.batteryMonths || ''}
-                      onChange={(e) => updateData('batteryMonths', parseInt(e.target.value) || undefined)}
-                      placeholder="12"
-                    />
+                    <Select 
+                      value={data.batteryMonths?.toString() || ''} 
+                      onValueChange={(value) => updateData('batteryMonths', value ? parseInt(value) : undefined)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="3">3 meses</SelectItem>
+                        <SelectItem value="6">6 meses</SelectItem>
+                        <SelectItem value="12">12 meses</SelectItem>
+                        <SelectItem value="18">18 meses</SelectItem>
+                        <SelectItem value="24">24 meses</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -225,13 +244,21 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="mod-months">Duración (meses)</Label>
-                    <Input
-                      id="mod-months"
-                      type="number"
-                      value={data.modMonths || ''}
-                      onChange={(e) => updateData('modMonths', parseInt(e.target.value) || undefined)}
-                      placeholder="24"
-                    />
+                    <Select 
+                      value={data.modMonths?.toString() || ''} 
+                      onValueChange={(value) => updateData('modMonths', value ? parseInt(value) : undefined)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="6">6 meses</SelectItem>
+                        <SelectItem value="12">12 meses</SelectItem>
+                        <SelectItem value="18">18 meses</SelectItem>
+                        <SelectItem value="24">24 meses</SelectItem>
+                        <SelectItem value="36">36 meses</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -265,13 +292,20 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="glass-months">Duración (meses)</Label>
-                    <Input
-                      id="glass-months"
-                      type="number"
-                      value={data.glassMonths || ''}
-                      onChange={(e) => updateData('glassMonths', parseInt(e.target.value) || undefined)}
-                      placeholder="6"
-                    />
+                    <Select 
+                      value={data.glassMonths?.toString() || ''} 
+                      onValueChange={(value) => updateData('glassMonths', value ? parseInt(value) : undefined)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1 mes</SelectItem>
+                        <SelectItem value="3">3 meses</SelectItem>
+                        <SelectItem value="6">6 meses</SelectItem>
+                        <SelectItem value="12">12 meses</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -293,13 +327,20 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="atomizer-months">Duración (meses)</Label>
-                    <Input
-                      id="atomizer-months"
-                      type="number"
-                      value={data.atomizerMonths || ''}
-                      onChange={(e) => updateData('atomizerMonths', parseInt(e.target.value) || undefined)}
-                      placeholder="12"
-                    />
+                    <Select 
+                      value={data.atomizerMonths?.toString() || ''} 
+                      onValueChange={(value) => updateData('atomizerMonths', value ? parseInt(value) : undefined)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="6">6 meses</SelectItem>
+                        <SelectItem value="12">12 meses</SelectItem>
+                        <SelectItem value="18">18 meses</SelectItem>
+                        <SelectItem value="24">24 meses</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>

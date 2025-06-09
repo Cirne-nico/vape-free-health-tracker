@@ -70,109 +70,107 @@ const MainHeader = ({
 
   return (
     <TooltipProvider>
-      <div className="space-y-4 sm:space-y-6">
-        {/* Header principal con imagen de fondo y efecto blur */}
-        <Card className="relative overflow-hidden text-white">
-          {/* Imagen de fondo con blur */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              filter: `blur(${blurLevel}px)`,
-            }}
-          />
-          
-          {/* Overlay para mejorar legibilidad */}
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
-          
-          <CardContent className="relative p-4 sm:p-6 z-10">
-            <div className="flex flex-col space-y-3 sm:space-y-4">
-              {/* Título principal fijo */}
-              <div className="text-center mb-2 sm:mb-4">
-                <h1 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2">
-                  Ya sin nicotina, el cuerpo escucha:
-                </h1>
-                <h2 className="text-base sm:text-xl font-semibold text-green-100">
-                  comienza la sociabilidad mínima
-                </h2>
-              </div>
+      {/* Header principal con imagen de fondo y sin márgenes exteriores */}
+      <Card className="relative overflow-hidden text-white rounded-none -m-2 sm:-m-4">
+        {/* Imagen de fondo con blur */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: `blur(${blurLevel}px)`,
+          }}
+        />
+        
+        {/* Overlay para mejorar legibilidad */}
+        <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
+        
+        <CardContent className="relative p-3 sm:p-4 z-10">
+          <div className="flex flex-col space-y-2 sm:space-y-3">
+            {/* Título principal más compacto */}
+            <div className="text-center mb-1 sm:mb-2">
+              <h1 className="text-base sm:text-xl font-bold text-white mb-1">
+                Ya sin nicotina, el cuerpo escucha:
+              </h1>
+              <h2 className="text-sm sm:text-lg font-semibold text-green-100">
+                hacia la sociabilidad mínima
+              </h2>
+            </div>
 
-              {/* Tiempo transcurrido */}
-              <div className="text-center">
-                <h3 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">
-                  {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
-                </h3>
-                <p className="text-green-100">sin vapear</p>
-              </div>
+            {/* Tiempo transcurrido */}
+            <div className="text-center">
+              <h3 className="text-xl sm:text-2xl font-bold mb-1">
+                {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
+              </h3>
+              <p className="text-green-100 text-sm">sin vapear</p>
+            </div>
 
-              {/* Progreso visual */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Progreso hacia {progressInfo.targetLabel}</span>
-                  <span>{Math.min(progressPercentage, 100).toFixed(1)}%</span>
+            {/* Progreso visual más compacto */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs sm:text-sm">
+                <span>Progreso hacia {progressInfo.targetLabel}</span>
+                <span>{Math.min(progressPercentage, 100).toFixed(1)}%</span>
+              </div>
+              <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
+              {!progressInfo.isFirstPhase && (
+                <div className="text-xs text-green-200 text-center">
+                  ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
                 </div>
-                <Progress value={Math.min(progressPercentage, 100)} className="h-2 sm:h-3" />
-                {!progressInfo.isFirstPhase && (
-                  <div className="text-xs text-green-200 text-center">
-                    ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
-                  </div>
-                )}
-              </div>
+              )}
+            </div>
 
-              {/* Estadísticas centrales */}
-              <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-3 sm:gap-4 text-center">
-                <div className="bg-black/20 backdrop-blur-sm rounded p-2 sm:p-3">
-                  <div className="flex items-center justify-center mb-1">
-                    <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                  </div>
-                  <p className="text-lg sm:text-2xl font-bold">{time.totalHours}</p>
-                  <p className="text-green-100 text-xs sm:text-sm">horas totales</p>
+            {/* Estadísticas centrales más compactas */}
+            <div className="mt-2 sm:mt-3 grid grid-cols-2 gap-2 sm:gap-3 text-center">
+              <div className="bg-black/20 backdrop-blur-sm rounded p-2">
+                <div className="flex items-center justify-center mb-1">
+                  <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                 </div>
-                <div className="bg-black/20 backdrop-blur-sm rounded p-2 sm:p-3">
-                  <div className="flex items-center justify-center mb-1">
-                    <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                  </div>
-                  <p className="text-lg sm:text-2xl font-bold">{totalMedals}</p>
-                  <p className="text-green-100 text-xs sm:text-sm">medallas</p>
-                </div>
+                <p className="text-base sm:text-lg font-bold">{time.totalHours}</p>
+                <p className="text-green-100 text-xs">horas totales</p>
               </div>
-
-              {/* Botón de recaída centrado */}
-              <div className="mt-4 sm:mt-6 flex justify-center">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      onClick={onRelapse}
-                      variant="outline"
-                      size="sm"
-                      className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative"
-                    >
-                      <AlertTriangle className="w-4 h-4 mr-1" />
-                      Recaída
-                      <Info className="w-3 h-3 ml-1 opacity-70" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-xs p-3 text-sm">
-                    <div className="space-y-1">
-                      <p className="font-semibold">Penalizaciones por recaída:</p>
-                      <p>• 1ª recaída: -1 semana</p>
-                      <p>• 2ª recaída: -1 mes</p>
-                      <p>• 3ª recaída: -3 meses</p>
-                      <p>• 4ª recaída: -9 meses</p>
-                      <p>• 5ª recaída: reinicia el proceso</p>
-                      <p className="text-muted-foreground text-xs mt-2">
-                        Si el retroceso supera los días acumulados, el contador se pondrá en cero.
-                      </p>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
+              <div className="bg-black/20 backdrop-blur-sm rounded p-2">
+                <div className="flex items-center justify-center mb-1">
+                  <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                </div>
+                <p className="text-base sm:text-lg font-bold">{totalMedals}</p>
+                <p className="text-green-100 text-xs">medallas</p>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+
+            {/* Botón de recaída más compacto */}
+            <div className="mt-2 sm:mt-3 flex justify-center">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={onRelapse}
+                    variant="outline"
+                    size="sm"
+                    className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative text-xs sm:text-sm"
+                  >
+                    <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                    Recaída
+                    <Info className="w-2 h-2 sm:w-3 sm:h-3 ml-1 opacity-70" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs p-3 text-sm">
+                  <div className="space-y-1">
+                    <p className="font-semibold">Penalizaciones por recaída:</p>
+                    <p>• 1ª recaída: -1 semana</p>
+                    <p>• 2ª recaída: -1 mes</p>
+                    <p>• 3ª recaída: -3 meses</p>
+                    <p>• 4ª recaída: -9 meses</p>
+                    <p>• 5ª recaída: reinicia el proceso</p>
+                    <p className="text-muted-foreground text-xs mt-2">
+                      Si el retroceso supera los días acumulados, el contador se pondrá en cero.
+                    </p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </TooltipProvider>
   );
 };

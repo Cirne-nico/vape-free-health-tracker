@@ -163,10 +163,10 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-2 sm:p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       <div className="max-w-4xl mx-auto">
         <div className="space-y-4 sm:space-y-6">
-          {/* Header con estadísticas principales */}
+          {/* Header sin márgenes exteriores */}
           <MainHeader 
             time={time}
             savings={savings}
@@ -178,89 +178,92 @@ const Index = () => {
             onRelapse={handleRelapse}
           />
 
-          {/* Medallas acumulativas debajo del header */}
-          {(unlockedAchievements.length > 0 || unlockedHealthAchievements.length > 0) && (
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-center text-lg flex items-center justify-center gap-2">
-                  <Trophy className="w-5 h-5" />
-                  Medallas Obtenidas
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="flex justify-center">
-                  <MedalDisplay 
-                    unlockedAchievements={unlockedAchievements}
-                    unlockedHealthAchievements={unlockedHealthAchievements}
-                    totalSavings={savings.total}
-                  />
+          {/* Contenido principal con márgenes normales */}
+          <div className="p-2 sm:p-4 space-y-4 sm:space-y-6">
+            {/* Medallas acumulativas debajo del header */}
+            {(unlockedAchievements.length > 0 || unlockedHealthAchievements.length > 0) && (
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-center text-lg flex items-center justify-center gap-2">
+                    <Trophy className="w-5 h-5" />
+                    Medallas Obtenidas
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="flex justify-center">
+                    <MedalDisplay 
+                      unlockedAchievements={unlockedAchievements}
+                      unlockedHealthAchievements={unlockedHealthAchievements}
+                      totalSavings={savings.total}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Pestañas principales con mejor responsive */}
+            <Tabs defaultValue="emotions" className="w-full">
+              <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm h-14 sm:h-12">
+                <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                  <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="leading-tight">General</span>
+                </TabsTrigger>
+                <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                  <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="leading-tight">Salud</span>
+                </TabsTrigger>
+                <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                  <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="leading-tight">Logros</span>
+                </TabsTrigger>
+                <TabsTrigger value="history" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="leading-tight">Historial</span>
+                </TabsTrigger>
+                <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                  <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="leading-tight">Ajustes</span>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="emotions" className="mt-4 sm:mt-6">
+                <div className="space-y-4 sm:space-y-6">
+                  <EmotionLogger startDate={startDate} />
+                  
+                  {/* Nuevas funcionalidades en la pestaña General */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                    <SocialStats 
+                      currentDay={time.days}
+                      totalSavings={savings.total}
+                    />
+                    <VirtualRewards 
+                      currentDay={time.days}
+                      totalSavings={savings.total}
+                      unlockedAchievements={unlockedAchievements}
+                    />
+                  </div>
+                  
+                  <PredictiveAnalysis currentDay={time.days} />
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              </TabsContent>
 
-          {/* Pestañas principales con mejor responsive */}
-          <Tabs defaultValue="emotions" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm h-auto">
-              <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
-                <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>General</span>
-              </TabsTrigger>
-              <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
-                <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Salud</span>
-              </TabsTrigger>
-              <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
-                <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Logros</span>
-              </TabsTrigger>
-              <TabsTrigger value="history" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
-                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Historial</span>
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
-                <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Ajustes</span>
-              </TabsTrigger>
-            </TabsList>
+              <TabsContent value="health" className="mt-4 sm:mt-6">
+                <HealthTracker startDate={startDate} />
+              </TabsContent>
 
-            <TabsContent value="emotions" className="mt-4 sm:mt-6">
-              <div className="space-y-4 sm:space-y-6">
-                <EmotionLogger startDate={startDate} />
-                
-                {/* Nuevas funcionalidades en la pestaña General */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                  <SocialStats 
-                    currentDay={time.days}
-                    totalSavings={savings.total}
-                  />
-                  <VirtualRewards 
-                    currentDay={time.days}
-                    totalSavings={savings.total}
-                    unlockedAchievements={unlockedAchievements}
-                  />
-                </div>
-                
-                <PredictiveAnalysis currentDay={time.days} />
-              </div>
-            </TabsContent>
+              <TabsContent value="achievements" className="mt-4 sm:mt-6">
+                <AchievementsList days={time.days} savings={savings.total} />
+              </TabsContent>
 
-            <TabsContent value="health" className="mt-4 sm:mt-6">
-              <HealthTracker startDate={startDate} />
-            </TabsContent>
+              <TabsContent value="history" className="mt-4 sm:mt-6">
+                <HistoryView />
+              </TabsContent>
 
-            <TabsContent value="achievements" className="mt-4 sm:mt-6">
-              <AchievementsList days={time.days} savings={savings.total} />
-            </TabsContent>
-
-            <TabsContent value="history" className="mt-4 sm:mt-6">
-              <HistoryView />
-            </TabsContent>
-
-            <TabsContent value="settings" className="mt-4 sm:mt-6">
-              <SettingsPanel />
-            </TabsContent>
-          </Tabs>
+              <TabsContent value="settings" className="mt-4 sm:mt-6">
+                <SettingsPanel />
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
       </div>
 

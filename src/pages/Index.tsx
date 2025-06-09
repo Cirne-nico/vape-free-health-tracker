@@ -203,27 +203,27 @@ const Index = () => {
             {/* Pestañas principales con mejor responsive */}
             <Tabs defaultValue="emotions" className="w-full">
               <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
-                <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">General</span>
                 </TabsTrigger>
-                <TabsTrigger value="emotivity" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 min-h-12" style={{ fontSize: '11px' }}>
+                <TabsTrigger value="emotivity" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Brain className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Emotividad</span>
                 </TabsTrigger>
-                <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Salud</span>
                 </TabsTrigger>
-                <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Logros</span>
                 </TabsTrigger>
-                <TabsTrigger value="history" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                <TabsTrigger value="history" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Historial</span>
                 </TabsTrigger>
-                <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
                   <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Ajustes</span>
                 </TabsTrigger>

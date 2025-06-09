@@ -116,11 +116,11 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                     <div className="flex-1">
                       <p className="text-sm text-gray-600">Categoría</p>
                       <Badge variant="outline" className="text-xs sm:text-sm">
-                        {medal.category === 'athena' ? 'Ahorros' : 
+                        {medal.type === 'health' ? 'Salud' :
+                         medal.category === 'athena' ? 'Ahorros' : 
                          medal.category === 'chronos' ? 'Tiempo' : 
                          medal.category === 'victory' ? 'Victoria' : 
-                         medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' :
-                         medal.type === 'health' ? 'Salud' : 'Logro'}
+                         medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' : 'Logro'}
                       </Badge>
                     </div>
                   </div>

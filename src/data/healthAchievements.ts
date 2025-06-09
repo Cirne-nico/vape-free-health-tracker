@@ -41,7 +41,7 @@ export const healthAchievements = [
     description: 'La circulación sanguínea ha mejorado significativamente',
     days: 14,
     healthCategory: 'cardiovascular',
-    icon: '/lovable-uploads/40729490-8efc-4406-96d1-6fa50fd1c815.png', // heart-bronze (reutilizando)
+    icon: '/lovable-uploads/56c2bcbe-4cdf-4188-b0bb-e0a8d3aea905.png', // Nueva medalla mejora circulatoria
     organIcon: '❤️',
     inscription: 'FLUJO',
     reward: 'Flujo sanguíneo periférico normalizado',

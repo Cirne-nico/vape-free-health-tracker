@@ -29,7 +29,7 @@ export const healthAchievements = [
     description: 'La nicotina ha sido completamente eliminada del organismo',
     days: 3,
     healthCategory: 'cardiovascular',
-    icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png', // nicotine-silver
+    icon: '/lovable-uploads/2aa52442-71c7-4b48-9cae-1fd2be76dfc1.png', // Nueva medalla eliminación nicotina
     organIcon: '💓',
     inscription: 'SANGRE',
     reward: 'Niveles de nicotina en sangre: 0%',

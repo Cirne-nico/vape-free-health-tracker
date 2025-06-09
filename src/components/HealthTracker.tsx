@@ -66,7 +66,7 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
                 <TooltipTrigger asChild>
                   <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-help" />
                 </TooltipTrigger>
-                <TooltipContent className="max-w-sm p-3">
+                <TooltipContent className="max-w-80 p-3">
                   <div className="space-y-2">
                     <p className="font-semibold">Seguimiento médico</p>
                     <p className="text-sm">Este sistema monitorea tu recuperación física basándose en investigaciones médicas sobre la cesación del vapeo.</p>
@@ -110,7 +110,7 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
                           <TooltipTrigger asChild>
                             <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-help" />
                           </TooltipTrigger>
-                          <TooltipContent className="max-w-sm p-3">
+                          <TooltipContent className="max-w-80 p-3">
                             <div className="space-y-2">
                               <p className="font-semibold">Función:</p>
                               <p className="text-sm">{tooltipContent.function}</p>

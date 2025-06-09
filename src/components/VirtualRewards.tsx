@@ -59,7 +59,7 @@ const VirtualRewards = ({ currentDay, totalSavings, unlockedAchievements }: Virt
               <TooltipTrigger asChild>
                 <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-help" />
               </TooltipTrigger>
-              <TooltipContent className="max-w-sm p-3">
+              <TooltipContent className="max-w-80 p-3">
                 <div className="space-y-2">
                   <p className="font-semibold">¿Cómo funciona?</p>
                   <p className="text-sm">Este sistema analiza tus registros emocionales diarios para identificar patrones de progreso y otorgar insignias de reconocimiento.</p>

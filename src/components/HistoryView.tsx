@@ -37,7 +37,7 @@ const HistoryView = () => {
                 <TooltipTrigger asChild>
                   <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-help" />
                 </TooltipTrigger>
-                <TooltipContent className="max-w-sm p-3">
+                <TooltipContent className="max-w-80 p-3">
                   <div className="space-y-2">
                     <p className="font-semibold">¿Qué es esto?</p>
                     <p className="text-sm">Análisis completo de tus registros emocionales para identificar patrones y tendencias durante tu proceso de abandono del vapeo.</p>

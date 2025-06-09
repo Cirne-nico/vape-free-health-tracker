@@ -19,29 +19,33 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   const currentDays = unlockedAchievements.length > 0 ? 
     Math.max(...unlockedAchievements.map(a => a.days)) : 0;
   
+  // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Días que tienen medallas especiales (no deben aparecer como medallas de salud)
-  const specialMedalDays = new Set([90, 365, 730]);
+  console.log('Current days:', currentDays);
+  console.log('Special medals:', specialMedals);
+  console.log('Unlocked achievements:', unlockedAchievements);
+  console.log('Unlocked health achievements:', unlockedHealthAchievements);
   
-  // Procesar medallas de Vigor (Dioniso) - mantener imagen genérica
-  // NO filtrar ninguna medalla de vigor, solo usar imagen genérica
+  // Procesar medallas de Vigor (Dioniso) - TODAS las medallas de logros regulares
   const processedAchievements = unlockedAchievements.map(achievement => ({
     ...achievement,
     icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
     type: 'vigor' as const
   }));
 
-  // Procesar medallas de Salud (Higiea) - SOLO excluir las que coincidan con medallas especiales
-  const processedHealthAchievements = unlockedHealthAchievements
-    .filter(achievement => !specialMedalDays.has(achievement.days))
-    .map(achievement => ({
-      ...achievement,
-      type: 'health' as const
-      // Mantener el icon original de cada achievement sin sobreescribirlo
-    }));
+  // Procesar medallas de Salud (Higiea) - TODAS las medallas de salud
+  // NO filtrar ninguna, ya que pueden coexistir con medallas especiales
+  const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({
+    ...achievement,
+    type: 'health' as const
+    // Mantener el icon original de cada achievement sin sobreescribirlo
+  }));
   
+  // Combinar TODAS las medallas sin filtrar nada
   const allMedals: Medal[] = [...processedAchievements, ...processedHealthAchievements, ...specialMedals];
+
+  console.log('All medals after processing:', allMedals);
 
   const handleMedalClick = (medal: Medal) => {
     setSelectedMedal(medal);

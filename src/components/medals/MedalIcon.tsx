@@ -8,6 +8,8 @@ interface MedalIconProps {
 }
 
 export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps) => {
+  console.log('Rendering medal icon for:', medal.title, 'type:', medal.type);
+  
   const getBackgroundStyle = () => {
     switch (medal.type) {
       case 'victory':
@@ -18,6 +20,8 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
         return 'bg-orange-100/80 border-orange-300';
       case 'health':
         return 'bg-green-100/80 border-green-300';
+      case 'vigor':
+        return 'bg-blue-100/80 border-blue-300';
       default:
         return 'bg-white/20 border-white/30';
     }
@@ -65,6 +69,11 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           ...baseStyle,
           backgroundImage: 'linear-gradient(145deg, #A7F3D0 0%, #6EE7B7 30%, #34D399  60%, #10B981 100%)',
         };
+      case 'vigor':
+        return {
+          ...baseStyle,
+          backgroundImage: 'linear-gradient(145deg, #DBEAFE 0%, #3B82F6 30%, #1D4ED8  60%, #1E40AF 100%)',
+        };
       default:
         return {
           ...baseStyle,
@@ -91,7 +100,7 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           {medal.type === 'vigor' && 'days' in medal && medal.days && (
             <div className="absolute inset-0 flex items-center justify-center">
               <span 
-                className="text-amber-100 select-none pointer-events-none text-sm"
+                className="text-blue-100 select-none pointer-events-none text-sm"
                 style={getEngravedTextStyle('vigor')}
               >
                 {medal.days}

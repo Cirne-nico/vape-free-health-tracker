@@ -25,9 +25,11 @@ export const getSuccessRate = (days: number): number => {
 export const getSpecialMedals = (currentDays: number) => {
   const specialMedals = [];
   
-  // Medalla de Atenea para el día 90
+  console.log('Generating special medals for days:', currentDays);
+  
+  // Medalla de Atenea para el día 90 - SOLO si han pasado 90 días o más
   if (currentDays >= 90) {
-    specialMedals.push({
+    const athenaMedal = {
       id: 'athena_90',
       type: 'athena' as const,
       title: 'Sabiduría de Atenea',
@@ -36,14 +38,16 @@ export const getSpecialMedals = (currentDays: number) => {
       reward: 'Ya puedes comprarte un viaje a Grecia',
       days: 90,
       specialMessage: 'La diosa de la sabiduría te otorga este reconocimiento por tu perseverancia excepcional.'
-    });
+    };
+    specialMedals.push(athenaMedal);
+    console.log('Added Athena medal:', athenaMedal);
   }
 
-  // Medalla de Victoria para el año (365 días)
+  // Medalla de Victoria para el año (365 días) - SOLO si han pasado 365 días o más
   if (currentDays >= 365) {
-    specialMedals.push({
+    const victoryMedal = {
       id: 'one_year_victory',
-      type: 'victory',
+      type: 'victory' as const,
       title: 'Victoria Anual',
       icon: '/lovable-uploads/8996a94a-9941-4939-a92b-8e946d338979.png',
       description: '¡Un año completo sin vapear!',
@@ -51,12 +55,14 @@ export const getSpecialMedals = (currentDays: number) => {
       hasEconomicBenefits: true,
       hasHealthBenefits: true,
       specialMessage: 'Has superado la prueba del tiempo y te has convertido en un verdadero ejemplo de perseverancia.'
-    });
+    };
+    specialMedals.push(victoryMedal);
+    console.log('Added Victory medal:', victoryMedal);
   }
 
-  // Nueva medalla de Cronos para los dos años (730 días)
+  // Medalla de Cronos (Afrodita) para los dos años (730 días) - SOLO si han pasado 730 días o más
   if (currentDays >= 730) {
-    specialMedals.push({
+    const chronosMedal = {
       id: 'two_years_chronos',
       type: 'chronos' as const,
       title: 'Cronos - Dos Años',
@@ -65,8 +71,11 @@ export const getSpecialMedals = (currentDays: number) => {
       reward: 'Ahora ya puedes ir a Amorgós, alquilar una casa, pegarte un homenaje en la psarotaberna de Aigiali e invitar a rakí a toda la taverna',
       days: 730,
       specialMessage: 'El tiempo ha sido tu aliado. Has alcanzado la maestría absoluta sobre la adicción.'
-    });
+    };
+    specialMedals.push(chronosMedal);
+    console.log('Added Chronos medal:', chronosMedal);
   }
   
+  console.log('Final special medals array:', specialMedals);
   return specialMedals;
 };

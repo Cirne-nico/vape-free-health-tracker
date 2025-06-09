@@ -21,24 +21,20 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   
   const specialMedals = getSpecialMedals(currentDays);
   
+  // Días que tienen medallas especiales (no deben aparecer como medallas de salud)
+  const specialMedalDays = new Set([90, 365, 730]);
+  
   // Procesar medallas de Vigor (Dioniso) - mantener imagen genérica
-  // EXCLUIR la del día 90 que es de Atenea, no de Dioniso
-  const processedAchievements = unlockedAchievements
-    .filter(achievement => achievement.days !== 90) // Excluir día 90 (Atenea)
-    .map(achievement => ({
-      ...achievement,
-      icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
-      type: 'vigor' as const
-    }));
+  // NO filtrar ninguna medalla de vigor, solo usar imagen genérica
+  const processedAchievements = unlockedAchievements.map(achievement => ({
+    ...achievement,
+    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
+    type: 'vigor' as const
+  }));
 
-  // Procesar medallas de Salud (Higiea) - usar sus iconos específicos
-  // EXCLUIR las que coincidan con días de medallas especiales (90, 365, 730)
+  // Procesar medallas de Salud (Higiea) - SOLO excluir las que coincidan con medallas especiales
   const processedHealthAchievements = unlockedHealthAchievements
-    .filter(achievement => 
-      achievement.days !== 90 && // Día 90 es Atenea
-      achievement.days !== 365 && // Día 365 es Victoria  
-      achievement.days !== 730 // Día 730 es Cronos
-    )
+    .filter(achievement => !specialMedalDays.has(achievement.days))
     .map(achievement => ({
       ...achievement,
       type: 'health' as const

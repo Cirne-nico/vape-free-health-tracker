@@ -24,146 +24,72 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full relative z-10"
       >
-        {/* Nariz con forma de banda de Möbius mejorada */}
-        <g transform="translate(24,24) scale(0.9)">
-          {/* Contorno principal de la nariz - lado izquierdo */}
+        {/* Nariz con forma de banda de Möbius - copiando exactamente la imagen */}
+        <g transform="translate(24,24) scale(0.85)">
+          {/* Contorno exterior principal de la nariz */}
           <path
-            d="M-14,-6 Q-18,-10 -12,-14 Q-6,-18 0,-16 Q6,-14 10,-12 Q14,-8 12,-4 Q8,0 4,-2 Q0,-4 -4,-2 Q-8,0 -12,-4 Q-14,-5 -14,-6 Z"
+            d="M-12,-8 Q-16,-12 -8,-16 Q0,-18 8,-16 Q16,-12 12,-8 Q8,-4 4,-6 Q0,-8 -4,-6 Q-8,-4 -12,-8 Z"
+            stroke="white"
+            strokeWidth="4"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          
+          {/* Contorno interior de la banda de Möbius */}
+          <path
+            d="M-8,-4 Q-4,-2 0,-4 Q4,-6 8,-4 Q12,0 8,4 Q4,6 0,4 Q-4,2 -8,4 Q-12,0 -8,-4 Z"
+            stroke="white"
+            strokeWidth="4"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          
+          {/* Línea central que crea el efecto Möbius */}
+          <path
+            d="M-8,-4 Q0,0 8,-4 M8,-4 Q0,0 -8,4 M-8,4 Q0,0 8,4"
             stroke="white"
             strokeWidth="3"
-            fill="rgba(255,255,255,0.1)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.95"
-          />
-          
-          {/* Contorno principal de la nariz - lado derecho */}
-          <path
-            d="M14,6 Q18,10 12,14 Q6,18 0,16 Q-6,14 -10,12 Q-14,8 -12,4 Q-8,0 -4,2 Q0,4 4,2 Q8,0 12,4 Q14,5 14,6 Z"
-            stroke="white"
-            strokeWidth="3"
-            fill="rgba(255,255,255,0.1)"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.95"
-          />
-          
-          {/* Puente nasal central - efecto Möbius */}
-          <path
-            d="M-10,-4 Q-6,-1 0,0 Q6,1 10,4"
-            stroke="white"
-            strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
-            opacity="0.9"
           />
           
-          <path
-            d="M10,-4 Q6,-1 0,0 Q-6,1 -10,4"
-            stroke="white"
-            strokeWidth="2.5"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.9"
-          />
-          
-          {/* Orificios nasales más anatómicos */}
+          {/* Orificios nasales - dos elipses */}
           <ellipse
-            cx="-5"
-            cy="1"
-            rx="2.5"
-            ry="5"
+            cx="-3"
+            cy="2"
+            rx="2"
+            ry="4"
             fill="white"
-            opacity="0.8"
-            transform="rotate(-15)"
+            transform="rotate(-20)"
           />
           
           <ellipse
-            cx="5"
-            cy="1"
-            rx="2.5"
-            ry="5"
+            cx="3"
+            cy="2"
+            rx="2"
+            ry="4"
             fill="white"
-            opacity="0.8"
-            transform="rotate(15)"
+            transform="rotate(20)"
           />
           
-          {/* Sombras internas de los orificios */}
-          <ellipse
-            cx="-5"
-            cy="1"
-            rx="1.5"
-            ry="3"
-            fill="rgba(255,255,255,0.4)"
-            transform="rotate(-15)"
-          />
-          
-          <ellipse
-            cx="5"
-            cy="1"
-            rx="1.5"
-            ry="3"
-            fill="rgba(255,255,255,0.4)"
-            transform="rotate(15)"
-          />
-          
-          {/* Detalles del tabique nasal */}
+          {/* Detalles adicionales para dar profundidad */}
           <path
-            d="M-3,-1 Q0,0 3,-1"
+            d="M-6,-2 Q0,-1 6,-2"
             stroke="white"
             strokeWidth="2"
             fill="none"
             strokeLinecap="round"
-            opacity="0.7"
           />
           
           <path
-            d="M-3,3 Q0,2 3,3"
+            d="M-6,6 Q0,5 6,6"
             stroke="white"
             strokeWidth="2"
             fill="none"
             strokeLinecap="round"
-            opacity="0.7"
-          />
-          
-          {/* Líneas de profundidad adicionales */}
-          <path
-            d="M-8,-2 Q-4,-0.5 0,0 Q4,-0.5 8,-2"
-            stroke="white"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.6"
-          />
-          
-          <path
-            d="M-8,4 Q-4,2.5 0,2 Q4,2.5 8,4"
-            stroke="white"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.6"
-          />
-          
-          {/* Aletas nasales */}
-          <path
-            d="M-12,-2 Q-14,0 -12,2 Q-10,4 -8,2"
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.7"
-          />
-          
-          <path
-            d="M12,-2 Q14,0 12,2 Q10,4 8,2"
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.7"
           />
         </g>
         

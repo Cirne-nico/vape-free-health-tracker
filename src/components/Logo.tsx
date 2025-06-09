@@ -24,62 +24,99 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full relative z-10"
       >
-        {/* Círculo exterior más visible */}
+        {/* Nariz con forma de banda de Möbius */}
+        <g transform="translate(24,24) scale(0.8)">
+          {/* Parte superior izquierda de la banda */}
+          <path
+            d="M-12,-8 Q-16,-12 -8,-16 Q0,-20 8,-16 Q12,-14 8,-8 Q4,-4 0,-6 Q-4,-8 -8,-6 Q-12,-4 -12,-8 Z"
+            stroke="white"
+            strokeWidth="2.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.9"
+          />
+          
+          {/* Parte inferior derecha de la banda */}
+          <path
+            d="M12,8 Q16,12 8,16 Q0,20 -8,16 Q-12,14 -8,8 Q-4,4 0,6 Q4,8 8,6 Q12,4 12,8 Z"
+            stroke="white"
+            strokeWidth="2.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.9"
+          />
+          
+          {/* Conexión central que crea el efecto Möbius */}
+          <path
+            d="M-8,-6 Q-4,0 0,0 Q4,0 8,6"
+            stroke="white"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.8"
+          />
+          
+          <path
+            d="M8,-6 Q4,0 0,0 Q-4,0 -8,6"
+            stroke="white"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.8"
+          />
+          
+          {/* Orificios nasales */}
+          <ellipse
+            cx="-4"
+            cy="0"
+            rx="2"
+            ry="4"
+            fill="white"
+            opacity="0.7"
+          />
+          
+          <ellipse
+            cx="4"
+            cy="0"
+            rx="2"
+            ry="4"
+            fill="white"
+            opacity="0.7"
+          />
+          
+          {/* Detalles adicionales para dar profundidad */}
+          <path
+            d="M-6,-2 Q0,-1 6,-2"
+            stroke="white"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            opacity="0.6"
+          />
+          
+          <path
+            d="M-6,2 Q0,1 6,2"
+            stroke="white"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            opacity="0.6"
+          />
+        </g>
+        
+        {/* Círculo exterior sutil para enmarcar */}
         <circle
           cx="24"
           cy="24"
           r="22"
           stroke="white"
-          strokeWidth="1.5"
-          opacity="0.8"
-        />
-        
-        {/* Líneas de transición con mejor contraste */}
-        <g>
-          <path
-            d="M12 24 L20 16 L28 24 L36 16"
-            stroke="white"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-            opacity="0.9"
-          />
-          <path
-            d="M12 28 L20 20 L28 28 L36 20"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-            opacity="0.7"
-          />
-          <path
-            d="M12 32 L20 24 L28 32 L36 24"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-            opacity="0.5"
-          />
-        </g>
-        
-        {/* Punto central más destacado */}
-        <circle
-          cx="24"
-          cy="24"
-          r="2.5"
-          fill="white"
-          className="drop-shadow-sm"
-        />
-        
-        {/* Sombra interna del punto central para más profundidad */}
-        <circle
-          cx="24"
-          cy="24"
-          r="1"
-          fill="rgba(59, 130, 246, 0.6)"
+          strokeWidth="1"
+          opacity="0.4"
+          fill="none"
         />
       </svg>
     </div>

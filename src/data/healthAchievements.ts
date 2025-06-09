@@ -1,5 +1,3 @@
-
-
 export const healthAchievements = [
   {
     id: 'oxygen_normalization',
@@ -7,7 +5,7 @@ export const healthAchievements = [
     description: 'Los niveles de oxígeno en sangre se han normalizado',
     days: 1,
     healthCategory: 'respiratory',
-    icon: '/lovable-uploads/40729490-8efc-4406-96d1-6fa50fd1c815.png', // lungs-bronze
+    icon: '/lovable-uploads/97f4ebf8-c1ee-441c-a206-671cf927db0a.png', // Nueva imagen de Higiea
     organIcon: '🫁',
     inscription: 'O₂',
     reward: 'Saturación de oxígeno: 98-100%',
@@ -124,4 +122,3 @@ export const healthAchievements = [
 ];
 
 export type HealthAchievement = typeof healthAchievements[0];
-

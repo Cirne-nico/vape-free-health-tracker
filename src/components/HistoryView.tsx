@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { emotions } from '@/data/emotionsData';
@@ -152,7 +153,7 @@ const HistoryView = () => {
 
       {emotionBalance.length > 0 && (
         <Tabs defaultValue="evolution" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm p-1 mb-4">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm p-1 mb-8">
             <TabsTrigger 
               value="evolution" 
               className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
@@ -183,19 +184,19 @@ const HistoryView = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="evolution" className="mt-4">
+          <TabsContent value="evolution" className="mt-8">
             <EvolutionChart data={emotionBalance} />
           </TabsContent>
 
-          <TabsContent value="quadrants" className="mt-4">
+          <TabsContent value="quadrants" className="mt-8">
             <QuadrantChart data={quadrantData} />
           </TabsContent>
 
-          <TabsContent value="weekly" className="mt-4">
+          <TabsContent value="weekly" className="mt-8">
             <WeeklyChart data={weeklyData} />
           </TabsContent>
 
-          <TabsContent value="distribution" className="mt-4">
+          <TabsContent value="distribution" className="mt-8">
             <DistributionChart data={emotionDistribution} />
           </TabsContent>
         </Tabs>

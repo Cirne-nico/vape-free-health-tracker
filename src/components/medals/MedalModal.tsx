@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -23,6 +22,21 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
   
   if (!medal) return null;
 
+  // Función para convertir horas a días en las descripciones
+  const processDescription = (description: string, medalType: string) => {
+    if (medalType === 'vigor' || (!medal.category && medal.days && medal.reward)) {
+      return description.replace(/(\d+)\s*horas?/gi, (match, hours) => {
+        const numHours = parseInt(hours);
+        if (numHours >= 24) {
+          const days = Math.floor(numHours / 24);
+          return `${days} ${days === 1 ? 'día' : 'días'}`;
+        }
+        return match;
+      });
+    }
+    return description;
+  };
+
   const getMedalContent = () => {
     // Para medallas de logros (Vigor/Dioniso)
     if (medal.type === 'vigor' || (!medal.category && medal.days && medal.reward)) {
@@ -43,6 +57,9 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
         return null;
     }
   };
+
+  const medalType = medal.type || (medal.category ? medal.category : (medal.days && medal.reward ? 'vigor' : 'unknown'));
+  const processedDescription = processDescription(medal.description, medalType);
 
   return (
     <>
@@ -68,7 +85,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
               </DialogTitle>
               
               <p className="text-center text-gray-600 text-sm sm:text-base max-w-md px-4">
-                {medal.description}
+                {processedDescription}
               </p>
             </div>
           </DialogHeader>

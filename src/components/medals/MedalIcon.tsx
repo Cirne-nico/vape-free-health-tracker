@@ -119,19 +119,7 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         </div>
       )}
 
-      {/* Inscripción grabada mejorada para medallas de Salud (Higiea) */}
-      {medal.type === 'health' && 'inscription' in medal && medal.inscription && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span 
-            className="text-green-100 select-none pointer-events-none text-xs"
-            style={getEngravedTextStyle('health')}
-          >
-            {medal.inscription}
-          </span>
-        </div>
-      )}
-
-      {/* Ícono del órgano para medallas de Salud (Higiea) en la esquina */}
+      {/* Solo ícono del órgano para medallas de Salud (Higiea) en la esquina - SIN INSCRIPCIÓN */}
       {medal.type === 'health' && 'organIcon' in medal && medal.organIcon && (
         <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
           <span className="text-xs">{medal.organIcon}</span>

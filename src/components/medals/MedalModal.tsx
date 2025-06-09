@@ -2,7 +2,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trophy, Calendar, TrendingUp } from 'lucide-react';
+import { Trophy, Calendar, TrendingUp, X } from 'lucide-react';
 import MobileBackHandler from '../MobileBackHandler';
 import { AthenaMedalContent } from './AthenaMedalContent';
 import { ChronosMedalContent } from './ChronosMedalContent';
@@ -10,6 +10,7 @@ import { VictoryMedalContent } from './VictoryMedalContent';
 import { VigorMedalContent } from './VigorMedalContent';
 import { HealthMedalContent } from './HealthMedalContent';
 import { MedalIcon } from './MedalIcon';
+import { useState } from 'react';
 
 interface MedalModalProps {
   selectedMedal: any;
@@ -18,6 +19,7 @@ interface MedalModalProps {
 }
 
 const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) => {
+  const [isEnlarged, setIsEnlarged] = useState(false);
   const medal = selectedMedal;
   const isOpen = !!selectedMedal;
   
@@ -69,6 +71,14 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
   const processedTitle = processText(medal.title, medalType);
   const processedDescription = processText(medal.description, medalType);
 
+  const handleMedalClick = () => {
+    setIsEnlarged(true);
+  };
+
+  const handleCloseEnlarged = () => {
+    setIsEnlarged(false);
+  };
+
   return (
     <>
       <MobileBackHandler 
@@ -82,10 +92,15 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
             <div className="flex flex-col items-center space-y-6">
               {/* Medalla ampliada con espacio suficiente */}
               <div className="relative scale-[2.5] sm:scale-[3] my-8 sm:my-12">
-                <MedalIcon medal={medal} onClick={() => {}} />
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                  <Trophy className="w-2 h-2 text-yellow-800" />
-                </div>
+                <button
+                  onClick={handleMedalClick}
+                  className="relative hover:scale-110 transition-transform duration-200 cursor-pointer"
+                >
+                  <MedalIcon medal={medal} onClick={() => {}} />
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                    <Trophy className="w-2 h-2 text-yellow-800" />
+                  </div>
+                </button>
               </div>
 
               <DialogTitle className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
@@ -130,6 +145,32 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
 
             {/* Contenido específico de la medalla */}
             {getMedalContent()}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal ampliado para ver la medalla en detalle */}
+      <Dialog open={isEnlarged} onOpenChange={handleCloseEnlarged}>
+        <DialogContent className="max-w-2xl bg-black/90 border-0">
+          <div className="flex flex-col items-center justify-center p-8">
+            <button
+              onClick={handleCloseEnlarged}
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            <div className="relative scale-[4] sm:scale-[6] mb-12 mt-8">
+              <MedalIcon medal={medal} onClick={() => {}} />
+            </div>
+            
+            <h3 className="text-white text-xl sm:text-2xl font-bold text-center mb-4">
+              {processedTitle}
+            </h3>
+            
+            <p className="text-white/80 text-center text-sm sm:text-base max-w-md">
+              Haz clic fuera de la medalla para cerrar
+            </p>
           </div>
         </DialogContent>
       </Dialog>

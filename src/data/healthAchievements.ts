@@ -1,4 +1,5 @@
 
+
 export const healthAchievements = [
   {
     id: 'oxygen_normalization',
@@ -18,7 +19,7 @@ export const healthAchievements = [
     description: 'Los sentidos del gusto y olfato se han restaurado',
     days: 2,
     healthCategory: 'skinEyes',
-    icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png', // sense-recovery
+    icon: '/lovable-uploads/cb3e6fc7-55bb-417b-9c59-61e373f4069c.png', // nueva medalla de gusto y olfato
     organIcon: '👅',
     inscription: 'GUSTO',
     reward: 'Receptores sensoriales: 90% recuperados',
@@ -123,3 +124,4 @@ export const healthAchievements = [
 ];
 
 export type HealthAchievement = typeof healthAchievements[0];
+

@@ -30,10 +30,10 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
         const numHours = parseInt(hours);
         if (numHours >= 24) {
           const days = Math.floor(numHours / 24);
-          return `${days} ${days === 1 ? 'día' : 'días'}`;
+          return `${days === 1 ? 'un día' : `${days} días`}`;
         }
         return match;
-      });
+      }).replace(/Primeras/gi, 'Primeros');
     }
     return text;
   };

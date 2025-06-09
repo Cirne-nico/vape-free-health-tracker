@@ -57,18 +57,18 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
         id={`medal-modal-${medal.id}`} 
       />
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-md sm:max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="space-y-4">
-            <div className="flex flex-col items-center space-y-4">
-              {/* Medalla ampliada manteniendo el diseño original */}
-              <div className="relative scale-[2.5] sm:scale-[3]">
+        <DialogContent className="max-w-lg sm:max-w-3xl max-h-[95vh] overflow-y-auto">
+          <DialogHeader className="space-y-6 pt-4">
+            <div className="flex flex-col items-center space-y-6">
+              {/* Medalla ampliada con espacio suficiente */}
+              <div className="relative scale-[2.5] sm:scale-[3] my-8 sm:my-12">
                 <MedalIcon medal={medal} onClick={() => {}} />
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
                   <Trophy className="w-2 h-2 text-yellow-800" />
                 </div>
               </div>
 
-              <DialogTitle className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent mt-8">
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
                 {medal.title}
               </DialogTitle>
               
@@ -78,7 +78,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
             </div>
           </DialogHeader>
 
-          <div className="space-y-4 sm:space-y-6 mt-4">
+          <div className="space-y-4 sm:space-y-6 mt-6 pb-4">
             {/* Información de la medalla */}
             <Card>
               <CardContent className="p-4 sm:p-6">

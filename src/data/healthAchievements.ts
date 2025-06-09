@@ -65,7 +65,7 @@ export const healthAchievements = [
     description: 'La presión arterial se ha estabilizado en valores normales',
     days: 60,
     healthCategory: 'cardiovascular',
-    icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png', // heart-silver (reutilizando)
+    icon: '/lovable-uploads/e3e8d3bf-9b90-4b7a-9ef5-652af318c1ab.png', // Nueva medalla presión arterial
     organIcon: '❤️',
     inscription: 'TENSIÓN',
     reward: 'Presión arterial: 120/80 mmHg',

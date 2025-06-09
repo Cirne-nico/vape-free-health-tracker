@@ -22,30 +22,35 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
+  console.log('=== MEDAL DISPLAY DEBUG ===');
   console.log('Current days:', currentDays);
   console.log('Special medals:', specialMedals);
   console.log('Unlocked achievements:', unlockedAchievements);
   console.log('Unlocked health achievements:', unlockedHealthAchievements);
   
   // Procesar medallas de Vigor (Dioniso) - TODAS las medallas de logros regulares
+  // SOLO cambiar el icono y añadir el tipo, NO tocar nada más
   const processedAchievements = unlockedAchievements.map(achievement => ({
     ...achievement,
-    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
+    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png', // Icono de Dioniso
     type: 'vigor' as const
   }));
 
   // Procesar medallas de Salud (Higiea) - TODAS las medallas de salud
-  // NO filtrar ninguna, ya que pueden coexistir con medallas especiales
+  // NO tocar NADA, mantener todo exactamente como está
   const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({
     ...achievement,
     type: 'health' as const
-    // Mantener el icon original de cada achievement sin sobreescribirlo
+    // NO cambiar el icon - mantener el original de cada medalla de salud
   }));
   
-  // Combinar TODAS las medallas sin filtrar nada
+  // Combinar TODAS las medallas
   const allMedals: Medal[] = [...processedAchievements, ...processedHealthAchievements, ...specialMedals];
 
-  console.log('All medals after processing:', allMedals);
+  console.log('Processed achievements (Vigor):', processedAchievements);
+  console.log('Processed health achievements (Higiea):', processedHealthAchievements);
+  console.log('All medals final:', allMedals);
+  console.log('=== END DEBUG ===');
 
   const handleMedalClick = (medal: Medal) => {
     setSelectedMedal(medal);

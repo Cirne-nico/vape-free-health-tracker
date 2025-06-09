@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -96,7 +97,7 @@ const MainHeader = ({
                   UMBRAL
                 </h1>
               </div>
-              <p className="text-xs sm:text-sm text-green-100 leading-tight">
+              <p className="text-xs sm:text-sm text-black italic font-medium">
                 acompaña tu proceso de abandono del vapeo
               </p>
             </div>

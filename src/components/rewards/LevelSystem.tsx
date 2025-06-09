@@ -16,46 +16,53 @@ interface LevelSystemProps {
 
 const levels: Level[] = [
   { 
-    name: 'Cuerpo opaco', 
+    name: 'Estado dorsal', 
     icon: '🪨',
     minBadges: 0, 
     color: 'text-gray-600',
-    description: 'El cuerpo sigue ocupado. Lo que pide no se distingue del ruido.'
+    description: 'Supervivencia. El sistema está colapsado, desconectado del mundo.'
   },
   { 
-    name: 'Umbral latente', 
+    name: 'Despertar dorsal', 
     icon: '🌫️',
     minBadges: 2, 
     color: 'text-gray-500',
-    description: 'Algo se desplaza. No es claridad, pero deja de ser costumbre.'
+    description: 'Primeros movimientos. Algo empieza a salir del letargo.'
   },
   { 
-    name: 'Poros abiertos', 
+    name: 'Transición simpática', 
     icon: '💧',
     minBadges: 4, 
     color: 'text-blue-600',
-    description: 'La excitación baja. El entorno ya no golpea, apenas roza.'
+    description: 'La hiperactivación se calma. Menor reactividad al entorno.'
   },
   { 
-    name: 'Cuerpo en tránsito', 
-    icon: '🌬️',
+    name: 'Equilibrio emergente', 
+    icon: '🌿',
     minBadges: 6, 
-    color: 'text-cyan-600',
-    description: 'No hay equilibrio aún, pero ya no todo se sostiene en la urgencia.'
+    color: 'text-green-600',
+    description: 'Serenidad como nueva base. Los sistemas se regulan.'
   },
   { 
-    name: 'Sensible sin esfuerzo', 
-    icon: '🫧',
+    name: 'Ventral temprano', 
+    icon: '🌀',
     minBadges: 8, 
-    color: 'text-pink-600',
-    description: 'Lo que antes alteraba, ahora pasa. El cuerpo hace espacio sin rendirse.'
+    color: 'text-cyan-600',
+    description: 'Conexión auténtica. Calma y vitalidad danzan juntas.'
   },
   { 
-    name: 'Presencia mínima', 
-    icon: '🪶',
+    name: 'Ventral maduro', 
+    icon: '🌬️',
     minBadges: 10, 
     color: 'text-purple-600',
-    description: 'Ya no hay que reaccionar a todo. El cuerpo se queda, sin necesitar excusa.'
+    description: 'Flexibilidad emocional. Navegación fluida entre estados positivos.'
+  },
+  { 
+    name: 'Presencia total', 
+    icon: '🪶',
+    minBadges: 12, 
+    color: 'text-golden-600',
+    description: 'Estado ventral pleno. La calma radiante que abraza la alegría.'
   }
 ];
 
@@ -74,7 +81,7 @@ const LevelSystem = ({ unlockedBadgesCount }: LevelSystemProps) => {
         </Badge>
       </div>
       
-      <p className="text-xs text-gray-600 italic mb-3 px-2">
+      <p className="text-xs text-gray-600 italic mb-3 px-2 text-center">
         {currentLevel.description}
       </p>
       

@@ -1,4 +1,3 @@
-
 import { emotions } from '@/data/emotionsData';
 
 export interface EmotionalProgressCriteria {
@@ -81,20 +80,23 @@ export const countDaysInPeriodWithCriteria = (logs: any[], periodDays: number, c
   return recentLogs.filter(criteria).length;
 };
 
-// Definición de las 12 insignias con criterios específicos
+// Redefinición de las 12 insignias siguiendo la progresión polivagal
 export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
+  // ESTADIO DORSAL - Primeras salidas del colapso
   {
     id: 'umbral_1',
     name: 'Umbral I',
     level: 'I',
-    description: 'Primer día con emociones positivas predominantes',
+    description: 'Primer movimiento: algo se despierta del letargo',
     icon: '🌫️',
     minDaysRequired: 1,
-    category: 'positive_activation',
+    category: 'lethargy_overcome',
     checkCriteria: (logs: any[]) => {
       return logs.some(log => {
         const analysis = analyzeLogEmotions(log);
-        return (analysis.percentages.serenity + analysis.percentages.positive_activation + analysis.percentages.positive_moderate) > 50;
+        // Salir del letargo profundo - menos del 70% de emociones muy negativas
+        const deepLethargy = log.emotions.filter((id: string) => ['depressed', 'sad', 'foggy'].includes(id)).length;
+        return deepLethargy < (log.emotions.length * 0.7);
       });
     }
   },
@@ -102,29 +104,31 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
     id: 'umbral_2',
     name: 'Umbral II',
     level: 'II',
-    description: '3 días consecutivos con balance emocional positivo',
+    description: 'Constancia emergente: 3 días consecutivos con menos letargo',
     icon: '🌫️',
     minDaysRequired: 3,
-    category: 'stability',
+    category: 'lethargy_overcome',
     checkCriteria: (logs: any[]) => {
       return hasConsecutiveDaysWithCriteria(logs, 3, (log) => {
-        const analysis = analyzeLogEmotions(log);
-        return (analysis.percentages.serenity + analysis.percentages.positive_activation + analysis.percentages.positive_moderate) > 50;
+        const deepLethargy = log.emotions.filter((id: string) => ['depressed', 'sad'].includes(id)).length;
+        return deepLethargy < (log.emotions.length * 0.5);
       });
     }
   },
+
+  // ESTADIO SIMPÁTICO - Reducción de hiperactivación
   {
     id: 'goteo_1',
     name: 'Goteo I',
     level: 'I',
-    description: 'Primera semana sin emociones de letargo profundo',
+    description: 'La agitación se calma: primera semana sin emociones de alta tensión',
     icon: '💧',
     minDaysRequired: 7,
-    category: 'lethargy_overcome',
+    category: 'tension_reduction',
     checkCriteria: (logs: any[]) => {
       return hasConsecutiveDaysWithCriteria(logs, 7, (log) => {
-        const hasLethargy = log.emotions.some((id: string) => ['depressed', 'sad'].includes(id));
-        return !hasLethargy;
+        const highTension = log.emotions.filter((id: string) => ['overwhelmed', 'restless', 'anxious'].includes(id)).length;
+        return highTension < (log.emotions.length * 0.3);
       });
     }
   },
@@ -132,50 +136,43 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
     id: 'goteo_2',
     name: 'Goteo II',
     level: 'II',
-    description: 'Dos semanas de estabilidad emocional sostenida',
+    description: 'Regulación inicial: dos semanas de menor reactividad',
     icon: '💧',
     minDaysRequired: 14,
-    category: 'stability',
+    category: 'tension_reduction',
     checkCriteria: (logs: any[]) => {
       const recentLogs = getRecentLogs(logs, 14);
-      const stableDays = countDaysInPeriodWithCriteria(recentLogs, 14, (log) => {
+      const calmDays = countDaysInPeriodWithCriteria(recentLogs, 14, (log) => {
         const analysis = analyzeLogEmotions(log);
-        return (analysis.percentages.serenity + analysis.percentages.positive_activation) > 50;
+        return analysis.percentages.tension < 40;
       });
-      return stableDays >= 10; // 10 de 14 días
+      return calmDays >= 10;
     }
   },
+
+  // TRANSICIÓN - Equilibrio entre sistemas
   {
     id: 'vibracion_1',
     name: 'Vibración I',
     level: 'I',
-    description: 'Reducción significativa de emociones de tensión',
+    description: 'Primeros compases de serenidad sostenida',
     icon: '🌿',
     minDaysRequired: 10,
-    category: 'tension_reduction',
+    category: 'serenity',
     checkCriteria: (logs: any[]) => {
-      if (logs.length < 10) return false;
-      const firstWeek = logs.slice(0, 7);
-      const lastWeek = logs.slice(-7);
-      
-      const firstWeekTension = firstWeek.reduce((acc, log) => {
+      const recentLogs = getRecentLogs(logs, 10);
+      const serenityDays = countDaysInPeriodWithCriteria(recentLogs, 10, (log) => {
         const analysis = analyzeLogEmotions(log);
-        return acc + analysis.percentages.tension;
-      }, 0) / firstWeek.length;
-      
-      const lastWeekTension = lastWeek.reduce((acc, log) => {
-        const analysis = analyzeLogEmotions(log);
-        return acc + analysis.percentages.tension;
-      }, 0) / lastWeek.length;
-      
-      return firstWeekTension > 40 && lastWeekTension < 25; // Reducción significativa
+        return analysis.percentages.serenity > 25;
+      });
+      return serenityDays >= 6;
     }
   },
   {
     id: 'vibracion_2',
     name: 'Vibración II',
     level: 'II',
-    description: 'Tres semanas manteniendo emociones de serenidad',
+    description: 'Serenidad como base: tres semanas de calma predominante',
     icon: '🌿',
     minDaysRequired: 21,
     category: 'serenity',
@@ -185,23 +182,25 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
         const analysis = analyzeLogEmotions(log);
         return analysis.percentages.serenity > 40;
       });
-      return serenityDays >= 15; // 15 de 21 días
+      return serenityDays >= 15;
     }
   },
+
+  // VENTRAL TEMPRANO - Primeras conexiones auténticas
   {
     id: 'sintonia_1',
     name: 'Sintonía I',
     level: 'I',
-    description: 'Equilibrio entre calma y motivación durante una semana',
+    description: 'Danza entre calma y vitalidad: una semana de equilibrio ventral',
     icon: '🌀',
     minDaysRequired: 7,
-    category: 'stability',
+    category: 'positive_activation',
     checkCriteria: (logs: any[]) => {
       return hasConsecutiveDaysWithCriteria(logs, 7, (log) => {
         const analysis = analyzeLogEmotions(log);
-        const calmAndMotivated = analysis.percentages.serenity > 30 && analysis.percentages.positive_activation > 20;
-        const lowNegative = (analysis.percentages.tension + analysis.percentages.lethargy) < 30;
-        return calmAndMotivated && lowNegative;
+        const ventral = analysis.percentages.serenity > 30 && analysis.percentages.positive_activation > 20;
+        const regulated = (analysis.percentages.tension + analysis.percentages.lethargy) < 30;
+        return ventral && regulated;
       });
     }
   },
@@ -209,46 +208,49 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
     id: 'sintonia_2',
     name: 'Sintonía II',
     level: 'II',
-    description: 'Un mes de regulación emocional constante',
+    description: 'Regulación ventral sostenida: un mes de conexión emocional',
     icon: '🌀',
     minDaysRequired: 30,
     category: 'stability',
     checkCriteria: (logs: any[]) => {
       const recentLogs = getRecentLogs(logs, 30);
-      const regulatedDays = countDaysInPeriodWithCriteria(recentLogs, 30, (log) => {
+      const ventralDays = countDaysInPeriodWithCriteria(recentLogs, 30, (log) => {
         const analysis = analyzeLogEmotions(log);
-        const balanced = (analysis.percentages.serenity + analysis.percentages.positive_moderate) > 50;
-        const lowExtreme = analysis.percentages.tension < 20 && analysis.percentages.lethargy < 20;
-        return balanced && lowExtreme;
+        const ventral = (analysis.percentages.serenity + analysis.percentages.positive_moderate) > 50;
+        const regulated = analysis.percentages.tension < 25 && analysis.percentages.lethargy < 20;
+        return ventral && regulated;
       });
-      return regulatedDays >= 20; // 20 de 30 días
+      return ventralDays >= 20;
     }
   },
+
+  // VENTRAL MADURO - Flexibilidad y adaptabilidad
   {
     id: 'corriente_1',
     name: 'Corriente I',
     level: 'I',
-    description: 'Flujo natural entre diferentes estados positivos',
+    description: 'Fluidez emocional: navegación natural entre estados positivos',
     icon: '🌬️',
     minDaysRequired: 14,
     category: 'positive_activation',
     checkCriteria: (logs: any[]) => {
       const recentLogs = getRecentLogs(logs, 14);
-      const diverseDays = countDaysInPeriodWithCriteria(recentLogs, 14, (log) => {
+      const fluidDays = countDaysInPeriodWithCriteria(recentLogs, 14, (log) => {
         const analysis = analyzeLogEmotions(log);
         const hasSerenity = analysis.percentages.serenity > 20;
         const hasActivation = analysis.percentages.positive_activation > 20;
         const hasModerate = analysis.percentages.positive_moderate > 20;
-        return (hasSerenity && hasActivation) || (hasSerenity && hasModerate) || (hasActivation && hasModerate);
+        const lowNegative = (analysis.percentages.tension + analysis.percentages.lethargy) < 25;
+        return ((hasSerenity && hasActivation) || (hasSerenity && hasModerate) || (hasActivation && hasModerate)) && lowNegative;
       });
-      return diverseDays >= 10; // 10 de 14 días con diversidad positiva
+      return fluidDays >= 10;
     }
   },
   {
     id: 'corriente_2',
     name: 'Corriente II',
     level: 'II',
-    description: 'Seis semanas de adaptabilidad emocional',
+    description: 'Maestría adaptativa: seis semanas de flexibilidad emocional',
     icon: '🌬️',
     minDaysRequired: 42,
     category: 'stability',
@@ -258,16 +260,19 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
         const analysis = analyzeLogEmotions(log);
         const positive = analysis.percentages.serenity + analysis.percentages.positive_activation + analysis.percentages.positive_moderate;
         const hasVariety = Object.values(analysis.percentages).filter(p => p > 15).length >= 2;
-        return positive > 60 && hasVariety;
+        const resilient = analysis.percentages.tension < 20 && analysis.percentages.lethargy < 15;
+        return positive > 65 && hasVariety && resilient;
       });
-      return adaptableDays >= 30; // 30 de 42 días
+      return adaptableDays >= 30;
     }
   },
+
+  // PRESENCIA PLENA - Estado ventral total
   {
     id: 'presencia_minima_1',
     name: 'Presencia mínima I',
     level: 'I',
-    description: 'Primeros atisbos del estado ventral',
+    description: 'Umbral de la presencia total: estado ventral emergente',
     icon: '🧿',
     minDaysRequired: 21,
     category: 'ventral',
@@ -275,18 +280,20 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
       const recentLogs = getRecentLogs(logs, 21);
       const ventralDays = countDaysInPeriodWithCriteria(recentLogs, 21, (log) => {
         const analysis = analyzeLogEmotions(log);
-        const calmJoy = analysis.percentages.serenity >= 40 && analysis.percentages.positive_moderate >= 20;
-        const minimal = (analysis.percentages.tension + analysis.percentages.lethargy) < 15;
-        return calmJoy && minimal;
+        // Pre-ventral: serenidad dominante + activación positiva suave + mínimas negativas
+        const serenity = analysis.percentages.serenity >= 35;
+        const gentleJoy = analysis.percentages.positive_moderate >= 15;
+        const minimal = (analysis.percentages.tension + analysis.percentages.lethargy) < 20;
+        return serenity && gentleJoy && minimal;
       });
-      return ventralDays >= 12; // 12 de 21 días
+      return ventralDays >= 15;
     }
   },
   {
     id: 'presencia_minima_2',
     name: 'Presencia mínima II',
     level: 'II',
-    description: 'Estado ventral sostenido - Maestría emocional',
+    description: 'Estado ventral pleno: la calma radiante que abraza la alegría',
     icon: '🪶',
     minDaysRequired: 45,
     category: 'ventral',
@@ -294,21 +301,20 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
       const recentLogs = getRecentLogs(logs, 45);
       const ventralDays = countDaysInPeriodWithCriteria(recentLogs, 45, (log) => {
         const analysis = analyzeLogEmotions(log);
-        // Estado ventral: 40-60% serenidad + 20-40% activación positiva suave + <10% negativas
-        const serenity = analysis.percentages.serenity;
-        const gentleActivation = analysis.percentages.positive_moderate;
-        const negative = analysis.percentages.tension + analysis.percentages.lethargy + analysis.percentages.negative_moderate;
+        // Estado ventral pleno: equilibrio perfecto calma-alegría
+        const serenity = analysis.percentages.serenity >= 40 && analysis.percentages.serenity <= 65;
+        const joyfulActivation = analysis.percentages.positive_moderate >= 20 && analysis.percentages.positive_moderate <= 40;
+        const minimalNegative = (analysis.percentages.tension + analysis.percentages.lethargy + analysis.percentages.negative_moderate) < 15;
+        const noExtreme = analysis.percentages.positive_activation < 20; // No euforia excesiva
         
-        const ventralBalance = serenity >= 40 && serenity <= 60 && 
-                              gentleActivation >= 20 && gentleActivation <= 40 && 
-                              negative < 10;
-        return ventralBalance;
+        return serenity && joyfulActivation && minimalNegative && noExtreme;
       });
-      return ventralDays >= 30; // 30 de 45 días - El estado más elevado
+      return ventralDays >= 32; // 32 de 45 días - El estado más elevado y estable
     }
   }
 ];
 
+// Función para verificar insignias desbloqueadas - NUNCA se pierden una vez obtenidas
 export const checkUnlockedBadges = (emotionLogs: any[]): string[] => {
   const unlockedBadges: string[] = [];
   

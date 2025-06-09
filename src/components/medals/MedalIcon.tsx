@@ -4,9 +4,10 @@ import { Medal } from './medalTypes';
 interface MedalIconProps {
   medal: Medal;
   onClick: (medal: Medal) => void;
+  isEnlarged?: boolean;
 }
 
-export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
+export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps) => {
   const getBackgroundStyle = () => {
     switch (medal.type) {
       case 'victory':
@@ -83,47 +84,52 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         className="w-12 h-12 rounded-full object-cover"
       />
       
-      {/* Número grabado mejorado para medallas de Vigor (Dioniso) */}
-      {medal.type === 'vigor' && 'days' in medal && medal.days && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span 
-            className="text-amber-100 select-none pointer-events-none text-sm"
-            style={getEngravedTextStyle('vigor')}
-          >
-            {medal.days}
-          </span>
-        </div>
-      )}
+      {/* Solo mostrar elementos grabados si NO está ampliado */}
+      {!isEnlarged && (
+        <>
+          {/* Número grabado para medallas de Vigor (Dioniso) */}
+          {medal.type === 'vigor' && 'days' in medal && medal.days && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span 
+                className="text-amber-100 select-none pointer-events-none text-sm"
+                style={getEngravedTextStyle('vigor')}
+              >
+                {medal.days}
+              </span>
+            </div>
+          )}
 
-      {/* Número 90 grabado mejorado para medalla de Atenea */}
-      {medal.type === 'athena' && 'days' in medal && medal.days && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span 
-            className="text-amber-200 select-none pointer-events-none text-sm"
-            style={getEngravedTextStyle('athena')}
-          >
-            {medal.days}
-          </span>
-        </div>
-      )}
+          {/* Número 90 grabado para medalla de Atenea */}
+          {medal.type === 'athena' && 'days' in medal && medal.days && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span 
+                className="text-amber-200 select-none pointer-events-none text-sm"
+                style={getEngravedTextStyle('athena')}
+              >
+                {medal.days}
+              </span>
+            </div>
+          )}
 
-      {/* Número 2 grabado mejorado para medalla de Cronos */}
-      {medal.type === 'chronos' && 'days' in medal && medal.days && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span 
-            className="text-orange-200 select-none pointer-events-none text-lg"
-            style={getEngravedTextStyle('chronos')}
-          >
-            2
-          </span>
-        </div>
-      )}
+          {/* Número 2 grabado para medalla de Cronos */}
+          {medal.type === 'chronos' && 'days' in medal && medal.days && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span 
+                className="text-orange-200 select-none pointer-events-none text-lg"
+                style={getEngravedTextStyle('chronos')}
+              >
+                2
+              </span>
+            </div>
+          )}
 
-      {/* Solo ícono del órgano para medallas de Salud (Higiea) en la esquina - SIN INSCRIPCIÓN */}
-      {medal.type === 'health' && 'organIcon' in medal && medal.organIcon && (
-        <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
-          <span className="text-xs">{medal.organIcon}</span>
-        </div>
+          {/* Ícono del órgano para medallas de Salud (Higiea) - solo en vista normal */}
+          {medal.type === 'health' && 'organIcon' in medal && medal.organIcon && (
+            <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
+              <span className="text-xs">{medal.organIcon}</span>
+            </div>
+          )}
+        </>
       )}
     </button>
   );

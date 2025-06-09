@@ -160,7 +160,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
             </button>
             
             <div className="relative scale-[4] sm:scale-[6] mb-8 mt-8">
-              <MedalIcon medal={medal} onClick={() => {}} />
+              <MedalIcon medal={medal} onClick={() => {}} isEnlarged={true} />
             </div>
             
             <h3 className="text-white text-xl sm:text-2xl font-bold text-center">

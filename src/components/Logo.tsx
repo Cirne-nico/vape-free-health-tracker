@@ -24,11 +24,33 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full relative z-10"
       >
-        {/* Nariz con forma de banda de Möbius */}
-        <g transform="translate(24,24) scale(0.8)">
-          {/* Parte superior izquierda de la banda */}
+        {/* Nariz con forma de banda de Möbius mejorada */}
+        <g transform="translate(24,24) scale(0.9)">
+          {/* Contorno principal de la nariz - lado izquierdo */}
           <path
-            d="M-12,-8 Q-16,-12 -8,-16 Q0,-20 8,-16 Q12,-14 8,-8 Q4,-4 0,-6 Q-4,-8 -8,-6 Q-12,-4 -12,-8 Z"
+            d="M-14,-6 Q-18,-10 -12,-14 Q-6,-18 0,-16 Q6,-14 10,-12 Q14,-8 12,-4 Q8,0 4,-2 Q0,-4 -4,-2 Q-8,0 -12,-4 Q-14,-5 -14,-6 Z"
+            stroke="white"
+            strokeWidth="3"
+            fill="rgba(255,255,255,0.1)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.95"
+          />
+          
+          {/* Contorno principal de la nariz - lado derecho */}
+          <path
+            d="M14,6 Q18,10 12,14 Q6,18 0,16 Q-6,14 -10,12 Q-14,8 -12,4 Q-8,0 -4,2 Q0,4 4,2 Q8,0 12,4 Q14,5 14,6 Z"
+            stroke="white"
+            strokeWidth="3"
+            fill="rgba(255,255,255,0.1)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity="0.95"
+          />
+          
+          {/* Puente nasal central - efecto Möbius */}
+          <path
+            d="M-10,-4 Q-6,-1 0,0 Q6,1 10,4"
             stroke="white"
             strokeWidth="2.5"
             fill="none"
@@ -37,9 +59,8 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
             opacity="0.9"
           />
           
-          {/* Parte inferior derecha de la banda */}
           <path
-            d="M12,8 Q16,12 8,16 Q0,20 -8,16 Q-12,14 -8,8 Q-4,4 0,6 Q4,8 8,6 Q12,4 12,8 Z"
+            d="M10,-4 Q6,-1 0,0 Q-6,1 -10,4"
             stroke="white"
             strokeWidth="2.5"
             fill="none"
@@ -48,49 +69,68 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
             opacity="0.9"
           />
           
-          {/* Conexión central que crea el efecto Möbius */}
+          {/* Orificios nasales más anatómicos */}
+          <ellipse
+            cx="-5"
+            cy="1"
+            rx="2.5"
+            ry="5"
+            fill="white"
+            opacity="0.8"
+            transform="rotate(-15)"
+          />
+          
+          <ellipse
+            cx="5"
+            cy="1"
+            rx="2.5"
+            ry="5"
+            fill="white"
+            opacity="0.8"
+            transform="rotate(15)"
+          />
+          
+          {/* Sombras internas de los orificios */}
+          <ellipse
+            cx="-5"
+            cy="1"
+            rx="1.5"
+            ry="3"
+            fill="rgba(255,255,255,0.4)"
+            transform="rotate(-15)"
+          />
+          
+          <ellipse
+            cx="5"
+            cy="1"
+            rx="1.5"
+            ry="3"
+            fill="rgba(255,255,255,0.4)"
+            transform="rotate(15)"
+          />
+          
+          {/* Detalles del tabique nasal */}
           <path
-            d="M-8,-6 Q-4,0 0,0 Q4,0 8,6"
+            d="M-3,-1 Q0,0 3,-1"
             stroke="white"
             strokeWidth="2"
             fill="none"
             strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.8"
+            opacity="0.7"
           />
           
           <path
-            d="M8,-6 Q4,0 0,0 Q-4,0 -8,6"
+            d="M-3,3 Q0,2 3,3"
             stroke="white"
             strokeWidth="2"
             fill="none"
             strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.8"
-          />
-          
-          {/* Orificios nasales */}
-          <ellipse
-            cx="-4"
-            cy="0"
-            rx="2"
-            ry="4"
-            fill="white"
             opacity="0.7"
           />
           
-          <ellipse
-            cx="4"
-            cy="0"
-            rx="2"
-            ry="4"
-            fill="white"
-            opacity="0.7"
-          />
-          
-          {/* Detalles adicionales para dar profundidad */}
+          {/* Líneas de profundidad adicionales */}
           <path
-            d="M-6,-2 Q0,-1 6,-2"
+            d="M-8,-2 Q-4,-0.5 0,0 Q4,-0.5 8,-2"
             stroke="white"
             strokeWidth="1.5"
             fill="none"
@@ -99,12 +139,31 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
           />
           
           <path
-            d="M-6,2 Q0,1 6,2"
+            d="M-8,4 Q-4,2.5 0,2 Q4,2.5 8,4"
             stroke="white"
             strokeWidth="1.5"
             fill="none"
             strokeLinecap="round"
             opacity="0.6"
+          />
+          
+          {/* Aletas nasales */}
+          <path
+            d="M-12,-2 Q-14,0 -12,2 Q-10,4 -8,2"
+            stroke="white"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            opacity="0.7"
+          />
+          
+          <path
+            d="M12,-2 Q14,0 12,2 Q10,4 8,2"
+            stroke="white"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            opacity="0.7"
           />
         </g>
         

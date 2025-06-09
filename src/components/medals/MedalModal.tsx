@@ -24,15 +24,19 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
   if (!medal) return null;
 
   const getMedalContent = () => {
-    switch (medal.category) {
+    // Para medallas de logros (Vigor/Dioniso)
+    if (medal.type === 'vigor' || (!medal.category && medal.days && medal.reward)) {
+      return <VigorMedalContent medal={medal} totalSavings={totalSavings} />;
+    }
+    
+    // Para el resto de categorías
+    switch (medal.category || medal.type) {
       case 'athena':
         return <AthenaMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'chronos':
         return <ChronosMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'victory':
         return <VictoryMedalContent medal={medal} />;
-      case 'vigor':
-        return <VigorMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'health':
         return <HealthMedalContent medal={medal} />;
       default:
@@ -91,7 +95,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                     </div>
                   </div>
                   
-                  {medal.category === 'athena' && (
+                  {(medal.category === 'athena' || medal.type === 'vigor' || (!medal.category && medal.days)) && (
                     <div className="flex items-center space-x-3">
                       <Coins className="w-5 h-5 text-green-500" />
                       <div>
@@ -111,7 +115,8 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                         {medal.category === 'athena' ? 'Ahorros' : 
                          medal.category === 'chronos' ? 'Tiempo' : 
                          medal.category === 'victory' ? 'Victoria' : 
-                         medal.category === 'vigor' ? 'Vigor' : 'Salud'}
+                         medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' :
+                         medal.category === 'health' ? 'Salud' : 'Logro'}
                       </Badge>
                     </div>
                   </div>

@@ -49,6 +49,18 @@ export const healthAchievements = [
     medicalBasis: 'Reducción de vasoconstricción, mejora en la perfusión tisular'
   },
   {
+    id: 'neurological_recovery',
+    title: 'Recuperación Neurológica',
+    description: 'La función neurológica y los neurotransmisores se han normalizado',
+    days: 21,
+    healthCategory: 'mental',
+    icon: '/placeholder-neurological-medal.png', // Placeholder - será reemplazado cuando tengas la medalla
+    organIcon: '🧠',
+    inscription: 'NEURO',
+    reward: 'Receptores de dopamina normalizados, mejora cognitiva',
+    medicalBasis: 'Restauración de la función dopaminérgica y plasticidad neuronal'
+  },
+  {
     id: 'lung_function_improvement',
     title: 'Función Pulmonar Mejorada',
     description: 'La capacidad pulmonar ha aumentado considerablemente',
@@ -85,6 +97,18 @@ export const healthAchievements = [
     medicalBasis: 'Reducción del estrés cardiovascular, vasodilatación normalizada'
   },
   {
+    id: 'dental_health_recovery',
+    title: 'Recuperación Dental',
+    description: 'La salud dental y las encías han mejorado significativamente',
+    days: 75,
+    healthCategory: 'skinEyes',
+    icon: '/placeholder-dental-medal.png', // Placeholder - será reemplazado cuando tengas la medalla
+    organIcon: '🦷',
+    inscription: 'DENTAL',
+    reward: 'Encías saludables, reducción de placa bacteriana',
+    medicalBasis: 'Mejora del flujo sanguíneo gingival y reducción de inflamación periodontal'
+  },
+  {
     id: 'liver_detox',
     title: 'Desintoxicación Hepática',
     description: 'El hígado ha completado la desintoxicación de toxinas',
@@ -107,6 +131,18 @@ export const healthAchievements = [
     inscription: 'INMUNE',
     reward: 'Función inmune: +40% mejorada',
     medicalBasis: 'Normalización de leucocitos y función de células T'
+  },
+  {
+    id: 'exercise_capacity_recovery',
+    title: 'Recuperación de Capacidad de Ejercicio',
+    description: 'La resistencia física y capacidad aeróbica se han restaurado',
+    days: 150,
+    healthCategory: 'cardiovascular',
+    icon: '/placeholder-exercise-medal.png', // Placeholder - será reemplazado cuando tengas la medalla
+    organIcon: '💪',
+    inscription: 'DEPORTE',
+    reward: 'VO₂ máximo mejorado, resistencia cardiovascular óptima',
+    medicalBasis: 'Optimización del transporte de oxígeno y función cardiopulmonar'
   },
   {
     id: 'skin_regeneration',

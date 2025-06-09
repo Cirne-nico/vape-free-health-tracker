@@ -90,7 +90,14 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
       <img 
         src={medal.icon} 
         alt={medal.title}
-        className="w-12 h-12 rounded-full object-cover"
+        className="w-12 h-12 rounded-full object-cover object-center"
+        style={{ 
+          aspectRatio: '1/1',
+          minWidth: '48px',
+          minHeight: '48px',
+          maxWidth: '48px',
+          maxHeight: '48px'
+        }}
       />
       
       {/* Solo mostrar elementos grabados si NO está ampliado */}

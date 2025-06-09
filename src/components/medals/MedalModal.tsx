@@ -1,3 +1,4 @@
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,6 +21,10 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
   const isOpen = !!selectedMedal;
   
   if (!medal) return null;
+
+  // Provide default gradient if medal doesn't have one
+  const defaultGradient = { from: '#ffd700', to: '#ffb347' };
+  const gradient = medal.gradient || defaultGradient;
 
   const getMedalContent = () => {
     switch (medal.category) {
@@ -63,7 +68,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                 <div 
                   className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-2xl border-4 border-yellow-300"
                   style={{
-                    background: `linear-gradient(135deg, ${medal.gradient.from} 0%, ${medal.gradient.to} 100%)`,
+                    background: `linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
                     boxShadow: '0 10px 30px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.3), inset 0 -2px 10px rgba(0,0,0,0.2)'
                   }}
                 >
@@ -105,7 +110,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                     <Calendar className="w-5 h-5 text-blue-500" />
                     <div>
                       <p className="text-sm text-gray-600">Obtenida el día</p>
-                      <p className="font-semibold text-sm sm:text-base">{medal.requiredDays}</p>
+                      <p className="font-semibold text-sm sm:text-base">{medal.requiredDays || medal.days}</p>
                     </div>
                   </div>
                   

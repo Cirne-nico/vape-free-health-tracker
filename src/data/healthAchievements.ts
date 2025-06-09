@@ -17,7 +17,7 @@ export const healthAchievements = [
     description: 'Los sentidos del gusto y olfato se han restaurado',
     days: 2,
     healthCategory: 'skinEyes',
-    icon: '/lovable-uploads/cb3e6fc7-55bb-417b-9c59-61e373f4069c.png', // nueva medalla de gusto y olfato
+    icon: '/lovable-uploads/5ad6bae8-74bc-4ca2-8c16-b9c99e4128c8.png', // nueva medalla de gusto y olfato
     organIcon: '👅',
     inscription: 'GUSTO',
     reward: 'Receptores sensoriales: 90% recuperados',

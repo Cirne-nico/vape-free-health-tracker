@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from '@/components/EmotionLogger';
@@ -233,23 +234,25 @@ const Index = () => {
                 <div className="space-y-4 sm:space-y-6">
                   <EmotionLogger startDate={startDate} />
                   
-                  {/* Contenido reorganizado en la pestaña General */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                    <SocialStats 
-                      currentDay={time.days}
-                      totalSavings={savings.total}
-                    />
-                    <PredictiveAnalysis currentDay={time.days} />
-                  </div>
+                  {/* Solo SocialStats en la pestaña General */}
+                  <SocialStats 
+                    currentDay={time.days}
+                    totalSavings={savings.total}
+                  />
                 </div>
               </TabsContent>
 
               <TabsContent value="emotivity" className="mt-4 sm:mt-6">
-                <VirtualRewards 
-                  currentDay={time.days}
-                  totalSavings={savings.total}
-                  unlockedAchievements={unlockedAchievements}
-                />
+                <div className="space-y-4 sm:space-y-6">
+                  <VirtualRewards 
+                    currentDay={time.days}
+                    totalSavings={savings.total}
+                    unlockedAchievements={unlockedAchievements}
+                  />
+                  
+                  {/* Análisis predictivo movido aquí */}
+                  <PredictiveAnalysis currentDay={time.days} />
+                </div>
               </TabsContent>
 
               <TabsContent value="health" className="mt-4 sm:mt-6">

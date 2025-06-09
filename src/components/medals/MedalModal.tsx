@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -160,17 +159,13 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
               <X className="w-6 h-6" />
             </button>
             
-            <div className="relative scale-[4] sm:scale-[6] mb-12 mt-8">
+            <div className="relative scale-[4] sm:scale-[6] mb-8 mt-8">
               <MedalIcon medal={medal} onClick={() => {}} />
             </div>
             
-            <h3 className="text-white text-xl sm:text-2xl font-bold text-center mb-4">
+            <h3 className="text-white text-xl sm:text-2xl font-bold text-center">
               {processedTitle}
             </h3>
-            
-            <p className="text-white/80 text-center text-sm sm:text-base max-w-md">
-              Haz clic fuera de la medalla para cerrar
-            </p>
           </div>
         </DialogContent>
       </Dialog>

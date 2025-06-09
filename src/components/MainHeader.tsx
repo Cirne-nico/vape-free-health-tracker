@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Clock, TrendingUp, AlertTriangle, Trophy, User, Info } from 'lucide-react';
+import Logo from './Logo';
 
 interface MainHeaderProps {
   time: {
@@ -88,21 +88,34 @@ const MainHeader = ({
         
         <CardContent className="relative p-3 sm:p-4 z-10">
           <div className="flex flex-col space-y-2 sm:space-y-3">
+            {/* Logo y título de la app */}
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <Logo size="sm" className="text-white flex-shrink-0" />
+              <div className="text-center">
+                <h1 className="text-lg sm:text-xl font-bold text-white leading-tight">
+                  Umbral
+                </h1>
+                <p className="text-xs sm:text-sm text-green-100 leading-tight">
+                  acompaña tu proceso de abandono del vapeo
+                </p>
+              </div>
+            </div>
+
             {/* Título principal más compacto */}
             <div className="text-center mb-1 sm:mb-2">
-              <h1 className="text-base sm:text-xl font-bold text-white mb-1">
+              <h2 className="text-base sm:text-xl font-bold text-white mb-1">
                 Ya sin nicotina, el cuerpo escucha:
-              </h1>
-              <h2 className="text-sm sm:text-lg font-semibold text-green-100">
-                hacia la sociabilidad mínima
               </h2>
+              <h3 className="text-sm sm:text-lg font-semibold text-green-100">
+                hacia la sociabilidad mínima
+              </h3>
             </div>
 
             {/* Tiempo transcurrido */}
             <div className="text-center">
-              <h3 className="text-xl sm:text-2xl font-bold mb-1">
+              <h4 className="text-xl sm:text-2xl font-bold mb-1">
                 {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
-              </h3>
+              </h4>
               <p className="text-green-100 text-sm">sin vapear</p>
             </div>
 

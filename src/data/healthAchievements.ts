@@ -114,7 +114,7 @@ export const healthAchievements = [
     description: 'El corazón funciona como el de una persona que nunca fumó',
     days: 365,
     healthCategory: 'cardiovascular',
-    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png', // heart-gold (reutilizando)
+    icon: '/lovable-uploads/ec53a951-6915-4166-903e-c894761185dc.png', // Nueva medalla recuperación cardíaca completa
     organIcon: '❤️',
     inscription: 'CORAZÓN',
     reward: 'Riesgo cardiovascular equiparado a no fumadores',

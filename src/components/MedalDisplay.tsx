@@ -21,18 +21,18 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Procesar medallas de Vigor (Dioniso)
+  // Procesar medallas de Vigor (Dioniso) - mantener imagen genérica
   const processedAchievements = unlockedAchievements.map(achievement => ({
     ...achievement,
     icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
     type: 'vigor' as const
   }));
 
-  // Procesar medallas de Salud (Higiea)
+  // Procesar medallas de Salud (Higiea) - usar sus iconos específicos
   const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({
     ...achievement,
-    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png',
     type: 'health' as const
+    // Mantener el icon original de cada achievement sin sobreescribirlo
   }));
   
   const allMedals: Medal[] = [...processedAchievements, ...processedHealthAchievements, ...specialMedals];

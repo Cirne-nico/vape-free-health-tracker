@@ -130,15 +130,15 @@ export const emotions = {
     energy: -1, 
     valence: -1 
   },
-  disgusted: { 
-    id: 'disgusted',
-    text: 'Sensación de asco', 
-    emoji: '🤢', 
+  indifferent: { 
+    id: 'indifferent',
+    text: 'Indiferente', 
+    emoji: '😑', 
     type: 'negative' as const, 
-    color: '#8B5CF6', 
-    bgColor: 'bg-purple-500',
-    energy: -0.5, 
-    valence: -1 
+    color: '#64748B', 
+    bgColor: 'bg-slate-500',
+    energy: -1, 
+    valence: -0.5 
   },
   anxious: { 
     id: 'anxious',

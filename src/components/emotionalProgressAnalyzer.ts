@@ -95,7 +95,7 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
       return logs.some(log => {
         const analysis = analyzeLogEmotions(log);
         // Salir del letargo profundo - menos del 70% de emociones muy negativas
-        const deepLethargy = log.emotions.filter((id: string) => ['depressed', 'sad', 'foggy'].includes(id)).length;
+        const deepLethargy = log.emotions.filter((id: string) => ['depressed', 'sad', 'foggy', 'indifferent'].includes(id)).length;
         return deepLethargy < (log.emotions.length * 0.7);
       });
     }
@@ -110,7 +110,7 @@ export const emotionalProgressBadges: EmotionalProgressCriteria[] = [
     category: 'lethargy_overcome',
     checkCriteria: (logs: any[]) => {
       return hasConsecutiveDaysWithCriteria(logs, 3, (log) => {
-        const deepLethargy = log.emotions.filter((id: string) => ['depressed', 'sad'].includes(id)).length;
+        const deepLethargy = log.emotions.filter((id: string) => ['depressed', 'sad', 'indifferent'].includes(id)).length;
         return deepLethargy < (log.emotions.length * 0.5);
       });
     }

@@ -51,7 +51,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
                 selectedEmotions.includes(emotion.id) 
                   ? emotion.bgColor + ' text-white' 
                   : 'hover:' + emotion.bgColor.replace('bg-', 'bg-') + '/20'
-              } ${emotion.id === 'disgusted' ? 'text-[10px]' : ''}`}
+              } ${emotion.id === 'indifferent' ? 'text-[10px]' : ''}`}
               onClick={() => toggleEmotion(emotion.id)}
             >
               <span className="text-lg">{emotion.emoji}</span>

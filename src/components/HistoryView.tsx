@@ -19,12 +19,15 @@ const HistoryView = () => {
   const quadrantData = getQuadrantData();
   const weeklyData = getWeeklyData();
 
+  const positiveDays = emotionBalance.filter(b => b.score > 0).length;
+  const negativeDays = emotionBalance.filter(b => b.score < 0).length;
+
   return (
     <div className="space-y-4 sm:space-y-6">
       <HistoryStats 
         totalLogs={emotionLogs.length}
-        positiveDays={emotionBalance.filter(b => b.score > 0).length}
-        maxDay={emotionLogs.length > 0 ? Math.max(...emotionLogs.map(l => l.day)) : 0}
+        positiveDays={positiveDays}
+        negativeDays={negativeDays}
         onExport={exportData}
       />
 

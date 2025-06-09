@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 interface HistoryStatsProps {
   totalLogs: number;
   positiveDays: number;
-  maxDay: number;
+  negativeDays: number;
   onExport: () => void;
 }
 
-const HistoryStats = ({ totalLogs, positiveDays, maxDay, onExport }: HistoryStatsProps) => {
+const HistoryStats = ({ totalLogs, positiveDays, negativeDays, onExport }: HistoryStatsProps) => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -33,10 +33,10 @@ const HistoryStats = ({ totalLogs, positiveDays, maxDay, onExport }: HistoryStat
             <div className="text-sm text-gray-600">días agradables</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-orange-600">
-              {maxDay}
+            <div className="text-2xl font-bold text-red-600">
+              {negativeDays}
             </div>
-            <div className="text-sm text-gray-600">día máximo</div>
+            <div className="text-sm text-gray-600">días desagradables</div>
           </div>
         </div>
       </CardContent>

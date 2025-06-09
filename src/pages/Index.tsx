@@ -15,7 +15,7 @@ import PredictiveAnalysis from '@/components/PredictiveAnalysis';
 import MedalDisplay from '@/components/MedalDisplay';
 import { useQuitProgress } from '@/hooks/useQuitProgress';
 import { useAchievements } from '@/hooks/useAchievements';
-import { Clock, Trophy, Heart, Calendar, Settings } from 'lucide-react';
+import { Clock, Trophy, Heart, Calendar, Settings, Brain } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
@@ -203,10 +203,14 @@ const Index = () => {
 
             {/* Pestañas principales con mejor responsive */}
             <Tabs defaultValue="emotions" className="w-full">
-              <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm h-14 sm:h-12">
+              <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
                 <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
                   <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">General</span>
+                </TabsTrigger>
+                <TabsTrigger value="emotivity" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                  <Brain className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="leading-tight">Emotividad</span>
                 </TabsTrigger>
                 <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
                   <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -230,21 +234,23 @@ const Index = () => {
                 <div className="space-y-4 sm:space-y-6">
                   <EmotionLogger startDate={startDate} />
                   
-                  {/* Nuevas funcionalidades en la pestaña General */}
+                  {/* Contenido reorganizado en la pestaña General */}
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     <SocialStats 
                       currentDay={time.days}
                       totalSavings={savings.total}
                     />
-                    <VirtualRewards 
-                      currentDay={time.days}
-                      totalSavings={savings.total}
-                      unlockedAchievements={unlockedAchievements}
-                    />
+                    <PredictiveAnalysis currentDay={time.days} />
                   </div>
-                  
-                  <PredictiveAnalysis currentDay={time.days} />
                 </div>
+              </TabsContent>
+
+              <TabsContent value="emotivity" className="mt-4 sm:mt-6">
+                <VirtualRewards 
+                  currentDay={time.days}
+                  totalSavings={savings.total}
+                  unlockedAchievements={unlockedAchievements}
+                />
               </TabsContent>
 
               <TabsContent value="health" className="mt-4 sm:mt-6">

@@ -2,7 +2,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Trophy, Calendar, Coins, TrendingUp } from 'lucide-react';
+import { Trophy, Calendar, TrendingUp } from 'lucide-react';
 import MobileBackHandler from '../MobileBackHandler';
 import { AthenaMedalContent } from './AthenaMedalContent';
 import { ChronosMedalContent } from './ChronosMedalContent';
@@ -42,15 +42,6 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
       default:
         return null;
     }
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
   };
 
   return (
@@ -94,18 +85,6 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                       <p className="font-semibold text-sm sm:text-base">{medal.requiredDays || medal.days}</p>
                     </div>
                   </div>
-                  
-                  {(medal.category === 'athena' || medal.type === 'vigor' || (!medal.category && medal.days)) && (
-                    <div className="flex items-center space-x-3">
-                      <Coins className="w-5 h-5 text-green-500" />
-                      <div>
-                        <p className="text-sm text-gray-600">Ahorros hasta entonces</p>
-                        <p className="font-semibold text-sm sm:text-base">
-                          {formatCurrency(totalSavings)}
-                        </p>
-                      </div>
-                    </div>
-                  )}
                   
                   <div className="flex items-center space-x-3 sm:col-span-2">
                     <TrendingUp className="w-5 h-5 text-purple-500" />

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -87,23 +88,23 @@ const MainHeader = ({
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
         
         <CardContent className="relative p-3 sm:p-4 z-10">
-          <div className="flex flex-col space-y-2 sm:space-y-3">
-            {/* Logo y título de la app */}
-            <div className="flex items-center justify-center gap-3 mb-2">
+          <div className="flex flex-col space-y-3 sm:space-y-4">
+            {/* Logo y título de la app mejorado */}
+            <div className="flex items-center justify-center gap-2 mb-3">
               <Logo size="sm" className="text-white flex-shrink-0" />
               <div className="text-center">
-                <h1 className="text-lg sm:text-xl font-bold text-white leading-tight">
-                  Umbral
+                <h1 className="text-xl sm:text-2xl font-bold text-white leading-none tracking-wide">
+                  UMBRAL
                 </h1>
-                <p className="text-xs sm:text-sm text-green-100 leading-tight">
+                <p className="text-xs sm:text-sm text-green-100 leading-tight mt-0.5">
                   acompaña tu proceso de abandono del vapeo
                 </p>
               </div>
             </div>
 
-            {/* Título principal más compacto */}
-            <div className="text-center mb-1 sm:mb-2">
-              <h2 className="text-base sm:text-xl font-bold text-white mb-1">
+            {/* Título principal más elegante */}
+            <div className="text-center space-y-1">
+              <h2 className="text-base sm:text-xl font-bold text-white">
                 Ya sin nicotina, el cuerpo escucha:
               </h2>
               <h3 className="text-sm sm:text-lg font-semibold text-green-100">
@@ -111,19 +112,19 @@ const MainHeader = ({
               </h3>
             </div>
 
-            {/* Tiempo transcurrido */}
-            <div className="text-center">
-              <h4 className="text-xl sm:text-2xl font-bold mb-1">
+            {/* Tiempo transcurrido con mejor jerarquía */}
+            <div className="text-center py-2">
+              <h4 className="text-2xl sm:text-3xl font-bold mb-1">
                 {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
               </h4>
-              <p className="text-green-100 text-sm">sin vapear</p>
+              <p className="text-green-100 text-sm font-medium">sin vapear</p>
             </div>
 
-            {/* Progreso visual más compacto */}
-            <div className="space-y-1">
+            {/* Progreso visual */}
+            <div className="space-y-2">
               <div className="flex justify-between text-xs sm:text-sm">
                 <span>Progreso hacia {progressInfo.targetLabel}</span>
-                <span>{Math.min(progressPercentage, 100).toFixed(1)}%</span>
+                <span className="font-semibold">{Math.min(progressPercentage, 100).toFixed(1)}%</span>
               </div>
               <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
               {!progressInfo.isFirstPhase && (
@@ -133,26 +134,26 @@ const MainHeader = ({
               )}
             </div>
 
-            {/* Estadísticas centrales más compactas */}
-            <div className="mt-2 sm:mt-3 grid grid-cols-2 gap-2 sm:gap-3 text-center">
-              <div className="bg-black/20 backdrop-blur-sm rounded p-2">
+            {/* Estadísticas centrales */}
+            <div className="grid grid-cols-2 gap-3 text-center">
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3">
                 <div className="flex items-center justify-center mb-1">
-                  <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  <Clock className="w-4 h-4 mr-1" />
                 </div>
-                <p className="text-base sm:text-lg font-bold">{time.totalHours}</p>
+                <p className="text-lg sm:text-xl font-bold">{time.totalHours}</p>
                 <p className="text-green-100 text-xs">horas totales</p>
               </div>
-              <div className="bg-black/20 backdrop-blur-sm rounded p-2">
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3">
                 <div className="flex items-center justify-center mb-1">
-                  <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  <Trophy className="w-4 h-4 mr-1" />
                 </div>
-                <p className="text-base sm:text-lg font-bold">{totalMedals}</p>
+                <p className="text-lg sm:text-xl font-bold">{totalMedals}</p>
                 <p className="text-green-100 text-xs">medallas</p>
               </div>
             </div>
 
-            {/* Botón de recaída más compacto */}
-            <div className="mt-2 sm:mt-3 flex justify-center">
+            {/* Botón de recaída */}
+            <div className="flex justify-center pt-2">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button

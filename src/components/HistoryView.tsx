@@ -44,7 +44,7 @@ const HistoryView = () => {
                     <p className="font-semibold">Sentido del análisis:</p>
                     <p className="text-sm">Proporcionar insights sobre tu evolución emocional y ayudarte a identificar factores que influyen en tu bienestar.</p>
                     <p className="font-semibold">Base científica:</p>
-                    <p className="text-sm">Basado en análisis de datos longitudinales en psicología de la salud y terapia cognitivo-conductual.</p>
+                    <p className="text-sm">Basado en la Teoría Polivagal (TPV) de Stephen Porges, que estudia cómo el sistema nervioso autónomo regula las respuestas emocionales y de seguridad.</p>
                   </div>
                 </TooltipContent>
               </Tooltip>

@@ -22,11 +22,14 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   const specialMedals = getSpecialMedals(currentDays);
   
   // Procesar medallas de Vigor (Dioniso) - mantener imagen genérica
-  const processedAchievements = unlockedAchievements.map(achievement => ({
-    ...achievement,
-    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
-    type: 'vigor' as const
-  }));
+  // EXCLUIR la del día 90 que es de Atenea, no de Dioniso
+  const processedAchievements = unlockedAchievements
+    .filter(achievement => achievement.days !== 90) // Excluir día 90 (Atenea)
+    .map(achievement => ({
+      ...achievement,
+      icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
+      type: 'vigor' as const
+    }));
 
   // Procesar medallas de Salud (Higiea) - usar sus iconos específicos
   const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({

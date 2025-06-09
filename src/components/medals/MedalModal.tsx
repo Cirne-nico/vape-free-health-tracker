@@ -1,261 +1,148 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Medal } from './medalTypes';
-import { AthenaMedalContent } from './AthenaMedalContent';
-import { HealthMedalContent } from './HealthMedalContent';
-import { VigorMedalContent } from './VigorMedalContent';
-import { VictoryMedalContent } from './VictoryMedalContent';
-import { ChronosMedalContent } from './ChronosMedalContent';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Trophy, Calendar, Coins, TrendingUp } from 'lucide-react';
+import MobileBackHandler from '../MobileBackHandler';
+import AthenaMedalContent from './AthenaMedalContent';
+import ChronosMedalContent from './ChronosMedalContent';
+import VictoryMedalContent from './VictoryMedalContent';
+import VigorMedalContent from './VigorMedalContent';
+import HealthMedalContent from './HealthMedalContent';
 
 interface MedalModalProps {
-  selectedMedal: Medal | null;
-  totalSavings: number;
+  isOpen: boolean;
   onClose: () => void;
+  medal: any;
+  totalSavings: number;
 }
 
-export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) => {
-  if (!selectedMedal) return null;
+const MedalModal = ({ isOpen, onClose, medal, totalSavings }: MedalModalProps) => {
+  if (!medal) return null;
 
-  const getMedalTypeInfo = () => {
-    switch (selectedMedal.type) {
+  const getMedalContent = () => {
+    switch (medal.category) {
+      case 'athena':
+        return <AthenaMedalContent medal={medal} totalSavings={totalSavings} />;
+      case 'chronos':
+        return <ChronosMedalContent medal={medal} />;
       case 'victory':
-        return {
-          color: 'text-yellow-600',
-          bgColor: 'bg-yellow-50 border-yellow-200',
-          title: 'Victoria - Nike',
-          description: 'Símbolo de triunfo contra las adversidades estadísticas'
-        };
-      case 'athena':
-        return {
-          color: 'text-amber-600',
-          bgColor: 'bg-amber-50 border-amber-200',
-          title: 'Sabiduría - Atenea',
-          description: 'Símbolo de sabiduría y visión clara tras superar las adicciones'
-        };
-      case 'chronos':
-        return {
-          color: 'text-orange-600',
-          bgColor: 'bg-orange-50 border-orange-200',
-          title: 'Tiempo - Cronos',
-          description: 'Símbolo del dominio absoluto del tiempo y la persistencia'
-        };
-      case 'health':
-        return {
-          color: 'text-green-600',
-          bgColor: 'bg-green-50 border-green-200',
-          title: 'Salud - Higiea',
-          description: 'Símbolo de recuperación y sanación corporal'
-        };
+        return <VictoryMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'vigor':
-        return {
-          color: 'text-purple-600',
-          bgColor: 'bg-purple-50 border-purple-200',
-          title: 'Vigor - Dioniso',
-          description: 'Símbolo de vitalidad, salud y beneficios de vida'
-        };
-    }
-  };
-
-  const typeInfo = getMedalTypeInfo();
-
-  const getEngravedTextStyle = (type: string) => {
-    const baseStyle = {
-      textShadow: `
-        0 2px 0 #8B4513,
-        0 4px 0 #654321,
-        0 6px 0 #543622,
-        0 8px 0 #432815,
-        0 10px 0 #321A08,
-        0 12px 2px rgba(0,0,0,.2),
-        0 0 10px rgba(0,0,0,.2),
-        0 2px 6px rgba(0,0,0,.4),
-        0 6px 10px rgba(0,0,0,.3),
-        0 10px 20px rgba(0,0,0,.35),
-        inset 0 2px 0 rgba(255,255,255,0.4),
-        inset 0 -2px 0 rgba(0,0,0,0.6)
-      `,
-      filter: 'drop-shadow(0 0 4px rgba(139, 69, 19, 1))',
-      background: 'linear-gradient(145deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.2) 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
-      color: 'transparent',
-    };
-
-    switch (type) {
-      case 'athena':
-        return {
-          ...baseStyle,
-          backgroundImage: 'linear-gradient(145deg, #FEF3C7 0%, #F59E0B 30%, #D97706  60%, #92400E 100%)',
-        };
-      case 'chronos':
-        return {
-          ...baseStyle,
-          backgroundImage: 'linear-gradient(145deg, #FED7AA 0%, #FB923C 30%, #EA580C  60%, #C2410C 100%)',
-        };
+        return <VigorMedalContent medal={medal} />;
       case 'health':
-        return {
-          ...baseStyle,
-          backgroundImage: 'linear-gradient(145deg, #A7F3D0 0%, #6EE7B7 30%, #34D399  60%, #10B981 100%)',
-        };
-      default:
-        return {
-          ...baseStyle,
-          backgroundImage: 'linear-gradient(145deg, #F5E6A3 0%, #D4AF37 30%, #B8860B  60%, #8B6914 100%)',
-        };
-    }
-  };
-
-  const renderSpecificContent = () => {
-    switch (selectedMedal.type) {
-      case 'athena':
-        return <AthenaMedalContent medal={selectedMedal} totalSavings={totalSavings} />;
-      case 'chronos':
-        return <ChronosMedalContent medal={selectedMedal} totalSavings={totalSavings} />;
-      case 'health':
-        return <HealthMedalContent medal={selectedMedal} />;
-      case 'vigor':
-        return <VigorMedalContent medal={selectedMedal} totalSavings={totalSavings} />;
-      case 'victory':
-        return <VictoryMedalContent medal={selectedMedal} />;
+        return <HealthMedalContent medal={medal} />;
       default:
         return null;
     }
   };
 
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('es-ES', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
+
   return (
-    <Dialog open={!!selectedMedal} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[95vh] overflow-y-auto p-4 sm:p-6">
-        <DialogHeader>
-          <DialogTitle className={`text-center text-xl sm:text-2xl font-bold ${typeInfo.color}`}>
-            <div className="flex items-center justify-center gap-4 mb-4">
+    <>
+      <MobileBackHandler 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        id={`medal-modal-${medal.id}`} 
+      />
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-md sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="space-y-4">
+            <div className="flex flex-col items-center space-y-4">
+              {/* Medalla grande */}
               <div className="relative">
-                <img 
-                  src={selectedMedal.icon} 
-                  alt={selectedMedal.title}
-                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-current shadow-lg"
-                />
-                
-                {/* Número grabado mejorado para medallas de Vigor (Dioniso) */}
-                {selectedMedal.type === 'vigor' && 'days' in selectedMedal && selectedMedal.days && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span 
-                      className="text-amber-100 font-black text-2xl sm:text-3xl tracking-wider select-none pointer-events-none"
-                      style={getEngravedTextStyle('vigor')}
-                    >
-                      {selectedMedal.days}
-                    </span>
-                  </div>
-                )}
-
-                {/* Número 90 grabado mejorado para medalla de Atenea */}
-                {selectedMedal.type === 'athena' && 'days' in selectedMedal && selectedMedal.days && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span 
-                      className="text-amber-200 font-black text-2xl sm:text-3xl tracking-wider select-none pointer-events-none"
-                      style={getEngravedTextStyle('athena')}
-                    >
-                      {selectedMedal.days}
-                    </span>
-                  </div>
-                )}
-
-                {/* Número 2 grabado mejorado para medalla de Cronos */}
-                {selectedMedal.type === 'chronos' && 'days' in selectedMedal && selectedMedal.days && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span 
-                      className="text-orange-200 font-black text-3xl sm:text-4xl tracking-wider select-none pointer-events-none"
-                      style={getEngravedTextStyle('chronos')}
-                    >
-                      2
-                    </span>
-                  </div>
-                )}
-
-                {/* Inscripción grabada mejorada para medallas de Salud (Higiea) */}
-                {selectedMedal.type === 'health' && 'inscription' in selectedMedal && selectedMedal.inscription && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span 
-                      className="text-green-100 font-black text-sm sm:text-base tracking-wider select-none pointer-events-none"
-                      style={getEngravedTextStyle('health')}
-                    >
-                      {selectedMedal.inscription}
-                    </span>
-                  </div>
-                )}
-
-                {/* Ícono del órgano para medallas de Salud (Higiea) en la esquina */}
-                {selectedMedal.type === 'health' && 'organIcon' in selectedMedal && selectedMedal.organIcon && (
-                  <div className="absolute -bottom-2 -right-2 bg-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border-2 border-green-300 shadow-lg">
-                    <span className="text-lg sm:text-xl">{selectedMedal.organIcon}</span>
-                  </div>
-                )}
+                <div 
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-2xl border-4 border-yellow-300"
+                  style={{
+                    background: `linear-gradient(135deg, ${medal.gradient.from} 0%, ${medal.gradient.to} 100%)`,
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.3), inset 0 -2px 10px rgba(0,0,0,0.2)'
+                  }}
+                >
+                  <span 
+                    style={{
+                      textShadow: `
+                        2px 2px 4px rgba(0,0,0,0.8),
+                        -1px -1px 2px rgba(255,255,255,0.3),
+                        1px 1px 2px rgba(0,0,0,0.5),
+                        0 0 8px rgba(0,0,0,0.4)
+                      `,
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
+                    }}
+                  >
+                    {medal.symbol}
+                  </span>
+                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                  <Trophy className="w-3 h-3 text-yellow-800" />
+                </div>
               </div>
-              <div className="text-left">
-                <span className="text-xl sm:text-2xl">{selectedMedal.title}</span>
-              </div>
-            </div>
-          </DialogTitle>
-        </DialogHeader>
-        
-        <div className="text-center space-y-6 py-4">
-          {/* Tipo de medalla */}
-          <div className={`${typeInfo.bgColor} border rounded-lg p-4`}>
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <img 
-                src={selectedMedal.icon} 
-                alt={typeInfo.title}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
-              />
-              <p className={`font-bold text-lg ${typeInfo.color.replace('text-', 'text-').replace('-600', '-700')}`}>
-                Medalla de {typeInfo.title}
+
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
+                {medal.title}
+              </DialogTitle>
+              
+              <p className="text-center text-gray-600 text-sm sm:text-base max-w-md px-4">
+                {medal.description}
               </p>
             </div>
-            <p className={`text-base ${typeInfo.color}`}>
-              {typeInfo.description}
-            </p>
-          </div>
+          </DialogHeader>
 
-          <p className="text-gray-600 text-lg">{selectedMedal.description}</p>
-          
-          <div className={`${typeInfo.bgColor.replace('border-', 'bg-').replace('-200', '-50')} p-6 rounded-lg`}>
-            <p className={`text-base font-medium ${typeInfo.color.replace('-600', '-700')} mb-3`}>
-              Beneficio conseguido:
-            </p>
-            <p className={`${typeInfo.color} text-lg`}>
-              {selectedMedal.reward}
-            </p>
-            
-            {selectedMedal.type === 'health' && 'medicalBasis' in selectedMedal && selectedMedal.medicalBasis && (
-              <div className="mt-4 p-3 bg-white/50 rounded border border-green-300">
-                <p className="text-sm text-green-700 font-medium mb-2">Base médica:</p>
-                <p className="text-sm text-green-600 italic">
-                  {selectedMedal.medicalBasis}
-                </p>
-              </div>
-            )}
+          <div className="space-y-4 sm:space-y-6 mt-4">
+            {/* Información de la medalla */}
+            <Card>
+              <CardContent className="p-4 sm:p-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <Calendar className="w-5 h-5 text-blue-500" />
+                    <div>
+                      <p className="text-sm text-gray-600">Obtenida el día</p>
+                      <p className="font-semibold text-sm sm:text-base">{medal.requiredDays}</p>
+                    </div>
+                  </div>
+                  
+                  {medal.category === 'athena' && (
+                    <div className="flex items-center space-x-3">
+                      <Coins className="w-5 h-5 text-green-500" />
+                      <div>
+                        <p className="text-sm text-gray-600">Ahorros hasta entonces</p>
+                        <p className="font-semibold text-sm sm:text-base">
+                          {formatCurrency(totalSavings)}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center space-x-3 sm:col-span-2">
+                    <TrendingUp className="w-5 h-5 text-purple-500" />
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-600">Categoría</p>
+                      <Badge variant="outline" className="text-xs sm:text-sm">
+                        {medal.category === 'athena' ? 'Ahorros' : 
+                         medal.category === 'chronos' ? 'Tiempo' : 
+                         medal.category === 'victory' ? 'Victoria' : 
+                         medal.category === 'vigor' ? 'Vigor' : 'Salud'}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            {(selectedMedal.type === 'victory' || selectedMedal.type === 'athena' || selectedMedal.type === 'chronos') && 'specialMessage' in selectedMedal && selectedMedal.specialMessage && (
-              <div className={`mt-4 p-3 bg-white/50 rounded border ${
-                selectedMedal.type === 'athena' ? 'border-amber-300' : 
-                selectedMedal.type === 'chronos' ? 'border-orange-300' : 
-                'border-yellow-300'
-              }`}>
-                <p className={`text-sm italic ${
-                  selectedMedal.type === 'athena' ? 'text-amber-700' : 
-                  selectedMedal.type === 'chronos' ? 'text-orange-700' : 
-                  'text-yellow-700'
-                }`}>
-                  {selectedMedal.specialMessage}
-                </p>
-              </div>
-            )}
+            {/* Contenido específico de la medalla */}
+            {getMedalContent()}
           </div>
-          
-          {/* Contenido específico por tipo de medalla */}
-          {renderSpecificContent()}
-        </div>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
+
+export default MedalModal;

@@ -17,22 +17,25 @@ const WeeklyChart = ({ data }: WeeklyChartProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Progreso Semanal</CardTitle>
-        <p className="text-sm text-gray-600">
-          Evolución del estado emocional agrupado por semanas
+        <CardTitle className="text-base sm:text-lg">Resumen Semanal</CardTitle>
+        <p className="text-xs sm:text-sm text-gray-600">
+          Evolución del bienestar emocional agrupado por semanas
         </p>
       </CardHeader>
       <CardContent>
-        <div className="h-64">
+        <div className="h-48 sm:h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
                 dataKey="week" 
-                fontSize={12}
+                fontSize={10}
+                angle={-45}
+                textAnchor="end"
+                height={60}
               />
               <YAxis 
-                fontSize={12}
+                fontSize={10}
                 domain={[-1, 1]}
                 tickFormatter={(value) => value > 0 ? 'Buena' : value < 0 ? 'Mala' : 'Neutral'}
               />
@@ -47,8 +50,8 @@ const WeeklyChart = ({ data }: WeeklyChartProps) => {
                 type="monotone"
                 dataKey="score"
                 stroke="#10B981"
-                strokeWidth={3}
-                dot={{ fill: '#10B981', strokeWidth: 2, r: 6 }}
+                strokeWidth={2}
+                dot={{ fill: '#10B981', strokeWidth: 1, r: 4 }}
                 name="Tendencia semanal"
               />
             </LineChart>

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { emotions } from '@/data/emotionsData';
@@ -142,7 +143,7 @@ const HistoryView = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <HistoryStats 
         totalLogs={emotionLogs.length}
         positiveDays={emotionBalance.filter(b => b.score > 0).length}
@@ -152,26 +153,50 @@ const HistoryView = () => {
 
       {emotionBalance.length > 0 && (
         <Tabs defaultValue="evolution" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="evolution">Evolución Bipolar</TabsTrigger>
-            <TabsTrigger value="quadrants">4 Cuadrantes</TabsTrigger>
-            <TabsTrigger value="weekly">Por Semanas</TabsTrigger>
-            <TabsTrigger value="distribution">Distribución</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm min-h-16 lg:min-h-12 gap-1 p-1">
+            <TabsTrigger 
+              value="evolution" 
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+            >
+              <span>Evolución</span>
+              <span className="text-[10px] opacity-75">Día a día</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="quadrants" 
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+            >
+              <span>Mapa</span>
+              <span className="text-[10px] opacity-75">Emocional</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="weekly" 
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+            >
+              <span>Resumen</span>
+              <span className="text-[10px] opacity-75">Semanal</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="distribution" 
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+            >
+              <span>Frecuencia</span>
+              <span className="text-[10px] opacity-75">Emociones</span>
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="evolution">
+          <TabsContent value="evolution" className="mt-4">
             <EvolutionChart data={emotionBalance} />
           </TabsContent>
 
-          <TabsContent value="quadrants">
+          <TabsContent value="quadrants" className="mt-4">
             <QuadrantChart data={quadrantData} />
           </TabsContent>
 
-          <TabsContent value="weekly">
+          <TabsContent value="weekly" className="mt-4">
             <WeeklyChart data={weeklyData} />
           </TabsContent>
 
-          <TabsContent value="distribution">
+          <TabsContent value="distribution" className="mt-4">
             <DistributionChart data={emotionDistribution} />
           </TabsContent>
         </Tabs>

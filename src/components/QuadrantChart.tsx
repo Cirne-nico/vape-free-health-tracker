@@ -18,13 +18,13 @@ const QuadrantChart = ({ data }: QuadrantChartProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Mapa Emocional de 4 Cuadrantes</CardTitle>
-        <p className="text-sm text-gray-600">
-          Energía vs Valencia. Cada punto representa un día, el tamaño indica la intensidad
+        <CardTitle className="text-base sm:text-lg">Mapa Emocional</CardTitle>
+        <p className="text-xs sm:text-sm text-gray-600">
+          Cada punto representa un día. Actividad vs Positividad
         </p>
       </CardHeader>
       <CardContent>
-        <div className="h-80">
+        <div className="h-60 sm:h-80">
           <ResponsiveContainer width="100%" height="100%">
             <ScatterChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -33,14 +33,14 @@ const QuadrantChart = ({ data }: QuadrantChartProps) => {
                 dataKey="valence"
                 domain={[-1.2, 1.2]}
                 tickFormatter={(value) => value > 0 ? 'Positivo' : value < 0 ? 'Negativo' : ''}
-                fontSize={12}
+                fontSize={10}
               />
               <YAxis 
                 type="number"
                 dataKey="energy"
                 domain={[-1.2, 1.2]}
                 tickFormatter={(value) => value > 0 ? 'Activo' : value < 0 ? 'Tranquilo' : ''}
-                fontSize={12}
+                fontSize={10}
               />
               <Tooltip 
                 formatter={(value: number, name: string) => [value.toFixed(2), name]}
@@ -49,10 +49,10 @@ const QuadrantChart = ({ data }: QuadrantChartProps) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="bg-white p-3 border rounded shadow-lg">
+                      <div className="bg-white p-2 sm:p-3 border rounded shadow-lg text-xs sm:text-sm">
                         <p className="font-semibold">Día {data.day}</p>
-                        <p className="text-sm text-gray-600">{data.date}</p>
-                        <p className="text-sm">{data.emotions}</p>
+                        <p className="text-gray-600">{data.date}</p>
+                        <p className="text-xs">{data.emotions}</p>
                       </div>
                     );
                   }

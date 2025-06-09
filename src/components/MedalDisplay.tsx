@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { MedalModal } from './medals/MedalModal';
+import MedalModal from './medals/MedalModal';
 import { MedalIcon } from './medals/MedalIcon';
 import { MedalTooltip } from './medals/MedalTooltip';
 import { getSpecialMedals } from './medals/medalUtils';

@@ -1,14 +1,13 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Trophy, Calendar, Coins, TrendingUp } from 'lucide-react';
 import MobileBackHandler from '../MobileBackHandler';
-import AthenaMedalContent from './AthenaMedalContent';
-import ChronosMedalContent from './ChronosMedalContent';
-import VictoryMedalContent from './VictoryMedalContent';
-import VigorMedalContent from './VigorMedalContent';
-import HealthMedalContent from './HealthMedalContent';
+import { AthenaMedalContent } from './AthenaMedalContent';
+import { ChronosMedalContent } from './ChronosMedalContent';
+import { VictoryMedalContent } from './VictoryMedalContent';
+import { VigorMedalContent } from './VigorMedalContent';
+import { HealthMedalContent } from './HealthMedalContent';
 
 interface MedalModalProps {
   isOpen: boolean;

@@ -24,84 +24,62 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full relative z-10"
       >
-        {/* Nariz con forma de banda de Möbius - copiando exactamente la imagen */}
-        <g transform="translate(24,24) scale(0.85)">
-          {/* Contorno exterior principal de la nariz */}
-          <path
-            d="M-12,-8 Q-16,-12 -8,-16 Q0,-18 8,-16 Q16,-12 12,-8 Q8,-4 4,-6 Q0,-8 -4,-6 Q-8,-4 -12,-8 Z"
-            stroke="white"
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          
-          {/* Contorno interior de la banda de Möbius */}
-          <path
-            d="M-8,-4 Q-4,-2 0,-4 Q4,-6 8,-4 Q12,0 8,4 Q4,6 0,4 Q-4,2 -8,4 Q-12,0 -8,-4 Z"
-            stroke="white"
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          
-          {/* Línea central que crea el efecto Möbius */}
-          <path
-            d="M-8,-4 Q0,0 8,-4 M8,-4 Q0,0 -8,4 M-8,4 Q0,0 8,4"
-            stroke="white"
-            strokeWidth="3"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          
-          {/* Orificios nasales - dos elipses */}
-          <ellipse
-            cx="-3"
-            cy="2"
-            rx="2"
-            ry="4"
-            fill="white"
-            transform="rotate(-20)"
-          />
-          
-          <ellipse
-            cx="3"
-            cy="2"
-            rx="2"
-            ry="4"
-            fill="white"
-            transform="rotate(20)"
-          />
-          
-          {/* Detalles adicionales para dar profundidad */}
-          <path
-            d="M-6,-2 Q0,-1 6,-2"
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-          />
-          
-          <path
-            d="M-6,6 Q0,5 6,6"
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-          />
-        </g>
-        
-        {/* Círculo exterior sutil para enmarcar */}
+        {/* Círculo exterior más visible */}
         <circle
           cx="24"
           cy="24"
           r="22"
           stroke="white"
-          strokeWidth="1"
-          opacity="0.4"
-          fill="none"
+          strokeWidth="1.5"
+          opacity="0.8"
+        />
+        
+        {/* Líneas de transición con mejor contraste */}
+        <g>
+          <path
+            d="M12 24 L20 16 L28 24 L36 16"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            opacity="0.9"
+          />
+          <path
+            d="M12 28 L20 20 L28 28 L36 20"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            opacity="0.7"
+          />
+          <path
+            d="M12 32 L20 24 L28 32 L36 24"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            opacity="0.5"
+          />
+        </g>
+        
+        {/* Punto central más destacado */}
+        <circle
+          cx="24"
+          cy="24"
+          r="2.5"
+          fill="white"
+          className="drop-shadow-sm"
+        />
+        
+        {/* Sombra interna del punto central para más profundidad */}
+        <circle
+          cx="24"
+          cy="24"
+          r="1"
+          fill="rgba(59, 130, 246, 0.6)"
         />
       </svg>
     </div>

@@ -53,7 +53,7 @@ export const healthAchievements = [
     description: 'La capacidad pulmonar ha aumentado considerablemente',
     days: 30,
     healthCategory: 'respiratory',
-    icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png', // lungs-silver (reutilizando)
+    icon: '/lovable-uploads/be049546-9f62-4aec-8eb2-ea73ed587a38.png', // Nueva medalla función pulmonar
     organIcon: '🫁',
     inscription: 'PULMÓN',
     reward: 'Capacidad pulmonar: +20% mejorada',

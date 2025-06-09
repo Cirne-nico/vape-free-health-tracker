@@ -138,7 +138,7 @@ export const healthAchievements = [
     description: 'La resistencia física y capacidad aeróbica se han restaurado',
     days: 150,
     healthCategory: 'cardiovascular',
-    icon: '/placeholder-exercise-medal.png', // Placeholder - será reemplazado cuando tengas la medalla
+    icon: '/lovable-uploads/c8891839-6e9e-487b-91f2-f38c22ad47d0.png', // Nueva medalla capacidad de ejercicio
     organIcon: '💪',
     inscription: 'DEPORTE',
     reward: 'VO₂ máximo mejorado, resistencia cardiovascular óptima',

@@ -79,6 +79,34 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
     setIsEnlarged(false);
   };
 
+  // Si está ampliada, solo mostrar el modal ampliado
+  if (isEnlarged) {
+    return (
+      <Dialog open={isEnlarged} onOpenChange={handleCloseEnlarged}>
+        <DialogContent className="max-w-2xl bg-black/90 border-0 p-0 overflow-hidden">
+          <div className="relative flex flex-col items-center justify-center p-8 min-h-[60vh]">
+            <button
+              onClick={handleCloseEnlarged}
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-50"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            {/* Solo la medalla, sin ningún texto adicional */}
+            <div className="relative scale-[4] sm:scale-[6] mb-8 mt-8">
+              <MedalIcon medal={medal} onClick={() => {}} isEnlarged={true} />
+            </div>
+            
+            {/* Solo el título de la medalla */}
+            <h3 className="text-white text-xl sm:text-2xl font-bold text-center">
+              {processedTitle}
+            </h3>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
     <>
       <MobileBackHandler 
@@ -145,30 +173,6 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
 
             {/* Contenido específico de la medalla */}
             {getMedalContent()}
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Modal ampliado para ver la medalla en detalle - COMPLETAMENTE LIMPIO */}
-      <Dialog open={isEnlarged} onOpenChange={handleCloseEnlarged}>
-        <DialogContent className="max-w-2xl bg-black/90 border-0 p-0">
-          <div className="relative flex flex-col items-center justify-center p-8 min-h-[60vh]">
-            <button
-              onClick={handleCloseEnlarged}
-              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-10"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            
-            {/* Solo la medalla, sin ningún texto adicional */}
-            <div className="relative scale-[4] sm:scale-[6] mb-8 mt-8">
-              <MedalIcon medal={medal} onClick={() => {}} isEnlarged={true} />
-            </div>
-            
-            {/* Solo el título de la medalla */}
-            <h3 className="text-white text-xl sm:text-2xl font-bold text-center">
-              {processedTitle}
-            </h3>
           </div>
         </DialogContent>
       </Dialog>

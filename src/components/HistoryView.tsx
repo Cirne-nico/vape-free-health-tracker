@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { emotions } from '@/data/emotionsData';
@@ -153,33 +152,33 @@ const HistoryView = () => {
 
       {emotionBalance.length > 0 && (
         <Tabs defaultValue="evolution" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm min-h-16 lg:min-h-12 gap-1 p-1">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm p-1 mb-4">
             <TabsTrigger 
               value="evolution" 
-              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
             >
-              <span>Evolución</span>
+              <span className="font-medium">Evolución</span>
               <span className="text-[10px] opacity-75">Día a día</span>
             </TabsTrigger>
             <TabsTrigger 
               value="quadrants" 
-              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
             >
-              <span>Mapa</span>
+              <span className="font-medium">Mapa</span>
               <span className="text-[10px] opacity-75">Emocional</span>
             </TabsTrigger>
             <TabsTrigger 
               value="weekly" 
-              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
             >
-              <span>Resumen</span>
+              <span className="font-medium">Resumen</span>
               <span className="text-[10px] opacity-75">Semanal</span>
             </TabsTrigger>
             <TabsTrigger 
               value="distribution" 
-              className="flex flex-col items-center gap-1 p-2 text-xs min-h-14 lg:min-h-10 leading-tight text-center"
+              className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
             >
-              <span>Frecuencia</span>
+              <span className="font-medium">Frecuencia</span>
               <span className="text-[10px] opacity-75">Emociones</span>
             </TabsTrigger>
           </TabsList>

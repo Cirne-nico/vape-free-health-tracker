@@ -61,6 +61,18 @@ export const healthAchievements = [
     medicalBasis: 'Reducción de la inflamación bronquial, mejora del intercambio gaseoso'
   },
   {
+    id: 'eye_health_recovery',
+    title: 'Recuperación Ocular',
+    description: 'La salud ocular y la hidratación natural de los ojos se han restaurado',
+    days: 45,
+    healthCategory: 'skinEyes',
+    icon: '/lovable-uploads/5326713f-9f2e-4cf6-b83c-2ff344d488a7.png', // Nueva medalla salud ocular
+    organIcon: '👁️',
+    inscription: 'OJOS',
+    reward: 'Circulación ocular normalizada, reducción del ojo seco',
+    medicalBasis: 'Mejora de la microcirculación ocular y producción lagrimal'
+  },
+  {
     id: 'blood_pressure_normalization',
     title: 'Presión Arterial Normal',
     description: 'La presión arterial se ha estabilizado en valores normales',

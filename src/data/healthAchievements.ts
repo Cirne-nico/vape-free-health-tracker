@@ -102,7 +102,7 @@ export const healthAchievements = [
     description: 'La salud dental y las encías han mejorado significativamente',
     days: 75,
     healthCategory: 'skinEyes',
-    icon: '/placeholder-dental-medal.png', // Placeholder - será reemplazado cuando tengas la medalla
+    icon: '/lovable-uploads/9d36e4e9-f4eb-4349-a494-d59aff84910b.png', // Nueva medalla dental
     organIcon: '🦷',
     inscription: 'DENTAL',
     reward: 'Encías saludables, reducción de placa bacteriana',

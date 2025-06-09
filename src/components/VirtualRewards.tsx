@@ -30,12 +30,18 @@ const VirtualRewards = ({ currentDay, totalSavings, unlockedAchievements }: Virt
     }
   }, []);
 
-  // Sistema de puntos basado en días, logros y nuevas insignias emocionales
+  // Sistema de puntos basado ÚNICAMENTE en actividad emocional
   const calculatePoints = () => {
-    let points = currentDay * 10; // 10 puntos por día
-    points += unlockedAchievements.length * 50; // 50 puntos por logro
-    points += Math.floor(totalSavings / 10) * 5; // 5 puntos por cada 10€ ahorrados
-    points += unlockedEmotionalBadges.length * 75; // 75 puntos por insignia emocional
+    if (emotionLogs.length === 0) return 0;
+    
+    let points = 0;
+    points += emotionLogs.length * 25; // 25 puntos por cada registro emocional
+    points += unlockedEmotionalBadges.length * 100; // 100 puntos por insignia emocional
+    
+    // Bonus por consistencia (si hay registros en múltiples días)
+    const uniqueDays = new Set(emotionLogs.map(log => log.date?.split('T')[0])).size;
+    points += uniqueDays * 15; // 15 puntos extra por cada día con registro
+    
     return points;
   };
 

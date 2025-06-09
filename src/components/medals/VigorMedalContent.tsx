@@ -24,6 +24,10 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
     };
   };
 
+  // Calcular el ahorro específico para este día
+  const dailyCostVaping = (20/7) + (4/10); // Coste diario de vapear
+  const savingsForThisDay = (medal.days * dailyCostVaping);
+
   const getMotivationalMessage = (amount: number) => {
     if (amount < 6) return "Las próximas birras sin alcohol las paga la abstinencia.";
     if (amount < 8) return "Ya te has fumado... ¡una barra de pan de centeno eco integral con semillas!";
@@ -39,7 +43,7 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
     if (amount < 300) return "Tres siglos de churros.";
     if (amount < 500) return "Medio kilo. En tu bolsillo. No en tus pulmones.";
     if (amount < 600) return "Hay quien se compra una bici.";
-    if (amount < 1250) return "Viaje a Grecia más alojamiento de un mes pagado, flipa.";
+    if (amount < 1250) return "Un viaje de fin de semana por Europa.";
     if (amount < 1750) return "Podrías tatuarte el total ahorrado.";
     if (amount < 2000) return "Dos mil euros. Dos mil días menos de humo. Esto ya no es un logro: es una vida nueva.";
     return "Has alcanzado un nivel épico de ahorro. ¡Increíble!";
@@ -65,10 +69,10 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
           </div>
         ) : (
           <div className="text-center space-y-2">
-            <p className="text-3xl font-bold text-blue-600">{totalSavings.toFixed(2)}€</p>
-            <p className="text-sm text-blue-700 mb-2">ahorrados en total</p>
+            <p className="text-3xl font-bold text-blue-600">{savingsForThisDay.toFixed(2)}€</p>
+            <p className="text-sm text-blue-700 mb-2">ahorrados hasta el día {medal.days}</p>
             <p className="text-sm text-gray-600 italic">
-              "{getMotivationalMessage(totalSavings)}"
+              "{getMotivationalMessage(savingsForThisDay)}"
             </p>
           </div>
         )}

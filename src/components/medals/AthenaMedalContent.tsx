@@ -34,10 +34,8 @@ export const AthenaMedalContent = ({ medal, totalSavings }: AthenaMedalContentPr
         </p>
         
         <div className="bg-amber-100 p-4 rounded border">
-          <p className="font-medium mb-2">La claridad de Atenea:</p>
-          <p>A los 90 días, tu mente está más clara que nunca. Como la diosa de la sabiduría, 
-          has ganado perspectiva sobre tu vida y tus decisiones. El dinero ahorrado es solo 
-          un símbolo de la libertad que has conquistado.</p>
+          <p className="font-medium mb-2">90 días sin vapor:</p>
+          <p>90 días sin vapor. No sabes si es sabiduría o vacío existencial, pero al menos se respira mejor</p>
         </div>
 
         <div className="bg-white p-4 rounded border border-amber-300">
@@ -45,7 +43,7 @@ export const AthenaMedalContent = ({ medal, totalSavings }: AthenaMedalContentPr
           <p className="text-xs">
             Con {totalSavings.toFixed(0)}€ puedes permitirte un viaje memorable a Grecia, 
             la cuna de la filosofía y la sabiduría. Visita el Partenón, templo dedicado 
-            a Atenea, y celebra tu victoria personal en el lugar donde nació la sabiduría occidental.
+            a Atenea, y tómate un tsípouro a su salud.
           </p>
         </div>
       </div>

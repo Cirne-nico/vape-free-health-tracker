@@ -159,75 +159,78 @@ const Index = () => {
             onRelapse={handleRelapse}
           />
 
-          {/* Navegación principal */}
-          <Tabs defaultValue="emotions" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm">
-              <TabsTrigger value="emotions" className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                General
-              </TabsTrigger>
-              <TabsTrigger value="health" className="flex items-center gap-2">
-                <Heart className="w-4 h-4" />
-                Salud
-              </TabsTrigger>
-              <TabsTrigger value="achievements" className="flex items-center gap-2">
-                <Trophy className="w-4 h-4" />
-                Logros
-              </TabsTrigger>
-              <TabsTrigger value="history" className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                Historial
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2">
-                <Settings className="w-4 h-4" />
-                Ajustes
-              </TabsTrigger>
-            </TabsList>
+          {/* Layout principal con dos columnas: contenido principal y medallas */}
+          <div className="flex gap-6">
+            {/* Columna principal con pestañas */}
+            <div className="flex-1">
+              <Tabs defaultValue="emotions" className="w-full">
+                <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm">
+                  <TabsTrigger value="emotions" className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    General
+                  </TabsTrigger>
+                  <TabsTrigger value="health" className="flex items-center gap-2">
+                    <Heart className="w-4 h-4" />
+                    Salud
+                  </TabsTrigger>
+                  <TabsTrigger value="achievements" className="flex items-center gap-2">
+                    <Trophy className="w-4 h-4" />
+                    Logros
+                  </TabsTrigger>
+                  <TabsTrigger value="history" className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    Historial
+                  </TabsTrigger>
+                  <TabsTrigger value="settings" className="flex items-center gap-2">
+                    <Settings className="w-4 h-4" />
+                    Ajustes
+                  </TabsTrigger>
+                </TabsList>
 
-            <TabsContent value="emotions">
-              <div className="space-y-6">
-                <EmotionLogger startDate={startDate} />
-                
-                {/* Nuevas funcionalidades en la pestaña General */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <SocialStats 
-                    currentDay={time.days}
-                    totalSavings={savings.total}
-                  />
-                  <VirtualRewards 
-                    currentDay={time.days}
-                    totalSavings={savings.total}
-                    unlockedAchievements={unlockedAchievements}
-                  />
-                </div>
-                
-                <PredictiveAnalysis currentDay={time.days} />
-              </div>
-            </TabsContent>
+                <TabsContent value="emotions">
+                  <div className="space-y-6">
+                    <EmotionLogger startDate={startDate} />
+                    
+                    {/* Nuevas funcionalidades en la pestaña General */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <SocialStats 
+                        currentDay={time.days}
+                        totalSavings={savings.total}
+                      />
+                      <VirtualRewards 
+                        currentDay={time.days}
+                        totalSavings={savings.total}
+                        unlockedAchievements={unlockedAchievements}
+                      />
+                    </div>
+                    
+                    <PredictiveAnalysis currentDay={time.days} />
+                  </div>
+                </TabsContent>
 
-            <TabsContent value="health">
-              <HealthTracker startDate={startDate} />
-            </TabsContent>
+                <TabsContent value="health">
+                  <HealthTracker startDate={startDate} />
+                </TabsContent>
 
-            <TabsContent value="achievements">
-              <AchievementsList days={time.days} savings={savings.total} />
-            </TabsContent>
+                <TabsContent value="achievements">
+                  <AchievementsList days={time.days} savings={savings.total} />
+                </TabsContent>
 
-            <TabsContent value="history">
-              <HistoryView />
-            </TabsContent>
+                <TabsContent value="history">
+                  <HistoryView />
+                </TabsContent>
 
-            <TabsContent value="settings">
-              <SettingsPanel />
-            </TabsContent>
-          </Tabs>
+                <TabsContent value="settings">
+                  <SettingsPanel />
+                </TabsContent>
+              </Tabs>
+            </div>
 
-          {/* Sección de medallas */}
-          <div className="w-full">
-            <div className="bg-white rounded-lg p-6 shadow-sm border">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4 text-center">Medallas Obtenidas</h3>
-              <div className="flex justify-center">
-                <div className="flex flex-wrap gap-4 justify-center">
+            {/* Columna de medallas */}
+            <div className="w-48 flex-shrink-0">
+              <div className="bg-white rounded-lg p-4 shadow-sm border sticky top-6">
+                <h3 className="text-sm font-semibold text-gray-700 mb-4 text-center">Medallas Obtenidas</h3>
+                <div className="flex flex-col gap-3">
                   <MedalDisplay 
                     unlockedAchievements={unlockedAchievements}
                     unlockedHealthAchievements={unlockedHealthAchievements}

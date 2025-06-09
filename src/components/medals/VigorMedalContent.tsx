@@ -73,17 +73,6 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
           </div>
         )}
       </div>
-      
-      <div className="grid grid-cols-2 gap-3 text-xs">
-        <div className="bg-gray-50 p-2 rounded">
-          <p className="font-medium">Logro alcanzado:</p>
-          <p>Día {medal.days}</p>
-        </div>
-        <div className="bg-gray-50 p-2 rounded">
-          <p className="font-medium">Ahorro del hito:</p>
-          <p>{(medal.days * ((20/7) + (4/10))).toFixed(2)}€</p>
-        </div>
-      </div>
 
       {/* Logros en salud acumulados para medallas de Vigor */}
       <div className="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">

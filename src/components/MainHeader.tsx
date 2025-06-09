@@ -89,17 +89,17 @@ const MainHeader = ({
         
         <CardContent className="relative p-3 sm:p-4 z-10">
           <div className="flex flex-col space-y-3 sm:space-y-4">
-            {/* Logo y título de la app mejorado */}
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Logo size="sm" className="text-white flex-shrink-0" />
-              <div className="text-center">
+            {/* Logo y título de la app reorganizado */}
+            <div className="text-center mb-3">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <Logo size="sm" className="text-white flex-shrink-0" />
                 <h1 className="text-xl sm:text-2xl font-bold text-white leading-none tracking-wide">
                   UMBRAL
                 </h1>
-                <p className="text-xs sm:text-sm text-green-100 leading-tight mt-0.5">
-                  acompaña tu proceso de abandono del vapeo
-                </p>
               </div>
+              <p className="text-xs sm:text-sm text-green-100 leading-tight">
+                acompaña tu proceso de abandono del vapeo
+              </p>
             </div>
 
             {/* Título principal más elegante */}

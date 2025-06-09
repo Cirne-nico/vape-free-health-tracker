@@ -10,13 +10,15 @@ import { VigorMedalContent } from './VigorMedalContent';
 import { HealthMedalContent } from './HealthMedalContent';
 
 interface MedalModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  medal: any;
+  selectedMedal: any;
   totalSavings: number;
+  onClose: () => void;
 }
 
-const MedalModal = ({ isOpen, onClose, medal, totalSavings }: MedalModalProps) => {
+const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) => {
+  const medal = selectedMedal;
+  const isOpen = !!selectedMedal;
+  
   if (!medal) return null;
 
   const getMedalContent = () => {
@@ -24,11 +26,11 @@ const MedalModal = ({ isOpen, onClose, medal, totalSavings }: MedalModalProps) =
       case 'athena':
         return <AthenaMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'chronos':
-        return <ChronosMedalContent medal={medal} />;
+        return <ChronosMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'victory':
-        return <VictoryMedalContent medal={medal} totalSavings={totalSavings} />;
+        return <VictoryMedalContent medal={medal} />;
       case 'vigor':
-        return <VigorMedalContent medal={medal} />;
+        return <VigorMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'health':
         return <HealthMedalContent medal={medal} />;
       default:

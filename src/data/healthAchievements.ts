@@ -54,7 +54,7 @@ export const healthAchievements = [
     description: 'La función neurológica y los neurotransmisores se han normalizado',
     days: 21,
     healthCategory: 'mental',
-    icon: '/placeholder-neurological-medal.png', // Placeholder - será reemplazado cuando tengas la medalla
+    icon: '/lovable-uploads/1b2c5d38-1e86-4144-b497-9661173fcb5c.png', // Nueva medalla neurológica
     organIcon: '🧠',
     inscription: 'NEURO',
     reward: 'Receptores de dopamina normalizados, mejora cognitiva',

@@ -30,20 +30,22 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         0 3px 0 #543622,
         0 4px 0 #432815,
         0 5px 0 #321A08,
-        0 6px 1px rgba(0,0,0,.1),
-        0 0 5px rgba(0,0,0,.1),
-        0 1px 3px rgba(0,0,0,.3),
-        0 3px 5px rgba(0,0,0,.2),
-        0 5px 10px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,0.3),
-        inset 0 -1px 0 rgba(0,0,0,0.5)
+        0 6px 1px rgba(0,0,0,.15),
+        0 0 5px rgba(0,0,0,.15),
+        0 1px 3px rgba(0,0,0,.4),
+        0 3px 5px rgba(0,0,0,.3),
+        0 5px 10px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        inset 0 -1px 0 rgba(0,0,0,0.6)
       `,
-      filter: 'drop-shadow(0 0 2px rgba(139, 69, 19, 0.8))',
-      background: 'linear-gradient(145deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)',
+      filter: 'drop-shadow(0 0 3px rgba(139, 69, 19, 0.9))',
+      background: 'linear-gradient(145deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.15) 100%)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
       color: 'transparent',
+      fontWeight: '900',
+      letterSpacing: '0.05em'
     };
 
     switch (type) {
@@ -81,11 +83,11 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         className="w-12 h-12 rounded-full object-cover"
       />
       
-      {/* Número grabado para medallas de Vigor (Dioniso) */}
+      {/* Número grabado mejorado para medallas de Vigor (Dioniso) */}
       {medal.type === 'vigor' && 'days' in medal && medal.days && (
         <div className="absolute inset-0 flex items-center justify-center">
           <span 
-            className="text-amber-100 font-black text-sm tracking-wider select-none pointer-events-none"
+            className="text-amber-100 select-none pointer-events-none text-sm"
             style={getEngravedTextStyle('vigor')}
           >
             {medal.days}
@@ -93,11 +95,11 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         </div>
       )}
 
-      {/* Número 90 grabado para medalla de Atenea */}
+      {/* Número 90 grabado mejorado para medalla de Atenea */}
       {medal.type === 'athena' && 'days' in medal && medal.days && (
         <div className="absolute inset-0 flex items-center justify-center">
           <span 
-            className="text-amber-200 font-black text-sm tracking-wider select-none pointer-events-none"
+            className="text-amber-200 select-none pointer-events-none text-sm"
             style={getEngravedTextStyle('athena')}
           >
             {medal.days}
@@ -105,11 +107,11 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         </div>
       )}
 
-      {/* Número 2 grabado para medalla de Cronos */}
+      {/* Número 2 grabado mejorado para medalla de Cronos */}
       {medal.type === 'chronos' && 'days' in medal && medal.days && (
         <div className="absolute inset-0 flex items-center justify-center">
           <span 
-            className="text-orange-200 font-black text-lg tracking-wider select-none pointer-events-none"
+            className="text-orange-200 select-none pointer-events-none text-lg"
             style={getEngravedTextStyle('chronos')}
           >
             2
@@ -117,11 +119,11 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         </div>
       )}
 
-      {/* Inscripción grabada para medallas de Salud (Higiea) */}
+      {/* Inscripción grabada mejorada para medallas de Salud (Higiea) */}
       {medal.type === 'health' && 'inscription' in medal && medal.inscription && (
         <div className="absolute inset-0 flex items-center justify-center">
           <span 
-            className="text-green-100 font-black text-xs tracking-wider select-none pointer-events-none"
+            className="text-green-100 select-none pointer-events-none text-xs"
             style={getEngravedTextStyle('health')}
           >
             {medal.inscription}

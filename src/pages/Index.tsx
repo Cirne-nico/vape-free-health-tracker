@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from '@/components/EmotionLogger';
@@ -15,6 +16,7 @@ import MedalDisplay from '@/components/MedalDisplay';
 import { useQuitProgress } from '@/hooks/useQuitProgress';
 import { useAchievements } from '@/hooks/useAchievements';
 import { Clock, Trophy, Heart, Calendar, Settings } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Index = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -85,22 +87,39 @@ const Index = () => {
     switch (relapseCount) {
       case 0:
         daysLost = 7;
-        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        // Verificar que no sea negativo
+        if (currentDays >= daysLost) {
+          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        } else {
+          newStartDate = new Date();
+        }
         penaltyMessage = 'Primera recaída: se ha restado una semana de tu progreso y las medallas correspondientes.';
         break;
       case 1:
         daysLost = 30;
-        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        if (currentDays >= daysLost) {
+          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        } else {
+          newStartDate = new Date();
+        }
         penaltyMessage = 'Segunda recaída: se ha restado un mes de tu progreso y las medallas correspondientes.';
         break;
       case 2:
         daysLost = 90;
-        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        if (currentDays >= daysLost) {
+          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        } else {
+          newStartDate = new Date();
+        }
         penaltyMessage = 'Tercera recaída: se han restado 3 meses de tu progreso y las medallas correspondientes.';
         break;
       case 3:
         daysLost = 270;
-        newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        if (currentDays >= daysLost) {
+          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
+        } else {
+          newStartDate = new Date();
+        }
         penaltyMessage = 'Cuarta recaída: se han restado 9 meses de tu progreso y las medallas correspondientes.';
         break;
       case 4:
@@ -120,7 +139,7 @@ const Index = () => {
     localStorage.setItem('relapse-count', newRelapseCount.toString());
     
     // Calcular los nuevos días tras la penalización
-    const newDays = Math.floor((currentTime.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24));
+    const newDays = Math.max(0, Math.floor((currentTime.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24)));
     
     // Si no es un reset completo, ajustar las medallas según los días perdidos
     if (relapseCount < 4) {
@@ -144,9 +163,9 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-2 sm:p-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="space-y-4 sm:space-y-6">
           {/* Header con estadísticas principales */}
           <MainHeader 
             time={time}
@@ -159,87 +178,89 @@ const Index = () => {
             onRelapse={handleRelapse}
           />
 
-          {/* Layout principal con dos columnas: contenido principal y medallas */}
-          <div className="flex gap-6">
-            {/* Columna principal con pestañas */}
-            <div className="flex-1">
-              <Tabs defaultValue="emotions" className="w-full">
-                <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm">
-                  <TabsTrigger value="emotions" className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    General
-                  </TabsTrigger>
-                  <TabsTrigger value="health" className="flex items-center gap-2">
-                    <Heart className="w-4 h-4" />
-                    Salud
-                  </TabsTrigger>
-                  <TabsTrigger value="achievements" className="flex items-center gap-2">
-                    <Trophy className="w-4 h-4" />
-                    Logros
-                  </TabsTrigger>
-                  <TabsTrigger value="history" className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Historial
-                  </TabsTrigger>
-                  <TabsTrigger value="settings" className="flex items-center gap-2">
-                    <Settings className="w-4 h-4" />
-                    Ajustes
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="emotions">
-                  <div className="space-y-6">
-                    <EmotionLogger startDate={startDate} />
-                    
-                    {/* Nuevas funcionalidades en la pestaña General */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      <SocialStats 
-                        currentDay={time.days}
-                        totalSavings={savings.total}
-                      />
-                      <VirtualRewards 
-                        currentDay={time.days}
-                        totalSavings={savings.total}
-                        unlockedAchievements={unlockedAchievements}
-                      />
-                    </div>
-                    
-                    <PredictiveAnalysis currentDay={time.days} />
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="health">
-                  <HealthTracker startDate={startDate} />
-                </TabsContent>
-
-                <TabsContent value="achievements">
-                  <AchievementsList days={time.days} savings={savings.total} />
-                </TabsContent>
-
-                <TabsContent value="history">
-                  <HistoryView />
-                </TabsContent>
-
-                <TabsContent value="settings">
-                  <SettingsPanel />
-                </TabsContent>
-              </Tabs>
-            </div>
-
-            {/* Columna de medallas */}
-            <div className="w-48 flex-shrink-0">
-              <div className="bg-white rounded-lg p-4 shadow-sm border sticky top-6">
-                <h3 className="text-sm font-semibold text-gray-700 mb-4 text-center">Medallas Obtenidas</h3>
-                <div className="flex flex-col gap-3">
+          {/* Medallas acumulativas debajo del header */}
+          {(unlockedAchievements.length > 0 || unlockedHealthAchievements.length > 0) && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-center text-lg flex items-center justify-center gap-2">
+                  <Trophy className="w-5 h-5" />
+                  Medallas Obtenidas
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex justify-center">
                   <MedalDisplay 
                     unlockedAchievements={unlockedAchievements}
                     unlockedHealthAchievements={unlockedHealthAchievements}
                     totalSavings={savings.total}
                   />
                 </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Pestañas principales con mejor responsive */}
+          <Tabs defaultValue="emotions" className="w-full">
+            <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm h-auto">
+              <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
+                <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>General</span>
+              </TabsTrigger>
+              <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
+                <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Salud</span>
+              </TabsTrigger>
+              <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
+                <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Logros</span>
+              </TabsTrigger>
+              <TabsTrigger value="history" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Historial</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 text-xs sm:text-sm">
+                <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>Ajustes</span>
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="emotions" className="mt-4 sm:mt-6">
+              <div className="space-y-4 sm:space-y-6">
+                <EmotionLogger startDate={startDate} />
+                
+                {/* Nuevas funcionalidades en la pestaña General */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                  <SocialStats 
+                    currentDay={time.days}
+                    totalSavings={savings.total}
+                  />
+                  <VirtualRewards 
+                    currentDay={time.days}
+                    totalSavings={savings.total}
+                    unlockedAchievements={unlockedAchievements}
+                  />
+                </div>
+                
+                <PredictiveAnalysis currentDay={time.days} />
               </div>
-            </div>
-          </div>
+            </TabsContent>
+
+            <TabsContent value="health" className="mt-4 sm:mt-6">
+              <HealthTracker startDate={startDate} />
+            </TabsContent>
+
+            <TabsContent value="achievements" className="mt-4 sm:mt-6">
+              <AchievementsList days={time.days} savings={savings.total} />
+            </TabsContent>
+
+            <TabsContent value="history" className="mt-4 sm:mt-6">
+              <HistoryView />
+            </TabsContent>
+
+            <TabsContent value="settings" className="mt-4 sm:mt-6">
+              <SettingsPanel />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
 

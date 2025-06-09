@@ -208,7 +208,7 @@ const Index = () => {
                   <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">General</span>
                 </TabsTrigger>
-                <TabsTrigger value="emotivity" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12">
+                <TabsTrigger value="emotivity" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 min-h-12" style={{ fontSize: '11.5px' }}>
                   <Brain className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="leading-tight">Emotividad</span>
                 </TabsTrigger>

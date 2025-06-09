@@ -153,9 +153,7 @@ const MainHeader = ({
                       />
                     </div>
                   ) : (
-                    <div className="text-green-100/60 text-sm">
-                      Las medallas aparecerán aquí conforme consigas logros
-                    </div>
+                    <div></div>
                   )}
                 </div>
 

@@ -1,40 +1,16 @@
 
 export const healthAchievements = [
   {
-    id: 'nicotine_elimination',
-    title: 'Eliminación de Nicotina',
-    description: 'La nicotina ha sido completamente eliminada del organismo',
-    days: 3,
-    healthCategory: 'cardiovascular',
-    icon: '💊',
-    organIcon: '💓',
-    inscription: 'SANGRE',
-    reward: 'Niveles de nicotina en sangre: 0%',
-    medicalBasis: 'Eliminación completa de nicotina y cotinina del torrente sanguíneo'
-  },
-  {
     id: 'oxygen_normalization',
     title: 'Normalización del Oxígeno',
     description: 'Los niveles de oxígeno en sangre se han normalizado',
     days: 1,
     healthCategory: 'respiratory',
-    icon: '🫁',
+    icon: '/lovable-uploads/40729490-8efc-4406-96d1-6fa50fd1c815.png', // lungs-bronze
     organIcon: '🫁',
     inscription: 'O₂',
     reward: 'Saturación de oxígeno: 98-100%',
     medicalBasis: 'Niveles de monóxido de carbono reducidos, oxigenación mejorada'
-  },
-  {
-    id: 'circulation_improvement',
-    title: 'Mejora Circulatoria',
-    description: 'La circulación sanguínea ha mejorado significativamente',
-    days: 14,
-    healthCategory: 'cardiovascular',
-    icon: '❤️',
-    organIcon: '❤️',
-    inscription: 'FLUJO',
-    reward: 'Flujo sanguíneo periférico normalizado',
-    medicalBasis: 'Reducción de vasoconstricción, mejora en la perfusión tisular'
   },
   {
     id: 'taste_smell_recovery',
@@ -42,11 +18,35 @@ export const healthAchievements = [
     description: 'Los sentidos del gusto y olfato se han restaurado',
     days: 2,
     healthCategory: 'skinEyes',
-    icon: '👃',
+    icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png', // sense-recovery
     organIcon: '👅',
     inscription: 'GUSTO',
     reward: 'Receptores sensoriales: 90% recuperados',
     medicalBasis: 'Regeneración de papilas gustativas y receptores olfativos'
+  },
+  {
+    id: 'nicotine_elimination',
+    title: 'Eliminación de Nicotina',
+    description: 'La nicotina ha sido completamente eliminada del organismo',
+    days: 3,
+    healthCategory: 'cardiovascular',
+    icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png', // nicotine-silver
+    organIcon: '💓',
+    inscription: 'SANGRE',
+    reward: 'Niveles de nicotina en sangre: 0%',
+    medicalBasis: 'Eliminación completa de nicotina y cotinina del torrente sanguíneo'
+  },
+  {
+    id: 'circulation_improvement',
+    title: 'Mejora Circulatoria',
+    description: 'La circulación sanguínea ha mejorado significativamente',
+    days: 14,
+    healthCategory: 'cardiovascular',
+    icon: '/lovable-uploads/40729490-8efc-4406-96d1-6fa50fd1c815.png', // heart-bronze (reutilizando)
+    organIcon: '❤️',
+    inscription: 'FLUJO',
+    reward: 'Flujo sanguíneo periférico normalizado',
+    medicalBasis: 'Reducción de vasoconstricción, mejora en la perfusión tisular'
   },
   {
     id: 'lung_function_improvement',
@@ -54,7 +54,7 @@ export const healthAchievements = [
     description: 'La capacidad pulmonar ha aumentado considerablemente',
     days: 30,
     healthCategory: 'respiratory',
-    icon: '🫁',
+    icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png', // lungs-silver (reutilizando)
     organIcon: '🫁',
     inscription: 'PULMÓN',
     reward: 'Capacidad pulmonar: +20% mejorada',
@@ -66,7 +66,7 @@ export const healthAchievements = [
     description: 'La presión arterial se ha estabilizado en valores normales',
     days: 60,
     healthCategory: 'cardiovascular',
-    icon: '🩺',
+    icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png', // heart-silver (reutilizando)
     organIcon: '❤️',
     inscription: 'TENSIÓN',
     reward: 'Presión arterial: 120/80 mmHg',
@@ -78,7 +78,7 @@ export const healthAchievements = [
     description: 'El hígado ha completado la desintoxicación de toxinas',
     days: 90,
     healthCategory: 'liver',
-    icon: '🔶',
+    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png', // liver-gold
     organIcon: '🫘',
     inscription: 'HÍGADO',
     reward: 'Enzimas hepáticas normalizadas',
@@ -90,7 +90,7 @@ export const healthAchievements = [
     description: 'El sistema inmunológico ha recuperado su función óptima',
     days: 120,
     healthCategory: 'mental',
-    icon: '🛡️',
+    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png', // immune-gold (la medalla dorada de Higiea que subiste)
     organIcon: '🧬',
     inscription: 'INMUNE',
     reward: 'Función inmune: +40% mejorada',
@@ -102,7 +102,7 @@ export const healthAchievements = [
     description: 'La piel ha recuperado su elasticidad y luminosidad',
     days: 180,
     healthCategory: 'skinEyes',
-    icon: '✨',
+    icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png', // skin-regeneration (reutilizando la otra medalla piel/ojos)
     organIcon: '🧴',
     inscription: 'PIEL',
     reward: 'Colágeno y elastina restaurados',
@@ -114,7 +114,7 @@ export const healthAchievements = [
     description: 'El corazón funciona como el de una persona que nunca fumó',
     days: 365,
     healthCategory: 'cardiovascular',
-    icon: '💖',
+    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png', // heart-gold (reutilizando)
     organIcon: '❤️',
     inscription: 'CORAZÓN',
     reward: 'Riesgo cardiovascular equiparado a no fumadores',

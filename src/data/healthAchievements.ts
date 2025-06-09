@@ -90,7 +90,7 @@ export const healthAchievements = [
     description: 'El sistema inmunológico ha recuperado su función óptima',
     days: 120,
     healthCategory: 'mental',
-    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png', // immune-gold (la medalla dorada de Higiea que subiste)
+    icon: '/lovable-uploads/0494836e-7922-4d59-9063-5c50cc85a6fa.png', // Nueva medalla sistema inmune fortalecido
     organIcon: '🧬',
     inscription: 'INMUNE',
     reward: 'Función inmune: +40% mejorada',

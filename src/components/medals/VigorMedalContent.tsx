@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button';
 import { ProcessedAchievement } from './medalTypes';
 import { calculateHealthProgress, getCurrentValue } from '../healthData';
 import { healthCategories } from '../HealthCategories';
@@ -11,10 +11,7 @@ interface VigorMedalContentProps {
 }
 
 export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProps) => {
-  const [sliderValue, setSliderValue] = useState([100]);
-
-  const savingsOpacity = Math.max(0, 1 - (sliderValue[0] / 100));
-  const revealPercentage = 100 - sliderValue[0];
+  const [isRevealed, setIsRevealed] = useState(false);
 
   const getHealthDataForDay = (days: number) => {
     const healthData = calculateHealthProgress(days);
@@ -29,38 +26,28 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
 
   return (
     <>
-      {/* Sección del ahorro con slider */}
+      {/* Sección del ahorro con botón descubrir */}
       <div className="bg-blue-50 p-4 rounded-lg relative overflow-hidden">
-        <div className="mb-4">
-          <p className="text-sm text-blue-700 mb-2">Desliza para revelar el ahorro:</p>
-          <Slider
-            value={sliderValue}
-            onValueChange={setSliderValue}
-            max={100}
-            min={0}
-            step={1}
-            className="w-full"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            {revealPercentage.toFixed(0)}% revelado
-          </p>
-        </div>
-        
-        <div 
-          className="transition-opacity duration-300"
-          style={{ opacity: savingsOpacity }}
-        >
-          <p className="text-3xl font-bold text-blue-600">{totalSavings.toFixed(2)}€</p>
-          <p className="text-sm text-blue-700 mb-2">ahorrados en total</p>
-          <p className="text-sm text-gray-600 italic">
-            "Cómprate algo con esto o valora pillarte un día libre en el curro"
-          </p>
-        </div>
-        
-        {savingsOpacity < 0.1 && (
-          <div className="absolute inset-0 bg-blue-100/80 flex items-center justify-center backdrop-blur-sm">
-            <p className="text-blue-800 font-medium">
-              Desliza hacia la izquierda para revelar
+        {!isRevealed ? (
+          <div className="text-center space-y-4">
+            <div className="bg-blue-100/80 rounded-lg p-6 backdrop-blur-sm">
+              <p className="text-blue-800 font-medium mb-4">
+                ¿Quieres saber cuánto has ahorrado?
+              </p>
+              <Button 
+                onClick={() => setIsRevealed(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                Descubrir
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="text-center space-y-2">
+            <p className="text-3xl font-bold text-blue-600">{totalSavings.toFixed(2)}€</p>
+            <p className="text-sm text-blue-700 mb-2">ahorrados en total</p>
+            <p className="text-sm text-gray-600 italic">
+              "Cómprate algo con esto o valora pillarte un día libre en el curro"
             </p>
           </div>
         )}

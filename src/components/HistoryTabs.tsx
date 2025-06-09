@@ -19,7 +19,7 @@ const HistoryTabs = ({ emotionBalance, quadrantData, weeklyData, emotionDistribu
 
   return (
     <Tabs defaultValue="evolution" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm p-1 mb-16">
+      <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white shadow-sm p-2 mb-16 h-auto">
         <TabsTrigger 
           value="evolution" 
           className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"

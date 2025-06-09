@@ -102,7 +102,7 @@ export const healthAchievements = [
     description: 'La piel ha recuperado su elasticidad y luminosidad',
     days: 180,
     healthCategory: 'skinEyes',
-    icon: '/lovable-uploads/33187119-695f-43d4-b30c-aa40ff98424e.png', // skin-regeneration (reutilizando la otra medalla piel/ojos)
+    icon: '/lovable-uploads/9f633469-5ddf-419a-8814-555872f0a070.png', // Nueva medalla regeneración cutánea
     organIcon: '🧴',
     inscription: 'PIEL',
     reward: 'Colágeno y elastina restaurados',

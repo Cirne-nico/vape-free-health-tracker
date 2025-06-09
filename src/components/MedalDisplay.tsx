@@ -32,11 +32,18 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
     }));
 
   // Procesar medallas de Salud (Higiea) - usar sus iconos específicos
-  const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({
-    ...achievement,
-    type: 'health' as const
-    // Mantener el icon original de cada achievement sin sobreescribirlo
-  }));
+  // EXCLUIR las que coincidan con días de medallas especiales (90, 365, 730)
+  const processedHealthAchievements = unlockedHealthAchievements
+    .filter(achievement => 
+      achievement.days !== 90 && // Día 90 es Atenea
+      achievement.days !== 365 && // Día 365 es Victoria  
+      achievement.days !== 730 // Día 730 es Cronos
+    )
+    .map(achievement => ({
+      ...achievement,
+      type: 'health' as const
+      // Mantener el icon original de cada achievement sin sobreescribirlo
+    }));
   
   const allMedals: Medal[] = [...processedAchievements, ...processedHealthAchievements, ...specialMedals];
 

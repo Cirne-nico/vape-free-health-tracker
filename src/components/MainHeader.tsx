@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -152,19 +151,18 @@ const MainHeader = ({
               </div>
             </div>
 
-            {/* Botón de recaída */}
+            {/* Botón de recaída reducido 30% */}
             <div className="flex justify-center pt-2">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={onRelapse}
                     variant="outline"
-                    size="sm"
-                    className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative text-xs sm:text-sm"
+                    className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative text-xs px-2 py-1 h-7"
                   >
-                    <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                    <AlertTriangle className="w-2.5 h-2.5 mr-1" />
                     Recaída
-                    <Info className="w-2 h-2 sm:w-3 sm:h-3 ml-1 opacity-70" />
+                    <Info className="w-2 h-2 ml-1 opacity-70" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className="max-w-xs p-3 text-sm">

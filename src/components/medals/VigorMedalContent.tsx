@@ -24,6 +24,27 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
     };
   };
 
+  const getMotivationalMessage = (amount: number) => {
+    if (amount < 6) return "Las próximas birras sin alcohol las paga la abstinencia.";
+    if (amount < 8) return "Ya te has fumado... ¡una barra de pan de centeno eco integral con semillas!";
+    if (amount < 10) return "Podrías pagar Netflix un mes... o mejor, vivir algo que no sea por streaming.";
+    if (amount < 15) return "Te has ahorrado el menú diario + postre + propina al camarero.";
+    if (amount < 20) return "Tu estómago ya no está solo: puedes invitarle a un ramen decente.";
+    if (amount < 40) return "Por este precio te montas una cenita digna.";
+    if (amount < 70) return "Un masaje, una peli buena, o diez tés con alguien interesante.";
+    if (amount < 80) return "Valora pillarte un día libre en el curro.";
+    if (amount < 100) return "Bienvenido al club de la gente que paga el alquiler y además respira.";
+    if (amount < 150) return "Este pulmón ya merece una escapada de finde.";
+    if (amount < 200) return "Ya no solo has dejado de vapear. También podrías dejar de compartir piso.";
+    if (amount < 300) return "Tres siglos de churros.";
+    if (amount < 500) return "Medio kilo. En tu bolsillo. No en tus pulmones.";
+    if (amount < 600) return "Hay quien se compra una bici.";
+    if (amount < 1250) return "Viaje a Grecia más alojamiento de un mes pagado, flipa.";
+    if (amount < 1750) return "Podrías tatuarte el total ahorrado.";
+    if (amount < 2000) return "Dos mil euros. Dos mil días menos de humo. Esto ya no es un logro: es una vida nueva.";
+    return "Has alcanzado un nivel épico de ahorro. ¡Increíble!";
+  };
+
   return (
     <>
       {/* Sección del ahorro con botón descubrir */}
@@ -47,7 +68,7 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
             <p className="text-3xl font-bold text-blue-600">{totalSavings.toFixed(2)}€</p>
             <p className="text-sm text-blue-700 mb-2">ahorrados en total</p>
             <p className="text-sm text-gray-600 italic">
-              "Cómprate algo con esto o valora pillarte un día libre en el curro"
+              "{getMotivationalMessage(totalSavings)}"
             </p>
           </div>
         )}

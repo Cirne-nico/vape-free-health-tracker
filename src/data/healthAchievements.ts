@@ -1,3 +1,4 @@
+
 export const healthAchievements = [
   {
     id: 'oxygen_normalization',
@@ -77,7 +78,7 @@ export const healthAchievements = [
     description: 'El hígado ha completado la desintoxicación de toxinas',
     days: 90,
     healthCategory: 'liver',
-    icon: '/lovable-uploads/11c876dc-a4da-4ee8-8fc3-a8f39cef49c7.png', // liver-gold
+    icon: '/lovable-uploads/fc8713fa-76d5-47c5-9f5b-ef3e87bf2a26.png', // Nueva medalla desintoxicación hepática
     organIcon: '🫘',
     inscription: 'HÍGADO',
     reward: 'Enzimas hepáticas normalizadas',

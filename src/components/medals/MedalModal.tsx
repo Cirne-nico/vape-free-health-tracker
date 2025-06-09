@@ -5,6 +5,7 @@ import { AthenaMedalContent } from './AthenaMedalContent';
 import { HealthMedalContent } from './HealthMedalContent';
 import { VigorMedalContent } from './VigorMedalContent';
 import { VictoryMedalContent } from './VictoryMedalContent';
+import { ChronosMedalContent } from './ChronosMedalContent';
 
 interface MedalModalProps {
   selectedMedal: Medal | null;
@@ -31,6 +32,13 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
           title: 'Sabiduría - Atenea',
           description: 'Símbolo de sabiduría y visión clara tras superar las adicciones'
         };
+      case 'chronos':
+        return {
+          color: 'text-orange-600',
+          bgColor: 'bg-orange-50 border-orange-200',
+          title: 'Tiempo - Cronos',
+          description: 'Símbolo del dominio absoluto del tiempo y la persistencia'
+        };
       case 'health':
         return {
           color: 'text-green-600',
@@ -54,6 +62,8 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
     switch (selectedMedal.type) {
       case 'athena':
         return <AthenaMedalContent medal={selectedMedal} totalSavings={totalSavings} />;
+      case 'chronos':
+        return <ChronosMedalContent medal={selectedMedal} totalSavings={totalSavings} />;
       case 'health':
         return <HealthMedalContent medal={selectedMedal} />;
       case 'vigor':
@@ -125,12 +135,16 @@ export const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalP
               </div>
             )}
 
-            {(selectedMedal.type === 'victory' || selectedMedal.type === 'athena') && 'specialMessage' in selectedMedal && selectedMedal.specialMessage && (
+            {(selectedMedal.type === 'victory' || selectedMedal.type === 'athena' || selectedMedal.type === 'chronos') && 'specialMessage' in selectedMedal && selectedMedal.specialMessage && (
               <div className={`mt-3 p-2 bg-white/50 rounded border ${
-                selectedMedal.type === 'athena' ? 'border-amber-300' : 'border-yellow-300'
+                selectedMedal.type === 'athena' ? 'border-amber-300' : 
+                selectedMedal.type === 'chronos' ? 'border-orange-300' : 
+                'border-yellow-300'
               }`}>
                 <p className={`text-xs italic ${
-                  selectedMedal.type === 'athena' ? 'text-amber-700' : 'text-yellow-700'
+                  selectedMedal.type === 'athena' ? 'text-amber-700' : 
+                  selectedMedal.type === 'chronos' ? 'text-orange-700' : 
+                  'text-yellow-700'
                 }`}>
                   {selectedMedal.specialMessage}
                 </p>

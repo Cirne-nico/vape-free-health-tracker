@@ -1,3 +1,4 @@
+
 export const getSuccessRate = (days: number): number => {
   // Datos aproximados basados en estadísticas generales sobre dejar de fumar/vapear
   const initialRate = 30; // Tasa inicial de éxito (primeros días)
@@ -50,6 +51,20 @@ export const getSpecialMedals = (currentDays: number) => {
       hasEconomicBenefits: true,
       hasHealthBenefits: true,
       specialMessage: 'Has superado la prueba del tiempo y te has convertido en un verdadero ejemplo de perseverancia.'
+    });
+  }
+
+  // Nueva medalla de Cronos para los dos años (730 días)
+  if (currentDays >= 730) {
+    specialMedals.push({
+      id: 'two_years_chronos',
+      type: 'chronos' as const,
+      title: 'Cronos - Dos Años',
+      icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png',
+      description: '¡Dos años completos de libertad!',
+      reward: 'Ahora ya puedes ir a Amorgós, alquilar una casa, pegarte un homenaje en la psarotaberna de Aigiali e invitar a rakí a toda la taverna',
+      days: 730,
+      specialMessage: 'El tiempo ha sido tu aliado. Has alcanzado la maestría absoluta sobre la adicción.'
     });
   }
   

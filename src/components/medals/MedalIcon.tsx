@@ -13,6 +13,8 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         return 'bg-yellow-100/80 border-yellow-300';
       case 'athena':
         return 'bg-amber-100/80 border-amber-300';
+      case 'chronos':
+        return 'bg-orange-100/80 border-orange-300';
       case 'health':
         return 'bg-green-100/80 border-green-300';
       default:
@@ -49,6 +51,11 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
         return {
           ...baseStyle,
           backgroundImage: 'linear-gradient(145deg, #FEF3C7 0%, #F59E0B 30%, #D97706  60%, #92400E 100%)',
+        };
+      case 'chronos':
+        return {
+          ...baseStyle,
+          backgroundImage: 'linear-gradient(145deg, #FED7AA 0%, #FB923C 30%, #EA580C  60%, #C2410C 100%)',
         };
       case 'health':
         return {
@@ -94,6 +101,18 @@ export const MedalIcon = ({ medal, onClick }: MedalIconProps) => {
             style={getEngravedTextStyle('athena')}
           >
             {medal.days}
+          </span>
+        </div>
+      )}
+
+      {/* Número 2 grabado para medalla de Cronos */}
+      {medal.type === 'chronos' && 'days' in medal && medal.days && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span 
+            className="text-orange-200 font-black text-lg tracking-wider select-none pointer-events-none"
+            style={getEngravedTextStyle('chronos')}
+          >
+            2
           </span>
         </div>
       )}

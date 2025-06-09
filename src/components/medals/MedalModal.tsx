@@ -9,6 +9,7 @@ import { ChronosMedalContent } from './ChronosMedalContent';
 import { VictoryMedalContent } from './VictoryMedalContent';
 import { VigorMedalContent } from './VigorMedalContent';
 import { HealthMedalContent } from './HealthMedalContent';
+import { MedalIcon } from './MedalIcon';
 
 interface MedalModalProps {
   selectedMedal: any;
@@ -21,10 +22,6 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
   const isOpen = !!selectedMedal;
   
   if (!medal) return null;
-
-  // Provide default gradient if medal doesn't have one
-  const defaultGradient = { from: '#ffd700', to: '#ffb347' };
-  const gradient = medal.gradient || defaultGradient;
 
   const getMedalContent = () => {
     switch (medal.category) {
@@ -63,35 +60,15 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
         <DialogContent className="max-w-md sm:max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader className="space-y-4">
             <div className="flex flex-col items-center space-y-4">
-              {/* Medalla grande */}
-              <div className="relative">
-                <div 
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-2xl border-4 border-yellow-300"
-                  style={{
-                    background: `linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.3), inset 0 2px 10px rgba(255,255,255,0.3), inset 0 -2px 10px rgba(0,0,0,0.2)'
-                  }}
-                >
-                  <span 
-                    style={{
-                      textShadow: `
-                        2px 2px 4px rgba(0,0,0,0.8),
-                        -1px -1px 2px rgba(255,255,255,0.3),
-                        1px 1px 2px rgba(0,0,0,0.5),
-                        0 0 8px rgba(0,0,0,0.4)
-                      `,
-                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))'
-                    }}
-                  >
-                    {medal.symbol}
-                  </span>
-                </div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
-                  <Trophy className="w-3 h-3 text-yellow-800" />
+              {/* Medalla ampliada manteniendo el diseño original */}
+              <div className="relative scale-[2.5] sm:scale-[3]">
+                <MedalIcon medal={medal} onClick={() => {}} />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                  <Trophy className="w-2 h-2 text-yellow-800" />
                 </div>
               </div>
 
-              <DialogTitle className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent">
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-yellow-600 to-yellow-500 bg-clip-text text-transparent mt-8">
                 {medal.title}
               </DialogTitle>
               

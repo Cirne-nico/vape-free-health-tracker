@@ -18,9 +18,9 @@ const EvolutionChart = ({ data }: EvolutionChartProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Evolución Emocional: Días Buenos vs Malos</CardTitle>
+        <CardTitle className="text-lg">Evolución Emocional: Días Agradables vs Desagradables</CardTitle>
         <p className="text-sm text-gray-600">
-          Los valores positivos representan días buenos, los negativos días malos
+          Los valores positivos representan días agradables, los negativos días desagradables
         </p>
       </CardHeader>
       <CardContent>
@@ -36,11 +36,11 @@ const EvolutionChart = ({ data }: EvolutionChartProps) => {
               <YAxis 
                 fontSize={12}
                 domain={[-1, 1]}
-                tickFormatter={(value) => value > 0 ? 'Bueno' : value < 0 ? 'Malo' : 'Neutral'}
+                tickFormatter={(value) => value > 0 ? 'Agradable' : value < 0 ? 'Desagradable' : 'Neutral'}
               />
               <Tooltip 
                 formatter={(value: number) => [
-                  value > 0 ? 'Día Bueno' : value < 0 ? 'Día Malo' : 'Neutral', 
+                  value > 0 ? 'Día Agradable' : value < 0 ? 'Día Desagradable' : 'Neutral', 
                   'Estado'
                 ]}
                 labelFormatter={(value) => `Día ${value}`}

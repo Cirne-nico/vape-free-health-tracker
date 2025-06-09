@@ -30,7 +30,7 @@ const HistoryStats = ({ totalLogs, positiveDays, maxDay, onExport }: HistoryStat
             <div className="text-2xl font-bold text-green-600">
               {positiveDays}
             </div>
-            <div className="text-sm text-gray-600">días positivos</div>
+            <div className="text-sm text-gray-600">días agradables</div>
           </div>
           <div>
             <div className="text-2xl font-bold text-orange-600">

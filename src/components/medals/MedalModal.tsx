@@ -39,8 +39,12 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
   };
 
   const getMedalContent = () => {
-    // Para medallas de logros (Vigor/Dioniso)
-    if (medal.type === 'vigor' || (!medal.category && medal.days && medal.reward)) {
+    // Primero verificar el tipo específico
+    if (medal.type === 'health') {
+      return <HealthMedalContent medal={medal} />;
+    }
+    
+    if (medal.type === 'vigor') {
       return <VigorMedalContent medal={medal} totalSavings={totalSavings} />;
     }
     
@@ -52,9 +56,11 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
         return <ChronosMedalContent medal={medal} totalSavings={totalSavings} />;
       case 'victory':
         return <VictoryMedalContent medal={medal} />;
-      case 'health':
-        return <HealthMedalContent medal={medal} />;
       default:
+        // Para medallas sin tipo específico que tienen días y reward (medallas de logros)
+        if (!medal.category && medal.days && medal.reward) {
+          return <VigorMedalContent medal={medal} totalSavings={totalSavings} />;
+        }
         return null;
     }
   };
@@ -114,7 +120,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                          medal.category === 'chronos' ? 'Tiempo' : 
                          medal.category === 'victory' ? 'Victoria' : 
                          medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' :
-                         medal.category === 'health' ? 'Salud' : 'Logro'}
+                         medal.type === 'health' ? 'Salud' : 'Logro'}
                       </Badge>
                     </div>
                   </div>

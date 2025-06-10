@@ -1,9 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import SetupModal from '@/components/SetupModal';
 import AchievementPopup from '@/components/AchievementPopup';
 import MainHeader from '@/components/MainHeader';
-import MedalsSection from '@/components/MedalsSection';
 import MainTabs from '@/components/MainTabs';
 import { useQuitProgress } from '@/hooks/useQuitProgress';
 import { useAchievements } from '@/hooks/useAchievements';
@@ -83,17 +81,12 @@ const Index = () => {
           />
 
           <div className="p-2 sm:p-4 space-y-4 sm:space-y-6">
-            <MedalsSection 
-              unlockedAchievements={unlockedAchievements}
-              unlockedHealthAchievements={unlockedHealthAchievements}
-              totalSavings={savings.total}
-            />
-
             <MainTabs 
               startDate={startDate}
               currentDay={time.days}
               totalSavings={savings.total}
               unlockedAchievements={unlockedAchievements}
+              unlockedHealthAchievements={unlockedHealthAchievements}
             />
           </div>
         </div>

@@ -51,17 +51,18 @@ const MainHeader = ({
 
   const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
 
-  const getStatusMessage = () => {
-    if (time.days === 0) {
-      return `Proceso iniciado${userName ? `, ${userName}` : ''}. Reorganización neurobiológica en curso.`;
-    }
-    
+  const getMotivationalMessage = () => {
     const messages = [
-      `Día ${time.days}${userName ? `, ${userName}` : ''}. Neuroadaptación progresiva documentada.`,
-      `Transcurridos ${time.days} días${userName ? `, ${userName}` : ''}. Sistemas de recompensa en recalibración.`,
-      `${time.days} días de abstinencia${userName ? `, ${userName}` : ''}. Plasticidad neuronal activa.`,
-      `Día ${time.days}${userName ? `, ${userName}` : ''}. Recuperación fisiológica en progreso.`,
+      `¡Excelente trabajo${userName ? `, ${userName}` : ''}! Cada minuto sin vapear es una victoria.`,
+      `¡Sigue así${userName ? `, ${userName}` : ''}! Tu salud te lo agradece.`,
+      `¡Increíble progreso${userName ? `, ${userName}` : ''}! Estás transformando tu vida.`,
+      `¡Eres imparable${userName ? `, ${userName}` : ''}! Cada día es un nuevo logro.`,
+      `¡Fantástico${userName ? `, ${userName}` : ''}! Tu determinación es inspiradora.`,
     ];
+    
+    if (time.days === 0) {
+      return `¡Bienvenido${userName ? `, ${userName}` : ''}! Has dado el primer paso más importante.`;
+    }
     
     const messageIndex = time.days % messages.length;
     return messages[messageIndex];
@@ -96,17 +97,17 @@ const MainHeader = ({
                 </h1>
               </div>
               <p className="text-xs sm:text-sm text-black italic font-medium">
-                seguimiento neuroadaptativo post-cesación
+                acompaña tu proceso de abandono del vapeo
               </p>
             </div>
 
-            {/* Título principal más científico */}
+            {/* Título principal más elegante */}
             <div className="text-center space-y-1">
               <h2 className="text-base sm:text-xl font-bold text-white">
-                Sistema nervioso en reorganización:
+                Ya sin nicotina, el cuerpo escucha:
               </h2>
               <h3 className="text-sm sm:text-lg font-semibold text-green-100">
-                hacia la regulación autónoma
+                hacia la sociabilidad mínima
               </h3>
             </div>
 
@@ -115,7 +116,7 @@ const MainHeader = ({
               <h4 className="text-2xl sm:text-3xl font-bold mb-1">
                 {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
               </h4>
-              <p className="text-green-100 text-sm font-medium">sin nicotina</p>
+              <p className="text-green-100 text-sm font-medium">sin vapear</p>
             </div>
 
             {/* Progreso visual */}
@@ -127,7 +128,7 @@ const MainHeader = ({
               <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
               {!progressInfo.isFirstPhase && (
                 <div className="text-xs text-green-200 text-center">
-                  Fase de consolidación: hacia la estabilización a 2 años
+                  ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
                 </div>
               )}
             </div>
@@ -146,14 +147,14 @@ const MainHeader = ({
                   <Trophy className="w-4 h-4 mr-1" />
                 </div>
                 <p className="text-lg sm:text-xl font-bold">{totalMedals}</p>
-                <p className="text-green-100 text-xs">hitos alcanzados</p>
+                <p className="text-green-100 text-xs">medallas</p>
               </div>
             </div>
 
-            {/* Mensaje de estado */}
+            {/* Mensaje motivacional */}
             <div className="text-center">
               <p className="text-sm text-green-100 italic">
-                {getStatusMessage()}
+                {getMotivationalMessage()}
               </p>
             </div>
 

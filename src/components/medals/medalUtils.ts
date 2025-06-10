@@ -59,20 +59,20 @@ export const getSpecialMedals = (currentDays: number) => {
     console.log('Added Victory medal:', victoryMedal);
   }
 
-  // Medalla de Cronos para los dos años (730 días) - SOLO si han pasado 730 días o más
+  // Medalla de Afrodita para los dos años (730 días) - SOLO si han pasado 730 días o más
   if (currentDays >= 730) {
-    const chronosMedal = {
-      id: 'two_years_chronos',
+    const afroditaMedal = {
+      id: 'two_years_afrodita',
       type: 'chronos' as const,
-      title: 'Cronos - Dos Años',
+      title: 'Afrodita - Dos Años',
       icon: '/lovable-uploads/d2d56d43-0631-466d-9f75-6605bc86a799.png',
       description: '¡Dos años completos de libertad!',
       reward: 'Ahora ya puedes ir a Amorgós, alquilar una casa, pegarte un homenaje en la psarotaberna de Aigiali e invitar a rakí a toda la taverna',
       days: 730,
-      specialMessage: 'El tiempo ha sido tu aliado. Has alcanzado la maestría absoluta sobre la adicción.'
+      specialMessage: 'Afrodita celebra tu renacimiento hacia una vida plena y libre.'
     };
-    specialMedals.push(chronosMedal);
-    console.log('Added Chronos medal:', chronosMedal);
+    specialMedals.push(afroditaMedal);
+    console.log('Added Afrodita medal:', afroditaMedal);
   }
   
   console.log('Final special medals array:', specialMedals);

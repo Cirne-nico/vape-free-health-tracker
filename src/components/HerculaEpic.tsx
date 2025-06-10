@@ -14,22 +14,41 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
   const completedWorks = getCompletedWorks(days);
   const nextWork = getNextWork(days);
 
-  // Función para obtener la imagen de batalla según el número de trabajos completados
-  const getBattleImage = (workIndex: number) => {
+  // Función para obtener la imagen de batalla según el cuarto
+  const getBattleImage = (quarter: number) => {
     const battleImages = [
       '/lovable-uploads/lucha_hercula_nikotis copy.png',
       '/lovable-uploads/lucha_2_hercula_nikotis copy.png', 
       '/lovable-uploads/lucha_3_hercula_nikotis copy.png'
     ];
     
-    // Cada 4 trabajos mostramos una imagen diferente
-    const imageIndex = Math.floor(workIndex / 4) % battleImages.length;
-    return battleImages[imageIndex];
+    return battleImages[quarter - 1] || battleImages[0];
   };
 
   // Función para determinar si mostrar imagen de batalla
-  const shouldShowBattleImage = (workIndex: number) => {
-    return (workIndex + 1) % 4 === 0; // Mostrar cada 4 trabajos (índices 3, 7, 11, etc.)
+  const shouldShowBattleImage = (workIndex: number, totalWorks: number) => {
+    const totalHerculaWorks = herculaWorks.length; // Total de trabajos posibles
+    const quarterSize = Math.floor(totalHerculaWorks / 4);
+    
+    // Posiciones donde mostrar las imágenes (al final de cada cuarto)
+    const quarterPositions = [
+      quarterSize - 1,           // Final del primer cuarto
+      (quarterSize * 2) - 1,     // Final del segundo cuarto  
+      (quarterSize * 3) - 1      // Final del tercer cuarto
+    ];
+    
+    return quarterPositions.includes(workIndex);
+  };
+
+  // Función para obtener el número de cuarto
+  const getQuarterNumber = (workIndex: number) => {
+    const totalHerculaWorks = herculaWorks.length;
+    const quarterSize = Math.floor(totalHerculaWorks / 4);
+    
+    if (workIndex < quarterSize) return 1;
+    if (workIndex < quarterSize * 2) return 2;
+    if (workIndex < quarterSize * 3) return 3;
+    return 4;
   };
 
   return (
@@ -227,21 +246,21 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
                     </CardContent>
                   </Card>
 
-                  {/* Imagen de batalla cada 4 trabajos */}
-                  {shouldShowBattleImage(completedWorks.length - 1 - index) && (
+                  {/* Imagen de batalla al final de cada cuarto */}
+                  {shouldShowBattleImage(completedWorks.length - 1 - index, completedWorks.length) && (
                     <Card className="mt-4 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
                       <CardContent className="p-6 text-center">
                         <div className="mb-4">
                           <h4 className="text-lg font-bold text-purple-700 mb-2">
-                            ⚔️ La Batalla Continúa
+                            ⚔️ La Batalla Continúa - Cuarto {getQuarterNumber(completedWorks.length - 1 - index)}
                           </h4>
                           <p className="text-purple-600 text-sm">
-                            Hércula ha completado {completedWorks.length - index} trabajos. La lucha contra Nikotis se intensifica...
+                            Hércula ha completado {completedWorks.length - index} trabajos. La lucha contra Nikotis evoluciona...
                           </p>
                         </div>
                         <img 
-                          src={getBattleImage(completedWorks.length - 1 - index)}
-                          alt={`Batalla entre Hércula y Nikotis - Fase ${Math.floor((completedWorks.length - index) / 4) + 1}`}
+                          src={getBattleImage(getQuarterNumber(completedWorks.length - 1 - index))}
+                          alt={`Batalla entre Hércula y Nikotis - Cuarto ${getQuarterNumber(completedWorks.length - 1 - index)}`}
                           className="w-full max-w-md mx-auto rounded-lg shadow-lg"
                         />
                       </CardContent>

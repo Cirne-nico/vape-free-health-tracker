@@ -48,7 +48,7 @@ export const getSpecialMedals = (currentDays: number) => {
       id: 'one_year_victory',
       type: 'victory' as const,
       title: 'Victoria de Nike',
-      icon: '/lovable-uploads/8996a94a-9941-4939-a92b-8e946d338979.png',
+      icon: '/lovable-uploads/ChatGPT Image 9 jun 2025, 01_29_39.png',
       description: '¡Un año completo sin vapear!',
       reward: 'Salud de hierro y bienestar total',
       hasEconomicBenefits: true,

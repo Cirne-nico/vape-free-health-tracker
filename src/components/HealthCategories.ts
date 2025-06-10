@@ -1,4 +1,3 @@
-
 export interface HealthCategory {
   title: string;
   icon: string;
@@ -8,19 +7,19 @@ export interface HealthCategory {
 
 export const healthCategories = {
   respiratory: {
-    title: 'Sistema Respiratorio',
+    title: 'Pulmones',
     icon: '🫁',
     description: 'Capacidad pulmonar y función respiratoria',
     color: '#3B82F6'
   },
   cardiovascular: {
-    title: 'Sistema Cardiovascular', 
+    title: 'Corazón', 
     icon: '❤️',
     description: 'Presión arterial y función cardíaca',
     color: '#EF4444'
   },
   liver: {
-    title: 'Salud Hepática',
+    title: 'Hígado',
     icon: '🔶',
     description: 'Función hepática y valores ALT/GGT',
     color: '#F59E0B'

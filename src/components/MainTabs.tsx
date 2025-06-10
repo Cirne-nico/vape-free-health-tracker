@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmotionLogger from './EmotionLogger';
 import HealthTracker from './HealthTracker';
@@ -35,7 +34,7 @@ const MainTabs = ({ startDate, currentDay, totalSavings, unlockedAchievements }:
         </TabsTrigger>
         <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
           <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span className="leading-tight">Logros</span>
+          <span className="leading-tight">Hitos</span>
         </TabsTrigger>
         <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
           <Settings className="w-3 h-3 sm:w-4 sm:h-4" />

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ProcessedAchievement } from './medalTypes';
@@ -80,7 +79,7 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
 
       {/* Logros en salud acumulados para medallas de Vigor */}
       <div className="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
-        <h3 className="text-lg font-bold text-purple-700 mb-3">🏥 Logros en Salud Acumulados</h3>
+        <h3 className="text-lg font-bold text-purple-700 mb-3">🏥 Hitos en Salud Acumulados</h3>
         <p className="text-sm text-purple-600 mb-4">Recuperación alcanzada al día {medal.days}:</p>
         
         <div className="grid gap-3">

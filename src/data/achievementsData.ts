@@ -72,14 +72,6 @@ export const achievements = [
     reward: 'Dominio completo sobre los impulsos adictivos'
   },
   {
-    id: 'one_year',
-    title: 'Un Año Completo',
-    description: '¡Un año entero de libertad!',
-    days: 365,
-    icon: '🏅',
-    reward: 'Riesgo de enfermedades equiparado a no fumadores'
-  },
-  {
     id: 'two_years',
     title: 'Dos Años de Victoria',
     description: 'Dos años completos sin vapear - ¡Eres un campeón!',

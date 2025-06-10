@@ -1,0 +1,42 @@
+
+{
+  "name": "UMBRAL - Libre de Vapeo",
+  "short_name": "UMBRAL",
+  "description": "Acompaña tu proceso de abandono del vapeo con seguimiento de progreso, medallas de logros y análisis de recuperación de salud",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3B82F6",
+  "theme_color": "#10B981",
+  "orientation": "portrait",
+  "categories": ["health", "lifestyle", "medical"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "lang": "es-ES",
+  "scope": "/",
+  "prefer_related_applications": false
+}

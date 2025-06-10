@@ -71,7 +71,8 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
       case 'vigor':
         return {
           ...baseStyle,
-          backgroundImage: 'linear-gradient(145deg, #DBEAFE 0%, #3B82F6 30%, #1D4ED8  60%, #1E40AF 100%)',
+          // Cambiar a negro para las medallas de Dioniso
+          backgroundImage: 'linear-gradient(145deg, #374151 0%, #1F2937 30%, #111827  60%, #000000 100%)',
         };
       default:
         return {
@@ -102,11 +103,11 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
       {/* Solo mostrar elementos grabados si NO está ampliado */}
       {!isEnlarged && (
         <>
-          {/* Número grabado para medallas de Vigor (Dioniso) */}
+          {/* Número grabado para medallas de Vigor (Dioniso) - ahora en negro */}
           {medal.type === 'vigor' && 'days' in medal && medal.days && (
             <div className="absolute inset-0 flex items-center justify-center">
               <span 
-                className="text-blue-100 select-none pointer-events-none text-sm"
+                className="text-gray-100 select-none pointer-events-none text-sm"
                 style={getEngravedTextStyle('vigor')}
               >
                 {medal.days}
@@ -132,6 +133,13 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           {medal.type === 'health' && 'organIcon' in medal && medal.organIcon && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
               <span className="text-xs">{medal.organIcon}</span>
+            </div>
+          )}
+
+          {/* Ícono temporal para medallas especiales (Atenea, Nike, Afrodita) */}
+          {(medal.type === 'athena' || medal.type === 'victory' || medal.type === 'chronos') && (
+            <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-amber-300 shadow-sm">
+              <span className="text-xs">⏳</span>
             </div>
           )}
         </>

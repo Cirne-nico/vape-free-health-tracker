@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -84,6 +83,9 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
     return (
       <Dialog open={isEnlarged} onOpenChange={handleCloseEnlarged}>
         <DialogContent className="max-w-2xl bg-black/90 border-0 p-0 overflow-hidden">
+          <DialogHeader className="sr-only">
+            <DialogTitle>{processedTitle}</DialogTitle>
+          </DialogHeader>
           <div className="relative flex flex-col items-center justify-center p-8 min-h-[60vh]">
             <button
               onClick={handleCloseEnlarged}

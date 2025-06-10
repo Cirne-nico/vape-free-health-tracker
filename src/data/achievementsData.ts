@@ -1,4 +1,3 @@
-
 export const achievements = [
   {
     id: 'first_48h',
@@ -63,6 +62,14 @@ export const achievements = [
     days: 180,
     icon: '🎯',
     reward: 'Salud cardiovascular normalizada'
+  },
+  {
+    id: 'ten_months',
+    title: 'Diez Meses',
+    description: 'Trescientos días de libertad total',
+    days: 300,
+    icon: '🏅',
+    reward: 'Dominio completo sobre los impulsos adictivos'
   },
   {
     id: 'one_year',

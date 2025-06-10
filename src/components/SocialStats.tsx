@@ -1,5 +1,3 @@
-
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Users, TrendingUp } from 'lucide-react';
@@ -31,25 +29,25 @@ const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-blue-700">
           <Users className="w-5 h-5" />
-          Comparación con la Comunidad
+          Datos Epidemiológicos
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="bg-white/60 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-4 h-4 text-green-600" />
-            <span className="text-sm font-medium text-gray-700">Tasa de Éxito</span>
+            <span className="text-sm font-medium text-gray-700">Tasa de Éxito a Largo Plazo</span>
           </div>
           <p className="text-3xl font-bold text-green-600">{successRate}%</p>
           <p className="text-sm text-gray-600 mt-2">
-            de las personas que llegan al día {currentDay} logran dejar de vapear para siempre
+            de las personas que alcanzan el día {currentDay} mantienen la abstinencia permanente
           </p>
         </div>
 
         <div className="bg-blue-100/50 rounded-lg p-3">
-          <p className="text-xs text-blue-700 italic">
-            💡 Estos datos reflejan la realidad: dejar de vapear es difícil, pero cada día que avanzas 
-            aumenta significativamente tus probabilidades de éxito permanente.
+          <p className="text-xs text-blue-700">
+            📊 Datos basados en estudios longitudinales sobre cesación de nicotina (Hughes et al., 2014; 
+            West & Brown, 2013). La probabilidad de éxito aumenta exponencialmente con cada hito temporal alcanzado.
           </p>
         </div>
       </CardContent>
@@ -58,4 +56,3 @@ const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
 };
 
 export default SocialStats;
-

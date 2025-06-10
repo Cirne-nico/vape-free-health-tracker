@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -52,18 +51,17 @@ const MainHeader = ({
 
   const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
 
-  const getMotivationalMessage = () => {
-    const messages = [
-      `¡Excelente trabajo${userName ? `, ${userName}` : ''}! Cada minuto sin vapear es una victoria.`,
-      `¡Sigue así${userName ? `, ${userName}` : ''}! Tu salud te lo agradece.`,
-      `¡Increíble progreso${userName ? `, ${userName}` : ''}! Estás transformando tu vida.`,
-      `¡Eres imparable${userName ? `, ${userName}` : ''}! Cada día es un nuevo logro.`,
-      `¡Fantástico${userName ? `, ${userName}` : ''}! Tu determinación es inspiradora.`,
-    ];
-    
+  const getStatusMessage = () => {
     if (time.days === 0) {
-      return `¡Bienvenido${userName ? `, ${userName}` : ''}! Has dado el primer paso más importante.`;
+      return `Proceso iniciado${userName ? `, ${userName}` : ''}. Reorganización neurobiológica en curso.`;
     }
+    
+    const messages = [
+      `Día ${time.days}${userName ? `, ${userName}` : ''}. Neuroadaptación progresiva documentada.`,
+      `Transcurridos ${time.days} días${userName ? `, ${userName}` : ''}. Sistemas de recompensa en recalibración.`,
+      `${time.days} días de abstinencia${userName ? `, ${userName}` : ''}. Plasticidad neuronal activa.`,
+      `Día ${time.days}${userName ? `, ${userName}` : ''}. Recuperación fisiológica en progreso.`,
+    ];
     
     const messageIndex = time.days % messages.length;
     return messages[messageIndex];
@@ -98,17 +96,17 @@ const MainHeader = ({
                 </h1>
               </div>
               <p className="text-xs sm:text-sm text-black italic font-medium">
-                acompaña tu proceso de abandono del vapeo
+                seguimiento neuroadaptativo post-cesación
               </p>
             </div>
 
-            {/* Título principal más elegante */}
+            {/* Título principal más científico */}
             <div className="text-center space-y-1">
               <h2 className="text-base sm:text-xl font-bold text-white">
-                Ya sin nicotina, el cuerpo escucha:
+                Sistema nervioso en reorganización:
               </h2>
               <h3 className="text-sm sm:text-lg font-semibold text-green-100">
-                hacia la sociabilidad mínima
+                hacia la regulación autónoma
               </h3>
             </div>
 
@@ -117,7 +115,7 @@ const MainHeader = ({
               <h4 className="text-2xl sm:text-3xl font-bold mb-1">
                 {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
               </h4>
-              <p className="text-green-100 text-sm font-medium">sin vapear</p>
+              <p className="text-green-100 text-sm font-medium">sin nicotina</p>
             </div>
 
             {/* Progreso visual */}
@@ -129,7 +127,7 @@ const MainHeader = ({
               <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
               {!progressInfo.isFirstPhase && (
                 <div className="text-xs text-green-200 text-center">
-                  ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
+                  Fase de consolidación: hacia la estabilización a 2 años
                 </div>
               )}
             </div>
@@ -148,8 +146,15 @@ const MainHeader = ({
                   <Trophy className="w-4 h-4 mr-1" />
                 </div>
                 <p className="text-lg sm:text-xl font-bold">{totalMedals}</p>
-                <p className="text-green-100 text-xs">medallas</p>
+                <p className="text-green-100 text-xs">hitos alcanzados</p>
               </div>
+            </div>
+
+            {/* Mensaje de estado */}
+            <div className="text-center">
+              <p className="text-sm text-green-100 italic">
+                {getStatusMessage()}
+              </p>
             </div>
 
             {/* Botón de recaída reducido 30% */}

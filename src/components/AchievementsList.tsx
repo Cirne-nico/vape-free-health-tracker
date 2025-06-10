@@ -96,7 +96,7 @@ const AchievementsList = ({ days, savings }: AchievementsListProps) => {
         <Card className="bg-gradient-to-r from-yellow-50 to-orange-50">
           <CardHeader>
             <CardTitle className="text-center text-orange-700 flex items-center justify-center gap-2">
-              🏆 Tus Logros
+              🏆 Hitos Alcanzados
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="w-4 h-4 text-gray-500 hover:text-gray-700 cursor-help" />
@@ -104,9 +104,7 @@ const AchievementsList = ({ days, savings }: AchievementsListProps) => {
                 <TooltipContent className="max-w-sm p-3">
                   <div className="space-y-2">
                     <p className="font-semibold">¿Cómo funciona?</p>
-                    <p className="text-sm">El sistema de logros reconoce hitos importantes en tu proceso de abandono del vapeo, cada uno con beneficios de salud específicos.</p>
-                    <p className="font-semibold">Sentido del sistema:</p>
-                    <p className="text-sm">Mantener la motivación mediante reconocimiento de progreso y educación sobre beneficios de salud.</p>
+                    <p className="text-sm">El sistema de hitos reconoce momentos importantes en tu proceso de cesación, cada uno con beneficios de salud específicos.</p>
                     <p className="font-semibold">Base científica:</p>
                     <p className="text-sm">Cronología basada en estudios de recuperación fisiológica post-cesación de nicotina (WHO, 2021).</p>
                   </div>
@@ -119,32 +117,26 @@ const AchievementsList = ({ days, savings }: AchievementsListProps) => {
               <div className="text-3xl font-bold text-orange-600">
                 {unlockedAchievements.length}
               </div>
-              <div className="text-gray-600">logros desbloqueados</div>
+              <div className="text-gray-600">hitos desbloqueados</div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-white p-3 rounded-lg">
-                <div className="font-bold text-green-600">
-                  {savings.toFixed(2)}€
-                </div>
-                <div className="text-gray-600">ahorrados</div>
-              </div>
+            <div className="grid grid-cols-1 gap-4 text-sm">
               <div className="bg-white p-3 rounded-lg">
                 <div className="font-bold text-blue-600">
                   {days} días
                 </div>
-                <div className="text-gray-600">libres de vapeo</div>
+                <div className="text-gray-600">libres de nicotina</div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Próximo logro */}
+        {/* Próximo hito */}
         {nextAchievement && (
           <Card className="border-2 border-dashed border-gray-300">
             <CardHeader>
               <CardTitle className="text-lg text-gray-600">
-                🎯 Próximo Logro
+                🎯 Próximo Hito
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -168,22 +160,22 @@ const AchievementsList = ({ days, savings }: AchievementsListProps) => {
               </div>
               
               <div className="bg-blue-50 p-2 rounded text-sm">
-                <span className="font-medium">Recompensa: </span>
+                <span className="font-medium">Beneficio: </span>
                 {nextAchievement.reward}
               </div>
             </CardContent>
           </Card>
         )}
 
-        {/* Logros desbloqueados */}
+        {/* Hitos desbloqueados */}
         <div className="grid gap-4">
-          <h3 className="text-xl font-bold">Logros Desbloqueados</h3>
+          <h3 className="text-xl font-bold">Hitos Desbloqueados</h3>
           
           {unlockedAchievements.length === 0 ? (
             <Card>
               <CardContent className="text-center py-8">
                 <p className="text-gray-500">
-                  ¡Sigue adelante para desbloquear tu primer logro!
+                  ¡Continúa para desbloquear tu primer hito!
                 </p>
                 <p className="text-sm text-gray-400 mt-2">
                   Cada día cuenta hacia tu próxima meta
@@ -191,46 +183,39 @@ const AchievementsList = ({ days, savings }: AchievementsListProps) => {
               </CardContent>
             </Card>
           ) : (
-            unlockedAchievements.reverse().map((achievement) => {
-              const achievementSavings = (achievement.days * ((20/7) + (4/10))).toFixed(2);
-              
-              return (
-                <Card key={achievement.id} className="bg-green-50 border-green-200">
-                  <CardContent className="flex items-center justify-between p-4">
-                    <div className="flex items-center gap-4">
-                      <div className="text-3xl">{achievement.icon}</div>
-                      <div>
-                        <div className="font-bold text-green-700">
-                          {achievement.title}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          {achievement.description}
-                        </div>
-                        <div className="text-xs text-green-600 mt-1">
-                          Ahorro en este hito: {achievementSavings}€
-                        </div>
+            unlockedAchievements.reverse().map((achievement) => (
+              <Card key={achievement.id} className="bg-green-50 border-green-200">
+                <CardContent className="flex items-center justify-between p-4">
+                  <div className="flex items-center gap-4">
+                    <div className="text-3xl">{achievement.icon}</div>
+                    <div>
+                      <div className="font-bold text-green-700">
+                        {achievement.title}
                       </div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <Badge className="bg-green-500 text-white">
-                        ✓ Completado
-                      </Badge>
-                      <div className="text-xs text-gray-500 mt-1">
-                        Día {achievement.days}
+                      <div className="text-sm text-gray-600">
+                        {achievement.description}
                       </div>
-                    </div>
-                  </CardContent>
-                  
-                  <div className="px-4 pb-3">
-                    <div className="bg-green-100 p-2 rounded text-sm">
-                      <span className="font-medium text-green-700">Beneficio: </span>
-                      <span className="text-green-600">{achievement.reward}</span>
                     </div>
                   </div>
-                </Card>
-              );
-            })
+                  
+                  <div className="text-center">
+                    <Badge className="bg-green-500 text-white">
+                      ✓ Completado
+                    </Badge>
+                    <div className="text-xs text-gray-500 mt-1">
+                      Día {achievement.days}
+                    </div>
+                  </div>
+                </CardContent>
+                
+                <div className="px-4 pb-3">
+                  <div className="bg-green-100 p-2 rounded text-sm">
+                    <span className="font-medium text-green-700">Beneficio: </span>
+                    <span className="text-green-600">{achievement.reward}</span>
+                  </div>
+                </div>
+              </Card>
+            ))
           )}
         </div>
       </div>

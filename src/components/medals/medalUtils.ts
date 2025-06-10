@@ -1,4 +1,3 @@
-
 export const getSuccessRate = (days: number): number => {
   // Datos aproximados basados en estadísticas generales sobre dejar de fumar/vapear
   const initialRate = 30; // Tasa inicial de éxito (primeros días)
@@ -43,24 +42,24 @@ export const getSpecialMedals = (currentDays: number) => {
     console.log('Added Athena medal:', athenaMedal);
   }
 
-  // Medalla de Victoria para el año (365 días) - SOLO si han pasado 365 días o más
+  // Medalla de Victoria (Nike) para el año (365 días) - SOLO si han pasado 365 días o más
   if (currentDays >= 365) {
     const victoryMedal = {
       id: 'one_year_victory',
       type: 'victory' as const,
-      title: 'Victoria Anual',
+      title: 'Victoria de Nike',
       icon: '/lovable-uploads/8996a94a-9941-4939-a92b-8e946d338979.png',
       description: '¡Un año completo sin vapear!',
       reward: 'Salud de hierro y bienestar total',
       hasEconomicBenefits: true,
       hasHealthBenefits: true,
-      specialMessage: 'Has superado la prueba del tiempo y te has convertido en un verdadero ejemplo de perseverancia.'
+      specialMessage: 'Nike, diosa de la victoria, reconoce tu triunfo sobre las estadísticas de recaída.'
     };
     specialMedals.push(victoryMedal);
     console.log('Added Victory medal:', victoryMedal);
   }
 
-  // Medalla de Cronos (Afrodita) para los dos años (730 días) - SOLO si han pasado 730 días o más
+  // Medalla de Cronos para los dos años (730 días) - SOLO si han pasado 730 días o más
   if (currentDays >= 730) {
     const chronosMedal = {
       id: 'two_years_chronos',

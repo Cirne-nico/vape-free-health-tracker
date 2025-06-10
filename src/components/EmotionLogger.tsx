@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import DayContentCard from './DayContentCard';
 import EmotionSelector from './EmotionSelector';
+import DorsalStateAlert from './DorsalStateAlert';
 
 interface EmotionLoggerProps {
   startDate: Date | null;
@@ -11,9 +11,11 @@ interface EmotionLoggerProps {
 const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [todayLog, setTodayLog] = useState<any>(null);
+  const [emotionLogs, setEmotionLogs] = useState<any[]>([]);
 
   useEffect(() => {
     loadTodayLog();
+    loadEmotionLogs();
   }, []);
 
   const loadTodayLog = () => {
@@ -26,6 +28,11 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
     if (todayEntry) {
       setSelectedEmotions(todayEntry.emotions);
     }
+  };
+
+  const loadEmotionLogs = () => {
+    const logs = JSON.parse(localStorage.getItem('emotion-logs') || '[]');
+    setEmotionLogs(logs);
   };
 
   const handleEmotionToggle = (emotionId: string) => {
@@ -64,7 +71,8 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
     localStorage.setItem('emotion-logs', JSON.stringify(updatedLogs));
     
     setTodayLog(newLog);
-    toast.success('Estado emocional guardado');
+    setEmotionLogs(updatedLogs);
+    toast.success('Estado emocional registrado');
   };
 
   return (
@@ -76,6 +84,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
         onSave={saveEmotions}
         todayLog={todayLog}
       />
+      <DorsalStateAlert emotionLogs={emotionLogs} />
     </div>
   );
 };

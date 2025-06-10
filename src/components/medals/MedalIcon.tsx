@@ -1,4 +1,3 @@
-
 import { Medal } from './medalTypes';
 
 interface MedalIconProps {
@@ -115,17 +114,7 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
             </div>
           )}
 
-          {/* Número 90 grabado para medalla de Atenea */}
-          {medal.type === 'athena' && 'days' in medal && medal.days && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span 
-                className="text-amber-200 select-none pointer-events-none text-sm"
-                style={getEngravedTextStyle('athena')}
-              >
-                {medal.days}
-              </span>
-            </div>
-          )}
+          {/* NO mostrar número grabado para medalla de Atenea - ya está en la imagen */}
 
           {/* Número 2 grabado para medalla de Cronos */}
           {medal.type === 'chronos' && 'days' in medal && medal.days && (

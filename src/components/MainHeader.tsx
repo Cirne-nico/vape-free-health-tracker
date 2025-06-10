@@ -51,21 +51,57 @@ const MainHeader = ({
 
   const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
 
-  const getMotivationalMessage = () => {
-    const messages = [
-      `¡Excelente trabajo${userName ? `, ${userName}` : ''}! Cada minuto sin vapear es una victoria.`,
-      `¡Sigue así${userName ? `, ${userName}` : ''}! Tu salud te lo agradece.`,
-      `¡Increíble progreso${userName ? `, ${userName}` : ''}! Estás transformando tu vida.`,
-      `¡Eres imparable${userName ? `, ${userName}` : ''}! Cada día es un nuevo logro.`,
-      `¡Fantástico${userName ? `, ${userName}` : ''}! Tu determinación es inspiradora.`,
+  const getCriticalQuote = () => {
+    const quotes = [
+      // Foucault - sobre el control y la disciplina
+      "El poder no es algo que se posea, sino algo que actúa. — M. Foucault",
+      
+      // Judith Butler - sobre la performatividad y la repetición
+      "La repetición nunca es meramente mecánica. — J. Butler",
+      
+      // Angela Davis - sobre la libertad y la resistencia
+      "La libertad es una lucha constante. — A. Davis",
+      
+      // Audre Lorde - sobre el autocuidado como acto político
+      "Cuidar de mí misma no es autocomplacencia, es autopreservación. — A. Lorde",
+      
+      // Silvia Federici - sobre el cuerpo como territorio de lucha
+      "El cuerpo es el primer territorio que debemos recuperar. — S. Federici",
+      
+      // Donna Haraway - sobre la agencia y la responsabilidad
+      "La respuesta-habilidad requiere cultivar la capacidad de responder. — D. Haraway",
+      
+      // Byung-Chul Han - sobre la autoexplotación
+      "El sujeto neoliberal se explota a sí mismo más eficazmente que cualquier poder externo. — B-C. Han",
+      
+      // Hannah Arendt - sobre la acción y la libertad
+      "El poder corresponde a la capacidad humana de actuar concertadamente. — H. Arendt",
+      
+      // Virginie Despentes - sobre la autonomía corporal
+      "Mi cuerpo me pertenece. Esta frase tan simple es revolucionaria. — V. Despentes",
+      
+      // Rita Segato - sobre la colonialidad del poder
+      "La descolonización es también una descolonización del deseo. — R. Segato",
+      
+      // Luce Irigaray - sobre la relación con uno mismo
+      "Cultivar una relación consigo mismo es el primer gesto ético. — L. Irigaray",
+      
+      // Patricia Hill Collins - sobre el conocimiento situado
+      "El conocimiento surge de la experiencia vivida. — P. Hill Collins",
+      
+      // Ochy Curiel - sobre la autonomía
+      "La autonomía no es aislamiento, es autodeterminación. — O. Curiel",
+      
+      // Vandana Shiva - sobre la libertad y la dependencia
+      "La libertad real incluye la libertad de las dependencias destructivas. — V. Shiva",
+      
+      // María Lugones - sobre la resistencia
+      "Resistir es crear mundos alternativos. — M. Lugones"
     ];
     
-    if (time.days === 0) {
-      return `¡Bienvenido${userName ? `, ${userName}` : ''}! Has dado el primer paso más importante.`;
-    }
-    
-    const messageIndex = time.days % messages.length;
-    return messages[messageIndex];
+    // Usar el día para seleccionar la cita, pero con cierta rotación
+    const index = (time.days + Math.floor(time.hours / 6)) % quotes.length;
+    return quotes[index];
   };
 
   return (
@@ -151,10 +187,10 @@ const MainHeader = ({
               </div>
             </div>
 
-            {/* Mensaje motivacional */}
+            {/* Cita crítica en lugar de mensaje motivacional */}
             <div className="text-center">
-              <p className="text-sm text-green-100 italic">
-                {getMotivationalMessage()}
+              <p className="text-xs sm:text-sm text-green-100 italic font-light leading-relaxed">
+                {getCriticalQuote()}
               </p>
             </div>
 

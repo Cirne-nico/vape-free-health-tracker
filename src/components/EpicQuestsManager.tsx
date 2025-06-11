@@ -1,0 +1,361 @@
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Trash2, Plus, Trophy, CheckCircle, Circle } from 'lucide-react';
+import { toast } from 'sonner';
+import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
+
+const EpicQuestsManager = () => {
+  const [quests, setQuests] = useState<EpicQuest[]>([]);
+  const [showAddDialog, setShowAddDialog] = useState(false);
+  const [newQuestTitle, setNewQuestTitle] = useState('');
+  const [newQuestDescription, setNewQuestDescription] = useState('');
+  const [newQuestChecks, setNewQuestChecks] = useState(3);
+  const [newQuestCategory, setNewQuestCategory] = useState<EpicQuest['category']>('situational');
+  const [newQuestIcon, setNewQuestIcon] = useState('⚔️');
+
+  // Cargar gestas del localStorage
+  useEffect(() => {
+    const savedQuests = localStorage.getItem('epic-quests');
+    if (savedQuests) {
+      setQuests(JSON.parse(savedQuests));
+    } else {
+      // Inicializar con gestas por defecto
+      const initialQuests = defaultEpicQuests.map(createEpicQuest);
+      setQuests(initialQuests);
+      localStorage.setItem('epic-quests', JSON.stringify(initialQuests));
+    }
+  }, []);
+
+  // Guardar gestas en localStorage
+  const saveQuests = (updatedQuests: EpicQuest[]) => {
+    setQuests(updatedQuests);
+    localStorage.setItem('epic-quests', JSON.stringify(updatedQuests));
+  };
+
+  // Añadir check a una gesta
+  const addCheck = (questId: string) => {
+    const updatedQuests = quests.map(quest => {
+      if (quest.id === questId && quest.currentChecks < quest.requiredChecks) {
+        const newChecks = quest.currentChecks + 1;
+        const isCompleted = newChecks >= quest.requiredChecks;
+        
+        if (isCompleted && !quest.isCompleted) {
+          toast.success(`¡Gesta completada: ${quest.title}!`, {
+            description: quest.reward || 'Has superado un desafío épico'
+          });
+        }
+        
+        return {
+          ...quest,
+          currentChecks: newChecks,
+          isCompleted
+        };
+      }
+      return quest;
+    });
+    
+    saveQuests(updatedQuests);
+  };
+
+  // Quitar check de una gesta
+  const removeCheck = (questId: string) => {
+    const updatedQuests = quests.map(quest => {
+      if (quest.id === questId && quest.currentChecks > 0) {
+        return {
+          ...quest,
+          currentChecks: quest.currentChecks - 1,
+          isCompleted: false
+        };
+      }
+      return quest;
+    });
+    
+    saveQuests(updatedQuests);
+  };
+
+  // Eliminar gesta
+  const deleteQuest = (questId: string) => {
+    const quest = quests.find(q => q.id === questId);
+    if (quest && !quest.isCustom) {
+      toast.error('No puedes eliminar gestas predefinidas');
+      return;
+    }
+    
+    const updatedQuests = quests.filter(q => q.id !== questId);
+    saveQuests(updatedQuests);
+    toast.success('Gesta eliminada');
+  };
+
+  // Añadir nueva gesta personalizada
+  const addCustomQuest = () => {
+    if (!newQuestTitle.trim()) {
+      toast.error('El título es obligatorio');
+      return;
+    }
+
+    const newQuest: EpicQuest = {
+      id: `custom_${Date.now()}`,
+      title: newQuestTitle.trim(),
+      description: newQuestDescription.trim() || newQuestTitle.trim(),
+      requiredChecks: newQuestChecks,
+      currentChecks: 0,
+      icon: newQuestIcon,
+      category: newQuestCategory,
+      isCustom: true,
+      isCompleted: false,
+      reward: `Superación personal: ${newQuestTitle.trim()}`
+    };
+
+    const updatedQuests = [...quests, newQuest];
+    saveQuests(updatedQuests);
+    
+    // Limpiar formulario
+    setNewQuestTitle('');
+    setNewQuestDescription('');
+    setNewQuestChecks(3);
+    setNewQuestCategory('situational');
+    setNewQuestIcon('⚔️');
+    setShowAddDialog(false);
+    
+    toast.success('Nueva gesta añadida');
+  };
+
+  const completedQuests = quests.filter(q => q.isCompleted).length;
+  const totalQuests = quests.length;
+
+  return (
+    <div className="space-y-6">
+      {/* Header con estadísticas */}
+      <Card className="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
+        <CardHeader>
+          <CardTitle className="text-center text-amber-700 flex items-center justify-center gap-2">
+            ⚔️ Gestas Épicas de Liberación
+            <Trophy className="w-5 h-5" />
+          </CardTitle>
+          <p className="text-center text-amber-600">
+            Situaciones difíciles superadas sin vapear
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4 text-center">
+            <div className="bg-white/70 p-3 rounded-lg">
+              <div className="text-2xl font-bold text-amber-600">{completedQuests}</div>
+              <div className="text-sm text-amber-700">gestas completadas</div>
+            </div>
+            <div className="bg-white/70 p-3 rounded-lg">
+              <div className="text-2xl font-bold text-amber-600">{totalQuests}</div>
+              <div className="text-sm text-amber-700">gestas totales</div>
+            </div>
+          </div>
+          
+          <div className="mt-4">
+            <div className="flex justify-between text-sm mb-2">
+              <span>Progreso general</span>
+              <span>{Math.round((completedQuests / totalQuests) * 100)}%</span>
+            </div>
+            <Progress value={(completedQuests / totalQuests) * 100} className="h-3" />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Botón para añadir gesta personalizada */}
+      <div className="flex justify-end">
+        <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
+          <DialogTrigger asChild>
+            <Button className="bg-amber-600 hover:bg-amber-700">
+              <Plus className="w-4 h-4 mr-2" />
+              Añadir Gesta Personalizada
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Crear Nueva Gesta Épica</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="title">Título *</Label>
+                <Input
+                  id="title"
+                  value={newQuestTitle}
+                  onChange={(e) => setNewQuestTitle(e.target.value)}
+                  placeholder="Ej: Presentación importante en el trabajo"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="description">Descripción</Label>
+                <Input
+                  id="description"
+                  value={newQuestDescription}
+                  onChange={(e) => setNewQuestDescription(e.target.value)}
+                  placeholder="Descripción detallada de la situación"
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="checks">Checks requeridos</Label>
+                  <Select value={newQuestChecks.toString()} onValueChange={(value) => setNewQuestChecks(parseInt(value))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 check</SelectItem>
+                      <SelectItem value="2">2 checks</SelectItem>
+                      <SelectItem value="3">3 checks</SelectItem>
+                      <SelectItem value="4">4 checks</SelectItem>
+                      <SelectItem value="5">5 checks</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label htmlFor="category">Categoría</Label>
+                  <Select value={newQuestCategory} onValueChange={(value) => setNewQuestCategory(value as EpicQuest['category'])}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="social">Social</SelectItem>
+                      <SelectItem value="emotional">Emocional</SelectItem>
+                      <SelectItem value="substance">Sustancias</SelectItem>
+                      <SelectItem value="psychological">Psicológico</SelectItem>
+                      <SelectItem value="situational">Situacional</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="icon">Icono</Label>
+                <Input
+                  id="icon"
+                  value={newQuestIcon}
+                  onChange={(e) => setNewQuestIcon(e.target.value)}
+                  placeholder="Ej: ⚔️, 🎯, 💪"
+                  maxLength={2}
+                />
+              </div>
+              
+              <div className="flex gap-2 pt-4">
+                <Button onClick={addCustomQuest} className="flex-1">
+                  Crear Gesta
+                </Button>
+                <Button variant="outline" onClick={() => setShowAddDialog(false)}>
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Lista de gestas */}
+      <div className="grid gap-4">
+        {quests.map((quest) => (
+          <Card key={quest.id} className={`${quest.isCompleted ? 'bg-green-50 border-green-200' : 'bg-white'}`}>
+            <CardContent className="p-4">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="text-2xl">{quest.icon}</div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className={`font-bold ${quest.isCompleted ? 'text-green-700' : 'text-gray-800'}`}>
+                        {quest.title}
+                      </h3>
+                      {quest.isCompleted && <Trophy className="w-4 h-4 text-yellow-500" />}
+                    </div>
+                    <p className="text-sm text-gray-600">{quest.description}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge className={getCategoryColor(quest.category)}>
+                        {getCategoryName(quest.category)}
+                      </Badge>
+                      {quest.isCustom && (
+                        <Badge variant="outline" className="text-xs">
+                          Personalizada
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                {quest.isCustom && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => deleteQuest(quest.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
+              
+              {/* Checks y progreso */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">
+                    Progreso: {quest.currentChecks}/{quest.requiredChecks}
+                  </span>
+                  <div className="flex gap-1">
+                    {Array.from({ length: quest.requiredChecks }, (_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => {
+                          if (i < quest.currentChecks) {
+                            removeCheck(quest.id);
+                          } else if (i === quest.currentChecks) {
+                            addCheck(quest.id);
+                          }
+                        }}
+                        className="transition-colors hover:scale-110"
+                      >
+                        {i < quest.currentChecks ? (
+                          <CheckCircle className="w-6 h-6 text-green-500" />
+                        ) : (
+                          <Circle className="w-6 h-6 text-gray-300 hover:text-green-400" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                <Progress 
+                  value={(quest.currentChecks / quest.requiredChecks) * 100} 
+                  className="h-2"
+                />
+                
+                {quest.isCompleted && quest.reward && (
+                  <div className="bg-green-100 p-3 rounded-lg border border-green-200">
+                    <p className="text-sm font-medium text-green-800 mb-1">🏆 Recompensa obtenida:</p>
+                    <p className="text-green-700 text-sm">{quest.reward}</p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {quests.length === 0 && (
+        <Card>
+          <CardContent className="text-center py-8">
+            <p className="text-gray-500 mb-4">No tienes gestas épicas configuradas</p>
+            <Button onClick={() => setShowAddDialog(true)}>
+              Añadir tu primera gesta
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+};
+
+export default EpicQuestsManager;

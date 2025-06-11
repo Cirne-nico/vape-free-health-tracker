@@ -8,6 +8,7 @@ import SocialStats from './SocialStats';
 import VirtualRewards from './VirtualRewards';
 import PredictiveAnalysis from './PredictiveAnalysis';
 import MedalsSection from './MedalsSection';
+import EpicQuestsManager from './EpicQuestsManager';
 import { Clock, Trophy, Heart, Brain, Settings, Scroll } from 'lucide-react';
 
 interface MainTabsProps {
@@ -95,15 +96,7 @@ const MainTabs = ({
         </TabsContent>
 
         <TabsContent value="epic" className="mt-4 sm:mt-6">
-          {/* Contenido para la nueva pestaña "La épica" - Por ahora vacío */}
-          <div className="space-y-4 sm:space-y-6">
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg border border-amber-200 text-center">
-              <h2 className="text-xl font-bold text-amber-800 mb-4">La Épica de la Liberación</h2>
-              <p className="text-amber-700">
-                Próximamente: Aquí se desarrollará la narrativa épica de tu viaje hacia la libertad.
-              </p>
-            </div>
-          </div>
+          <EpicQuestsManager />
         </TabsContent>
 
         <TabsContent value="settings" className="mt-4 sm:mt-6">

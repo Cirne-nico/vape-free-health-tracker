@@ -81,9 +81,9 @@ export const getSpecialMedals = (currentDays: number) => {
   return specialMedals;
 };
 
-// Función MEJORADA para obtener medallas épicas de gestas
+// Función MEJORADA Y CORREGIDA para obtener medallas épicas de gestas
 export const getEpicQuestMedals = (): EpicQuestMedal[] => {
-  console.log('\n🔍 === GETTING EPIC QUEST MEDALS - IMPROVED VERSION ===');
+  console.log('\n🔍 === GETTING EPIC QUEST MEDALS - FIXED VERSION ===');
   
   // Obtener gestas del localStorage
   const savedQuests = localStorage.getItem('epic-quests');
@@ -149,4 +149,30 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
   console.log('🔍 === END GETTING EPIC QUEST MEDALS ===\n');
   
   return epicMedals;
+};
+
+// Función de debug para forzar la actualización de medallas épicas
+export const debugEpicMedals = () => {
+  console.log('\n🚨 === DEBUG EPIC MEDALS FUNCTION ===');
+  
+  // Obtener datos actuales
+  const savedQuests = localStorage.getItem('epic-quests');
+  console.log('Current localStorage data:', savedQuests);
+  
+  if (savedQuests) {
+    const quests = JSON.parse(savedQuests);
+    console.log('Parsed quests:', quests);
+    
+    const completedWithMedals = quests.filter((q: any) => q.isCompleted && q.medalIcon);
+    console.log('Completed quests with medals:', completedWithMedals);
+    
+    // Forzar recarga de medallas
+    const medals = getEpicQuestMedals();
+    console.log('Generated medals:', medals);
+    
+    return medals;
+  }
+  
+  console.log('🚨 === END DEBUG ===\n');
+  return [];
 };

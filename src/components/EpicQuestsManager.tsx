@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
@@ -73,6 +73,44 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
     
     saveQuests(updatedQuests);
     toast.success('Medallas épicas actualizadas');
+  };
+
+  // NUEVA FUNCIÓN: Debug completo del sistema de medallas
+  const debugMedalSystem = () => {
+    console.log('\n🐛 === DEBUGGING MEDAL SYSTEM ===');
+    
+    const savedQuests = localStorage.getItem('epic-quests');
+    console.log('Raw localStorage:', savedQuests);
+    
+    if (savedQuests) {
+      const parsedQuests = JSON.parse(savedQuests);
+      console.log('Parsed quests:', parsedQuests);
+      
+      const completedWithMedals = parsedQuests.filter((q: any) => q.isCompleted && q.medalIcon);
+      console.log('Completed with medals:', completedWithMedals);
+      
+      // Simular la función getEpicQuestMedals
+      const epicMedals = completedWithMedals.map((quest: any) => ({
+        id: `epic_${quest.id}`,
+        type: 'epic',
+        title: quest.title,
+        icon: quest.medalIcon,
+        description: quest.description || quest.title,
+        reward: quest.reward || 'Hazaña épica completada',
+        questId: quest.id,
+        category: quest.category || 'general'
+      }));
+      
+      console.log('Generated epic medals:', epicMedals);
+      
+      // Mostrar en toast
+      toast.success(`Debug: ${epicMedals.length} medallas épicas encontradas`, {
+        description: epicMedals.map(m => m.title).join(', '),
+        duration: 5000
+      });
+    }
+    
+    console.log('🐛 === END DEBUGGING ===\n');
   };
 
   // Guardar gestas en localStorage
@@ -197,19 +235,30 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
             {debugInfo}
           </pre>
           <div className="mt-3 space-y-2">
-            <Button 
-              onClick={updateQuestsWithMedals}
-              className="bg-orange-600 hover:bg-orange-700 text-white"
-              size="sm"
-            >
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Actualizar Medallas Épicas
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                onClick={updateQuestsWithMedals}
+                className="bg-orange-600 hover:bg-orange-700 text-white"
+                size="sm"
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Actualizar Medallas Épicas
+              </Button>
+              <Button 
+                onClick={debugMedalSystem}
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+                size="sm"
+              >
+                <Bug className="w-4 h-4 mr-2" />
+                Debug Sistema
+              </Button>
+            </div>
             <div className="text-sm text-yellow-700">
               <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
               <p>1. Haz clic en "Actualizar Medallas Épicas" arriba</p>
               <p>2. Marca los 3 checks de "Con el café", "Con la birra" y "Con otras sustancias"</p>
-              <p>3. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
+              <p>3. Haz clic en "Debug Sistema" para verificar el estado</p>
+              <p>4. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
             </div>
           </div>
         </CardContent>

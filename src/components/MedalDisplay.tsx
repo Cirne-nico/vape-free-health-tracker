@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MedalModal from './medals/MedalModal';
 import { MedalIcon } from './medals/MedalIcon';
 import { MedalTooltip } from './medals/MedalTooltip';
-import { getSpecialMedals, getEpicQuestMedals } from './medals/medalUtils';
+import { getSpecialMedals, getEpicQuestMedals, debugEpicMedals } from './medals/medalUtils';
 import { Achievement, HealthAchievement, Medal } from './medals/medalTypes';
 
 interface MedalDisplayProps {
@@ -21,9 +21,16 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Obtener medallas épicas de gestas completadas - LLAMADA DIRECTA CON LOGS MEJORADOS
+  // LLAMADA MEJORADA para obtener medallas épicas con debug adicional
   console.log('\n🚀 MEDAL DISPLAY: Calling getEpicQuestMedals...');
-  const epicQuestMedals = getEpicQuestMedals();
+  let epicQuestMedals = getEpicQuestMedals();
+  
+  // Si no hay medallas épicas, intentar debug
+  if (epicQuestMedals.length === 0) {
+    console.log('⚠️ No epic medals found, trying debug function...');
+    epicQuestMedals = debugEpicMedals();
+  }
+  
   console.log('🚀 MEDAL DISPLAY: Received epic quest medals:', epicQuestMedals);
   console.log('🚀 MEDAL DISPLAY: Epic medals count:', epicQuestMedals.length);
   

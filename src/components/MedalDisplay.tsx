@@ -21,7 +21,7 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Obtener medallas épicas de gestas completadas
+  // Obtener medallas épicas de gestas completadas - LLAMADA DIRECTA
   const epicQuestMedals = getEpicQuestMedals();
   
   console.log('=== MEDAL DISPLAY DEBUG ===');
@@ -59,6 +59,7 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   console.log('Processed health achievements (Higiea):', processedHealthAchievements);
   console.log('Epic quest medals:', epicQuestMedals);
   console.log('All medals final:', allMedals);
+  console.log('Total medals count:', allMedals.length);
   console.log('=== END DEBUG ===');
 
   const handleMedalClick = (medal: Medal) => {
@@ -70,6 +71,7 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   };
 
   if (allMedals.length === 0) {
+    console.log('No medals to display');
     return null;
   }
 

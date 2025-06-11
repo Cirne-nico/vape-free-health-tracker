@@ -81,46 +81,61 @@ export const getSpecialMedals = (currentDays: number) => {
   return specialMedals;
 };
 
-// Nueva función para obtener medallas épicas de gestas - CORREGIDA
+// Función corregida para obtener medallas épicas de gestas
 export const getEpicQuestMedals = (): EpicQuestMedal[] => {
   console.log('=== GETTING EPIC QUEST MEDALS ===');
   
   // Obtener gestas del localStorage
   const savedQuests = localStorage.getItem('epic-quests');
   if (!savedQuests) {
-    console.log('No saved quests found');
+    console.log('No saved quests found in localStorage');
     return [];
   }
   
-  const quests = JSON.parse(savedQuests);
-  console.log('All quests:', quests);
+  let quests;
+  try {
+    quests = JSON.parse(savedQuests);
+    console.log('Parsed quests from localStorage:', quests);
+  } catch (error) {
+    console.error('Error parsing quests from localStorage:', error);
+    return [];
+  }
+  
+  if (!Array.isArray(quests)) {
+    console.log('Quests is not an array:', quests);
+    return [];
+  }
   
   // Filtrar solo las gestas completadas que tienen medalla
   const completedQuestsWithMedals = quests.filter((quest: any) => {
-    const hasRequiredFields = quest.isCompleted && quest.medalIcon;
-    console.log(`Quest ${quest.title}: completed=${quest.isCompleted}, hasMedal=${!!quest.medalIcon}, include=${hasRequiredFields}`);
-    return hasRequiredFields;
+    const isCompleted = quest.isCompleted === true;
+    const hasMedal = quest.medalIcon && quest.medalIcon.trim() !== '';
+    
+    console.log(`Quest "${quest.title}": completed=${isCompleted}, medalIcon="${quest.medalIcon}", hasMedal=${hasMedal}`);
+    
+    return isCompleted && hasMedal;
   });
   
   console.log('Completed quests with medals:', completedQuestsWithMedals);
   
   // Convertir a formato de medalla épica
   const epicMedals = completedQuestsWithMedals.map((quest: any) => {
-    const medal = {
+    const medal: EpicQuestMedal = {
       id: `epic_${quest.id}`,
       type: 'epic' as const,
-      title: quest.title, // Usar el título original sin prefijo
+      title: quest.title,
       icon: quest.medalIcon,
-      description: quest.description,
+      description: quest.description || quest.title,
       reward: quest.reward || 'Hazaña épica completada',
       questId: quest.id,
-      category: quest.category
+      category: quest.category || 'general'
     };
+    
     console.log('Created epic medal:', medal);
     return medal;
   });
   
-  console.log('Final epic medals:', epicMedals);
+  console.log('Final epic medals array:', epicMedals);
   console.log('=== END GETTING EPIC QUEST MEDALS ===');
   
   return epicMedals;

@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
@@ -68,6 +68,15 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
       if (quest.id === 'other_substances' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/Otras_sustancias.png' };
       }
+      if (quest.id === 'work_stress' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Estres_laboral.png' };
+      }
+      if (quest.id === 'anxiety_periods' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/gesta_ansiedad.png' };
+      }
+      if (quest.id === 'ultimate_achievement' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Crack.png' };
+      }
       return quest;
     });
     
@@ -113,11 +122,55 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
     console.log('🐛 === END DEBUGGING ===\n');
   };
 
+  // Función para verificar si se debe desbloquear la medalla final
+  const checkUltimateAchievement = (updatedQuests: EpicQuest[]) => {
+    // Contar gestas completadas (excluyendo la medalla final)
+    const completedQuests = updatedQuests.filter(q => 
+      q.isCompleted && q.id !== 'ultimate_achievement'
+    );
+    
+    // Contar gestas con medalla (excluyendo la medalla final)
+    const questsWithMedals = updatedQuests.filter(q => 
+      q.medalIcon && q.id !== 'ultimate_achievement'
+    );
+    
+    // Si todas las gestas con medalla están completadas, desbloquear la medalla final
+    const ultimateQuest = updatedQuests.find(q => q.id === 'ultimate_achievement');
+    if (ultimateQuest && !ultimateQuest.isCompleted && 
+        questsWithMedals.length > 0 && 
+        questsWithMedals.every(q => q.isCompleted)) {
+      
+      // Desbloquear automáticamente la medalla final
+      const finalUpdatedQuests = updatedQuests.map(quest => {
+        if (quest.id === 'ultimate_achievement') {
+          return {
+            ...quest,
+            currentChecks: 1,
+            isCompleted: true
+          };
+        }
+        return quest;
+      });
+      
+      toast.success('🎉 ¡CRACK! ¡Has desbloqueado la medalla de Maestría Total!', {
+        description: 'Has completado todas las gestas épicas disponibles. Eres un verdadero maestro.',
+        duration: 8000
+      });
+      
+      return finalUpdatedQuests;
+    }
+    
+    return updatedQuests;
+  };
+
   // Guardar gestas en localStorage
   const saveQuests = (updatedQuests: EpicQuest[]) => {
-    setQuests(updatedQuests);
-    localStorage.setItem('epic-quests', JSON.stringify(updatedQuests));
-    updateDebugInfo(updatedQuests);
+    // Verificar medalla final antes de guardar
+    const finalQuests = checkUltimateAchievement(updatedQuests);
+    
+    setQuests(finalQuests);
+    localStorage.setItem('epic-quests', JSON.stringify(finalQuests));
+    updateDebugInfo(finalQuests);
   };
 
   // Añadir check a una gesta
@@ -256,7 +309,7 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
             <div className="text-sm text-yellow-700">
               <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
               <p>1. Haz clic en "Actualizar Medallas Épicas" arriba</p>
-              <p>2. Marca los 3 checks de "Con el café", "Con la birra" y "Con otras sustancias"</p>
+              <p>2. Marca los checks de las gestas que quieras completar</p>
               <p>3. Haz clic en "Debug Sistema" para verificar el estado</p>
               <p>4. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
             </div>
@@ -291,7 +344,7 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>
@@ -441,19 +494,22 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
       {/* Lista de gestas */}
       <div className="grid gap-4">
         {quests.map((quest) => (
-          <Card key={quest.id} className={`${quest.isCompleted ? 'bg-green-50 border-green-200' : 'bg-white'}`}>
+          <Card key={quest.id} className={`${quest.isCompleted ? 'bg-green-50 border-green-200' : 'bg-white'} ${quest.id === 'ultimate_achievement' ? 'border-2 border-purple-400 bg-gradient-to-r from-purple-50 to-pink-50' : ''}`}>
             <CardContent className="p-4">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3 flex-1">
                   <div className="text-2xl">{quest.icon}</div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className={`font-bold ${quest.isCompleted ? 'text-green-700' : 'text-gray-800'}`}>
+                      <h3 className={`font-bold ${quest.isCompleted ? 'text-green-700' : 'text-gray-800'} ${quest.id === 'ultimate_achievement' ? 'text-purple-700' : ''}`}>
                         {quest.title}
                       </h3>
                       {quest.isCompleted && <Trophy className="w-4 h-4 text-yellow-500" />}
                       {quest.isCompleted && quest.medalIcon && (
                         <Medal className="w-4 h-4 text-orange-500" title="Medalla épica obtenida" />
+                      )}
+                      {quest.id === 'ultimate_achievement' && (
+                        <Crown className="w-4 h-4 text-purple-500" title="Medalla de Maestría Total" />
                       )}
                     </div>
                     <p className="text-sm text-gray-600">{quest.description}</p>
@@ -467,8 +523,8 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                         </Badge>
                       )}
                       {quest.medalIcon && (
-                        <Badge variant="outline" className="text-xs bg-orange-50 text-orange-700 border-orange-300">
-                          🏆 Con medalla épica
+                        <Badge variant="outline" className={`text-xs ${quest.id === 'ultimate_achievement' ? 'bg-purple-50 text-purple-700 border-purple-300' : 'bg-orange-50 text-orange-700 border-orange-300'}`}>
+                          🏆 {quest.id === 'ultimate_achievement' ? 'Medalla de Maestría' : 'Con medalla épica'}
                         </Badge>
                       )}
                     </div>
@@ -522,9 +578,13 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                 />
                 
                 {quest.isCompleted && quest.reward && (
-                  <div className="bg-green-100 p-3 rounded-lg border border-green-200">
-                    <p className="text-sm font-medium text-green-800 mb-1">🏆 Recompensa obtenida:</p>
-                    <p className="text-green-700 text-sm">{quest.reward}</p>
+                  <div className={`p-3 rounded-lg border ${quest.id === 'ultimate_achievement' ? 'bg-purple-100 border-purple-200' : 'bg-green-100 border-green-200'}`}>
+                    <p className={`text-sm font-medium mb-1 ${quest.id === 'ultimate_achievement' ? 'text-purple-800' : 'text-green-800'}`}>
+                      🏆 Recompensa obtenida:
+                    </p>
+                    <p className={`text-sm ${quest.id === 'ultimate_achievement' ? 'text-purple-700' : 'text-green-700'}`}>
+                      {quest.reward}
+                    </p>
                     {quest.medalIcon && (
                       <p className="text-xs text-orange-700 mt-2 italic">
                         ✨ Medalla épica visible en la pantalla principal

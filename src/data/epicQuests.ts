@@ -47,7 +47,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '💼',
     category: 'situational',
-    reward: 'Herramientas de gestión del estrés profesional'
+    reward: 'Herramientas de gestión del estrés profesional',
+    medalIcon: '/lovable-uploads/Estres_laboral.png' // Nueva medalla épica de estrés laboral
   },
   {
     id: 'control_illusion',
@@ -95,7 +96,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '💊',
     category: 'substance',
     reward: 'Independencia entre diferentes tipos de consumo',
-    medalIcon: '/lovable-uploads/Otras_sustancias.png' // Nueva medalla épica de otras sustancias
+    medalIcon: '/lovable-uploads/Otras_sustancias.png' // Medalla épica de otras sustancias
   },
   {
     id: 'strong_boredom',
@@ -140,7 +141,18 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 1,
     icon: '😰',
     category: 'emotional',
-    reward: 'Herramientas naturales de regulación de la ansiedad'
+    reward: 'Herramientas naturales de regulación de la ansiedad',
+    medalIcon: '/lovable-uploads/gesta_ansiedad.png' // Nueva medalla épica de ansiedad
+  },
+  {
+    id: 'ultimate_achievement',
+    title: 'CRACK! - Maestría Total',
+    description: 'Has completado TODAS las gestas épicas disponibles. Eres un verdadero maestro de la recuperación.',
+    requiredChecks: 1,
+    icon: '💥',
+    category: 'psychological',
+    reward: 'Reconocimiento como maestro absoluto de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
+    medalIcon: '/lovable-uploads/Crack.png' // Medalla épica final especial
   }
 ];
 

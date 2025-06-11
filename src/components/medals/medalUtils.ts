@@ -1,5 +1,4 @@
 import { EpicQuestMedal } from './medalTypes';
-import { getCompletedQuestsWithMedals } from '@/data/epicQuests';
 
 export const getSuccessRate = (days: number): number => {
   // Datos aproximados basados en estadísticas generales sobre dejar de fumar/vapear
@@ -82,18 +81,47 @@ export const getSpecialMedals = (currentDays: number) => {
   return specialMedals;
 };
 
-// Nueva función para obtener medallas épicas de gestas
+// Nueva función para obtener medallas épicas de gestas - CORREGIDA
 export const getEpicQuestMedals = (): EpicQuestMedal[] => {
-  const completedQuests = getCompletedQuestsWithMedals();
+  console.log('=== GETTING EPIC QUEST MEDALS ===');
   
-  return completedQuests.map(quest => ({
-    id: `epic_${quest.id}`,
-    type: 'epic' as const,
-    title: `Gesta: ${quest.title}`,
-    icon: quest.medalIcon!,
-    description: quest.description,
-    reward: quest.reward || 'Hazaña épica completada',
-    questId: quest.id,
-    category: quest.category
-  }));
+  // Obtener gestas del localStorage
+  const savedQuests = localStorage.getItem('epic-quests');
+  if (!savedQuests) {
+    console.log('No saved quests found');
+    return [];
+  }
+  
+  const quests = JSON.parse(savedQuests);
+  console.log('All quests:', quests);
+  
+  // Filtrar solo las gestas completadas que tienen medalla
+  const completedQuestsWithMedals = quests.filter((quest: any) => {
+    const hasRequiredFields = quest.isCompleted && quest.medalIcon;
+    console.log(`Quest ${quest.title}: completed=${quest.isCompleted}, hasMedal=${!!quest.medalIcon}, include=${hasRequiredFields}`);
+    return hasRequiredFields;
+  });
+  
+  console.log('Completed quests with medals:', completedQuestsWithMedals);
+  
+  // Convertir a formato de medalla épica
+  const epicMedals = completedQuestsWithMedals.map((quest: any) => {
+    const medal = {
+      id: `epic_${quest.id}`,
+      type: 'epic' as const,
+      title: quest.title, // Usar el título original sin prefijo
+      icon: quest.medalIcon,
+      description: quest.description,
+      reward: quest.reward || 'Hazaña épica completada',
+      questId: quest.id,
+      category: quest.category
+    };
+    console.log('Created epic medal:', medal);
+    return medal;
+  });
+  
+  console.log('Final epic medals:', epicMedals);
+  console.log('=== END GETTING EPIC QUEST MEDALS ===');
+  
+  return epicMedals;
 };

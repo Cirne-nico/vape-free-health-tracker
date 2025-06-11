@@ -21,10 +21,12 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Obtener medallas épicas de gestas completadas - LLAMADA DIRECTA
+  // Obtener medallas épicas de gestas completadas - LLAMADA DIRECTA CON LOGS
+  console.log('\n🔍 MEDAL DISPLAY: Calling getEpicQuestMedals...');
   const epicQuestMedals = getEpicQuestMedals();
+  console.log('🔍 MEDAL DISPLAY: Received epic quest medals:', epicQuestMedals);
   
-  console.log('=== MEDAL DISPLAY DEBUG ===');
+  console.log('\n=== MEDAL DISPLAY DEBUG ===');
   console.log('Current days:', currentDays);
   console.log('Special medals:', specialMedals);
   console.log('Epic quest medals:', epicQuestMedals);
@@ -60,7 +62,7 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   console.log('Epic quest medals:', epicQuestMedals);
   console.log('All medals final:', allMedals);
   console.log('Total medals count:', allMedals.length);
-  console.log('=== END DEBUG ===');
+  console.log('=== END DEBUG ===\n');
 
   const handleMedalClick = (medal: Medal) => {
     setSelectedMedal(medal);
@@ -71,9 +73,11 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   };
 
   if (allMedals.length === 0) {
-    console.log('No medals to display');
+    console.log('❌ No medals to display');
     return null;
   }
+
+  console.log(`✅ Displaying ${allMedals.length} medals`);
 
   return (
     <>

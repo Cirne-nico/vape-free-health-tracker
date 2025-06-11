@@ -81,12 +81,14 @@ export const getSpecialMedals = (currentDays: number) => {
   return specialMedals;
 };
 
-// Función corregida para obtener medallas épicas de gestas
+// Función MEJORADA para obtener medallas épicas de gestas
 export const getEpicQuestMedals = (): EpicQuestMedal[] => {
-  console.log('=== GETTING EPIC QUEST MEDALS ===');
+  console.log('=== GETTING EPIC QUEST MEDALS - IMPROVED VERSION ===');
   
   // Obtener gestas del localStorage
   const savedQuests = localStorage.getItem('epic-quests');
+  console.log('Raw localStorage data:', savedQuests);
+  
   if (!savedQuests) {
     console.log('No saved quests found in localStorage');
     return [];
@@ -102,21 +104,29 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
   }
   
   if (!Array.isArray(quests)) {
-    console.log('Quests is not an array:', quests);
+    console.log('Quests is not an array:', typeof quests, quests);
     return [];
   }
   
+  console.log(`Found ${quests.length} total quests`);
+  
   // Filtrar solo las gestas completadas que tienen medalla
   const completedQuestsWithMedals = quests.filter((quest: any) => {
+    console.log(`\n--- Checking quest: "${quest.title}" ---`);
+    console.log('Quest object:', quest);
+    
     const isCompleted = quest.isCompleted === true;
     const hasMedal = quest.medalIcon && quest.medalIcon.trim() !== '';
     
-    console.log(`Quest "${quest.title}": completed=${isCompleted}, medalIcon="${quest.medalIcon}", hasMedal=${hasMedal}`);
+    console.log(`- isCompleted: ${isCompleted}`);
+    console.log(`- medalIcon: "${quest.medalIcon}"`);
+    console.log(`- hasMedal: ${hasMedal}`);
+    console.log(`- Will include: ${isCompleted && hasMedal}`);
     
     return isCompleted && hasMedal;
   });
   
-  console.log('Completed quests with medals:', completedQuestsWithMedals);
+  console.log(`\nFiltered to ${completedQuestsWithMedals.length} completed quests with medals:`, completedQuestsWithMedals);
   
   // Convertir a formato de medalla épica
   const epicMedals = completedQuestsWithMedals.map((quest: any) => {
@@ -135,8 +145,8 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
     return medal;
   });
   
-  console.log('Final epic medals array:', epicMedals);
-  console.log('=== END GETTING EPIC QUEST MEDALS ===');
+  console.log(`\nFinal epic medals array (${epicMedals.length} medals):`, epicMedals);
+  console.log('=== END GETTING EPIC QUEST MEDALS ===\n');
   
   return epicMedals;
 };

@@ -21,7 +21,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🎉',
     category: 'social',
     reward: 'La diversión no depende al menos de esta sustancia',
-    medalIcon: '/lovable-uploads/situación_social.png' // Nueva medalla épica
+    medalIcon: '/lovable-uploads/situación_social.png'
   },
   {
     id: 'fight_friend',
@@ -31,7 +31,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '💔',
     category: 'emotional',
     reward: 'Capacidad de procesar emociones difíciles de forma natural',
-    medalIcon: '/lovable-uploads/Discusión_pelea.png' // Nueva medalla épica
+    medalIcon: '/lovable-uploads/Discusión_pelea.png'
   },
   {
     id: 'bad_news',
@@ -50,7 +50,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '💼',
     category: 'situational',
     reward: 'Herramientas de gestión del estrés profesional',
-    medalIcon: '/lovable-uploads/Estres_laboral.png' // Medalla épica de estrés laboral
+    medalIcon: '/lovable-uploads/Estres_laboral.png'
   },
   {
     id: 'control_illusion',
@@ -60,7 +60,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🧠',
     category: 'psychological',
     reward: 'Claridad mental sobre los mecanismos de autoengaño',
-    medalIcon: '/lovable-uploads/Yo_controlo.png' // Nueva medalla épica
+    medalIcon: '/lovable-uploads/Yo_controlo.png'
   },
   {
     id: 'with_coffee',
@@ -70,7 +70,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '☕',
     category: 'substance',
     reward: 'Desvinculación de rituales adictivos',
-    medalIcon: '/lovable-uploads/gesta_café.png' // Medalla épica del café
+    medalIcon: '/lovable-uploads/gesta_café.png'
   },
   {
     id: 'with_beer',
@@ -80,7 +80,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🍺',
     category: 'substance',
     reward: 'Control sobre asociaciones cruzadas de sustancias',
-    medalIcon: '/lovable-uploads/gesta_birra.png' // Medalla épica de la birra
+    medalIcon: '/lovable-uploads/gesta_birra.png'
   },
   {
     id: 'sixth_beer',
@@ -99,7 +99,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '💊',
     category: 'substance',
     reward: 'Independencia entre diferentes tipos de consumo',
-    medalIcon: '/lovable-uploads/Otras_sustancias.png' // Medalla épica de otras sustancias
+    medalIcon: '/lovable-uploads/Otras_sustancias.png'
   },
   {
     id: 'strong_boredom',
@@ -109,7 +109,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '😴',
     category: 'emotional',
     reward: 'Capacidad de estar presente sin necesidad de estímulos externos',
-    medalIcon: '/lovable-uploads/aburrimiento.png' // Nueva medalla épica
+    medalIcon: '/lovable-uploads/aburrimiento.png'
   },
   {
     id: 'prolonged_sadness',
@@ -119,7 +119,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '😢',
     category: 'emotional',
     reward: 'Aceptación y procesamiento natural de emociones difíciles',
-    medalIcon: '/lovable-uploads/tristeza.png' // Nueva medalla épica
+    medalIcon: '/lovable-uploads/tristeza.png'
   },
   {
     id: 'social_situation',
@@ -147,7 +147,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '😰',
     category: 'emotional',
     reward: 'Herramientas naturales de regulación de la ansiedad',
-    medalIcon: '/lovable-uploads/gesta_ansiedad.png' // Nueva medalla épica de ansiedad
+    medalIcon: '/lovable-uploads/gesta_ansiedad.png'
   },
   {
     id: 'ultimate_achievement',
@@ -157,7 +157,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '💥',
     category: 'psychological',
     reward: 'Reconocimiento como maestro absoluto de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
-    medalIcon: '/lovable-uploads/Crack.png' // Medalla épica final especial
+    medalIcon: '/lovable-uploads/Crack.png'
   }
 ];
 

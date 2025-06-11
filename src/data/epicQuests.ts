@@ -105,7 +105,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'prolonged_sadness',
     title: 'Período de tristeza prolongado',
-    description: 'Atravesar episodios de tristeza profunda sin automedicarse',
+    description: 'Atravesar episodios de tristeza profunda sin vapear',
     requiredChecks: 1,
     icon: '😢',
     category: 'emotional',

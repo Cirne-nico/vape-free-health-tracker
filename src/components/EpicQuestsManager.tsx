@@ -153,7 +153,7 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
       });
       
       toast.success('🎉 ¡CRACK! ¡Has desbloqueado la medalla de Maestría Total!', {
-        description: 'Has completado todas las gestas épicas disponibles. Eres un verdadero maestro.',
+        description: 'Has completado todas las gestas épicas disponibles. Eres une verdadere maestre.',
         duration: 8000
       });
       

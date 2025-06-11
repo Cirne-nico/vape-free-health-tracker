@@ -1,4 +1,3 @@
-
 export const emotions = {
   euphoric: { 
     id: 'euphoric',

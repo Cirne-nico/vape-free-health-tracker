@@ -152,11 +152,11 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'ultimate_achievement',
     title: 'CRACK! - Maestría Total',
-    description: 'Has completado TODAS las gestas épicas disponibles. Eres un verdadero maestro de la recuperación.',
+    description: 'Has completado TODAS las gestas épicas disponibles. Eres une verdadere maestre de la recuperación.',
     requiredChecks: 1,
     icon: '💥',
     category: 'psychological',
-    reward: 'Reconocimiento como maestro absoluto de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
+    reward: 'Reconocimiento como maestre absolute de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
     medalIcon: '/lovable-uploads/Crack.png'
   }
 ];

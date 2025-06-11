@@ -1,3 +1,6 @@
+import { EpicQuestMedal } from './medalTypes';
+import { getCompletedQuestsWithMedals } from '@/data/epicQuests';
+
 export const getSuccessRate = (days: number): number => {
   // Datos aproximados basados en estadísticas generales sobre dejar de fumar/vapear
   const initialRate = 30; // Tasa inicial de éxito (primeros días)
@@ -77,4 +80,20 @@ export const getSpecialMedals = (currentDays: number) => {
   
   console.log('Final special medals array:', specialMedals);
   return specialMedals;
+};
+
+// Nueva función para obtener medallas épicas de gestas
+export const getEpicQuestMedals = (): EpicQuestMedal[] => {
+  const completedQuests = getCompletedQuestsWithMedals();
+  
+  return completedQuests.map(quest => ({
+    id: `epic_${quest.id}`,
+    type: 'epic' as const,
+    title: `Gesta: ${quest.title}`,
+    icon: quest.medalIcon!,
+    description: quest.description,
+    reward: quest.reward || 'Hazaña épica completada',
+    questId: quest.id,
+    category: quest.category
+  }));
 };

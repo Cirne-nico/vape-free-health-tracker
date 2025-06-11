@@ -1,9 +1,8 @@
-
 import { useState } from 'react';
 import MedalModal from './medals/MedalModal';
 import { MedalIcon } from './medals/MedalIcon';
 import { MedalTooltip } from './medals/MedalTooltip';
-import { getSpecialMedals } from './medals/medalUtils';
+import { getSpecialMedals, getEpicQuestMedals } from './medals/medalUtils';
 import { Achievement, HealthAchievement, Medal } from './medals/medalTypes';
 
 interface MedalDisplayProps {
@@ -22,9 +21,13 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
+  // Obtener medallas épicas de gestas completadas
+  const epicQuestMedals = getEpicQuestMedals();
+  
   console.log('=== MEDAL DISPLAY DEBUG ===');
   console.log('Current days:', currentDays);
   console.log('Special medals:', specialMedals);
+  console.log('Epic quest medals:', epicQuestMedals);
   console.log('Unlocked achievements:', unlockedAchievements);
   console.log('Unlocked health achievements:', unlockedHealthAchievements);
   
@@ -44,11 +47,17 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
     // NO cambiar el icon - mantener el original de cada medalla de salud
   }));
   
-  // Combinar TODAS las medallas
-  const allMedals: Medal[] = [...processedAchievements, ...processedHealthAchievements, ...specialMedals];
+  // Combinar TODAS las medallas incluyendo las épicas
+  const allMedals: Medal[] = [
+    ...processedAchievements, 
+    ...processedHealthAchievements, 
+    ...specialMedals,
+    ...epicQuestMedals
+  ];
 
   console.log('Processed achievements (Vigor):', processedAchievements);
   console.log('Processed health achievements (Higiea):', processedHealthAchievements);
+  console.log('Epic quest medals:', epicQuestMedals);
   console.log('All medals final:', allMedals);
   console.log('=== END DEBUG ===');
 

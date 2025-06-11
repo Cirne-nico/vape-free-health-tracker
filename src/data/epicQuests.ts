@@ -9,6 +9,7 @@ export interface EpicQuest {
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
+  medalIcon?: string; // Nueva propiedad para la medalla épica
 }
 
 export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>[] = [
@@ -64,7 +65,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '☕',
     category: 'substance',
-    reward: 'Desvinculación de rituales adictivos'
+    reward: 'Desvinculación de rituales adictivos',
+    medalIcon: '/lovable-uploads/gesta_café.png' // Medalla épica del café
   },
   {
     id: 'with_beer',
@@ -73,7 +75,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '🍺',
     category: 'substance',
-    reward: 'Control sobre asociaciones cruzadas de sustancias'
+    reward: 'Control sobre asociaciones cruzadas de sustancias',
+    medalIcon: '/lovable-uploads/gesta_birra.png' // Medalla épica de la birra
   },
   {
     id: 'sixth_beer',
@@ -166,4 +169,13 @@ export const getCategoryName = (category: EpicQuest['category']) => {
     case 'situational': return 'Situacional';
     default: return 'General';
   }
+};
+
+// Función para obtener las gestas completadas con medallas
+export const getCompletedQuestsWithMedals = (): EpicQuest[] => {
+  const savedQuests = localStorage.getItem('epic-quests');
+  if (!savedQuests) return [];
+  
+  const quests: EpicQuest[] = JSON.parse(savedQuests);
+  return quests.filter(quest => quest.isCompleted && quest.medalIcon);
 };

@@ -1,4 +1,3 @@
-
 export interface Achievement {
   id: string;
   title: string;
@@ -55,6 +54,17 @@ export interface ChronosMedal {
   specialMessage: string;
 }
 
+export interface EpicQuestMedal {
+  id: string;
+  type: 'epic';
+  title: string;
+  icon: string;
+  description: string;
+  reward: string;
+  questId: string;
+  category: string;
+}
+
 export interface ProcessedAchievement extends Achievement {
   type: 'vigor';
 }
@@ -63,7 +73,7 @@ export interface ProcessedHealthAchievement extends HealthAchievement {
   type: 'health';
 }
 
-export type Medal = ProcessedAchievement | ProcessedHealthAchievement | SpecialMedal | AthenaMedal | ChronosMedal;
+export type Medal = ProcessedAchievement | ProcessedHealthAchievement | SpecialMedal | AthenaMedal | ChronosMedal | EpicQuestMedal;
 
 export interface DetailedHealthInfo {
   scientificBasis: string;

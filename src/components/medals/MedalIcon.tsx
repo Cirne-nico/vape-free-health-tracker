@@ -21,6 +21,8 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
         return 'bg-green-100/80 border-green-300';
       case 'vigor':
         return 'bg-blue-100/80 border-blue-300';
+      case 'epic':
+        return 'bg-gradient-to-br from-orange-100/80 to-red-100/80 border-orange-300';
       default:
         return 'bg-white/20 border-white/30';
     }
@@ -73,6 +75,11 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           ...baseStyle,
           // Cambiar a negro para las medallas de Dioniso
           backgroundImage: 'linear-gradient(145deg, #374151 0%, #1F2937 30%, #111827  60%, #000000 100%)',
+        };
+      case 'epic':
+        return {
+          ...baseStyle,
+          backgroundImage: 'linear-gradient(145deg, #FED7AA 0%, #FB923C 30%, #EA580C  60%, #C2410C 100%)',
         };
       default:
         return {
@@ -140,6 +147,13 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           {(medal.type === 'athena' || medal.type === 'victory' || medal.type === 'chronos') && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-amber-300 shadow-sm">
               <span className="text-xs">⏳</span>
+            </div>
+          )}
+
+          {/* Ícono épico para medallas de gestas */}
+          {medal.type === 'epic' && (
+            <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-orange-300 shadow-sm">
+              <span className="text-xs">⚔️</span>
             </div>
           )}
         </>

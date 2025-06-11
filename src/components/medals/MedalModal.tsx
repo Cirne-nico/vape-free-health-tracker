@@ -8,6 +8,7 @@ import { ChronosMedalContent } from './ChronosMedalContent';
 import { VictoryMedalContent } from './VictoryMedalContent';
 import { VigorMedalContent } from './VigorMedalContent';
 import { HealthMedalContent } from './HealthMedalContent';
+import EpicMedalContent from './EpicMedalContent';
 import { MedalIcon } from './MedalIcon';
 import { useState } from 'react';
 
@@ -47,6 +48,10 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
     
     if (medal.type === 'vigor') {
       return <VigorMedalContent medal={medal} totalSavings={totalSavings} />;
+    }
+
+    if (medal.type === 'epic') {
+      return <EpicMedalContent medal={medal} />;
     }
     
     // Para el resto de categorías
@@ -148,15 +153,17 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
             <Card>
               <CardContent className="p-4 sm:p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-3">
-                    <Calendar className="w-5 h-5 text-blue-500" />
-                    <div>
-                      <p className="text-sm text-gray-600">Obtenida el día</p>
-                      <p className="font-semibold text-sm sm:text-base">{medal.requiredDays || medal.days}</p>
+                  {medal.type !== 'epic' && (
+                    <div className="flex items-center space-x-3">
+                      <Calendar className="w-5 h-5 text-blue-500" />
+                      <div>
+                        <p className="text-sm text-gray-600">Obtenida el día</p>
+                        <p className="font-semibold text-sm sm:text-base">{medal.requiredDays || medal.days || 'Gesta'}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   
-                  <div className="flex items-center space-x-3 sm:col-span-2">
+                  <div className={`flex items-center space-x-3 ${medal.type === 'epic' ? 'sm:col-span-2' : 'sm:col-span-2'}`}>
                     <TrendingUp className="w-5 h-5 text-purple-500" />
                     <div className="flex-1">
                       <p className="text-sm text-gray-600">Categoría</p>
@@ -165,7 +172,8 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                          medal.category === 'athena' ? 'Ahorros' : 
                          medal.category === 'chronos' ? 'Tiempo' : 
                          medal.category === 'victory' ? 'Victoria' : 
-                         medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' : 'Logro'}
+                         medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' : 
+                         medal.type === 'epic' ? 'Gesta Épica' : 'Logro'}
                       </Badge>
                     </div>
                   </div>

@@ -1,4 +1,3 @@
-
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Medal } from './medalTypes';
 
@@ -18,6 +17,8 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
         return 'Medalla de Salud - Higiea';
       case 'vigor':
         return 'Medalla de Vigor - Dioniso';
+      case 'epic':
+        return 'Medalla Épica - Gesta Heroica';
       default:
         return '';
     }
@@ -33,6 +34,8 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
         return 'text-green-600';
       case 'vigor':
         return 'text-purple-600';
+      case 'epic':
+        return 'text-orange-600';
       default:
         return '';
     }

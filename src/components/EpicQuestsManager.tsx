@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
@@ -53,6 +53,26 @@ ${completedWithMedals.map(q => `• ${q.title} (${q.medalIcon ? '✅ Medalla' : 
 ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' : '✅ HAY MEDALLAS ÉPICAS DISPONIBLES'}
     `;
     setDebugInfo(info);
+  };
+
+  // Función para actualizar gestas existentes con medallas
+  const updateQuestsWithMedals = () => {
+    const updatedQuests = quests.map(quest => {
+      // Asignar medallas a las gestas específicas
+      if (quest.id === 'with_coffee' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/gesta_café.png' };
+      }
+      if (quest.id === 'with_beer' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/gesta_birra.png' };
+      }
+      if (quest.id === 'other_substances' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Otras_sustancias.png' };
+      }
+      return quest;
+    });
+    
+    saveQuests(updatedQuests);
+    toast.success('Medallas épicas actualizadas');
   };
 
   // Guardar gestas en localStorage
@@ -176,11 +196,21 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
           <pre className="text-xs text-yellow-800 whitespace-pre-wrap font-mono bg-white p-3 rounded border">
             {debugInfo}
           </pre>
-          <div className="mt-3 text-sm text-yellow-700">
-            <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
-            <p>1. Marca los 3 checks de "Con el café", "Con la birra" y "Con otras sustancias"</p>
-            <p>2. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
-            <p>3. Si siguen sin aparecer, hay un problema en el código que necesitamos arreglar</p>
+          <div className="mt-3 space-y-2">
+            <Button 
+              onClick={updateQuestsWithMedals}
+              className="bg-orange-600 hover:bg-orange-700 text-white"
+              size="sm"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Actualizar Medallas Épicas
+            </Button>
+            <div className="text-sm text-yellow-700">
+              <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
+              <p>1. Haz clic en "Actualizar Medallas Épicas" arriba</p>
+              <p>2. Marca los 3 checks de "Con el café", "Con la birra" y "Con otras sustancias"</p>
+              <p>3. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
+            </div>
           </div>
         </CardContent>
       </Card>

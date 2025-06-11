@@ -150,10 +150,10 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
             </div>
           )}
 
-          {/* Ícono épico para medallas de gestas */}
+          {/* Ícono épico para medallas de gestas - CAMBIADO */}
           {medal.type === 'epic' && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-orange-300 shadow-sm">
-              <span className="text-xs">⚔️</span>
+              <span className="text-xs">🏆</span>
             </div>
           )}
         </>

@@ -47,7 +47,7 @@ const EpicQuestsManager = () => {
         const isCompleted = newChecks >= quest.requiredChecks;
         
         if (isCompleted && !quest.isCompleted) {
-          toast.success(`¡Gesta completada: ${quest.title}!`, {
+          toast.success(`¡Hazaña completada: ${quest.title}!`, {
             description: quest.reward || 'Has superado un desafío épico'
           });
         }
@@ -84,13 +84,13 @@ const EpicQuestsManager = () => {
   const deleteQuest = (questId: string) => {
     const quest = quests.find(q => q.id === questId);
     if (quest && !quest.isCustom) {
-      toast.error('No puedes eliminar gestas predefinidas');
+      toast.error('No puedes eliminar hazañas predefinidas');
       return;
     }
     
     const updatedQuests = quests.filter(q => q.id !== questId);
     saveQuests(updatedQuests);
-    toast.success('Gesta eliminada');
+    toast.success('Hazaña eliminada');
   };
 
   // Añadir nueva gesta personalizada
@@ -124,7 +124,7 @@ const EpicQuestsManager = () => {
     setNewQuestIcon('⚔️');
     setShowAddDialog(false);
     
-    toast.success('Nueva gesta añadida');
+    toast.success('Nueva hazaña añadida');
   };
 
   const completedQuests = quests.filter(q => q.isCompleted).length;
@@ -159,7 +159,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu libertad.
+                una hazaña, esa situación ya no será un "disparador" sino una demostración de tu libertad.
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ const EpicQuestsManager = () => {
       <Card className="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
         <CardHeader>
           <CardTitle className="text-center text-amber-700 flex items-center justify-center gap-2">
-            ⚔️ Gestas Épicas de Liberación
+            ⚔️ Grandes hazañas
             <Trophy className="w-5 h-5" />
           </CardTitle>
           <p className="text-center text-amber-600">
@@ -181,11 +181,11 @@ const EpicQuestsManager = () => {
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="bg-white/70 p-3 rounded-lg">
               <div className="text-2xl font-bold text-amber-600">{completedQuests}</div>
-              <div className="text-sm text-amber-700">gestas completadas</div>
+              <div className="text-sm text-amber-700">hazañas completadas</div>
             </div>
             <div className="bg-white/70 p-3 rounded-lg">
               <div className="text-2xl font-bold text-amber-600">{totalQuests}</div>
-              <div className="text-sm text-amber-700">gestas totales</div>
+              <div className="text-sm text-amber-700">hazañas totales</div>
             </div>
           </div>
           
@@ -205,12 +205,12 @@ const EpicQuestsManager = () => {
           <DialogTrigger asChild>
             <Button className="bg-amber-600 hover:bg-amber-700">
               <Plus className="w-4 h-4 mr-2" />
-              Añadir Gesta Personalizada
+              Añadir Hazaña Personalizada
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Crear Nueva Gesta Épica</DialogTitle>
+              <DialogTitle>Crear Nueva Hazaña</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
@@ -280,7 +280,7 @@ const EpicQuestsManager = () => {
               
               <div className="flex gap-2 pt-4">
                 <Button onClick={addCustomQuest} className="flex-1">
-                  Crear Gesta
+                  Crear Hazaña
                 </Button>
                 <Button variant="outline" onClick={() => setShowAddDialog(false)}>
                   Cancelar
@@ -381,9 +381,9 @@ const EpicQuestsManager = () => {
       {quests.length === 0 && (
         <Card>
           <CardContent className="text-center py-8">
-            <p className="text-gray-500 mb-4">No tienes gestas épicas configuradas</p>
+            <p className="text-gray-500 mb-4">No tienes hazañas configuradas</p>
             <Button onClick={() => setShowAddDialog(true)}>
-              Añadir tu primera gesta
+              Añadir tu primera hazaña
             </Button>
           </CardContent>
         </Card>

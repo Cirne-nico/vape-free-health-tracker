@@ -187,23 +187,25 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-3">
-          <div className="bg-blue-50 p-3 rounded-lg">
+          {/* COLORES SIMPLIFICADOS - Solo azul y gris */}
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
             <p className="text-sm font-medium text-blue-700 mb-1">📋 Evolución:</p>
             <p className="text-gray-700">{dayContent.sintesis}</p>
           </div>
           
-          <div className="bg-green-50 p-3 rounded-lg">
-            <p className="text-sm font-medium text-green-700 mb-1">💡 Consejo:</p>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+            <p className="text-sm font-medium text-blue-700 mb-1">💡 Consejo:</p>
             <p className="text-gray-700">{dayContent.consejo}</p>
           </div>
           
-          <div className="bg-yellow-50 p-3 rounded-lg">
-            <p className="text-sm font-medium text-yellow-700 mb-1">🔔 Recordatorio:</p>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+            <p className="text-sm font-medium text-blue-700 mb-1">🔔 Recordatorio:</p>
             <p className="text-gray-700">{dayContent.recordatorio}</p>
           </div>
           
-          <div className="bg-purple-50 p-3 rounded-lg border border-purple-200">
-            <p className="text-sm font-medium text-purple-700 mb-3">💭 Gestión de pensamientos intrusivos:</p>
+          {/* Mantener rojo para pensamiento intrusivo y verde para contrarréplica */}
+          <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <p className="text-sm font-medium text-gray-700 mb-3">💭 Gestión de pensamientos intrusivos:</p>
             
             {/* Pensamiento intrusivo en rojo */}
             <div className="bg-red-100 p-2 rounded mb-2 border-l-4 border-red-400">

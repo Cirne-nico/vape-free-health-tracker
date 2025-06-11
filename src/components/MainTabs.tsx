@@ -8,7 +8,7 @@ import SocialStats from './SocialStats';
 import VirtualRewards from './VirtualRewards';
 import PredictiveAnalysis from './PredictiveAnalysis';
 import MedalsSection from './MedalsSection';
-import { Clock, Trophy, Heart, Brain, Settings } from 'lucide-react';
+import { Clock, Trophy, Heart, Brain, Settings, Scroll } from 'lucide-react';
 
 interface MainTabsProps {
   startDate: Date | null;
@@ -28,7 +28,7 @@ const MainTabs = ({
   return (
     <div className="space-y-4 sm:space-y-6">
       <Tabs defaultValue="emotions" className="w-full">
-        <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm h-14 sm:h-12">
+        <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
           <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="leading-tight">General</span>
@@ -43,7 +43,11 @@ const MainTabs = ({
           </TabsTrigger>
           <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">Hitos</span>
+            <span className="leading-tight">Epopeya</span>
+          </TabsTrigger>
+          <TabsTrigger value="epic" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
+            <Scroll className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="leading-tight">La épica</span>
           </TabsTrigger>
           <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -88,6 +92,18 @@ const MainTabs = ({
 
         <TabsContent value="achievements" className="mt-4 sm:mt-6">
           <AchievementsList days={currentDay} savings={totalSavings} />
+        </TabsContent>
+
+        <TabsContent value="epic" className="mt-4 sm:mt-6">
+          {/* Contenido para la nueva pestaña "La épica" - Por ahora vacío */}
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg border border-amber-200 text-center">
+              <h2 className="text-xl font-bold text-amber-800 mb-4">La Épica de la Liberación</h2>
+              <p className="text-amber-700">
+                Próximamente: Aquí se desarrollará la narrativa épica de tu viaje hacia la libertad.
+              </p>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="settings" className="mt-4 sm:mt-6">

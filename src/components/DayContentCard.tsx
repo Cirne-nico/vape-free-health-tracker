@@ -19,12 +19,56 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
         sintesis: "¡Has comenzado tu viaje! Los primeros minutos son cruciales.",
         consejo: "Respira profundo y mantente hidratado. Cada minuto cuenta.",
         recordatorio: "Tu cuerpo está iniciando el proceso de recuperación.",
-        contrareplica: "No es una pérdida. Es el comienzo de mi libertad."
+        contrareplica: "No es una pérdida. Es el comienzo de mi libertad.",
+        hora: 0
       };
     }
     
     // Obtener el contenido más reciente
     return availableContent[availableContent.length - 1];
+  };
+
+  // Función para calcular el período de validez del mensaje
+  const getValidityPeriod = (currentHour: number) => {
+    // Encontrar el índice del contenido actual
+    const currentIndex = contenidosData.findIndex(content => content.hora === currentHour);
+    
+    if (currentIndex === -1) {
+      return "Primeros minutos";
+    }
+    
+    // Obtener la hora del siguiente contenido (si existe)
+    const nextContent = contenidosData[currentIndex + 1];
+    const currentDay = Math.floor(currentHour / 24);
+    
+    if (!nextContent) {
+      // Si es el último contenido, mostrar "desde día X en adelante"
+      if (currentDay === 0) {
+        return "Primeras horas";
+      }
+      return `Desde día ${currentDay} en adelante`;
+    }
+    
+    const nextDay = Math.floor(nextContent.hora / 24);
+    
+    // Si el mensaje es válido solo para el día actual
+    if (currentDay === nextDay) {
+      if (currentDay === 0) {
+        return `Horas ${currentHour}-${nextContent.hora - 1}`;
+      }
+      return `Día ${currentDay}`;
+    }
+    
+    // Si el mensaje es válido para varios días
+    if (currentDay === 0 && nextDay > 0) {
+      return `Primeras ${currentHour} horas`;
+    }
+    
+    if (nextDay - currentDay === 1) {
+      return `Día ${currentDay}`;
+    }
+    
+    return `Días ${currentDay}-${nextDay - 1}`;
   };
 
   // Función para generar pensamientos intrusivos que encajen EXACTAMENTE con las contrarréplicas
@@ -177,6 +221,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
   if (!dayContent) return null;
 
   const intrusiveThought = getIntrusiveThoughtForResponse(dayContent.contrareplica);
+  const validityPeriod = getValidityPeriod(dayContent.hora);
 
   return (
     <Card className="bg-gradient-to-r from-blue-50 to-green-50">
@@ -184,7 +229,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
         <div className="space-y-3">
           {/* COLORES SIMPLIFICADOS - Solo azul y gris */}
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-            <p className="text-sm font-medium text-blue-700 mb-1">📋 Evolución:</p>
+            <p className="text-sm font-medium text-blue-700 mb-1">📋 Evolución ({validityPeriod}):</p>
             <p className="text-gray-700">{dayContent.sintesis}</p>
           </div>
           

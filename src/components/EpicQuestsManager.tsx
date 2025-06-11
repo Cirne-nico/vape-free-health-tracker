@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
@@ -19,24 +19,47 @@ const EpicQuestsManager = () => {
   const [newQuestChecks, setNewQuestChecks] = useState(3);
   const [newQuestCategory, setNewQuestCategory] = useState<EpicQuest['category']>('situational');
   const [newQuestIcon, setNewQuestIcon] = useState('⚔️');
+  const [debugInfo, setDebugInfo] = useState<string>('');
 
   // Cargar gestas del localStorage
   useEffect(() => {
     const savedQuests = localStorage.getItem('epic-quests');
     if (savedQuests) {
-      setQuests(JSON.parse(savedQuests));
+      const loadedQuests = JSON.parse(savedQuests);
+      setQuests(loadedQuests);
+      updateDebugInfo(loadedQuests);
     } else {
       // Inicializar con gestas por defecto
       const initialQuests = defaultEpicQuests.map(createEpicQuest);
       setQuests(initialQuests);
       localStorage.setItem('epic-quests', JSON.stringify(initialQuests));
+      updateDebugInfo(initialQuests);
     }
   }, []);
+
+  // Función para actualizar información de debug
+  const updateDebugInfo = (questList: EpicQuest[]) => {
+    const completedWithMedals = questList.filter(q => q.isCompleted && q.medalIcon);
+    const info = `
+📊 ESTADO ACTUAL:
+• Total gestas: ${questList.length}
+• Gestas completadas: ${questList.filter(q => q.isCompleted).length}
+• Gestas con medalla: ${questList.filter(q => q.medalIcon).length}
+• Gestas completadas CON medalla: ${completedWithMedals.length}
+
+🏆 MEDALLAS ÉPICAS DISPONIBLES:
+${completedWithMedals.map(q => `• ${q.title} (${q.medalIcon ? '✅ Medalla' : '❌ Sin medalla'})`).join('\n')}
+
+${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' : '✅ HAY MEDALLAS ÉPICAS DISPONIBLES'}
+    `;
+    setDebugInfo(info);
+  };
 
   // Guardar gestas en localStorage
   const saveQuests = (updatedQuests: EpicQuest[]) => {
     setQuests(updatedQuests);
     localStorage.setItem('epic-quests', JSON.stringify(updatedQuests));
+    updateDebugInfo(updatedQuests);
   };
 
   // Añadir check a una gesta
@@ -141,6 +164,27 @@ const EpicQuestsManager = () => {
 
   return (
     <div className="space-y-6">
+      {/* Panel de debug visible */}
+      <Card className="bg-yellow-50 border-yellow-200">
+        <CardHeader>
+          <CardTitle className="text-yellow-800 flex items-center gap-2">
+            <AlertCircle className="w-5 h-5" />
+            Estado de las Medallas Épicas
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <pre className="text-xs text-yellow-800 whitespace-pre-wrap font-mono bg-white p-3 rounded border">
+            {debugInfo}
+          </pre>
+          <div className="mt-3 text-sm text-yellow-700">
+            <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
+            <p>1. Marca los 3 checks de "Con el café", "Con la birra" y "Con otras sustancias"</p>
+            <p>2. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
+            <p>3. Si siguen sin aparecer, hay un problema en el código que necesitamos arreglar</p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Introducción explicativa */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
         <CardHeader>
@@ -168,7 +212,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>

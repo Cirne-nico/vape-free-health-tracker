@@ -31,6 +31,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
   const getIntrusiveThoughtForResponse = (contrareplica: string) => {
     // Mapeo de contrarréplicas a pensamientos intrusivos que encajan
     const responseToThoughtMap: { [key: string]: string } = {
+      "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Tengo genes de adicto, no puedo cambiar",
       "No es una pérdida. Es el comienzo de mi libertad.": "He perdido algo importante al dejar de vapear",
       "No es ansiedad. Es el cuerpo recuperando su ritmo autónomo.": "Esta ansiedad significa que algo va mal",
       "No estoy nervioso. Estoy transitando el reinicio bioquímico.": "Estos nervios son una señal de que necesito vapear",
@@ -136,7 +137,6 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No fue suerte. Fue disciplina, conocimiento y autocompasión.": "Todo esto fue pura suerte",
       "No soy superior. Soy compañero de viaje con experiencia acumulada.": "Soy superior a los que vapean",
       "No es casualidad. Es consecuencia directa de mi compromiso.": "Estos cambios son casuales",
-      "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Tengo genes de adicto, no puedo cambiar",
       "No es mejora. Es funcionamiento óptimo recuperado.": "Esto es solo una mejora temporal",
       "No evito. Elijo conscientemente.": "Estoy evitando situaciones por miedo",
       "No es regeneración milagrosa. Es capacidad natural del cuerpo.": "Esto es regeneración milagrosa",

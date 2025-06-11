@@ -180,12 +180,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
 
   return (
     <Card className="bg-gradient-to-r from-blue-50 to-green-50">
-      <CardHeader>
-        <CardTitle className="text-blue-700">
-          {hoursSince >= 24 ? `Día ${Math.floor(hoursSince / 24)}` : `${hoursSince} horas`} sin vapear
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-6">
         <div className="space-y-3">
           {/* COLORES SIMPLIFICADOS - Solo azul y gris */}
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">

@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
@@ -132,6 +132,40 @@ const EpicQuestsManager = () => {
 
   return (
     <div className="space-y-6">
+      {/* Introducción explicativa */}
+      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+        <CardHeader>
+          <CardTitle className="text-center text-blue-700 flex items-center justify-center gap-2">
+            <Brain className="w-5 h-5" />
+            Memoria Corporal y Neuroplasticidad
+            <Heart className="w-5 h-5" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="text-sm text-blue-800 leading-relaxed space-y-3">
+            <p>
+              <strong>¿Por qué repetir cada situación varias veces?</strong> Cuando superas una situación difícil 
+              sin vapear <strong>3 veces</strong> (o las que corresponda), esa experiencia queda grabada en tu 
+              <strong> memoria corporal y cerebral</strong> como un nuevo patrón neurológico.
+            </p>
+            
+            <p>
+              Tu sistema nervioso <strong>aprende</strong> que puede vivir esa experiencia y <strong>disfrutarla 
+              incluso más</strong> sin necesidad de nicotina. La repetición consolida nuevas conexiones neuronales 
+              que reemplazan las asociaciones adictivas.
+            </p>
+            
+            <div className="bg-white/70 p-3 rounded-lg border border-blue-200">
+              <p className="text-xs text-blue-700 italic">
+                💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
+                fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu libertad.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Header con estadísticas */}
       <Card className="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
         <CardHeader>

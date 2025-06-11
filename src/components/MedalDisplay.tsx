@@ -21,12 +21,13 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
   const specialMedals = getSpecialMedals(currentDays);
   
-  // Obtener medallas épicas de gestas completadas - LLAMADA DIRECTA CON LOGS
-  console.log('\n🔍 MEDAL DISPLAY: Calling getEpicQuestMedals...');
+  // Obtener medallas épicas de gestas completadas - LLAMADA DIRECTA CON LOGS MEJORADOS
+  console.log('\n🚀 MEDAL DISPLAY: Calling getEpicQuestMedals...');
   const epicQuestMedals = getEpicQuestMedals();
-  console.log('🔍 MEDAL DISPLAY: Received epic quest medals:', epicQuestMedals);
+  console.log('🚀 MEDAL DISPLAY: Received epic quest medals:', epicQuestMedals);
+  console.log('🚀 MEDAL DISPLAY: Epic medals count:', epicQuestMedals.length);
   
-  console.log('\n=== MEDAL DISPLAY DEBUG ===');
+  console.log('\n=== 📊 MEDAL DISPLAY DEBUG ===');
   console.log('Current days:', currentDays);
   console.log('Special medals:', specialMedals);
   console.log('Epic quest medals:', epicQuestMedals);
@@ -49,12 +50,12 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
     // NO cambiar el icon - mantener el original de cada medalla de salud
   }));
   
-  // Combinar TODAS las medallas incluyendo las épicas
+  // Combinar TODAS las medallas incluyendo las épicas - ORDEN IMPORTANTE
   const allMedals: Medal[] = [
     ...processedAchievements, 
     ...processedHealthAchievements, 
     ...specialMedals,
-    ...epicQuestMedals
+    ...epicQuestMedals  // Las medallas épicas van al final
   ];
 
   console.log('Processed achievements (Vigor):', processedAchievements);
@@ -62,7 +63,7 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   console.log('Epic quest medals:', epicQuestMedals);
   console.log('All medals final:', allMedals);
   console.log('Total medals count:', allMedals.length);
-  console.log('=== END DEBUG ===\n');
+  console.log('=== 📊 END DEBUG ===\n');
 
   const handleMedalClick = (medal: Medal) => {
     setSelectedMedal(medal);

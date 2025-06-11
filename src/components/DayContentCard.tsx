@@ -147,7 +147,12 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No soy ex-vaper. Soy alguien que una vez vapeo y eligió la recuperación.": "Siempre seré un ex-vaper"
     };
 
-    // Buscar coincidencia exacta o parcial
+    // Buscar coincidencia exacta primero
+    if (responseToThoughtMap[contrareplica]) {
+      return responseToThoughtMap[contrareplica];
+    }
+
+    // Si no hay coincidencia exacta, buscar coincidencia parcial
     for (const [response, thought] of Object.entries(responseToThoughtMap)) {
       if (contrareplica.includes(response) || response.includes(contrareplica)) {
         return thought;

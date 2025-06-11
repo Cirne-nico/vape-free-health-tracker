@@ -20,7 +20,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '🎉',
     category: 'social',
-    reward: 'Demostración de que la diversión no depende de sustancias'
+    reward: 'La diversión no depende al menos de esta sustancia'
   },
   {
     id: 'fight_friend',
@@ -94,7 +94,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '💊',
     category: 'substance',
-    reward: 'Independencia entre diferentes tipos de consumo'
+    reward: 'Independencia entre diferentes tipos de consumo',
+    medalIcon: '/lovable-uploads/Otras_sustancias.png' // Nueva medalla épica de otras sustancias
   },
   {
     id: 'strong_boredom',

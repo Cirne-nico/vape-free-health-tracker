@@ -98,7 +98,6 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es el final. Es el comienzo de la fase de mantenimiento sólido.": "Ya terminé, esto es el final",
       "No es autoengano. Es evidencia acumulada de mi capacidad de cambio.": "Me estoy autoengañando",
       "No es vacío. Es espacio para autoconocimiento sin intermediarios.": "Siento un vacío existencial",
-      "No soy 'ex-vaper'. Soy 'persona libre de vapeo'.": "Siempre seré un ex-vaper",
       "No es tentación. Es el eco de un hábito moribundo.": "Esta es una tentación real",
       "No es automático. Es el fruto de mi trabajo neuroemocional.": "Esto debería ser automático ya",
       "No es pérdida de tiempo. Es inversión en reparación neurológica.": "Dormir tanto es pérdida de tiempo",

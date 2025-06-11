@@ -20,7 +20,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '🎉',
     category: 'social',
-    reward: 'La diversión no depende al menos de esta sustancia'
+    reward: 'La diversión no depende al menos de esta sustancia',
+    medalIcon: '/lovable-uploads/situación_social.png' // Nueva medalla épica
   },
   {
     id: 'fight_friend',
@@ -29,7 +30,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 2,
     icon: '💔',
     category: 'emotional',
-    reward: 'Capacidad de procesar emociones difíciles de forma natural'
+    reward: 'Capacidad de procesar emociones difíciles de forma natural',
+    medalIcon: '/lovable-uploads/Discusión_pelea.png' // Nueva medalla épica
   },
   {
     id: 'bad_news',
@@ -48,7 +50,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '💼',
     category: 'situational',
     reward: 'Herramientas de gestión del estrés profesional',
-    medalIcon: '/lovable-uploads/Estres_laboral.png' // Nueva medalla épica de estrés laboral
+    medalIcon: '/lovable-uploads/Estres_laboral.png' // Medalla épica de estrés laboral
   },
   {
     id: 'control_illusion',
@@ -57,7 +59,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 4,
     icon: '🧠',
     category: 'psychological',
-    reward: 'Claridad mental sobre los mecanismos de autoengaño'
+    reward: 'Claridad mental sobre los mecanismos de autoengaño',
+    medalIcon: '/lovable-uploads/Yo_controlo.png' // Nueva medalla épica
   },
   {
     id: 'with_coffee',
@@ -105,7 +108,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 2,
     icon: '😴',
     category: 'emotional',
-    reward: 'Capacidad de estar presente sin necesidad de estímulos externos'
+    reward: 'Capacidad de estar presente sin necesidad de estímulos externos',
+    medalIcon: '/lovable-uploads/aburrimiento.png' // Nueva medalla épica
   },
   {
     id: 'prolonged_sadness',
@@ -114,7 +118,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 1,
     icon: '😢',
     category: 'emotional',
-    reward: 'Aceptación y procesamiento natural de emociones difíciles'
+    reward: 'Aceptación y procesamiento natural de emociones difíciles',
+    medalIcon: '/lovable-uploads/tristeza.png' // Nueva medalla épica
   },
   {
     id: 'social_situation',

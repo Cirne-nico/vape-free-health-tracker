@@ -30,7 +30,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 2,
     icon: '💔',
     category: 'emotional',
-    reward: 'Capacidad de procesar emociones difíciles de forma natural',
+    reward: 'Capacidad de procesar emociones difíciles sin recurrir a la Nicotina',
     medalIcon: '/lovable-uploads/Discusión_pelea.png'
   },
   {

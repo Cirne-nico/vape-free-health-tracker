@@ -147,12 +147,11 @@ const MainHeader = ({
               </h3>
             </div>
 
-            {/* Tiempo transcurrido con mejor jerarquía */}
+            {/* Tiempo transcurrido con mejor jerarquía - CAMBIO AQUÍ */}
             <div className="text-center py-2">
               <h4 className="text-2xl sm:text-3xl font-bold mb-1">
-                {time.days > 0 ? `${time.days} días` : `${time.hours}h ${time.minutes}m`}
+                {time.days > 0 ? `${time.days} días sin vapear` : `${time.hours}h ${time.minutes}m sin vapear`}
               </h4>
-              <p className="text-green-100 text-sm font-medium">sin vapear</p>
             </div>
 
             {/* Progreso visual */}

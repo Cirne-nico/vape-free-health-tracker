@@ -137,7 +137,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No fue suerte. Fue disciplina, conocimiento y autocompasión.": "Todo esto fue pura suerte",
       "No soy superior. Soy compañero de viaje con experiencia acumulada.": "Soy superior a los que vapean",
       "No es casualidad. Es consecuencia directa de mi compromiso.": "Estos cambios son casuales",
-      "No es genética. Es fruto de mi decisión de sanar.": "Tengo genes de adicto, no puedo cambiar",
+      "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Tengo genes de adicto, no puedo cambiar",
       "No es mejora. Es funcionamiento óptimo recuperado.": "Esto es solo una mejora temporal",
       "No evito. Elijo conscientemente.": "Estoy evitando situaciones por miedo",
       "No es regeneración milagrosa. Es capacidad natural del cuerpo.": "Esto es regeneración milagrosa",

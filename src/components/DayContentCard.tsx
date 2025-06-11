@@ -27,11 +27,14 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
     return availableContent[availableContent.length - 1];
   };
 
-  // Función para generar pensamientos intrusivos que encajen con las contrarréplicas existentes
+  // Función para generar pensamientos intrusivos que encajen EXACTAMENTE con las contrarréplicas
   const getIntrusiveThoughtForResponse = (contrareplica: string) => {
-    // Mapeo de contrarréplicas a pensamientos intrusivos que encajan
+    // Mapeo EXACTO de contrarréplicas a pensamientos intrusivos coherentes
     const responseToThoughtMap: { [key: string]: string } = {
-      "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Tengo genes de adicto, no puedo cambiar",
+      // Día 158 - Genes y capacidad de elección
+      "No tengo genes de adicto. Tengo capacidad de elección y mi biología se adapta a mis decisiones.": "Tengo genes de adicto, no puedo cambiar mi naturaleza",
+      
+      // Primeras horas/días
       "No es una pérdida. Es el comienzo de mi libertad.": "He perdido algo importante al dejar de vapear",
       "No es ansiedad. Es el cuerpo recuperando su ritmo autónomo.": "Esta ansiedad significa que algo va mal",
       "No estoy nervioso. Estoy transitando el reinicio bioquímico.": "Estos nervios son una señal de que necesito vapear",
@@ -42,6 +45,8 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es una recaída en la salud. Es una mejora que se manifiesta con limpieza.": "Esta tos significa que estoy empeorando",
       "No es casualidad. Es una transformación lenta pero segura.": "Estos cambios son casuales, no reales",
       "No es un pequeño logro. Es un paso de gigante.": "Un día no es nada, es muy poco progreso",
+      
+      // Días intermedios
       "No es necesidad. Es automatismo que puede ser interrumpido.": "Realmente necesito vapear ahora",
       "No es déficit de atención. Es deshabituación del estímulo nicotínico constante.": "No puedo concentrarme sin nicotina",
       "No estoy perdiendo el control. Estoy aprendiendo a manejarme sin filtros químicos.": "Estoy perdiendo el control de mis emociones",
@@ -54,6 +59,8 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es bronquitis. Es árbol respiratorio reconstruyendo defensas.": "Esta tos parece bronquitis",
       "No es alergia. Es mucosas recuperando protección natural.": "Debo ser alérgico a algo",
       "No estoy igual. Estoy en proceso activo de desintoxicación.": "No he cambiado nada, sigo igual",
+      
+      // Días 30-60
       "No es enfermedad. Es hígado metabolizando sin aditivos.": "Mi hígado debe estar enfermo",
       "No necesito vaporizar. Pulmones recomponiendo estructura alveolar.": "Necesito vapear para respirar mejor",
       "No es gingivitis. Es microbioma restaurando equilibrio.": "Tengo gingivitis por dejar de vapear",
@@ -67,15 +74,18 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es TDA. Es atención aprendiendo a sostenerse sin estimulantes.": "Tengo déficit de atención",
       "No es mejor imaginada. Es mi sistema vascular funcionando sin tóxicos.": "Esta mejora es solo imaginación",
       "No necesito vapear. Necesito reconfigurar respuestas contextuales.": "Necesito vapear en ciertas situaciones",
-      "No fue gingivitis. Fue agresión crónica por solventes.": "Tenía gingivitis real",
-      "No es insomnio. Es mi cerebro reorganizando fases de sueño.": "Tengo insomnio crónico",
-      "No es hiperosmia. Es olfato funcionando en rango completo.": "Tengo hipersensibilidad olfativa",
-      "No es casual. Es dermis recuperando integridad estructural.": "Los cambios en mi piel son casuales",
-      "No necesito vapear para relajarme. Sistema neuroendocrino es autónomo.": "Necesito vapear para relajarme",
-      "No estoy más lento. Proceso información con mayor precisión.": "Estoy más lento mentalmente",
-      "No es hipotiroidismo. Es glándula recuperando regulación natural.": "Tengo problemas de tiroides",
-      "No estoy 'curado'. Estoy en transición a mantenimiento emocional.": "Ya estoy curado, puedo vapear ocasionalmente",
-      "No es regresión. Es cerebro recalibrando sistema recompensa.": "Estoy retrocediendo en mi progreso",
+      "No soy invulnerable. Mantengo vigilancia atenta sin paranoia.": "Soy invulnerable a las recaídas",
+      
+      // Identidad y consolidación
+      "No soy ex-vaper. Soy alguien que no vapea.": "Soy un ex-vaper, siempre lo seré",
+      "No soy 'ex-adicto'. Soy alguien en recuperación consolidada.": "Siempre seré un ex-adicto",
+      "No es ruido neuronal sin significado.": "Estos pensamientos tienen significado real",
+      "No soy frío. Estoy aprendiendo a relacionarme sin intermediarios químicos.": "Me he vuelto frío emocionalmente",
+      "No es euforia. Es mi mente funcionando sin bloqueos químicos.": "Esta creatividad es solo euforia temporal",
+      "No necesito escapar. Puedo sostener lo que sea temporalmente.": "Necesito escapar de este malestar",
+      "No es permanente. Es el último intento de la adicción por sobrevivir.": "Esta tristeza es permanente",
+      
+      // Tristeza y emociones
       "Prefiero vapear y no estar tan triste' - Estudios muestran que la tristeza post-cesación es temporal (6-12 semanas), pero vapear perpetúa la disregulación dopaminérgica indefinidamente.": "Prefiero vapear y no estar tan triste",
       "No extraño vapear. Extraño la falsa solución emocional que ofrecía.": "Extraño vapear realmente",
       "No estoy reviviendo. Estoy recordando sin anestesia química.": "Estoy reviviendo traumas del pasado",
@@ -86,12 +96,8 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es deseo real. Es memoria condicionada buscando activación.": "Realmente deseo vapear",
       "No necesito vapear para calmarme. Tengo recursos internos suficientes.": "Necesito vapear para calmarme",
       "No es insomnio residual. Es sueño natural sin alteraciones químicas.": "Tengo insomnio residual",
-      "No soy invulnerable. Mantengo vigilancia atenta sin paranoia.": "Soy invulnerable a las recaídas",
-      "No soy frío. Estoy aprendiendo a relacionarme sin intermediarios químicos.": "Me he vuelto frío emocionalmente",
-      "No es euforia. Es mi mente funcionando sin bloqueos químicos.": "Esta creatividad es solo euforia temporal",
-      "No soy ex-vaper. Soy alguien que no vapea.": "Soy un ex-vaper, siempre lo seré",
-      "No necesito escapar. Puedo sostener lo que sea temporalmente.": "Necesito escapar de este malestar",
-      "No es permanente. Es el último intento de la adicción por sobrevivir.": "Esta tristeza es permanente",
+      
+      // Logros y progreso
       "No es poco. Es suficiente para un cerebro en recalibración.": "Estos pequeños placeres no son suficientes",
       "No es peligro. Es oportunidad para reconfigurar asociaciones.": "Estar en estos lugares es peligroso",
       "No es premonición. Es cerebro procesando el cambio de identidad.": "Estos sueños son premoniciones de recaída",
@@ -105,13 +111,13 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No soy frágil. Soy adaptable sin soluciones químicas.": "Soy demasiado frágil para esto",
       "No es somatización. Es reconexión con sabiduría corporal.": "Estoy somatizando problemas",
       "No es inspiración repentina. Es mi mente liberada de bloqueos químicos.": "Esta creatividad es solo inspiración temporal",
+      
+      // Mantenimiento y consolidación final
       "No estoy 'curado'. Estoy en mantenimiento activo permanente.": "Ya estoy curado completamente",
       "No es esfuerzo. Es mantenimiento de logros.": "Mantener esto requiere demasiado esfuerzo",
       "No es autoengaño. Es reconocimiento de evidencia objetiva.": "Me estoy autoengañando con estos logros",
       "No soy raro. Soy coherente con mis valores de salud.": "Soy raro por no vapear",
       "No necesito química externa. Tengo herramientas psicológicas efectivas.": "Necesito ayuda química externa",
-      "No soy 'ex-adicto'. Soy alguien en recuperación consolidada.": "Siempre seré un ex-adicto",
-      "No es ruido neuronal sin significado.": "Estos pensamientos tienen significado real",
       "No es meditación. Es vivir con conciencia plena.": "Esto es solo meditación new age",
       "No es aburrido. Es libertad sin lucha constante.": "La vida sin vapear es aburrida",
       "No soy experto. Soy compañero de camino con experiencia.": "Soy un experto en dejar de vapear",
@@ -144,22 +150,24 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es esfuerzo. Es estilo de vida integrado.": "Esto requiere demasiado esfuerzo",
       "No es presunción. Es celebración legítima de victoria personal.": "Estoy siendo presuntuoso",
       "No es promesa. Es declaración de intención basada en evidencia.": "Esto es solo una promesa vacía",
+      "No es el fin. Es el comienzo de mi vida plenamente libre.": "Esto es el fin del proceso",
+      "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Es genético, no puedo cambiar mi tendencia adictiva",
       "No soy ex-vaper. Soy alguien que una vez vapeo y eligió la recuperación.": "Siempre seré un ex-vaper"
     };
 
-    // Buscar coincidencia exacta primero
+    // Buscar coincidencia exacta
     if (responseToThoughtMap[contrareplica]) {
       return responseToThoughtMap[contrareplica];
     }
 
-    // Si no hay coincidencia exacta, buscar coincidencia parcial
-    for (const [response, thought] of Object.entries(responseToThoughtMap)) {
-      if (contrareplica.includes(response) || response.includes(contrareplica)) {
-        return thought;
-      }
+    // Si no hay coincidencia exacta, generar pensamiento genérico pero coherente
+    if (contrareplica.includes("No es") || contrareplica.includes("No soy")) {
+      // Extraer lo que se está negando y convertirlo en pensamiento positivo
+      const negatedConcept = contrareplica.replace("No es ", "").replace("No soy ", "").split(".")[0];
+      return `Sí es ${negatedConcept.toLowerCase()}` || `Sí soy ${negatedConcept.toLowerCase()}`;
     }
 
-    // Si no hay coincidencia, usar un pensamiento genérico
+    // Fallback genérico
     return "Esto no está funcionando como esperaba";
   };
 

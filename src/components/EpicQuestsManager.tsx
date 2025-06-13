@@ -7,13 +7,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
 const EpicQuestsManager = () => {
   const [quests, setQuests] = useState<EpicQuest[]>([]);
+  const [deletedQuests, setDeletedQuests] = useState<EpicQuest[]>([]);
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showRecoverDialog, setShowRecoverDialog] = useState(false);
   const [newQuestTitle, setNewQuestTitle] = useState('');
   const [newQuestDescription, setNewQuestDescription] = useState('');
   const [newQuestChecks, setNewQuestChecks] = useState(3);
@@ -24,6 +26,8 @@ const EpicQuestsManager = () => {
   // Cargar gestas del localStorage
   useEffect(() => {
     const savedQuests = localStorage.getItem('epic-quests');
+    const savedDeletedQuests = localStorage.getItem('deleted-epic-quests');
+    
     if (savedQuests) {
       const loadedQuests = JSON.parse(savedQuests);
       setQuests(loadedQuests);
@@ -34,6 +38,10 @@ const EpicQuestsManager = () => {
       setQuests(initialQuests);
       localStorage.setItem('epic-quests', JSON.stringify(initialQuests));
       updateDebugInfo(initialQuests);
+    }
+
+    if (savedDeletedQuests) {
+      setDeletedQuests(JSON.parse(savedDeletedQuests));
     }
   }, []);
 
@@ -173,6 +181,12 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
     updateDebugInfo(finalQuests);
   };
 
+  // Guardar gestas eliminadas
+  const saveDeletedQuests = (deletedQuestsList: EpicQuest[]) => {
+    setDeletedQuests(deletedQuestsList);
+    localStorage.setItem('deleted-epic-quests', JSON.stringify(deletedQuestsList));
+  };
+
   // Añadir check a una gesta
   const addCheck = (questId: string) => {
     const updatedQuests = quests.map(quest => {
@@ -222,20 +236,43 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
     saveQuests(updatedQuests);
   };
 
-  // Eliminar gesta
+  // Eliminar gesta (ahora permite eliminar cualquier gesta)
   const deleteQuest = (questId: string) => {
     const quest = quests.find(q => q.id === questId);
+    if (!quest) return;
     
     // Confirmar eliminación
     const confirmDelete = window.confirm(
-      `¿Estás segura de que quieres eliminar la hazaña "${quest?.title}"?\n\nEsta acción no se puede deshacer.`
+      `¿Estás segura de que quieres eliminar la hazaña "${quest.title}"?\n\nEsta acción se puede revertir desde el botón "Recuperar hazañas eliminadas".`
     );
     
     if (!confirmDelete) return;
     
+    // Mover a la lista de eliminadas
+    const newDeletedQuests = [...deletedQuests, quest];
+    saveDeletedQuests(newDeletedQuests);
+    
+    // Eliminar de la lista activa
     const updatedQuests = quests.filter(q => q.id !== questId);
     saveQuests(updatedQuests);
-    toast.success('Hazaña eliminada correctamente');
+    
+    toast.success(`Hazaña "${quest.title}" eliminada. Puedes recuperarla si fue un error.`);
+  };
+
+  // Recuperar gesta eliminada
+  const recoverQuest = (questId: string) => {
+    const questToRecover = deletedQuests.find(q => q.id === questId);
+    if (!questToRecover) return;
+
+    // Añadir de vuelta a la lista activa
+    const updatedQuests = [...quests, questToRecover];
+    saveQuests(updatedQuests);
+
+    // Eliminar de la lista de eliminadas
+    const updatedDeletedQuests = deletedQuests.filter(q => q.id !== questId);
+    saveDeletedQuests(updatedDeletedQuests);
+
+    toast.success(`Hazaña "${questToRecover.title}" recuperada correctamente`);
   };
 
   // Añadir nueva gesta personalizada
@@ -402,8 +439,44 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
         </CardContent>
       </Card>
 
-      {/* Botón para añadir gesta personalizada */}
-      <div className="flex justify-end">
+      {/* Botones de acción */}
+      <div className="flex flex-wrap gap-2 justify-end">
+        {deletedQuests.length > 0 && (
+          <Dialog open={showRecoverDialog} onOpenChange={setShowRecoverDialog}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="bg-green-50 border-green-300 text-green-700 hover:bg-green-100">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Recuperar Hazañas ({deletedQuests.length})
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Recuperar Hazañas Eliminadas</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 max-h-96 overflow-y-auto">
+                {deletedQuests.map((quest) => (
+                  <div key={quest.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span className="text-xl">{quest.icon}</span>
+                      <div>
+                        <p className="font-medium">{quest.title}</p>
+                        <p className="text-sm text-gray-600">{quest.description}</p>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={() => recoverQuest(quest.id)}
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      Recuperar
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+
         <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
           <DialogTrigger asChild>
             <Button className="bg-amber-600 hover:bg-amber-700">
@@ -538,9 +611,10 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                   size="sm"
                   onClick={() => deleteQuest(quest.id)}
                   className="text-red-500 hover:text-red-700"
-                  title="Eliminar hazaña"
+                  title="No me representa"
                 >
                   <Trash2 className="w-4 h-4" />
+                  <span className="ml-1 text-xs hidden sm:inline">No me representa</span>
                 </Button>
               </div>
               

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 interface RelapseHandlerProps {
@@ -30,75 +29,76 @@ export const useRelapseHandler = ({
     
     const currentDays = Math.floor((currentTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
     
+    // Si tiene menos de 7 días, reiniciar completamente
     if (currentDays < 7) {
       setStartDate(new Date());
       localStorage.setItem('vaping-quit-date', new Date().toISOString());
       resetAchievements();
+      alert('Proceso reiniciado. ¡Vuelve a empezar con fuerza!');
       return;
     }
     
-    let newStartDate = new Date();
+    let daysToSubtract = 0;
     let penaltyMessage = '';
-    let daysLost = 0;
     
+    // Definir penalizaciones según el número de recaída
     switch (relapseCount) {
       case 0:
-        daysLost = 7;
-        if (currentDays >= daysLost) {
-          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
-        } else {
-          newStartDate = new Date();
-        }
-        penaltyMessage = 'Primera recaída: se ha restado una semana de tu progreso y las medallas correspondientes.';
+        daysToSubtract = 7; // 1 semana
+        penaltyMessage = 'Primera recaída: se han restado 7 días de tu progreso.';
         break;
       case 1:
-        daysLost = 30;
-        if (currentDays >= daysLost) {
-          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
-        } else {
-          newStartDate = new Date();
-        }
-        penaltyMessage = 'Segunda recaída: se ha restado un mes de tu progreso y las medallas correspondientes.';
+        daysToSubtract = 30; // 1 mes
+        penaltyMessage = 'Segunda recaída: se ha restado 1 mes (30 días) de tu progreso.';
         break;
       case 2:
-        daysLost = 90;
-        if (currentDays >= daysLost) {
-          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
-        } else {
-          newStartDate = new Date();
-        }
-        penaltyMessage = 'Tercera recaída: se han restado 3 meses de tu progreso y las medallas correspondientes.';
+        daysToSubtract = 90; // 3 meses
+        penaltyMessage = 'Tercera recaída: se han restado 3 meses (90 días) de tu progreso.';
         break;
       case 3:
-        daysLost = 270;
-        if (currentDays >= daysLost) {
-          newStartDate = new Date(currentTime.getTime() - (daysLost * 24 * 60 * 60 * 1000));
-        } else {
-          newStartDate = new Date();
-        }
-        penaltyMessage = 'Cuarta recaída: se han restado 9 meses de tu progreso y las medallas correspondientes.';
+        daysToSubtract = 270; // 9 meses
+        penaltyMessage = 'Cuarta recaída: se han restado 9 meses (270 días) de tu progreso.';
         break;
       case 4:
       default:
-        newStartDate = new Date();
-        penaltyMessage = 'Quinta recaída: se ha reiniciado todo el proceso.';
-        setRelapseCount(-1);
+        // Quinta recaída o más: reiniciar completamente
+        setStartDate(new Date());
+        setRelapseCount(0); // Reiniciar contador de recaídas también
+        localStorage.setItem('vaping-quit-date', new Date().toISOString());
+        localStorage.setItem('relapse-count', '0');
         resetAchievements();
-        break;
+        alert('Quinta recaída: se ha reiniciado todo el proceso completamente.');
+        return;
     }
     
-    const newRelapseCount = relapseCount + 1;
-    setStartDate(newStartDate);
-    setRelapseCount(newRelapseCount);
+    // Calcular nueva fecha de inicio restando los días de penalización
+    const millisecondsToSubtract = daysToSubtract * 24 * 60 * 60 * 1000;
+    const newStartDate = new Date(startDate.getTime() + millisecondsToSubtract);
     
-    localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
-    localStorage.setItem('relapse-count', newRelapseCount.toString());
-    
-    const newDays = Math.max(0, Math.floor((currentTime.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24)));
-    
-    if (relapseCount < 4) {
+    // Si la penalización es mayor que el progreso actual, poner en día 0
+    if (daysToSubtract >= currentDays) {
+      setStartDate(new Date());
+      localStorage.setItem('vaping-quit-date', new Date().toISOString());
+      resetAchievements();
+      penaltyMessage += ' Como la penalización supera tu progreso actual, el contador se ha puesto en cero.';
+    } else {
+      // Aplicar la penalización normal
+      setStartDate(newStartDate);
+      localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
+      
+      // Calcular nuevos días después de la penalización
+      const newDays = Math.max(0, Math.floor((currentTime.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24)));
+      
+      // Ajustar medallas según los nuevos días
       adjustMedalsAfterRelapse(currentDays, newDays);
+      
+      penaltyMessage += ` Ahora tienes ${newDays} días de progreso.`;
     }
+    
+    // Incrementar contador de recaídas
+    const newRelapseCount = relapseCount + 1;
+    setRelapseCount(newRelapseCount);
+    localStorage.setItem('relapse-count', newRelapseCount.toString());
     
     alert(penaltyMessage);
   };

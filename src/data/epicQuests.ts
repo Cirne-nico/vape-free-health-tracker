@@ -9,7 +9,7 @@ export interface EpicQuest {
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
-  medalIcon?: string; // Nueva propiedad para la medalla épica
+  medalIcon?: string;
 }
 
 export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>[] = [
@@ -21,7 +21,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🎉',
     category: 'social',
     reward: 'La diversión no depende al menos de esta sustancia',
-    medalIcon: '/lovable-uploads/situación_social.png'
+    medalIcon: '/lovable-uploads/situación_social copy.png'
   },
   {
     id: 'fight_friend',
@@ -68,7 +68,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 2,
     icon: '🍿',
     category: 'situational',
-    reward: 'Disfrute pleno de momentos de relax y comodidad sin necesidad de estímulos'
+    reward: 'Disfrute pleno de momentos de relax y comodidad sin necesidad de estímulos',
+    medalIcon: '/lovable-uploads/Pelimanta.png'
   },
   {
     id: 'writing_review',
@@ -77,7 +78,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 2,
     icon: '✍️',
     category: 'psychological',
-    reward: 'Satisfacción genuina por el trabajo realizado sin necesidad de recompensas químicas'
+    reward: 'Satisfacción genuina por el trabajo realizado sin necesidad de recompensas químicas',
+    medalIcon: '/lovable-uploads/Acabas_de_escribir.png'
   },
   {
     id: 'control_illusion',
@@ -116,7 +118,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '🍻',
     category: 'substance',
-    reward: 'Autocontrol en estados alterados de conciencia'
+    reward: 'Autocontrol en estados alterados de conciencia',
+    medalIcon: '/lovable-uploads/6abirra.png'
   },
   {
     id: 'other_substances',
@@ -164,7 +167,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '🎊',
     category: 'emotional',
-    reward: 'Disfrute pleno de emociones positivas naturales'
+    reward: 'Disfrute pleno de emociones positivas naturales',
+    medalIcon: '/lovable-uploads/euforia.png'
   },
   {
     id: 'anxiety_periods',
@@ -206,7 +210,6 @@ export const getCategoryName = (category: EpicQuest['category']) => {
   }
 };
 
-// Función para obtener las gestas completadas con medallas
 export const getCompletedQuestsWithMedals = (): EpicQuest[] => {
   const savedQuests = localStorage.getItem('epic-quests');
   if (!savedQuests) return [];

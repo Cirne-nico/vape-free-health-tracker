@@ -40,7 +40,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '📰',
     category: 'emotional',
-    reward: 'Fortaleza emocional para enfrentar la adversidad'
+    reward: 'Fortaleza emocional para enfrentar la adversidad',
+    medalIcon: '/lovable-uploads/mala_noticia.png'
   },
   {
     id: 'work_stress',
@@ -59,7 +60,8 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '☕',
     category: 'situational',
-    reward: 'Capacidad de relajarse y desconectar sin dependencias químicas'
+    reward: 'Capacidad de relajarse y desconectar sin dependencias químicas',
+    medalIcon: '/lovable-uploads/Descanso_trabajo.png'
   },
   {
     id: 'winter_movie',

@@ -1,25 +1,24 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ProcessedAchievement } from './medalTypes';
-import { calculateHealthProgress, getCurrentValue } from '../healthData';
+import { useHealthData } from '@/hooks/useHealthData';
 import { healthCategories } from '../HealthCategories';
 
 interface VigorMedalContentProps {
-  medal: ProcessedAchievement;
+  medal: any;
   totalSavings: number;
 }
 
 export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProps) => {
   const [isRevealed, setIsRevealed] = useState(false);
+  const { getCurrentHealthValue } = useHealthData();
 
   const getHealthDataForDay = (days: number) => {
-    const healthData = calculateHealthProgress(days);
     return {
-      respiratory: getCurrentValue('respiratory', days, healthData),
-      cardiovascular: getCurrentValue('cardiovascular', days, healthData),
-      liver: getCurrentValue('liver', days, healthData),
-      skinEyes: getCurrentValue('skinEyes', days, healthData),
-      mental: getCurrentValue('mental', days, healthData)
+      respiratory: getCurrentHealthValue('respiratory', days),
+      cardiovascular: getCurrentHealthValue('cardiovascular', days),
+      liver: getCurrentHealthValue('liver', days),
+      skinEyes: getCurrentHealthValue('skinEyes', days),
+      mental: getCurrentHealthValue('mental', days)
     };
   };
 

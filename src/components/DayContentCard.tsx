@@ -205,7 +205,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es promesa. Es declaración de intención basada en evidencia.": "Esto es solo una promesa vacía",
       "No es el fin. Es el comienzo de mi vida plenamente libre.": "Esto es el fin del proceso",
       "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Es genético, no puedo cambiar mi tendencia adictiva",
-      "No soy ex-vaper. Soy alguien que una vez vapeo y eligió la recuperación.": "Siempre seré un ex-vaper"
+      "No soy ex-vaper. Soy alguien que una vez vapeo y eligió dejar de hacerlo.": "Siempre seré un ex-vaper"
     };
 
     // Buscar coincidencia exacta

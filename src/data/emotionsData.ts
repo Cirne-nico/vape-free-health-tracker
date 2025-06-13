@@ -1,219 +1,151 @@
-export const emotions = {
-  euphoric: { 
-    id: 'euphoric',
-    text: 'Eufórique', 
-    emoji: '🤩', 
-    type: 'positive' as const, 
-    color: '#22C55E', 
-    bgColor: 'bg-green-500',
-    energy: 1, 
-    valence: 1 
-  },
-  happy: { 
+export interface Emotion {
+  id: string;
+  name: string;
+  category: 'positive' | 'negative' | 'neutral';
+  intensity: number;
+  color: string;
+  icon: string;
+}
+
+export const emotionsData: Emotion[] = [
+  // Positive emotions
+  {
     id: 'happy',
-    text: 'Alegre', 
-    emoji: '😊', 
-    type: 'positive' as const, 
-    color: '#10B981', 
-    bgColor: 'bg-green-400',
-    energy: 1, 
-    valence: 1 
+    name: 'Feliz',
+    category: 'positive',
+    intensity: 8,
+    color: '#FFD700',
+    icon: '😊'
   },
-  calm: { 
+  {
+    id: 'excited',
+    name: 'Emocionado',
+    category: 'positive',
+    intensity: 9,
+    color: '#FF6B35',
+    icon: '🤩'
+  },
+  {
     id: 'calm',
-    text: 'Tranquile', 
-    emoji: '😌', 
-    type: 'positive' as const, 
-    color: '#3B82F6', 
-    bgColor: 'bg-blue-400',
-    energy: -1, 
-    valence: 1 
+    name: 'Tranquilo',
+    category: 'positive',
+    intensity: 6,
+    color: '#4ECDC4',
+    icon: '😌'
   },
-  proud: { 
-    id: 'proud',
-    text: 'Orgullose', 
-    emoji: '💪', 
-    type: 'positive' as const, 
-    color: '#8B5CF6', 
-    bgColor: 'bg-purple-400',
-    energy: 0.5, 
-    valence: 1 
+  {
+    id: 'confident',
+    name: 'Confiado',
+    category: 'positive',
+    intensity: 7,
+    color: '#45B7D1',
+    icon: '😎'
   },
-  hopeful: { 
-    id: 'hopeful',
-    text: 'Esperanzade', 
-    emoji: '🌟', 
-    type: 'positive' as const, 
-    color: '#F59E0B', 
-    bgColor: 'bg-yellow-400',
-    energy: 0.5, 
-    valence: 1 
+  {
+    id: 'grateful',
+    name: 'Agradecido',
+    category: 'positive',
+    intensity: 7,
+    color: '#96CEB4',
+    icon: '🙏'
   },
-  motivated: { 
-    id: 'motivated',
-    text: 'Motivade', 
-    emoji: '🚀', 
-    type: 'positive' as const, 
-    color: '#6366F1', 
-    bgColor: 'bg-indigo-400',
-    energy: 1, 
-    valence: 1 
-  },
-  relaxed: { 
-    id: 'relaxed',
-    text: 'Relajade', 
-    emoji: '🧘‍♂️', 
-    type: 'positive' as const, 
-    color: '#14B8A6', 
-    bgColor: 'bg-teal-400',
-    energy: -1, 
-    valence: 1 
-  },
-  satisfied: { 
-    id: 'satisfied',
-    text: 'Satisfeche', 
-    emoji: '😌', 
-    type: 'positive' as const, 
-    color: '#059669', 
-    bgColor: 'bg-emerald-400',
-    energy: -0.5, 
-    valence: 1 
-  },
-  optimistic: { 
-    id: 'optimistic',
-    text: 'Optimista', 
-    emoji: '✨', 
-    type: 'positive' as const, 
-    color: '#EC4899', 
-    bgColor: 'bg-pink-400',
-    energy: 0.5, 
-    valence: 1 
-  },
-  neutral: { 
-    id: 'neutral',
-    text: 'Neutral', 
-    emoji: '😐', 
-    type: 'neutral' as const, 
-    color: '#6B7280', 
-    bgColor: 'bg-gray-400',
-    energy: 0, 
-    valence: 0 
-  },
-  irritable: { 
-    id: 'irritable',
-    text: 'Irritable', 
-    emoji: '😤', 
-    type: 'negative' as const, 
-    color: '#F97316', 
-    bgColor: 'bg-orange-500',
-    energy: 1, 
-    valence: -1 
-  },
-  sad: { 
-    id: 'sad',
-    text: 'Triste', 
-    emoji: '😢', 
-    type: 'negative' as const, 
-    color: '#EF4444', 
-    bgColor: 'bg-blue-600',
-    energy: -0.5, 
-    valence: -1 
-  },
-  depressed: { 
-    id: 'depressed',
-    text: 'Deprimide', 
-    emoji: '😞', 
-    type: 'negative' as const, 
-    color: '#DC2626', 
-    bgColor: 'bg-red-600',
-    energy: -1, 
-    valence: -1 
-  },
-  indifferent: { 
-    id: 'indifferent',
-    text: 'Indiferente', 
-    emoji: '😑', 
-    type: 'negative' as const, 
-    color: '#64748B', 
-    bgColor: 'bg-slate-500',
-    energy: -1, 
-    valence: -0.5 
-  },
-  anxious: { 
+  
+  // Negative emotions
+  {
     id: 'anxious',
-    text: 'Ansiose', 
-    emoji: '😰', 
-    type: 'negative' as const, 
-    color: '#CA8A04', 
-    bgColor: 'bg-yellow-600',
-    energy: 0.5, 
-    valence: -1 
+    name: 'Ansioso',
+    category: 'negative',
+    intensity: 7,
+    color: '#FF6B6B',
+    icon: '😰'
   },
-  frustrated: { 
+  {
+    id: 'sad',
+    name: 'Triste',
+    category: 'negative',
+    intensity: 6,
+    color: '#4A90E2',
+    icon: '😢'
+  },
+  {
+    id: 'angry',
+    name: 'Enojado',
+    category: 'negative',
+    intensity: 8,
+    color: '#E74C3C',
+    icon: '😠'
+  },
+  {
+    id: 'stressed',
+    name: 'Estresado',
+    category: 'negative',
+    intensity: 8,
+    color: '#F39C12',
+    icon: '😫'
+  },
+  {
     id: 'frustrated',
-    text: 'Frustrade', 
-    emoji: '😫', 
-    type: 'negative' as const, 
-    color: '#DC2626', 
-    bgColor: 'bg-red-500',
-    energy: 0.5, 
-    valence: -1 
+    name: 'Frustrado',
+    category: 'negative',
+    intensity: 7,
+    color: '#E67E22',
+    icon: '😤'
   },
-  craving: { 
-    id: 'craving',
-    text: 'Con antojos', 
-    emoji: '🤤', 
-    type: 'negative' as const, 
-    color: '#EA580C', 
-    bgColor: 'bg-orange-600',
-    energy: 0.5, 
-    valence: -1 
+  {
+    id: 'lonely',
+    name: 'Solo',
+    category: 'negative',
+    intensity: 6,
+    color: '#9B59B6',
+    icon: '😔'
   },
-  overwhelmed: { 
-    id: 'overwhelmed',
-    text: 'Abrumade', 
-    emoji: '😵', 
-    type: 'negative' as const, 
-    color: '#B91C1C', 
-    bgColor: 'bg-red-700',
-    energy: 1, 
-    valence: -1 
+  
+  // Neutral emotions
+  {
+    id: 'neutral',
+    name: 'Neutral',
+    category: 'neutral',
+    intensity: 5,
+    color: '#95A5A6',
+    icon: '😐'
   },
-  restless: { 
-    id: 'restless',
-    text: 'Inquiete', 
-    emoji: '😣', 
-    type: 'negative' as const, 
-    color: '#FB923C', 
-    bgColor: 'bg-orange-400',
-    energy: 1, 
-    valence: -1 
+  {
+    id: 'tired',
+    name: 'Cansado',
+    category: 'neutral',
+    intensity: 4,
+    color: '#7F8C8D',
+    icon: '😴'
   },
-  foggy: { 
-    id: 'foggy',
-    text: 'Confuse', 
-    emoji: '🌫️', 
-    type: 'negative' as const, 
-    color: '#6B7280', 
-    bgColor: 'bg-gray-500',
-    energy: -0.5, 
-    valence: -1 
+  {
+    id: 'bored',
+    name: 'Aburrido',
+    category: 'neutral',
+    intensity: 3,
+    color: '#BDC3C7',
+    icon: '😑'
+  },
+  {
+    id: 'confused',
+    name: 'Confundido',
+    category: 'neutral',
+    intensity: 5,
+    color: '#A569BD',
+    icon: '😕'
   }
-} as const;
+];
 
-// Array de emociones para componentes que necesiten iterar
-export const emotionsArray = Object.values(emotions);
-
-// Tipos derivados
-export type EmotionId = keyof typeof emotions;
-export type EmotionType = 'positive' | 'negative' | 'neutral';
-export type Emotion = typeof emotions[EmotionId];
-
-// Funciones de utilidad
 export const getEmotionById = (id: string): Emotion | undefined => {
-  return emotions[id as EmotionId];
+  return emotionsData.find(emotion => emotion.id === id);
 };
 
-export const getEmotionsByType = (type: EmotionType): Emotion[] => {
-  return emotionsArray.filter(emotion => emotion.type === type);
+export const getEmotionsByCategory = (category: 'positive' | 'negative' | 'neutral'): Emotion[] => {
+  return emotionsData.filter(emotion => emotion.category === category);
+};
+
+export const getEmotionIntensityColor = (intensity: number): string => {
+  if (intensity >= 8) return '#E74C3C'; // High intensity - red
+  if (intensity >= 6) return '#F39C12'; // Medium intensity - orange
+  if (intensity >= 4) return '#F1C40F'; // Low-medium intensity - yellow
+  return '#2ECC71'; // Low intensity - green
 };

@@ -57,14 +57,46 @@ export const calculateHealthProgress = (days: number): HealthDataType => {
   ];
 
   const mental = [
-    { day: 0, value: 0, description: "Ansiedad e irritabilidad severas: disregulación dopaminérgica y alteración del eje hipotálamo-hipófisis" },
-    { day: 1, value: 5, description: "Síntomas iniciales de abstinencia: pico de ansiedad por desensibilización de receptores nicotínicos" },
-    { day: 3, value: 10, description: "Pico máximo de ansiedad: reorganización de circuitos dopaminérgicos mesolímbicos en curso" },
-    { day: 7, value: 25, description: "Estabilización emocional inicial: reducción del 30% en episodios de irritabilidad aguda" },
-    { day: 14, value: 45, description: "Mejora significativa en calidad del sueño: restauración de arquitectura REM alterada por nicotina" },
-    { day: 30, value: 65, description: "Concentración mejorada: función ejecutiva y memoria de trabajo recuperadas al 80% del potencial" },
-    { day: 60, value: 80, description: "Estabilidad emocional consolidada: regulación del humor sin dependencia de estimulantes externos" },
-    { day: 90, value: 90, description: "Bienestar mental óptimo: neuroplasticidad restaurada, sistema de recompensa recalibrado" }
+    { 
+      day: 0, 
+      value: 0, 
+      description: "Ansiedad e irritabilidad severas: disregulación dopaminérgica aguda. Los receptores nicotínicos α4β2 en el cerebro están sobreestimulados, causando desequilibrio en dopamina (neurotransmisor del placer) y GABA (neurotransmisor de la calma). Esta irritabilidad es señal de que el cerebro está iniciando su proceso de reequilibrio químico natural." 
+    },
+    { 
+      day: 1, 
+      value: 5, 
+      description: "Síntomas iniciales de abstinencia: pico de ansiedad por desensibilización de receptores nicotínicos. El cerebro reduce la producción de dopamina porque estaba acostumbrado a recibirla artificialmente. Esta ansiedad, aunque incómoda, indica que los receptores están comenzando a 'desconectarse' de la dependencia química." 
+    },
+    { 
+      day: 3, 
+      value: 10, 
+      description: "Pico máximo de ansiedad: reorganización activa de circuitos dopaminérgicos mesolímbicos. Los niveles de serotonina (neurotransmisor del bienestar) están temporalmente bajos mientras el cerebro aprende a producirla sin estímulo externo. Esta es la fase más difícil pero también la más importante: tu cerebro está 'rewireándose' para funcionar de forma natural." 
+    },
+    { 
+      day: 7, 
+      value: 25, 
+      description: "Estabilización emocional inicial: reducción del 30% en episodios de irritabilidad aguda. Los receptores GABA comienzan a recuperar sensibilidad natural, mejorando la capacidad de relajación sin químicos externos. La noradrenalina (neurotransmisor del estrés) empieza a regularse, reduciendo la hipervigilancia característica de los primeros días." 
+    },
+    { 
+      day: 14, 
+      value: 45, 
+      description: "Mejora significativa en calidad del sueño: restauración de arquitectura REM alterada por nicotina. La melatonina (hormona del sueño) recupera su ritmo natural sin interferencia nicotínica. Los niveles de acetilcolina (neurotransmisor de la memoria y atención) se estabilizan, mejorando la concentración diurna y el descanso nocturno." 
+    },
+    { 
+      day: 30, 
+      value: 65, 
+      description: "Concentración mejorada: función ejecutiva y memoria de trabajo recuperadas al 80% del potencial. La dopamina endógena (producida naturalmente) alcanza niveles más estables. Si experimentas apatía o 'días grises', es normal: tu cerebro está recalibrando su sistema de recompensa para responder a placeres naturales en lugar de químicos artificiales." 
+    },
+    { 
+      day: 60, 
+      value: 80, 
+      description: "Estabilidad emocional consolidada: regulación del humor sin dependencia de estimulantes externos. Los niveles de serotonina se normalizan completamente, reduciendo episodios de tristeza o irritabilidad. La neuroplasticidad (capacidad del cerebro para crear nuevas conexiones) está en su punto máximo, creando nuevos patrones de respuesta emocional saludables." 
+    },
+    { 
+      day: 90, 
+      value: 90, 
+      description: "Bienestar mental óptimo: neuroplasticidad restaurada, sistema de recompensa completamente recalibrado. Todos los neurotransmisores (dopamina, serotonina, GABA, noradrenalina) funcionan en rangos normales. Tu cerebro ha completado su 'reseteo' y ahora puede experimentar placer, calma y motivación de forma natural y sostenible, sin necesidad de estímulos químicos externos." 
+    }
   ];
 
   return {
@@ -132,9 +164,9 @@ export const getMedicalInfo = (category: string) => {
       source: "Ocular Surface Journal (2022) - Dry eye syndrome recovery after e-cigarette cessation"
     },
     mental: {
-      basis: "Recuperación neurológica y bienestar psicológico tras desensibilización de receptores nicotínicos",
-      parameters: "Neurotransmisores dopaminérgicos, calidad del sueño, función ejecutiva, regulación emocional",
-      source: "Addiction Biology (2023) - Neurological recovery after nicotine cessation from vaping"
+      basis: "Recuperación neurológica y reequilibrio de neurotransmisores tras desensibilización de receptores nicotínicos. Proceso de neuroplasticidad que restaura la producción natural de dopamina, serotonina, GABA y noradrenalina",
+      parameters: "Niveles de dopamina endógena, sensibilidad de receptores GABA, producción de serotonina, regulación de noradrenalina, arquitectura del sueño REM, función ejecutiva, neuroplasticidad",
+      source: "Addiction Biology (2023) - Neurochemical recovery and neuroplasticity after nicotine cessation from vaping"
     }
   };
   

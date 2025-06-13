@@ -11,7 +11,7 @@ interface QuestActionsProps {
 const QuestActions = ({ quest, onAddExtraCheck, onDeleteQuest }: QuestActionsProps) => {
   return (
     <div className="flex items-center gap-2">
-      {/* Botón para añadir check extra */}
+      {/* Botón para añadir check extra - SOLO para gestas predefinidas */}
       {!quest.isCustom && quest.requiredChecks < 6 && (
         <Button
           variant="outline"
@@ -24,12 +24,14 @@ const QuestActions = ({ quest, onAddExtraCheck, onDeleteQuest }: QuestActionsPro
         </Button>
       )}
       
+      {/* Botón para eliminar - SOLO para gestas personalizadas */}
       {quest.isCustom && (
         <Button
           variant="ghost"
           size="sm"
           onClick={() => onDeleteQuest(quest.id)}
           className="text-red-500 hover:text-red-700"
+          title="Eliminar gesta personalizada"
         >
           <Trash2 className="w-4 h-4" />
         </Button>

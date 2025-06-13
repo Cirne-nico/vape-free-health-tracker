@@ -129,8 +129,8 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No necesito escapar. Puedo sostener lo que sea temporalmente.": "Necesito escapar de este malestar",
       "No es permanente. Es el último intento de la adicción por sobrevivir.": "Esta tristeza es permanente",
       
-      // Tristeza y emociones
-      "Prefiero vapear y no estar tan triste' - Estudios muestran que la tristeza post-cesación es temporal (6-12 semanas), pero vapear perpetúa la disregulación dopaminérgica indefinidamente.": "Prefiero vapear y no estar tan triste",
+      // Tristeza y emociones - CORREGIDO: Eliminada la comilla extra
+      "Prefiero vapear y no estar tan triste - Estudios muestran que la tristeza post-cesación es temporal (6-12 semanas), pero vapear perpetúa la disregulación dopaminérgica indefinidamente.": "Prefiero vapear y no estar tan triste",
       "No extraño vapear. Extraño la falsa solución emocional que ofrecía.": "Extraño vapear realmente",
       "No estoy reviviendo. Estoy recordando sin anestesia química.": "Estoy reviviendo traumas del pasado",
       "No es depresión. Es sistema recompensa aprendiendo a funcionar sin estímulos artificiales.": "Estoy deprimido sin vapear",
@@ -208,7 +208,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
     if (contrareplica.includes("No es") || contrareplica.includes("No soy")) {
       // Extraer lo que se está negando y convertirlo en pensamiento positivo
       const negatedConcept = contrareplica.replace("No es ", "").replace("No soy ", "").split(".")[0];
-      return `Sí es ${negatedConcept.toLowerCase()}` || `Sí soy ${negatedConcept.toLowerCase()}`;
+      return `Sí es ${negatedConcept.toLowerCase()}`;
     }
 
     // Fallback genérico

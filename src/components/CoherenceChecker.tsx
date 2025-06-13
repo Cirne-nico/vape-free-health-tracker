@@ -10,13 +10,13 @@ const CoherenceChecker = () => {
   // Función para generar pensamientos intrusivos (copiada de DayContentCard)
   const getIntrusiveThoughtForResponse = (contrareplica: string) => {
     const responseToThoughtMap: { [key: string]: string } = {
-      "No tengo genes de adicto. Tengo capacidad de elección y mi biología se adapta a mis decisiones.": "Tengo genes de adicto, no puedo cambiar mi naturaleza",
+      "No tengo genes de adicte. Tengo capacidad de elección y mi biología se adapta a mis decisiones.": "Tengo genes de adicte, no puedo cambiar mi naturaleza",
       "No es una pérdida. Es el comienzo de mi libertad.": "He perdido algo importante al dejar de vapear",
       "No es ansiedad. Es el cuerpo recuperando su ritmo autónomo.": "Esta ansiedad significa que algo va mal",
       "No estoy nervioso. Estoy transitando el reinicio bioquímico.": "Estos nervios son una señal de que necesito vapear",
       "Cada vez que he cedido 'solo una calada', he vuelto a vapear en días. Este pensamiento no funciona.": "Solo una calada no hará daño",
       "No estoy enfermo. Estoy drenando residuos químicos acumulados.": "Me estoy poniendo enfermo sin el vapeo",
-      "No estoy agotado. Mi cuerpo está trabajando en su limpieza interna.": "Estoy demasiado cansado, necesito energía del vapeo",
+      "No estoy agotade. Mi cuerpo está trabajando en su limpieza interna.": "Estoy demasiado cansado, necesito energía del vapeo",
       "No es hambre real. Es mi sistema buscando estabilidad.": "Tengo hambre constante sin vapear",
       "No es una recaída en la salud. Es una mejora que se manifiesta con limpieza.": "Esta tos significa que estoy empeorando",
       "No es casualidad. Es una transformación lenta pero segura.": "Estos cambios son casuales, no reales",
@@ -48,13 +48,13 @@ const CoherenceChecker = () => {
       "No necesito vapear. Necesito reconfigurar respuestas contextuales.": "Necesito vapear en ciertas situaciones",
       "No soy invulnerable. Mantengo vigilancia atenta sin paranoia.": "Soy invulnerable a las recaídas",
       "No soy ex-vaper. Soy alguien que no vapea.": "Soy un ex-vaper, siempre lo seré",
-      "No soy 'ex-adicto'. Soy alguien en recuperación consolidada.": "Siempre seré un ex-adicto",
+      "No soy 'ex-adicte'. Soy alguien en recuperación consolidada.": "Siempre seré un ex-adicte",
       "No es ruido neuronal sin significado.": "Estos pensamientos tienen significado real",
-      "No soy frío. Estoy aprendiendo a relacionarme sin intermediarios químicos.": "Me he vuelto frío emocionalmente",
+      "No soy fríe. Estoy aprendiendo a relacionarme sin intermediarios químicos.": "Me he vuelto fríe emocionalmente",
       "No es euforia. Es mi mente funcionando sin bloqueos químicos.": "Esta creatividad es solo euforia temporal",
       "No necesito escapar. Puedo sostener lo que sea temporalmente.": "Necesito escapar de este malestar",
       "No es permanente. Es el último intento de la adicción por sobrevivir.": "Esta tristeza es permanente",
-      "Prefiero vapear y no estar tan triste' - Estudios muestran que la tristeza post-cesación es temporal (6-12 semanas), pero vapear perpetúa la disregulación dopaminérgica indefinidamente.": "Prefiero vapear y no estar tan triste",
+      "Prefiero vapear y no estar tan triste - Estudios muestran que la tristeza post-cesación es temporal (6-12 semanas), pero vapear perpetúa la disregulación dopaminérgica indefinidamente.": "Prefiero vapear y no estar tan triste",
       "No extraño vapear. Extraño la falsa solución emocional que ofrecía.": "Extraño vapear realmente",
       "No estoy reviviendo. Estoy recordando sin anestesia química.": "Estoy reviviendo traumas del pasado",
       "No es depresión. Es sistema recompensa aprendiendo a funcionar sin estímulos artificiales.": "Estoy deprimido sin vapear",
@@ -67,9 +67,9 @@ const CoherenceChecker = () => {
       "No es poco. Es suficiente para un cerebro en recalibración.": "Estos pequeños placeres no son suficientes",
       "No es peligro. Es oportunidad para reconfigurar asociaciones.": "Estar en estos lugares es peligroso",
       "No es premonición. Es cerebro procesando el cambio de identidad.": "Estos sueños son premoniciones de recaída",
-      "No soy plano. Soy estable sin alteraciones químicas externas.": "Me he vuelto emocionalmente plano",
+      "No soy plane. Soy estable sin alteraciones químicas externas.": "Me he vuelto emocionalmente plane",
       "No es el final. Es el comienzo de la fase de mantenimiento sólido.": "Ya terminé, esto es el final",
-      "No es autoengano. Es evidencia acumulada de mi capacidad de cambio.": "Me estoy autoengañando",
+      "No es autoengaño. Es evidencia acumulada de mi capacidad de cambio.": "Me estoy autoengañando",
       "No es vacío. Es espacio para autoconocimiento sin intermediarios.": "Siento un vacío existencial",
       "No es tentación. Es el eco de un hábito moribundo.": "Esta es una tentación real",
       "No es automático. Es el fruto de mi trabajo neuroemocional.": "Esto debería ser automático ya",
@@ -77,19 +77,19 @@ const CoherenceChecker = () => {
       "No soy frágil. Soy adaptable sin soluciones químicas.": "Soy demasiado frágil para esto",
       "No es somatización. Es reconexión con sabiduría corporal.": "Estoy somatizando problemas",
       "No es inspiración repentina. Es mi mente liberada de bloqueos químicos.": "Esta creatividad es solo inspiración temporal",
-      "No estoy 'curado'. Estoy en mantenimiento activo permanente.": "Ya estoy curado completamente",
+      "No estoy 'curade'. Estoy en mantenimiento activo permanente.": "Ya estoy curade completamente",
       "No es esfuerzo. Es mantenimiento de logros.": "Mantener esto requiere demasiado esfuerzo",
       "No es autoengaño. Es reconocimiento de evidencia objetiva.": "Me estoy autoengañando con estos logros",
-      "No soy raro. Soy coherente con mis valores de salud.": "Soy raro por no vapear",
+      "No soy rare. Soy coherente con mis valores de salud.": "Soy rare por no vapear",
       "No necesito química externa. Tengo herramientas psicológicas efectivas.": "Necesito ayuda química externa",
       "No es meditación. Es vivir con conciencia plena.": "Esto es solo meditación new age",
       "No es aburrido. Es libertad sin lucha constante.": "La vida sin vapear es aburrida",
-      "No soy experto. Soy compañero de camino con experiencia.": "Soy un experto en dejar de vapear",
+      "No soy experte. Soy compañere de camino con experiencia.": "Soy un experte en dejar de vapear",
       "No es suerte. Es consecuencia de mi consistencia.": "He tenido mucha suerte",
       "No es sobrehumano. Es funcionamiento cerebral basal sin interferencias.": "Esto es sobrehumano, no normal",
       "No es automático. Es el fruto de mi trabajo constante.": "Esto debería ser automático",
       "No es fantasía. Es diseño consciente de vida libre.": "Esto es solo fantasía",
-      "No soy frágil. Soy humano con historia adictiva que requiere vigilancia.": "Soy demasiado frágil",
+      "No soy frágil. Soy humane con historia adictiva que requiere vigilancia.": "Soy demasiado frágil",
       "No es olvido. Es sanación de memoria emocional adictiva.": "Estoy olvidando mi pasado",
       "No es vigilancia excesiva. Es autocuidado consciente.": "Estoy siendo demasiado vigilante",
       "No es tiempo extra. Es vida recuperada.": "Esto es solo tiempo extra",
@@ -105,7 +105,7 @@ const CoherenceChecker = () => {
       "No soy mi historia. Soy mi presente libre.": "Soy mi historia adictiva",
       "No es paranoia. Es prudencia basada en conocimiento.": "Estoy siendo paranoico",
       "No fue suerte. Fue disciplina, conocimiento y autocompasión.": "Todo esto fue pura suerte",
-      "No soy superior. Soy compañero de viaje con experiencia acumulada.": "Soy superior a los que vapean",
+      "No soy superior. Soy compañere de viaje con experiencia acumulada.": "Soy superior a los que vapean",
       "No es casualidad. Es consecuencia directa de mi compromiso.": "Estos cambios son casuales",
       "No es mejora. Es funcionamiento óptimo recuperado.": "Esto es solo una mejora temporal",
       "No evito. Elijo conscientemente.": "Estoy evitando situaciones por miedo",
@@ -125,7 +125,7 @@ const CoherenceChecker = () => {
 
     if (contrareplica.includes("No es") || contrareplica.includes("No soy")) {
       const negatedConcept = contrareplica.replace("No es ", "").replace("No soy ", "").split(".")[0];
-      return `Sí es ${negatedConcept.toLowerCase()}` || `Sí soy ${negatedConcept.toLowerCase()}`;
+      return `Sí es ${negatedConcept.toLowerCase()}`;
     }
 
     return "Esto no está funcionando como esperaba";

@@ -176,6 +176,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     reward: 'Herramientas naturales de regulación de la ansiedad',
     medalIcon: '/lovable-uploads/gesta_ansiedad.png'
   },
+  // LA MEDALLA FINAL SIEMPRE DEBE IR AL FINAL
   {
     id: 'ultimate_achievement',
     title: 'CRACK! - Maestría Total',

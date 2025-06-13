@@ -1,0 +1,20 @@
+# Componentes UI que podrían no estar en uso:
+# Revisar si estos componentes se están utilizando realmente
+
+- accordion.tsx
+- aspect-ratio.tsx
+- avatar.tsx
+- checkbox.tsx
+- collapsible.tsx
+- context-menu.tsx
+- dropdown-menu.tsx
+- hover-card.tsx
+- menubar.tsx
+- navigation-menu.tsx
+- popover.tsx
+- radio-group.tsx
+- resizable.tsx
+- separator.tsx
+- slider.tsx
+- toggle.tsx
+- toggle-group.tsx

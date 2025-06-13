@@ -1,13 +1,12 @@
-
 import { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Info } from 'lucide-react';
 import { healthCategories, HealthCategoryKey } from './HealthCategories';
-import { calculateHealthProgress, getCurrentValue, getChartData } from './healthData';
-import HealthProgress from './HealthProgress';
-import HealthChart from './HealthChart';
+import { useHealthData } from '@/hooks/useHealthData';
+import HealthProgressCard from './health/HealthProgressCard';
+import HealthChartCard from './health/HealthChartCard';
 
 interface HealthTrackerProps {
   startDate: Date | null;
@@ -21,7 +20,7 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
     return Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24));
   }, [startDate]);
 
-  const healthData = calculateHealthProgress(daysSince);
+  const { getCurrentValue, getChartData, getNextMilestone } = useHealthData(daysSince);
 
   const getHealthTooltipContent = (category: HealthCategoryKey) => {
     const tooltips = {
@@ -93,8 +92,9 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
 
           {Object.entries(healthCategories).map(([key]) => {
             const categoryKey = key as HealthCategoryKey;
-            const currentData = getCurrentValue(categoryKey, daysSince, healthData);
-            const chartData = getChartData(categoryKey, daysSince, healthData);
+            const currentData = getCurrentValue(categoryKey);
+            const chartData = getChartData(categoryKey);
+            const nextMilestone = getNextMilestone(categoryKey);
             const tooltipContent = getHealthTooltipContent(categoryKey);
             
             return (
@@ -126,14 +126,14 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
                   </Card>
                   
                   <div className="grid gap-4 md:grid-cols-2">
-                    <HealthProgress 
+                    <HealthProgressCard 
                       category={categoryKey}
                       currentData={currentData}
+                      nextMilestone={nextMilestone}
                       daysSince={daysSince}
-                      healthData={healthData}
                     />
                     
-                    <HealthChart 
+                    <HealthChartCard 
                       category={categoryKey}
                       chartData={chartData}
                       daysSince={daysSince}

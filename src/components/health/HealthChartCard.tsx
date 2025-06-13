@@ -1,15 +1,14 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import { HealthCategoryKey, healthCategories } from './HealthCategories';
+import { HealthCategoryKey, healthCategories } from '@/components/HealthCategories';
 
-interface HealthChartProps {
+interface HealthChartCardProps {
   category: HealthCategoryKey;
   chartData: any[];
   daysSince: number;
 }
 
-const HealthChart = ({ category, chartData, daysSince }: HealthChartProps) => {
+const HealthChartCard = ({ category, chartData, daysSince }: HealthChartCardProps) => {
   const categoryData = healthCategories[category];
 
   return (
@@ -61,4 +60,4 @@ const HealthChart = ({ category, chartData, daysSince }: HealthChartProps) => {
   );
 };
 
-export default HealthChart;
+export default HealthChartCard;

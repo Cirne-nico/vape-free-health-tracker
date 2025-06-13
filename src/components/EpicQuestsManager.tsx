@@ -23,6 +23,55 @@ const EpicQuestsManager = () => {
   const [newQuestIcon, setNewQuestIcon] = useState('⚔️');
   const [debugInfo, setDebugInfo] = useState<string>('');
 
+  // Función para actualizar las hazañas desde el archivo de datos
+  const updateQuestsFromDefaults = () => {
+    const savedQuests = localStorage.getItem('epic-quests');
+    let currentQuests: EpicQuest[] = [];
+    
+    if (savedQuests) {
+      currentQuests = JSON.parse(savedQuests);
+    }
+
+    // Crear un mapa de las hazañas actuales por ID
+    const currentQuestsMap = new Map(currentQuests.map(q => [q.id, q]));
+    
+    // Obtener las hazañas por defecto actualizadas
+    const updatedDefaultQuests = defaultEpicQuests.map(createEpicQuest);
+    
+    // Combinar: mantener progreso de hazañas existentes, añadir nuevas
+    const mergedQuests: EpicQuest[] = [];
+    
+    // Procesar hazañas por defecto
+    updatedDefaultQuests.forEach(defaultQuest => {
+      const existingQuest = currentQuestsMap.get(defaultQuest.id);
+      if (existingQuest) {
+        // Mantener progreso pero actualizar otros campos
+        mergedQuests.push({
+          ...defaultQuest,
+          currentChecks: existingQuest.currentChecks,
+          isCompleted: existingQuest.isCompleted
+        });
+      } else {
+        // Nueva hazaña
+        mergedQuests.push(defaultQuest);
+      }
+    });
+    
+    // Añadir hazañas personalizadas que no estén en los defaults
+    currentQuests.forEach(quest => {
+      if (quest.isCustom && !mergedQuests.find(q => q.id === quest.id)) {
+        mergedQuests.push(quest);
+      }
+    });
+    
+    // Guardar las hazañas actualizadas
+    localStorage.setItem('epic-quests', JSON.stringify(mergedQuests));
+    setQuests(mergedQuests);
+    updateDebugInfo(mergedQuests);
+    
+    toast.success('Hazañas actualizadas correctamente');
+  };
+
   // Cargar gestas del localStorage
   useEffect(() => {
     const savedQuests = localStorage.getItem('epic-quests');
@@ -81,9 +130,6 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
       }
       if (quest.id === 'anxiety_periods' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/gesta_ansiedad.png' };
-      }
-      if (quest.id === 'ultimate_achievement' && !quest.medalIcon) {
-        return { ...quest, medalIcon: '/lovable-uploads/Crack.png' };
       }
       return quest;
     });
@@ -353,7 +399,15 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
             {debugInfo}
           </pre>
           <div className="mt-3 space-y-2">
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              <Button 
+                onClick={updateQuestsFromDefaults}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                size="sm"
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Actualizar Hazañas
+              </Button>
               <Button 
                 onClick={updateQuestsWithMedals}
                 className="bg-orange-600 hover:bg-orange-700 text-white"
@@ -372,11 +426,11 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
               </Button>
             </div>
             <div className="text-sm text-yellow-700">
-              <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
-              <p>1. Haz clic en "Actualizar Medallas Épicas" arriba</p>
-              <p>2. Marca los checks de las gestas que quieras completar</p>
-              <p>3. Haz clic en "Debug Sistema" para verificar el estado</p>
-              <p>4. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
+              <p><strong>¿No aparecen las nuevas hazañas o medallas?</strong></p>
+              <p>1. Haz clic en "Actualizar Hazañas" para añadir las nuevas hazañas</p>
+              <p>2. Haz clic en "Actualizar Medallas Épicas" para asignar medallas</p>
+              <p>3. Marca los checks de las gestas que quieras completar</p>
+              <p>4. Haz clic en "Debug Sistema" para verificar el estado</p>
             </div>
           </div>
         </CardContent>
@@ -409,7 +463,7 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>

@@ -175,17 +175,6 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     category: 'emotional',
     reward: 'Herramientas naturales de regulación de la ansiedad',
     medalIcon: '/lovable-uploads/gesta_ansiedad.png'
-  },
-  // LA MEDALLA FINAL SIEMPRE DEBE IR AL FINAL
-  {
-    id: 'ultimate_achievement',
-    title: 'CRACK! - Maestría Total',
-    description: 'Has completado TODAS las gestas épicas disponibles. Eres une verdadere maestre de la recuperación.',
-    requiredChecks: 1,
-    icon: '💥',
-    category: 'psychological',
-    reward: 'Reconocimiento como maestre absolute de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
-    medalIcon: '/lovable-uploads/Crack.png'
   }
 ];
 

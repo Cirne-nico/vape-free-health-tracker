@@ -53,6 +53,33 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     medalIcon: '/lovable-uploads/Estres_laboral.png'
   },
   {
+    id: 'work_break',
+    title: 'Descanso en el trabajo',
+    description: 'Tomar descansos laborales o pausas en actividades que requieren concentración sin vapear',
+    requiredChecks: 3,
+    icon: '☕',
+    category: 'situational',
+    reward: 'Capacidad de relajarse y desconectar sin dependencias químicas'
+  },
+  {
+    id: 'winter_movie',
+    title: 'Pelimanta un día de invierno',
+    description: 'Disfrutar de una película en casa en un día frío y acogedor sin vapear',
+    requiredChecks: 2,
+    icon: '🍿',
+    category: 'situational',
+    reward: 'Disfrute pleno de momentos de relax y comodidad sin necesidad de estímulos'
+  },
+  {
+    id: 'writing_review',
+    title: 'Acabas de escribir algo con gran esfuerzo y te dispones a releerlo',
+    description: 'Completar una tarea creativa o intelectual exigente y revisar el trabajo sin vapear',
+    requiredChecks: 2,
+    icon: '✍️',
+    category: 'psychological',
+    reward: 'Satisfacción genuina por el trabajo realizado sin necesidad de recompensas químicas'
+  },
+  {
     id: 'control_illusion',
     title: 'Superar el "Yo controlo, unas caladas no hacen daño a nadie"',
     description: 'Resistir el pensamiento más peligroso de la recuperación',

@@ -225,14 +225,17 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
   // Eliminar gesta
   const deleteQuest = (questId: string) => {
     const quest = quests.find(q => q.id === questId);
-    if (quest && !quest.isCustom) {
-      toast.error('No puedes eliminar hazañas predefinidas');
-      return;
-    }
+    
+    // Confirmar eliminación
+    const confirmDelete = window.confirm(
+      `¿Estás segura de que quieres eliminar la hazaña "${quest?.title}"?\n\nEsta acción no se puede deshacer.`
+    );
+    
+    if (!confirmDelete) return;
     
     const updatedQuests = quests.filter(q => q.id !== questId);
     saveQuests(updatedQuests);
-    toast.success('Hazaña eliminada');
+    toast.success('Hazaña eliminada correctamente');
   };
 
   // Añadir nueva gesta personalizada
@@ -445,7 +448,6 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                       <SelectItem value="2">2 checks</SelectItem>
                       <SelectItem value="3">3 checks</SelectItem>
                       <SelectItem value="4">4 checks</SelectItem>
-                      <SelectItem value="5">5 checks</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -531,16 +533,15 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                   </div>
                 </div>
                 
-                {quest.isCustom && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => deleteQuest(quest.id)}
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => deleteQuest(quest.id)}
+                  className="text-red-500 hover:text-red-700"
+                  title="Eliminar hazaña"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
               
               {/* Checks y progreso */}

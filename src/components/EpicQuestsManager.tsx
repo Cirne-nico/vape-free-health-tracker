@@ -166,6 +166,30 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
       if (quest.id === 'prolonged_sadness' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/tristeza.png' };
       }
+      if (quest.id === 'sixth_beer' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/6abirra.png' };
+      }
+      if (quest.id === 'social_situation' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/situación_social.png' };
+      }
+      if (quest.id === 'euphoria_moment' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/euforia.png' };
+      }
+      if (quest.id === 'winter_movie' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Pelimanta.png' };
+      }
+      if (quest.id === 'writing_review' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Acabas_de_escribir.png' };
+      }
+      if (quest.id === 'bad_news' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/mala_noticia.png' };
+      }
+      if (quest.id === 'work_break' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Descanso_trabajo.png' };
+      }
+      if (quest.id === 'ultimate_achievement' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Crack.png' };
+      }
       return quest;
     });
     
@@ -711,11 +735,6 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
                           Personalizada
                         </Badge>
                       )}
-                      {quest.medalIcon && (
-                        <Badge variant="outline" className={`text-xs ${quest.id === 'ultimate_achievement' ? 'bg-purple-50 text-purple-700 border-purple-300' : 'bg-orange-50 text-orange-700 border-orange-300'}`}>
-                          🏆 {quest.id === 'ultimate_achievement' ? 'Medalla de Maestría' : 'Con medalla épica'}
-                        </Badge>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -789,11 +808,6 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
                     <p className={`text-sm ${quest.id === 'ultimate_achievement' ? 'text-purple-700' : 'text-green-700'}`}>
                       {quest.reward}
                     </p>
-                    {quest.medalIcon && (
-                      <p className="text-xs text-orange-700 mt-2 italic">
-                        ✨ Medalla épica visible en la pantalla principal
-                      </p>
-                    )}
                   </div>
                 )}
               </div>

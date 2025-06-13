@@ -122,7 +122,14 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
     'control_illusion',
     'strong_boredom',
     'prolonged_sadness',
-    'ultimate_achievement'
+    'ultimate_achievement',
+    'sixth_beer',
+    'social_situation',
+    'euphoria_moment',
+    'winter_movie',
+    'writing_review',
+    'bad_news',
+    'work_break'
   ];
   
   // Filtrar solo las gestas completadas que tienen medalla
@@ -184,6 +191,27 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
           break;
         case 'ultimate_achievement':
           medalIcon = '/lovable-uploads/Crack.png';
+          break;
+        case 'sixth_beer':
+          medalIcon = '/lovable-uploads/6abirra.png';
+          break;
+        case 'social_situation':
+          medalIcon = '/lovable-uploads/situación_social.png';
+          break;
+        case 'euphoria_moment':
+          medalIcon = '/lovable-uploads/euforia.png';
+          break;
+        case 'winter_movie':
+          medalIcon = '/lovable-uploads/Pelimanta.png';
+          break;
+        case 'writing_review':
+          medalIcon = '/lovable-uploads/Acabas_de_escribir.png';
+          break;
+        case 'bad_news':
+          medalIcon = '/lovable-uploads/mala_noticia.png';
+          break;
+        case 'work_break':
+          medalIcon = '/lovable-uploads/Descanso_trabajo.png';
           break;
         default:
           medalIcon = '/lovable-uploads/Crack.png'; // Icono por defecto
@@ -262,6 +290,27 @@ export const debugEpicMedals = () => {
             break;
           case 'ultimate_achievement':
             updated.medalIcon = '/lovable-uploads/Crack.png';
+            break;
+          case 'sixth_beer':
+            updated.medalIcon = '/lovable-uploads/6abirra.png';
+            break;
+          case 'social_situation':
+            updated.medalIcon = '/lovable-uploads/situación_social.png';
+            break;
+          case 'euphoria_moment':
+            updated.medalIcon = '/lovable-uploads/euforia.png';
+            break;
+          case 'winter_movie':
+            updated.medalIcon = '/lovable-uploads/Pelimanta.png';
+            break;
+          case 'writing_review':
+            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir.png';
+            break;
+          case 'bad_news':
+            updated.medalIcon = '/lovable-uploads/mala_noticia.png';
+            break;
+          case 'work_break':
+            updated.medalIcon = '/lovable-uploads/Descanso_trabajo.png';
             break;
         }
       }

@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { emotionsArray, getEmotionById } from '@/data/emotionsData';
+import { emotionsData, getEmotionById } from '@/data/emotionsData';
 
 interface EmotionSelectorProps {
   selectedEmotions: string[];
@@ -42,19 +42,19 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {emotionsArray.map((emotion) => (
+          {emotionsData.map((emotion) => (
             <Button
               key={emotion.id}
               variant={selectedEmotions.includes(emotion.id) ? "default" : "outline"}
               className={`h-14 flex flex-col items-center justify-center gap-1 text-xs ${
                 selectedEmotions.includes(emotion.id) 
-                  ? emotion.bgColor + ' text-white' 
-                  : 'hover:' + emotion.bgColor.replace('bg-', 'bg-') + '/20'
-              } ${emotion.id === 'indifferent' ? 'text-[10px]' : ''}`}
+                  ? 'bg-blue-600 text-white' 
+                  : 'hover:bg-blue-50'
+              }`}
               onClick={() => toggleEmotion(emotion.id)}
             >
-              <span className="text-lg">{emotion.emoji}</span>
-              <span>{emotion.text}</span>
+              <span className="text-lg">{emotion.icon}</span>
+              <span>{emotion.name}</span>
             </Button>
           ))}
         </div>
@@ -64,8 +64,8 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
             {selectedEmotions.map((emotionId) => {
               const emotion = getEmotionById(emotionId);
               return emotion ? (
-                <Badge key={emotionId} className={emotion.bgColor + ' text-white'}>
-                  {emotion.emoji} {emotion.text}
+                <Badge key={emotionId} className="bg-blue-600 text-white">
+                  {emotion.icon} {emotion.name}
                 </Badge>
               ) : null;
             })}

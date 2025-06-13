@@ -30,10 +30,11 @@ const QuestActions = ({ quest, onAddExtraCheck, onDeleteQuest }: QuestActionsPro
           variant="ghost"
           size="sm"
           onClick={() => onDeleteQuest(quest.id)}
-          className="text-red-500 hover:text-red-700"
-          title="Eliminar gesta personalizada"
+          className="text-red-500 hover:text-red-700 hover:bg-red-50"
+          title="Esta gesta no me representa - Eliminar"
         >
           <Trash2 className="w-4 h-4" />
+          <span className="ml-1 text-xs">No me representa</span>
         </Button>
       )}
     </div>

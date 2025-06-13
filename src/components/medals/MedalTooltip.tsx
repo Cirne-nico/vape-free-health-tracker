@@ -43,15 +43,19 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger>
-        {children}
+      <TooltipTrigger asChild>
+        <div className="cursor-pointer">
+          {children}
+        </div>
       </TooltipTrigger>
-      <TooltipContent>
-        <p className="font-medium">{medal.title}</p>
-        <p className="text-xs text-muted-foreground">{medal.description}</p>
-        <p className={`text-xs font-medium ${getMedalTypeColor()}`}>
-          {getMedalTypeLabel()}
-        </p>
+      <TooltipContent side="top" className="max-w-xs p-3">
+        <div className="space-y-1">
+          <p className="font-medium text-sm">{medal.title}</p>
+          <p className="text-xs text-muted-foreground leading-relaxed">{medal.description}</p>
+          <p className={`text-xs font-medium ${getMedalTypeColor()}`}>
+            {getMedalTypeLabel()}
+          </p>
+        </div>
       </TooltipContent>
     </Tooltip>
   );

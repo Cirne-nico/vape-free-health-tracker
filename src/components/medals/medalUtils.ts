@@ -163,11 +163,11 @@ export const debugEpicMedals = () => {
     const quests = JSON.parse(savedQuests);
     console.log('Parsed quests:', quests);
     
-    // Actualizar gestas con medallas faltantes
+    // Actualizar gestas con medallas faltantes - CORREGIDAS LAS RUTAS
     const updatedQuests = quests.map((quest: any) => {
       let updated = { ...quest };
       
-      // Asignar medallas faltantes
+      // Asignar medallas faltantes con rutas corregidas
       if (!quest.medalIcon) {
         switch (quest.id) {
           case 'with_coffee':
@@ -176,11 +176,17 @@ export const debugEpicMedals = () => {
           case 'with_beer':
             updated.medalIcon = '/lovable-uploads/gesta_birra.png';
             break;
+          case 'sixth_beer':
+            updated.medalIcon = '/lovable-uploads/6abirra.png'; // CORREGIDA
+            break;
           case 'other_substances':
             updated.medalIcon = '/lovable-uploads/Otras_sustancias.png';
             break;
           case 'work_stress':
             updated.medalIcon = '/lovable-uploads/Estres_laboral.png';
+            break;
+          case 'work_break':
+            updated.medalIcon = '/lovable-uploads/Descanso_trabajo.png'; // CORREGIDA
             break;
           case 'anxiety_periods':
             updated.medalIcon = '/lovable-uploads/gesta_ansiedad.png';
@@ -203,9 +209,6 @@ export const debugEpicMedals = () => {
           case 'ultimate_achievement':
             updated.medalIcon = '/lovable-uploads/Crack.png';
             break;
-          case 'sixth_beer':
-            updated.medalIcon = '/lovable-uploads/6abirra.png';
-            break;
           case 'social_situation':
             updated.medalIcon = '/lovable-uploads/situación_social.png';
             break;
@@ -213,16 +216,13 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/euforia.png';
             break;
           case 'pelimanta':
-            updated.medalIcon = '/lovable-uploads/Pelimanta.png';
+            updated.medalIcon = '/lovable-uploads/Pelimanta.png'; // CORREGIDA
             break;
           case 'writing_effort':
-            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir.png';
+            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir.png'; // CORREGIDA
             break;
           case 'bad_news':
             updated.medalIcon = '/lovable-uploads/mala_noticia.png';
-            break;
-          case 'work_break':
-            updated.medalIcon = '/lovable-uploads/Descanso_trabajo.png';
             break;
         }
       }

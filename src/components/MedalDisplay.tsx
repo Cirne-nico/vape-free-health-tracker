@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MedalModal from './medals/MedalModal';
 import { MedalIcon } from './medals/MedalIcon';
 import { MedalTooltip } from './medals/MedalTooltip';
-import { getSpecialMedals, getEpicQuestMedals, debugEpicMedals } from './medals/medalUtils';
+import { getSpecialMedals, getEpicQuestMedals } from './medals/medalUtils';
 import { Achievement, HealthAchievement, Medal } from './medals/medalTypes';
 
 interface MedalDisplayProps {
@@ -18,59 +18,37 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   const currentDays = unlockedAchievements.length > 0 ? 
     Math.max(...unlockedAchievements.map(a => a.days)) : 0;
   
-  // Obtener medallas especiales (Atenea día 90, Victoria día 365, Cronos día 730)
+  // Obtener todas las medallas
   const specialMedals = getSpecialMedals(currentDays);
+  const epicQuestMedals = getEpicQuestMedals();
   
-  // LLAMADA MEJORADA para obtener medallas épicas con debug adicional
-  console.log('\n🚀 MEDAL DISPLAY: Calling getEpicQuestMedals...');
-  let epicQuestMedals = getEpicQuestMedals();
-  
-  // Si no hay medallas épicas, intentar debug
-  if (epicQuestMedals.length === 0) {
-    console.log('⚠️ No epic medals found, trying debug function...');
-    epicQuestMedals = debugEpicMedals();
-  }
-  
-  console.log('🚀 MEDAL DISPLAY: Received epic quest medals:', epicQuestMedals);
-  console.log('🚀 MEDAL DISPLAY: Epic medals count:', epicQuestMedals.length);
-  
-  console.log('\n=== 📊 MEDAL DISPLAY DEBUG ===');
-  console.log('Current days:', currentDays);
-  console.log('Special medals:', specialMedals);
-  console.log('Epic quest medals:', epicQuestMedals);
-  console.log('Unlocked achievements:', unlockedAchievements);
-  console.log('Unlocked health achievements:', unlockedHealthAchievements);
-  
-  // Procesar medallas de Vigor (Dioniso) - TODAS las medallas de logros regulares
-  // SOLO cambiar el icono y añadir el tipo, NO tocar nada más
+  // Procesar medallas con tipos específicos
   const processedAchievements = unlockedAchievements.map(achievement => ({
     ...achievement,
-    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png', // Icono de Dioniso
+    icon: '/lovable-uploads/c2979263-14e3-4063-9c91-c4f503f6fa8d.png',
     type: 'vigor' as const
   }));
 
-  // Procesar medallas de Salud (Higiea) - TODAS las medallas de salud
-  // NO tocar NADA, mantener todo exactamente como está
   const processedHealthAchievements = unlockedHealthAchievements.map(achievement => ({
     ...achievement,
     type: 'health' as const
-    // NO cambiar el icon - mantener el original de cada medalla de salud
   }));
   
-  // Combinar TODAS las medallas incluyendo las épicas - ORDEN IMPORTANTE
+  // Combinar todas las medallas y agrupar por tipo
   const allMedals: Medal[] = [
     ...processedAchievements, 
     ...processedHealthAchievements, 
     ...specialMedals,
-    ...epicQuestMedals  // Las medallas épicas van al final
+    ...epicQuestMedals
   ];
 
-  console.log('Processed achievements (Vigor):', processedAchievements);
-  console.log('Processed health achievements (Higiea):', processedHealthAchievements);
-  console.log('Epic quest medals:', epicQuestMedals);
-  console.log('All medals final:', allMedals);
-  console.log('Total medals count:', allMedals.length);
-  console.log('=== 📊 END DEBUG ===\n');
+  // Agrupar medallas por tipo
+  const groupedMedals = {
+    vigor: allMedals.filter(m => m.type === 'vigor'),
+    health: allMedals.filter(m => m.type === 'health'),
+    special: allMedals.filter(m => ['victory', 'athena', 'chronos'].includes(m.type)),
+    epic: allMedals.filter(m => m.type === 'epic')
+  };
 
   const handleMedalClick = (medal: Medal) => {
     setSelectedMedal(medal);
@@ -81,20 +59,55 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   };
 
   if (allMedals.length === 0) {
-    console.log('❌ No medals to display');
     return null;
   }
 
-  console.log(`✅ Displaying ${allMedals.length} medals`);
+  const MedalGroup = ({ title, medals, icon }: { title: string; medals: Medal[]; icon: string }) => {
+    if (medals.length === 0) return null;
+    
+    return (
+      <div className="space-y-3">
+        <h4 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+          <span>{icon}</span>
+          {title} ({medals.length})
+        </h4>
+        <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+          {medals.map((medal) => (
+            <MedalTooltip key={medal.id} medal={medal}>
+              <MedalIcon medal={medal} onClick={handleMedalClick} />
+            </MedalTooltip>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
-      <div className="flex items-center gap-2 flex-wrap">
-        {allMedals.map((medal) => (
-          <MedalTooltip key={medal.id} medal={medal}>
-            <MedalIcon medal={medal} onClick={handleMedalClick} />
-          </MedalTooltip>
-        ))}
+      <div className="space-y-6">
+        <MedalGroup 
+          title="Vigor y Perseverancia" 
+          medals={groupedMedals.vigor} 
+          icon="💪" 
+        />
+        
+        <MedalGroup 
+          title="Recuperación de Salud" 
+          medals={groupedMedals.health} 
+          icon="🏥" 
+        />
+        
+        <MedalGroup 
+          title="Hitos Especiales" 
+          medals={groupedMedals.special} 
+          icon="🏛️" 
+        />
+        
+        <MedalGroup 
+          title="Gestas Épicas" 
+          medals={groupedMedals.epic} 
+          icon="⚔️" 
+        />
       </div>
 
       <MedalModal 

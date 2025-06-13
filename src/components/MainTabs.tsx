@@ -28,9 +28,9 @@ const MainTabs = ({
 }: MainTabsProps) => {
   return (
     <div className="space-y-4 sm:space-y-6">
-      <Tabs defaultValue="emotions" className="w-full">
+      <Tabs defaultValue="general" className="w-full">
         <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
-          <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
+          <TabsTrigger value="general" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="leading-tight">General</span>
           </TabsTrigger>
@@ -65,7 +65,7 @@ const MainTabs = ({
           />
         </div>
 
-        <TabsContent value="emotions" className="mt-4 sm:mt-6">
+        <TabsContent value="general" className="mt-4 sm:mt-6">
           <div className="space-y-4 sm:space-y-6">
             <EmotionLogger startDate={startDate} />
             <SocialStats 

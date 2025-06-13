@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Trophy } from 'lucide-react';
 import MedalDisplay from './MedalDisplay';
@@ -28,13 +27,11 @@ const MedalsSection = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
-        <div className="flex justify-center">
-          <MedalDisplay 
-            unlockedAchievements={unlockedAchievements}
-            unlockedHealthAchievements={unlockedHealthAchievements}
-            totalSavings={totalSavings}
-          />
-        </div>
+        <MedalDisplay 
+          unlockedAchievements={unlockedAchievements}
+          unlockedHealthAchievements={unlockedHealthAchievements}
+          totalSavings={totalSavings}
+        />
       </CardContent>
     </Card>
   );

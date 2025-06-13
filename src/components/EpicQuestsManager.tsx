@@ -60,26 +60,6 @@ const EpicQuestsManager = () => {
     saveQuests(updatedQuests);
   };
 
-  // Función para añadir un check extra (máximo 1)
-  const addExtraCheck = (questId: string) => {
-    const updatedQuests = quests.map(quest => {
-      if (quest.id === questId) {
-        const maxChecks = quest.requiredChecks + 1; // Solo permitir 1 check extra
-        if (quest.requiredChecks < maxChecks) {
-          return {
-            ...quest,
-            requiredChecks: quest.requiredChecks + 1,
-            isCompleted: quest.currentChecks >= (quest.requiredChecks + 1)
-          };
-        }
-      }
-      return quest;
-    });
-    
-    saveQuests(updatedQuests);
-    toast.success('Check extra añadido');
-  };
-
   // Eliminar gesta
   const deleteQuest = (questId: string) => {
     const quest = quests.find(q => q.id === questId);
@@ -105,6 +85,55 @@ const EpicQuestsManager = () => {
     const updatedQuests = [...quests, newQuest];
     saveQuests(updatedQuests);
     toast.success('Nueva hazaña añadida');
+  };
+
+  // Agrupar gestas por categoría
+  const groupedQuests = {
+    social: quests.filter(q => q.category === 'social'),
+    emotional: quests.filter(q => q.category === 'emotional'),
+    substance: quests.filter(q => q.category === 'substance'),
+    psychological: quests.filter(q => q.category === 'psychological'),
+    situational: quests.filter(q => q.category === 'situational')
+  };
+
+  const categoryInfo = {
+    social: { title: 'Situaciones Sociales', icon: '👥', description: 'Interacciones con otras personas' },
+    emotional: { title: 'Gestión Emocional', icon: '💭', description: 'Manejo de estados emocionales intensos' },
+    substance: { title: 'Otras Sustancias', icon: '🍺', description: 'Situaciones con alcohol u otras sustancias' },
+    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y autoengaño' },
+    situational: { title: 'Contextos Específicos', icon: '📍', description: 'Lugares y momentos particulares' }
+  };
+
+  const QuestGroup = ({ category, quests: categoryQuests }: { category: keyof typeof categoryInfo; quests: EpicQuest[] }) => {
+    if (categoryQuests.length === 0) return null;
+    
+    const info = categoryInfo[category];
+    
+    return (
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2 text-gray-800">
+              <span className="text-xl">{info.icon}</span>
+              {info.title}
+            </h3>
+            <p className="text-sm text-gray-600 mt-1">{info.description}</p>
+          </div>
+          
+          <div className="space-y-4">
+            {categoryQuests.map((quest) => (
+              <QuestCard
+                key={quest.id}
+                quest={quest}
+                onAddCheck={addCheck}
+                onRemoveCheck={removeCheck}
+                onDeleteQuest={deleteQuest}
+              />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
   };
 
   return (
@@ -142,7 +171,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>
@@ -152,22 +181,17 @@ const EpicQuestsManager = () => {
       <QuestStats quests={quests} />
 
       {/* Botón para añadir gesta personalizada */}
-      <div className="flex justify-end">
+      <div className="flex justify-center">
         <QuestForm onAddQuest={addCustomQuest} />
       </div>
 
-      {/* Lista de gestas */}
-      <div className="grid gap-4">
-        {quests.map((quest) => (
-          <QuestCard
-            key={quest.id}
-            quest={quest}
-            onAddCheck={addCheck}
-            onRemoveCheck={removeCheck}
-            onAddExtraCheck={addExtraCheck}
-            onDeleteQuest={deleteQuest}
-          />
-        ))}
+      {/* Gestas agrupadas por categoría */}
+      <div className="space-y-4">
+        <QuestGroup category="emotional" quests={groupedQuests.emotional} />
+        <QuestGroup category="social" quests={groupedQuests.social} />
+        <QuestGroup category="substance" quests={groupedQuests.substance} />
+        <QuestGroup category="psychological" quests={groupedQuests.psychological} />
+        <QuestGroup category="situational" quests={groupedQuests.situational} />
       </div>
 
       {quests.length === 0 && (

@@ -71,6 +71,15 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
     return `Días ${currentDay}-${nextDay - 1}`;
   };
 
+  // Función para limpiar referencias redundantes a días en el texto
+  const cleanDayReferences = (text: string) => {
+    // Eliminar patrones como "Día X:", "Hora X:", etc. al inicio del texto
+    return text
+      .replace(/^(Día \d+:|Hora \d+:|Minuto \d+:)\s*/i, '')
+      .replace(/^(Primeras? \d+ horas?:|Primera semana|Primer día|Un año completo|Medio año completo|Fin mes \d+|Fin fase [^.]+)\.\s*/i, '')
+      .trim();
+  };
+
   // Función para generar pensamientos intrusivos que encajen EXACTAMENTE con las contrarréplicas
   const getIntrusiveThoughtForResponse = (contrareplica: string) => {
     // Mapeo EXACTO de contrarréplicas a pensamientos intrusivos coherentes
@@ -230,17 +239,17 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
           {/* COLORES SIMPLIFICADOS - Solo azul y gris */}
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
             <p className="text-sm font-medium text-blue-700 mb-1">📋 Evolución ({validityPeriod}):</p>
-            <p className="text-gray-700">{dayContent.sintesis}</p>
+            <p className="text-gray-700">{cleanDayReferences(dayContent.sintesis)}</p>
           </div>
           
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
             <p className="text-sm font-medium text-blue-700 mb-1">💡 Consejo:</p>
-            <p className="text-gray-700">{dayContent.consejo}</p>
+            <p className="text-gray-700">{cleanDayReferences(dayContent.consejo)}</p>
           </div>
           
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
             <p className="text-sm font-medium text-blue-700 mb-1">🔔 Recordatorio:</p>
-            <p className="text-gray-700">{dayContent.recordatorio}</p>
+            <p className="text-gray-700">{cleanDayReferences(dayContent.recordatorio)}</p>
           </div>
           
           {/* Mantener rojo para pensamiento intrusivo y verde para contrarréplica */}

@@ -23,53 +23,62 @@ const EpicQuestsManager = () => {
   const [newQuestIcon, setNewQuestIcon] = useState('⚔️');
   const [debugInfo, setDebugInfo] = useState<string>('');
 
-  // Función para actualizar las hazañas desde el archivo de datos
-  const updateQuestsFromDefaults = () => {
+  // Función para forzar la actualización completa desde el archivo de datos
+  const forceUpdateFromDefaults = () => {
+    console.log('🔄 Forzando actualización completa desde archivo de datos...');
+    
+    // Obtener hazañas actuales del localStorage
     const savedQuests = localStorage.getItem('epic-quests');
     let currentQuests: EpicQuest[] = [];
     
     if (savedQuests) {
-      currentQuests = JSON.parse(savedQuests);
+      try {
+        currentQuests = JSON.parse(savedQuests);
+        console.log('📦 Hazañas actuales en localStorage:', currentQuests.length);
+      } catch (error) {
+        console.error('❌ Error al parsear hazañas del localStorage:', error);
+      }
     }
 
-    // Crear un mapa de las hazañas actuales por ID
-    const currentQuestsMap = new Map(currentQuests.map(q => [q.id, q]));
-    
-    // Obtener las hazañas por defecto actualizadas
-    const updatedDefaultQuests = defaultEpicQuests.map(createEpicQuest);
-    
-    // Combinar: mantener progreso de hazañas existentes, añadir nuevas
-    const mergedQuests: EpicQuest[] = [];
-    
-    // Procesar hazañas por defecto
-    updatedDefaultQuests.forEach(defaultQuest => {
-      const existingQuest = currentQuestsMap.get(defaultQuest.id);
-      if (existingQuest) {
-        // Mantener progreso pero actualizar otros campos
-        mergedQuests.push({
-          ...defaultQuest,
-          currentChecks: existingQuest.currentChecks,
-          isCompleted: existingQuest.isCompleted
-        });
-      } else {
-        // Nueva hazaña
-        mergedQuests.push(defaultQuest);
-      }
+    // Crear mapa de hazañas actuales para preservar progreso
+    const progressMap = new Map<string, { currentChecks: number; isCompleted: boolean }>();
+    currentQuests.forEach(quest => {
+      progressMap.set(quest.id, {
+        currentChecks: quest.currentChecks,
+        isCompleted: quest.isCompleted
+      });
     });
-    
+
+    // Obtener hazañas por defecto actualizadas
+    const updatedQuests = defaultEpicQuests.map(defaultQuest => {
+      const quest = createEpicQuest(defaultQuest);
+      const savedProgress = progressMap.get(quest.id);
+      
+      if (savedProgress) {
+        // Preservar progreso existente
+        quest.currentChecks = savedProgress.currentChecks;
+        quest.isCompleted = savedProgress.isCompleted;
+      }
+      
+      return quest;
+    });
+
     // Añadir hazañas personalizadas que no estén en los defaults
     currentQuests.forEach(quest => {
-      if (quest.isCustom && !mergedQuests.find(q => q.id === quest.id)) {
-        mergedQuests.push(quest);
+      if (quest.isCustom && !updatedQuests.find(q => q.id === quest.id)) {
+        updatedQuests.push(quest);
       }
     });
+
+    console.log('✅ Hazañas actualizadas:', updatedQuests.length);
+    console.log('📋 Lista de hazañas:', updatedQuests.map(q => q.title));
+
+    // Guardar y actualizar estado
+    localStorage.setItem('epic-quests', JSON.stringify(updatedQuests));
+    setQuests(updatedQuests);
+    updateDebugInfo(updatedQuests);
     
-    // Guardar las hazañas actualizadas
-    localStorage.setItem('epic-quests', JSON.stringify(mergedQuests));
-    setQuests(mergedQuests);
-    updateDebugInfo(mergedQuests);
-    
-    toast.success('Hazañas actualizadas correctamente');
+    toast.success(`Hazañas actualizadas: ${updatedQuests.length} hazañas cargadas`);
   };
 
   // Cargar gestas del localStorage
@@ -78,19 +87,27 @@ const EpicQuestsManager = () => {
     const savedDeletedQuests = localStorage.getItem('deleted-epic-quests');
     
     if (savedQuests) {
-      const loadedQuests = JSON.parse(savedQuests);
-      setQuests(loadedQuests);
-      updateDebugInfo(loadedQuests);
+      try {
+        const loadedQuests = JSON.parse(savedQuests);
+        console.log('📦 Cargando hazañas del localStorage:', loadedQuests.length);
+        setQuests(loadedQuests);
+        updateDebugInfo(loadedQuests);
+      } catch (error) {
+        console.error('❌ Error al cargar hazañas:', error);
+        // Si hay error, inicializar con defaults
+        forceUpdateFromDefaults();
+      }
     } else {
-      // Inicializar con gestas por defecto
-      const initialQuests = defaultEpicQuests.map(createEpicQuest);
-      setQuests(initialQuests);
-      localStorage.setItem('epic-quests', JSON.stringify(initialQuests));
-      updateDebugInfo(initialQuests);
+      console.log('🆕 No hay hazañas guardadas, inicializando con defaults...');
+      forceUpdateFromDefaults();
     }
 
     if (savedDeletedQuests) {
-      setDeletedQuests(JSON.parse(savedDeletedQuests));
+      try {
+        setDeletedQuests(JSON.parse(savedDeletedQuests));
+      } catch (error) {
+        console.error('❌ Error al cargar hazañas eliminadas:', error);
+      }
     }
   }, []);
 
@@ -99,15 +116,18 @@ const EpicQuestsManager = () => {
     const completedWithMedals = questList.filter(q => q.isCompleted && q.medalIcon);
     const info = `
 📊 ESTADO ACTUAL:
-• Total gestas: ${questList.length}
-• Gestas completadas: ${questList.filter(q => q.isCompleted).length}
-• Gestas con medalla: ${questList.filter(q => q.medalIcon).length}
-• Gestas completadas CON medalla: ${completedWithMedals.length}
+• Total hazañas: ${questList.length}
+• Hazañas completadas: ${questList.filter(q => q.isCompleted).length}
+• Hazañas con medalla: ${questList.filter(q => q.medalIcon).length}
+• Hazañas completadas CON medalla: ${completedWithMedals.length}
 
 🏆 MEDALLAS ÉPICAS DISPONIBLES:
 ${completedWithMedals.map(q => `• ${q.title} (${q.medalIcon ? '✅ Medalla' : '❌ Sin medalla'})`).join('\n')}
 
 ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' : '✅ HAY MEDALLAS ÉPICAS DISPONIBLES'}
+
+📋 LISTA DE HAZAÑAS:
+${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} checks)`).join('\n')}
     `;
     setDebugInfo(info);
   };
@@ -130,6 +150,21 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
       }
       if (quest.id === 'anxiety_periods' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/gesta_ansiedad.png' };
+      }
+      if (quest.id === 'party' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/situación_social.png' };
+      }
+      if (quest.id === 'fight_friend' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Discusión_pelea.png' };
+      }
+      if (quest.id === 'control_illusion' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/Yo_controlo.png' };
+      }
+      if (quest.id === 'strong_boredom' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/aburrimiento.png' };
+      }
+      if (quest.id === 'prolonged_sadness' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/tristeza.png' };
       }
       return quest;
     });
@@ -401,7 +436,7 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
           <div className="mt-3 space-y-2">
             <div className="flex gap-2 flex-wrap">
               <Button 
-                onClick={updateQuestsFromDefaults}
+                onClick={forceUpdateFromDefaults}
                 className="bg-blue-600 hover:bg-blue-700 text-white"
                 size="sm"
               >

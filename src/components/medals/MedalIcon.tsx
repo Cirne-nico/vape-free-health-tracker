@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Medal } from './medalTypes';
 
 interface MedalIconProps {
@@ -7,7 +8,10 @@ interface MedalIconProps {
 }
 
 export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps) => {
-  console.log('Rendering medal icon for:', medal.title, 'type:', medal.type);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  console.log('Rendering medal icon for:', medal.title, 'type:', medal.type, 'icon:', medal.icon);
   
   const getBackgroundStyle = () => {
     switch (medal.type) {
@@ -73,7 +77,6 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
       case 'vigor':
         return {
           ...baseStyle,
-          // Cambiar a negro para las medallas de Dioniso
           backgroundImage: 'linear-gradient(145deg, #374151 0%, #1F2937 30%, #111827  60%, #000000 100%)',
         };
       case 'epic':
@@ -89,28 +92,65 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
     }
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  // Función para renderizar el contenido de la medalla
+  const renderMedalContent = () => {
+    // Si el icono es una ruta de imagen
+    if (medal.icon && medal.icon.startsWith('/') && !imageError) {
+      return (
+        <div className="relative w-12 h-12">
+          <img 
+            src={medal.icon}
+            alt={medal.title}
+            className={`w-full h-full rounded-full object-cover object-center transition-opacity duration-300 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ 
+              aspectRatio: '1/1',
+              minWidth: '48px',
+              minHeight: '48px',
+              maxWidth: '48px',
+              maxHeight: '48px'
+            }}
+            onError={handleImageError}
+            onLoad={handleImageLoad}
+          />
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-full">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // Fallback: usar emoji o icono de texto
+    const fallbackIcon = medal.icon && !medal.icon.startsWith('/') ? medal.icon : '🏆';
+    return (
+      <div className="w-12 h-12 flex items-center justify-center text-2xl">
+        {fallbackIcon}
+      </div>
+    );
+  };
+
   return (
     <button
       onClick={() => onClick(medal)}
       className={`hover:scale-110 transition-transform duration-200 rounded-full p-1 backdrop-blur-sm border relative ${getBackgroundStyle()}`}
     >
-      <img 
-        src={medal.icon} 
-        alt={medal.title}
-        className="w-12 h-12 rounded-full object-cover object-center"
-        style={{ 
-          aspectRatio: '1/1',
-          minWidth: '48px',
-          minHeight: '48px',
-          maxWidth: '48px',
-          maxHeight: '48px'
-        }}
-      />
+      {renderMedalContent()}
       
       {/* Solo mostrar elementos grabados si NO está ampliado */}
       {!isEnlarged && (
         <>
-          {/* Número grabado para medallas de Vigor (Dioniso) - ahora en negro */}
+          {/* Número grabado para medallas de Vigor (Dioniso) */}
           {medal.type === 'vigor' && 'days' in medal && medal.days && (
             <div className="absolute inset-0 flex items-center justify-center">
               <span 
@@ -121,8 +161,6 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
               </span>
             </div>
           )}
-
-          {/* NO mostrar número grabado para medalla de Atenea - ya está en la imagen */}
 
           {/* Número 2 grabado para medalla de Cronos */}
           {medal.type === 'chronos' && 'days' in medal && medal.days && (
@@ -136,21 +174,21 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
             </div>
           )}
 
-          {/* Ícono del órgano para medallas de Salud (Higiea) - solo en vista normal */}
+          {/* Ícono del órgano para medallas de Salud (Higiea) */}
           {medal.type === 'health' && 'organIcon' in medal && medal.organIcon && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-green-300 shadow-sm">
               <span className="text-xs">{medal.organIcon}</span>
             </div>
           )}
 
-          {/* Ícono temporal para medallas especiales (Atenea, Nike, Afrodita) */}
+          {/* Ícono temporal para medallas especiales */}
           {(medal.type === 'athena' || medal.type === 'victory' || medal.type === 'chronos') && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-amber-300 shadow-sm">
               <span className="text-xs">⏳</span>
             </div>
           )}
 
-          {/* Ícono épico para medallas de gestas - CAMBIADO */}
+          {/* Ícono épico para medallas de gestas */}
           {medal.type === 'epic' && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-orange-300 shadow-sm">
               <span className="text-xs">🏆</span>

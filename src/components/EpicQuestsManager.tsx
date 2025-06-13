@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown, RotateCcw } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown, RotateCcw, PlusCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
@@ -218,6 +218,31 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
     });
     
     saveQuests(updatedQuests);
+  };
+
+  // NUEVA FUNCIÓN: Añadir check extra (solo para gestas personalizadas)
+  const addExtraCheck = (questId: string) => {
+    const quest = quests.find(q => q.id === questId);
+    if (!quest) return;
+
+    // Solo permitir añadir checks extra a gestas personalizadas
+    if (!quest.isCustom) {
+      toast.error('Solo puedes añadir checks extra a hazañas personalizadas');
+      return;
+    }
+
+    const updatedQuests = quests.map(q => {
+      if (q.id === questId) {
+        return {
+          ...q,
+          requiredChecks: q.requiredChecks + 1
+        };
+      }
+      return q;
+    });
+    
+    saveQuests(updatedQuests);
+    toast.success('Check extra añadido a la hazaña personalizada');
   };
 
   // Quitar check de una gesta
@@ -606,16 +631,31 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                   </div>
                 </div>
                 
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => deleteQuest(quest.id)}
-                  className="text-red-500 hover:text-red-700"
-                  title="No me representa"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  <span className="ml-1 text-xs hidden sm:inline">No me representa</span>
-                </Button>
+                <div className="flex items-center gap-2">
+                  {/* Botón para añadir check extra (solo para gestas personalizadas) */}
+                  {quest.isCustom && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => addExtraCheck(quest.id)}
+                      className="text-blue-500 hover:text-blue-700"
+                      title="Añadir check extra"
+                    >
+                      <PlusCircle className="w-4 h-4" />
+                    </Button>
+                  )}
+                  
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => deleteQuest(quest.id)}
+                    className="text-red-500 hover:text-red-700"
+                    title="No me representa"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span className="ml-1 text-xs hidden sm:inline">No me representa</span>
+                  </Button>
+                </div>
               </div>
               
               {/* Checks y progreso */}

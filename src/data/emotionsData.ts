@@ -135,6 +135,12 @@ export const emotionsData: Emotion[] = [
   }
 ];
 
+// Create emotions map for easy access by ID
+export const emotions: Record<string, Emotion> = emotionsData.reduce((acc, emotion) => {
+  acc[emotion.id] = emotion;
+  return acc;
+}, {} as Record<string, Emotion>);
+
 export const getEmotionById = (id: string): Emotion | undefined => {
   return emotionsData.find(emotion => emotion.id === id);
 };

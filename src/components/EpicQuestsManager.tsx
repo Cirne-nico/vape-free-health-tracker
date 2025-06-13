@@ -7,15 +7,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown, RotateCcw, PlusCircle } from 'lucide-react';
+import { Trash2, Plus, Trophy, CheckCircle, Circle, Brain, Heart, Medal, AlertCircle, RefreshCw, Bug, Crown } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpicQuest, defaultEpicQuests, createEpicQuest, getCategoryColor, getCategoryName } from '@/data/epicQuests';
 
 const EpicQuestsManager = () => {
   const [quests, setQuests] = useState<EpicQuest[]>([]);
-  const [deletedQuests, setDeletedQuests] = useState<EpicQuest[]>([]);
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const [showRecoverDialog, setShowRecoverDialog] = useState(false);
   const [newQuestTitle, setNewQuestTitle] = useState('');
   const [newQuestDescription, setNewQuestDescription] = useState('');
   const [newQuestChecks, setNewQuestChecks] = useState(3);
@@ -23,91 +21,19 @@ const EpicQuestsManager = () => {
   const [newQuestIcon, setNewQuestIcon] = useState('⚔️');
   const [debugInfo, setDebugInfo] = useState<string>('');
 
-  // Función para forzar la actualización completa desde el archivo de datos
-  const forceUpdateFromDefaults = () => {
-    console.log('🔄 Forzando actualización completa desde archivo de datos...');
-    
-    // Obtener hazañas actuales del localStorage
-    const savedQuests = localStorage.getItem('epic-quests');
-    let currentQuests: EpicQuest[] = [];
-    
-    if (savedQuests) {
-      try {
-        currentQuests = JSON.parse(savedQuests);
-        console.log('📦 Hazañas actuales en localStorage:', currentQuests.length);
-      } catch (error) {
-        console.error('❌ Error al parsear hazañas del localStorage:', error);
-      }
-    }
-
-    // Crear mapa de hazañas actuales para preservar progreso
-    const progressMap = new Map<string, { currentChecks: number; isCompleted: boolean }>();
-    currentQuests.forEach(quest => {
-      progressMap.set(quest.id, {
-        currentChecks: quest.currentChecks,
-        isCompleted: quest.isCompleted
-      });
-    });
-
-    // Obtener hazañas por defecto actualizadas
-    const updatedQuests = defaultEpicQuests.map(defaultQuest => {
-      const quest = createEpicQuest(defaultQuest);
-      const savedProgress = progressMap.get(quest.id);
-      
-      if (savedProgress) {
-        // Preservar progreso existente
-        quest.currentChecks = savedProgress.currentChecks;
-        quest.isCompleted = savedProgress.isCompleted;
-      }
-      
-      return quest;
-    });
-
-    // Añadir hazañas personalizadas que no estén en los defaults
-    currentQuests.forEach(quest => {
-      if (quest.isCustom && !updatedQuests.find(q => q.id === quest.id)) {
-        updatedQuests.push(quest);
-      }
-    });
-
-    console.log('✅ Hazañas actualizadas:', updatedQuests.length);
-    console.log('📋 Lista de hazañas:', updatedQuests.map(q => q.title));
-
-    // Guardar y actualizar estado
-    localStorage.setItem('epic-quests', JSON.stringify(updatedQuests));
-    setQuests(updatedQuests);
-    updateDebugInfo(updatedQuests);
-    
-    toast.success(`Hazañas actualizadas: ${updatedQuests.length} hazañas cargadas`);
-  };
-
   // Cargar gestas del localStorage
   useEffect(() => {
     const savedQuests = localStorage.getItem('epic-quests');
-    const savedDeletedQuests = localStorage.getItem('deleted-epic-quests');
-    
     if (savedQuests) {
-      try {
-        const loadedQuests = JSON.parse(savedQuests);
-        console.log('📦 Cargando hazañas del localStorage:', loadedQuests.length);
-        setQuests(loadedQuests);
-        updateDebugInfo(loadedQuests);
-      } catch (error) {
-        console.error('❌ Error al cargar hazañas:', error);
-        // Si hay error, inicializar con defaults
-        forceUpdateFromDefaults();
-      }
+      const loadedQuests = JSON.parse(savedQuests);
+      setQuests(loadedQuests);
+      updateDebugInfo(loadedQuests);
     } else {
-      console.log('🆕 No hay hazañas guardadas, inicializando con defaults...');
-      forceUpdateFromDefaults();
-    }
-
-    if (savedDeletedQuests) {
-      try {
-        setDeletedQuests(JSON.parse(savedDeletedQuests));
-      } catch (error) {
-        console.error('❌ Error al cargar hazañas eliminadas:', error);
-      }
+      // Inicializar con gestas por defecto
+      const initialQuests = defaultEpicQuests.map(createEpicQuest);
+      setQuests(initialQuests);
+      localStorage.setItem('epic-quests', JSON.stringify(initialQuests));
+      updateDebugInfo(initialQuests);
     }
   }, []);
 
@@ -116,18 +42,15 @@ const EpicQuestsManager = () => {
     const completedWithMedals = questList.filter(q => q.isCompleted && q.medalIcon);
     const info = `
 📊 ESTADO ACTUAL:
-• Total hazañas: ${questList.length}
-• Hazañas completadas: ${questList.filter(q => q.isCompleted).length}
-• Hazañas con medalla: ${questList.filter(q => q.medalIcon).length}
-• Hazañas completadas CON medalla: ${completedWithMedals.length}
+• Total gestas: ${questList.length}
+• Gestas completadas: ${questList.filter(q => q.isCompleted).length}
+• Gestas con medalla: ${questList.filter(q => q.medalIcon).length}
+• Gestas completadas CON medalla: ${completedWithMedals.length}
 
 🏆 MEDALLAS ÉPICAS DISPONIBLES:
 ${completedWithMedals.map(q => `• ${q.title} (${q.medalIcon ? '✅ Medalla' : '❌ Sin medalla'})`).join('\n')}
 
 ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' : '✅ HAY MEDALLAS ÉPICAS DISPONIBLES'}
-
-📋 LISTA DE HAZAÑAS:
-${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} checks)`).join('\n')}
     `;
     setDebugInfo(info);
   };
@@ -142,16 +65,25 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
       if (quest.id === 'with_beer' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/gesta_birra.png' };
       }
+      if (quest.id === 'sixth_beer' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/sexta_birra.png' };
+      }
       if (quest.id === 'other_substances' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/Otras_sustancias.png' };
       }
       if (quest.id === 'work_stress' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/Estres_laboral.png' };
       }
+      if (quest.id === 'work_break' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/descanso_trabajo.png' };
+      }
       if (quest.id === 'anxiety_periods' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/gesta_ansiedad.png' };
       }
       if (quest.id === 'party' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/situación_social.png' };
+      }
+      if (quest.id === 'social_situation' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/situación_social.png' };
       }
       if (quest.id === 'fight_friend' && !quest.medalIcon) {
@@ -166,26 +98,17 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
       if (quest.id === 'prolonged_sadness' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/tristeza.png' };
       }
-      if (quest.id === 'sixth_beer' && !quest.medalIcon) {
-        return { ...quest, medalIcon: '/lovable-uploads/6abirra.png' };
-      }
-      if (quest.id === 'social_situation' && !quest.medalIcon) {
-        return { ...quest, medalIcon: '/lovable-uploads/situación_social.png' };
-      }
       if (quest.id === 'euphoria_moment' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/euforia.png' };
       }
-      if (quest.id === 'winter_movie' && !quest.medalIcon) {
-        return { ...quest, medalIcon: '/lovable-uploads/Pelimanta.png' };
+      if (quest.id === 'pelimanta' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/pelimanta.png' };
       }
-      if (quest.id === 'writing_review' && !quest.medalIcon) {
-        return { ...quest, medalIcon: '/lovable-uploads/Acabas_de_escribir.png' };
+      if (quest.id === 'writing_effort' && !quest.medalIcon) {
+        return { ...quest, medalIcon: '/lovable-uploads/escritura.png' };
       }
       if (quest.id === 'bad_news' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/mala_noticia.png' };
-      }
-      if (quest.id === 'work_break' && !quest.medalIcon) {
-        return { ...quest, medalIcon: '/lovable-uploads/Descanso_trabajo.png' };
       }
       if (quest.id === 'ultimate_achievement' && !quest.medalIcon) {
         return { ...quest, medalIcon: '/lovable-uploads/Crack.png' };
@@ -235,23 +158,45 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
     console.log('🐛 === END DEBUGGING ===\n');
   };
 
-  // Función para verificar si se debe desbloquear la medalla final
+  // Función para verificar si se debe desbloquear la medalla final MEJORADA
   const checkUltimateAchievement = (updatedQuests: EpicQuest[]) => {
+    console.log('\n🏆 === CHECKING ULTIMATE ACHIEVEMENT ===');
+    
     // Contar gestas completadas (excluyendo la medalla final)
     const completedQuests = updatedQuests.filter(q => 
       q.isCompleted && q.id !== 'ultimate_achievement'
     );
+    
+    console.log('Completed quests (excluding ultimate):', completedQuests.length);
+    console.log('Completed quest IDs:', completedQuests.map(q => q.id));
     
     // Contar gestas con medalla (excluyendo la medalla final)
     const questsWithMedals = updatedQuests.filter(q => 
       q.medalIcon && q.id !== 'ultimate_achievement'
     );
     
-    // Si todas las gestas con medalla están completadas, desbloquear la medalla final
+    console.log('Quests with medals (excluding ultimate):', questsWithMedals.length);
+    console.log('Quest with medals IDs:', questsWithMedals.map(q => q.id));
+    
+    // Verificar si todas las gestas con medalla están completadas
+    const allMedalQuestsCompleted = questsWithMedals.every(q => q.isCompleted);
+    console.log('All medal quests completed:', allMedalQuestsCompleted);
+    
+    // Obtener la gesta ultimate
     const ultimateQuest = updatedQuests.find(q => q.id === 'ultimate_achievement');
-    if (ultimateQuest && !ultimateQuest.isCompleted && 
-        questsWithMedals.length > 0 && 
-        questsWithMedals.every(q => q.isCompleted)) {
+    console.log('Ultimate quest found:', !!ultimateQuest);
+    console.log('Ultimate quest completed:', ultimateQuest?.isCompleted);
+    
+    // Condiciones para desbloquear la medalla final
+    const shouldUnlock = ultimateQuest && 
+                        !ultimateQuest.isCompleted && 
+                        questsWithMedals.length > 0 && 
+                        allMedalQuestsCompleted;
+    
+    console.log('Should unlock ultimate achievement:', shouldUnlock);
+    
+    if (shouldUnlock) {
+      console.log('🎉 UNLOCKING ULTIMATE ACHIEVEMENT!');
       
       // Desbloquear automáticamente la medalla final
       const finalUpdatedQuests = updatedQuests.map(quest => {
@@ -270,9 +215,11 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
         duration: 8000
       });
       
+      console.log('🏆 === ULTIMATE ACHIEVEMENT UNLOCKED ===\n');
       return finalUpdatedQuests;
     }
     
+    console.log('🏆 === ULTIMATE ACHIEVEMENT NOT UNLOCKED ===\n');
     return updatedQuests;
   };
 
@@ -284,12 +231,6 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
     setQuests(finalQuests);
     localStorage.setItem('epic-quests', JSON.stringify(finalQuests));
     updateDebugInfo(finalQuests);
-  };
-
-  // Guardar gestas eliminadas
-  const saveDeletedQuests = (deletedQuestsList: EpicQuest[]) => {
-    setDeletedQuests(deletedQuestsList);
-    localStorage.setItem('deleted-epic-quests', JSON.stringify(deletedQuestsList));
   };
 
   // Añadir check a una gesta
@@ -325,31 +266,6 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
     saveQuests(updatedQuests);
   };
 
-  // NUEVA FUNCIÓN: Añadir check extra (solo para gestas personalizadas)
-  const addExtraCheck = (questId: string) => {
-    const quest = quests.find(q => q.id === questId);
-    if (!quest) return;
-
-    // Solo permitir añadir checks extra a gestas personalizadas
-    if (!quest.isCustom) {
-      toast.error('Solo puedes añadir checks extra a hazañas personalizadas');
-      return;
-    }
-
-    const updatedQuests = quests.map(q => {
-      if (q.id === questId) {
-        return {
-          ...q,
-          requiredChecks: q.requiredChecks + 1
-        };
-      }
-      return q;
-    });
-    
-    saveQuests(updatedQuests);
-    toast.success('Check extra añadido a la hazaña personalizada');
-  };
-
   // Quitar check de una gesta
   const removeCheck = (questId: string) => {
     const updatedQuests = quests.map(quest => {
@@ -366,43 +282,37 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
     saveQuests(updatedQuests);
   };
 
-  // Eliminar gesta (ahora permite eliminar cualquier gesta)
-  const deleteQuest = (questId: string) => {
-    const quest = quests.find(q => q.id === questId);
-    if (!quest) return;
+  // Función para añadir un check extra (máximo 1)
+  const addExtraCheck = (questId: string) => {
+    const updatedQuests = quests.map(quest => {
+      if (quest.id === questId) {
+        const maxChecks = quest.requiredChecks + 1; // Solo permitir 1 check extra
+        if (quest.requiredChecks < maxChecks) {
+          return {
+            ...quest,
+            requiredChecks: quest.requiredChecks + 1,
+            isCompleted: quest.currentChecks >= (quest.requiredChecks + 1)
+          };
+        }
+      }
+      return quest;
+    });
     
-    // Confirmar eliminación
-    const confirmDelete = window.confirm(
-      `¿Estás segura de que quieres eliminar la hazaña "${quest.title}"?\n\nEsta acción se puede revertir desde el botón "Recuperar hazañas eliminadas".`
-    );
-    
-    if (!confirmDelete) return;
-    
-    // Mover a la lista de eliminadas
-    const newDeletedQuests = [...deletedQuests, quest];
-    saveDeletedQuests(newDeletedQuests);
-    
-    // Eliminar de la lista activa
-    const updatedQuests = quests.filter(q => q.id !== questId);
     saveQuests(updatedQuests);
-    
-    toast.success(`Hazaña "${quest.title}" eliminada. Puedes recuperarla si fue un error.`);
+    toast.success('Check extra añadido');
   };
 
-  // Recuperar gesta eliminada
-  const recoverQuest = (questId: string) => {
-    const questToRecover = deletedQuests.find(q => q.id === questId);
-    if (!questToRecover) return;
-
-    // Añadir de vuelta a la lista activa
-    const updatedQuests = [...quests, questToRecover];
+  // Eliminar gesta
+  const deleteQuest = (questId: string) => {
+    const quest = quests.find(q => q.id === questId);
+    if (quest && !quest.isCustom) {
+      toast.error('No puedes eliminar hazañas predefinidas');
+      return;
+    }
+    
+    const updatedQuests = quests.filter(q => q.id !== questId);
     saveQuests(updatedQuests);
-
-    // Eliminar de la lista de eliminadas
-    const updatedDeletedQuests = deletedQuests.filter(q => q.id !== questId);
-    saveDeletedQuests(updatedDeletedQuests);
-
-    toast.success(`Hazaña "${questToRecover.title}" recuperada correctamente`);
+    toast.success('Hazaña eliminada');
   };
 
   // Añadir nueva gesta personalizada
@@ -458,15 +368,7 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
             {debugInfo}
           </pre>
           <div className="mt-3 space-y-2">
-            <div className="flex gap-2 flex-wrap">
-              <Button 
-                onClick={forceUpdateFromDefaults}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-                size="sm"
-              >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Actualizar Hazañas
-              </Button>
+            <div className="flex gap-2">
               <Button 
                 onClick={updateQuestsWithMedals}
                 className="bg-orange-600 hover:bg-orange-700 text-white"
@@ -485,11 +387,11 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
               </Button>
             </div>
             <div className="text-sm text-yellow-700">
-              <p><strong>¿No aparecen las nuevas hazañas o medallas?</strong></p>
-              <p>1. Haz clic en "Actualizar Hazañas" para añadir las nuevas hazañas</p>
-              <p>2. Haz clic en "Actualizar Medallas Épicas" para asignar medallas</p>
-              <p>3. Marca los checks de las gestas que quieras completar</p>
-              <p>4. Haz clic en "Debug Sistema" para verificar el estado</p>
+              <p><strong>¿No aparecen las medallas en la pantalla principal?</strong></p>
+              <p>1. Haz clic en "Actualizar Medallas Épicas" arriba</p>
+              <p>2. Marca los checks de las gestas que quieras completar</p>
+              <p>3. Haz clic en "Debug Sistema" para verificar el estado</p>
+              <p>4. Ve a la pantalla principal y busca las medallas en la sección "Medallas Obtenidas"</p>
             </div>
           </div>
         </CardContent>
@@ -577,44 +479,8 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
         </CardContent>
       </Card>
 
-      {/* Botones de acción */}
-      <div className="flex flex-wrap gap-2 justify-end">
-        {deletedQuests.length > 0 && (
-          <Dialog open={showRecoverDialog} onOpenChange={setShowRecoverDialog}>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="bg-green-50 border-green-300 text-green-700 hover:bg-green-100">
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Recuperar Hazañas ({deletedQuests.length})
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Recuperar Hazañas Eliminadas</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 max-h-96 overflow-y-auto">
-                {deletedQuests.map((quest) => (
-                  <div key={quest.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl">{quest.icon}</span>
-                      <div>
-                        <p className="font-medium">{quest.title}</p>
-                        <p className="text-sm text-gray-600">{quest.description}</p>
-                      </div>
-                    </div>
-                    <Button
-                      onClick={() => recoverQuest(quest.id)}
-                      size="sm"
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      Recuperar
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
-
+      {/* Botón para añadir gesta personalizada */}
+      <div className="flex justify-end">
         <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
           <DialogTrigger asChild>
             <Button className="bg-amber-600 hover:bg-amber-700">
@@ -659,6 +525,7 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
                       <SelectItem value="2">2 checks</SelectItem>
                       <SelectItem value="3">3 checks</SelectItem>
                       <SelectItem value="4">4 checks</SelectItem>
+                      <SelectItem value="5">5 checks</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -718,9 +585,9 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
                         {quest.title}
                       </h3>
                       {quest.isCompleted && <Trophy className="w-4 h-4 text-yellow-500" />}
-                      {quest.isCompleted && quest.medalIcon &&
+                      {quest.isCompleted && quest.medalIcon && (
                         <Medal className="w-4 h-4 text-orange-500" title="Medalla épica obtenida" />
-                      }
+                      )}
                       {quest.id === 'ultimate_achievement' && (
                         <Crown className="w-4 h-4 text-purple-500" title="Medalla de Maestría Total" />
                       )}
@@ -740,29 +607,29 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  {/* Botón para añadir check extra (solo para gestas personalizadas) */}
+                  {/* Botón para añadir check extra */}
+                  {!quest.isCustom && quest.requiredChecks < 6 && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addExtraCheck(quest.id)}
+                      className="text-blue-600 hover:text-blue-700"
+                      title="Añadir un check extra (máximo 1)"
+                    >
+                      +1
+                    </Button>
+                  )}
+                  
                   {quest.isCustom && (
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => addExtraCheck(quest.id)}
-                      className="text-blue-500 hover:text-blue-700"
-                      title="Añadir check extra"
+                      onClick={() => deleteQuest(quest.id)}
+                      className="text-red-500 hover:text-red-700"
                     >
-                      <PlusCircle className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" />
                     </Button>
                   )}
-                  
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => deleteQuest(quest.id)}
-                    className="text-red-500 hover:text-red-700"
-                    title="No me representa"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                    <span className="ml-1 text-xs hidden sm:inline">No me representa</span>
-                  </Button>
                 </div>
               </div>
               
@@ -808,6 +675,11 @@ ${questList.map(q => `• ${q.title} (${q.currentChecks}/${q.requiredChecks} che
                     <p className={`text-sm ${quest.id === 'ultimate_achievement' ? 'text-purple-700' : 'text-green-700'}`}>
                       {quest.reward}
                     </p>
+                    {quest.medalIcon && (
+                      <p className="text-xs text-orange-700 mt-2 italic">
+                        ✨ Medalla épica visible en la pantalla principal
+                      </p>
+                    )}
                   </div>
                 )}
               </div>

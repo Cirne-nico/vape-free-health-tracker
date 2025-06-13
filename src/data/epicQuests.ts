@@ -9,7 +9,7 @@ export interface EpicQuest {
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
-  medalIcon?: string;
+  medalIcon?: string; // Nueva propiedad para la medalla épica
 }
 
 export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>[] = [
@@ -56,32 +56,12 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'work_break',
     title: 'Descanso en el trabajo',
-    description: 'Tomar descansos laborales o pausas en actividades que requieren concentración sin vapear',
+    description: 'Disfrutar de los descansos laborales sin necesidad de vapear',
     requiredChecks: 3,
     icon: '☕',
     category: 'situational',
-    reward: 'Capacidad de relajarse y desconectar sin dependencias químicas',
-    medalIcon: '/lovable-uploads/Descanso_trabajo.png'
-  },
-  {
-    id: 'winter_movie',
-    title: 'Pelimanta un día de invierno',
-    description: 'Disfrutar de una película en casa en un día frío y acogedor sin vapear',
-    requiredChecks: 2,
-    icon: '🍿',
-    category: 'situational',
-    reward: 'Disfrute pleno de momentos de relax y comodidad sin necesidad de estímulos',
-    medalIcon: '/lovable-uploads/Pelimanta.png'
-  },
-  {
-    id: 'writing_review',
-    title: 'Acabas de escribir algo con gran esfuerzo y te dispones a releerlo',
-    description: 'Completar una tarea creativa o intelectual exigente y revisar el trabajo sin vapear',
-    requiredChecks: 2,
-    icon: '✍️',
-    category: 'psychological',
-    reward: 'Satisfacción genuina por el trabajo realizado sin necesidad de recompensas químicas',
-    medalIcon: '/lovable-uploads/Acabas_de_escribir.png'
+    reward: 'Descansos genuinos y reparadores',
+    medalIcon: '/lovable-uploads/descanso_trabajo.png'
   },
   {
     id: 'control_illusion',
@@ -121,7 +101,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🍻',
     category: 'substance',
     reward: 'Autocontrol en estados alterados de conciencia',
-    medalIcon: '/lovable-uploads/6abirra.png'
+    medalIcon: '/lovable-uploads/sexta_birra.png'
   },
   {
     id: 'other_substances',
@@ -184,6 +164,26 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     medalIcon: '/lovable-uploads/gesta_ansiedad.png'
   },
   {
+    id: 'pelimanta',
+    title: 'Pelimanta',
+    description: 'Disfrutar de momentos de relajación en casa sin vapear',
+    requiredChecks: 3,
+    icon: '🛋️',
+    category: 'situational',
+    reward: 'Relajación auténtica sin dependencias químicas',
+    medalIcon: '/lovable-uploads/pelimanta.png'
+  },
+  {
+    id: 'writing_effort',
+    title: 'Acabas de escribir algo con gran esfuerzo y te dispones a releerlo',
+    description: 'Completar tareas creativas o intelectuales sin vapear como recompensa',
+    requiredChecks: 3,
+    icon: '✍️',
+    category: 'psychological',
+    reward: 'Satisfacción genuina por el trabajo intelectual',
+    medalIcon: '/lovable-uploads/escritura.png'
+  },
+  {
     id: 'ultimate_achievement',
     title: 'CRACK! - Maestría Total',
     description: 'Has completado TODAS las gestas épicas disponibles. Eres une verdadere maestre de la recuperación.',
@@ -223,6 +223,7 @@ export const getCategoryName = (category: EpicQuest['category']) => {
   }
 };
 
+// Función para obtener las gestas completadas con medallas
 export const getCompletedQuestsWithMedals = (): EpicQuest[] => {
   const savedQuests = localStorage.getItem('epic-quests');
   if (!savedQuests) return [];

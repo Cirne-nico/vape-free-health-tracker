@@ -93,17 +93,20 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
   };
 
   const handleImageError = () => {
+    console.log('Image error for medal:', medal.title, 'icon:', medal.icon);
     setImageError(true);
   };
 
   const handleImageLoad = () => {
+    console.log('Image loaded for medal:', medal.title, 'icon:', medal.icon);
     setImageLoaded(true);
   };
 
   // Función para renderizar el contenido de la medalla
   const renderMedalContent = () => {
-    // Si el icono es una ruta de imagen
+    // PRIORIDAD 1: Si el icono es una ruta de imagen válida y no ha fallado
     if (medal.icon && medal.icon.startsWith('/') && !imageError) {
+      console.log('Rendering image for medal:', medal.title, 'icon:', medal.icon);
       return (
         <div className="relative w-12 h-12">
           <img 
@@ -131,8 +134,38 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
       );
     }
 
-    // Fallback: usar emoji o icono de texto
-    const fallbackIcon = medal.icon && !medal.icon.startsWith('/') ? medal.icon : '🏆';
+    // PRIORIDAD 2: Fallback con emoji o icono de texto
+    console.log('Using fallback for medal:', medal.title, 'imageError:', imageError);
+    
+    // Para medallas específicas, usar iconos por defecto
+    let fallbackIcon = medal.icon;
+    
+    // Si no hay icono o es una imagen que falló, usar iconos específicos por tipo
+    if (!fallbackIcon || fallbackIcon.startsWith('/')) {
+      switch (medal.type) {
+        case 'athena':
+          fallbackIcon = '🏛️';
+          break;
+        case 'victory':
+          fallbackIcon = '🏆';
+          break;
+        case 'chronos':
+          fallbackIcon = '⏰';
+          break;
+        case 'health':
+          fallbackIcon = '🏥';
+          break;
+        case 'vigor':
+          fallbackIcon = '💪';
+          break;
+        case 'epic':
+          fallbackIcon = '⚔️';
+          break;
+        default:
+          fallbackIcon = '🏆';
+      }
+    }
+
     return (
       <div className="w-12 h-12 flex items-center justify-center text-2xl">
         {fallbackIcon}

@@ -81,9 +81,9 @@ export const getSpecialMedals = (currentDays: number) => {
   return specialMedals;
 };
 
-// Función CORREGIDA para obtener medallas épicas de gestas
+// Función MEJORADA para obtener medallas épicas de gestas
 export const getEpicQuestMedals = (): EpicQuestMedal[] => {
-  console.log('\n🔍 === GETTING EPIC QUEST MEDALS - CORRECTED VERSION ===');
+  console.log('\n🔍 === GETTING EPIC QUEST MEDALS - ENHANCED VERSION ===');
   
   // Obtener gestas del localStorage
   const savedQuests = localStorage.getItem('epic-quests');
@@ -110,28 +110,6 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
   
   console.log(`📊 Found ${quests.length} total quests`);
   
-  // MAPEO CORREGIDO: Asegurar que todas las gestas con medalla estén incluidas
-  const questsWithMedals = [
-    'with_coffee',
-    'with_beer', 
-    'other_substances',
-    'work_stress',
-    'anxiety_periods',
-    'party',
-    'fight_friend',
-    'control_illusion',
-    'strong_boredom',
-    'prolonged_sadness',
-    'ultimate_achievement',
-    'sixth_beer',
-    'social_situation',
-    'euphoria_moment',
-    'winter_movie',
-    'writing_review',
-    'bad_news',
-    'work_break'
-  ];
-  
   // Filtrar solo las gestas completadas que tienen medalla
   const completedQuestsWithMedals = quests.filter((quest: any) => {
     console.log(`\n--- 🔍 Checking quest: "${quest.title}" (ID: ${quest.id}) ---`);
@@ -139,90 +117,24 @@ export const getEpicQuestMedals = (): EpicQuestMedal[] => {
     
     const isCompleted = quest.isCompleted === true;
     const hasMedalIcon = quest.medalIcon && quest.medalIcon.trim() !== '';
-    const isInMedalList = questsWithMedals.includes(quest.id);
     
     console.log(`- isCompleted: ${isCompleted}`);
     console.log(`- medalIcon: "${quest.medalIcon}"`);
     console.log(`- hasMedalIcon: ${hasMedalIcon}`);
-    console.log(`- isInMedalList: ${isInMedalList}`);
-    console.log(`- Will include: ${isCompleted && (hasMedalIcon || isInMedalList)}`);
+    console.log(`- Will include: ${isCompleted && hasMedalIcon}`);
     
-    return isCompleted && (hasMedalIcon || isInMedalList);
+    return isCompleted && hasMedalIcon;
   });
   
   console.log(`\n🎯 Filtered to ${completedQuestsWithMedals.length} completed quests with medals:`, completedQuestsWithMedals);
   
-  // Convertir a formato de medalla épica con iconos por defecto si no tienen
+  // Convertir a formato de medalla épica
   const epicMedals = completedQuestsWithMedals.map((quest: any) => {
-    // Asignar icono de medalla por defecto si no tiene uno
-    let medalIcon = quest.medalIcon;
-    
-    if (!medalIcon) {
-      switch (quest.id) {
-        case 'with_coffee':
-          medalIcon = '/lovable-uploads/gesta_café.png';
-          break;
-        case 'with_beer':
-          medalIcon = '/lovable-uploads/gesta_birra.png';
-          break;
-        case 'other_substances':
-          medalIcon = '/lovable-uploads/Otras_sustancias.png';
-          break;
-        case 'work_stress':
-          medalIcon = '/lovable-uploads/Estres_laboral.png';
-          break;
-        case 'anxiety_periods':
-          medalIcon = '/lovable-uploads/gesta_ansiedad.png';
-          break;
-        case 'party':
-          medalIcon = '/lovable-uploads/situación_social.png';
-          break;
-        case 'fight_friend':
-          medalIcon = '/lovable-uploads/Discusión_pelea.png';
-          break;
-        case 'control_illusion':
-          medalIcon = '/lovable-uploads/Yo_controlo.png';
-          break;
-        case 'strong_boredom':
-          medalIcon = '/lovable-uploads/aburrimiento.png';
-          break;
-        case 'prolonged_sadness':
-          medalIcon = '/lovable-uploads/tristeza.png';
-          break;
-        case 'ultimate_achievement':
-          medalIcon = '/lovable-uploads/Crack.png';
-          break;
-        case 'sixth_beer':
-          medalIcon = '/lovable-uploads/6abirra.png';
-          break;
-        case 'social_situation':
-          medalIcon = '/lovable-uploads/situación_social.png';
-          break;
-        case 'euphoria_moment':
-          medalIcon = '/lovable-uploads/euforia.png';
-          break;
-        case 'winter_movie':
-          medalIcon = '/lovable-uploads/Pelimanta.png';
-          break;
-        case 'writing_review':
-          medalIcon = '/lovable-uploads/Acabas_de_escribir.png';
-          break;
-        case 'bad_news':
-          medalIcon = '/lovable-uploads/mala_noticia.png';
-          break;
-        case 'work_break':
-          medalIcon = '/lovable-uploads/Descanso_trabajo.png';
-          break;
-        default:
-          medalIcon = '/lovable-uploads/Crack.png'; // Icono por defecto
-      }
-    }
-    
     const medal: EpicQuestMedal = {
       id: `epic_${quest.id}`,
       type: 'epic' as const,
       title: quest.title,
-      icon: medalIcon,
+      icon: quest.medalIcon, // Usar directamente el icono de la medalla
       description: quest.description || quest.title,
       reward: quest.reward || 'Hazaña épica completada',
       questId: quest.id,
@@ -300,10 +212,10 @@ export const debugEpicMedals = () => {
           case 'euphoria_moment':
             updated.medalIcon = '/lovable-uploads/euforia.png';
             break;
-          case 'winter_movie':
+          case 'pelimanta':
             updated.medalIcon = '/lovable-uploads/Pelimanta.png';
             break;
-          case 'writing_review':
+          case 'writing_effort':
             updated.medalIcon = '/lovable-uploads/Acabas_de_escribir.png';
             break;
           case 'bad_news':

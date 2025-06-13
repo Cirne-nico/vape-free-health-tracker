@@ -162,7 +162,7 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
               
               <div className="bg-amber-100 p-3 rounded-lg">
                 <p className="text-sm font-medium text-amber-800 mb-2">🏛️ El Desafío:</p>
-                <p className="text-amber-700 text-sm italic">"{nextWork.challenge}"</p>
+                <p className="text-amber-700 text-sm italic">{nextWork.challenge}</p>
               </div>
             </CardContent>
           </Card>
@@ -223,18 +223,18 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
                       <div className="space-y-3">
                         <div className="bg-amber-100 p-3 rounded-lg">
                           <p className="text-sm font-medium text-amber-800 mb-1">🏛️ El Desafío:</p>
-                          <p className="text-amber-700 text-sm italic">"{work.challenge}"</p>
+                          <p className="text-amber-700 text-sm italic">{work.challenge}</p>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <div className="bg-red-100 p-3 rounded-lg">
                             <p className="text-sm font-medium text-red-800 mb-1">😈 Nikotis susurró:</p>
-                            <p className="text-red-700 text-sm italic">"{work.nikotisInfluence}"</p>
+                            <p className="text-red-700 text-sm italic">{work.nikotisInfluence}</p>
                           </div>
                           
                           <div className="bg-green-100 p-3 rounded-lg">
                             <p className="text-sm font-medium text-green-800 mb-1">⚔️ Hércula respondió:</p>
-                            <p className="text-green-700 text-sm italic">"{work.herculaResponse}"</p>
+                            <p className="text-green-700 text-sm italic">{work.herculaResponse}</p>
                           </div>
                         </div>
                         

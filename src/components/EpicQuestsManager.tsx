@@ -409,7 +409,7 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>
@@ -605,9 +605,9 @@ ${completedWithMedals.length === 0 ? '❌ NO HAY MEDALLAS ÉPICAS PARA MOSTRAR' 
                         {quest.title}
                       </h3>
                       {quest.isCompleted && <Trophy className="w-4 h-4 text-yellow-500" />}
-                      {quest.isCompleted && quest.medalIcon && (
+                      {quest.isCompleted && quest.medalIcon &&
                         <Medal className="w-4 h-4 text-orange-500" title="Medalla épica obtenida" />
-                      )}
+                      }
                       {quest.id === 'ultimate_achievement' && (
                         <Crown className="w-4 h-4 text-purple-500" title="Medalla de Maestría Total" />
                       )}

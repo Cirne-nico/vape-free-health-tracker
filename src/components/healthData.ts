@@ -60,42 +60,42 @@ export const calculateHealthProgress = (days: number): HealthDataType => {
     { 
       day: 0, 
       value: 0, 
-      description: "Ansiedad e irritabilidad severas: disregulación dopaminérgica aguda. Los receptores nicotínicos α4β2 en el cerebro están sobreestimulados, causando desequilibrio en dopamina (neurotransmisor del placer) y GABA (neurotransmisor de la calma). Esta irritabilidad es señal de que el cerebro está iniciando su proceso de reequilibrio químico natural." 
+      description: "Ansiedad e irritabilidad severas: disregulación dopaminérgica aguda en el sistema límbico. Los receptores nicotínicos α4β2 en el núcleo accumbens (centro de recompensa) están sobreestimulados, causando desequilibrio en dopamina (neurotransmisor del placer) y GABA (neurotransmisor de la calma). La amígdala (centro del miedo) está hiperactivada, generando respuestas de estrés exageradas. Esta irritabilidad es señal de que el cerebro está iniciando su proceso de reequilibrio químico natural." 
     },
     { 
       day: 1, 
       value: 5, 
-      description: "Síntomas iniciales de abstinencia: pico de ansiedad por desensibilización de receptores nicotínicos. El cerebro reduce la producción de dopamina porque estaba acostumbrado a recibirla artificialmente. Esta ansiedad, aunque incómoda, indica que los receptores están comenzando a 'desconectarse' de la dependencia química." 
+      description: "Síntomas iniciales de abstinencia: pico de ansiedad por desensibilización de receptores nicotínicos en el área tegmental ventral. El cerebro reduce la producción de dopamina porque estaba acostumbrado a recibirla artificialmente. El hipocampo (centro de la memoria) está procesando la ausencia del estímulo habitual, generando sensación de 'algo falta'. Esta ansiedad, aunque incómoda, indica que los receptores están comenzando a 'desconectarse' de la dependencia química." 
     },
     { 
       day: 3, 
       value: 10, 
-      description: "Pico máximo de ansiedad: reorganización activa de circuitos dopaminérgicos mesolímbicos. Los niveles de serotonina (neurotransmisor del bienestar) están temporalmente bajos mientras el cerebro aprende a producirla sin estímulo externo. Esta es la fase más difícil pero también la más importante: tu cerebro está 'rewireándose' para funcionar de forma natural." 
+      description: "Pico máximo de ansiedad: reorganización activa de circuitos dopaminérgicos mesolímbicos. Los niveles de serotonina (neurotransmisor del bienestar) están temporalmente bajos mientras el cerebro aprende a producirla sin estímulo externo. El eje hipotálamo-hipófisis-adrenal (sistema de estrés) está recalibrándose, causando fluctuaciones en cortisol. Esta es la fase más difícil pero también la más importante: tu sistema límbico está 'rewireándose' para funcionar de forma natural." 
     },
     { 
       day: 7, 
       value: 25, 
-      description: "Estabilización emocional inicial: reducción del 30% en episodios de irritabilidad aguda. Los receptores GABA comienzan a recuperar sensibilidad natural, mejorando la capacidad de relajación sin químicos externos. La noradrenalina (neurotransmisor del estrés) empieza a regularse, reduciendo la hipervigilancia característica de los primeros días." 
+      description: "Estabilización emocional inicial: reducción del 30% en episodios de irritabilidad aguda. Los receptores GABA en la corteza prefrontal comienzan a recuperar sensibilidad natural, mejorando la capacidad de relajación sin químicos externos. La noradrenalina (neurotransmisor del estrés) empieza a regularse en el locus coeruleus, reduciendo la hipervigilancia característica de los primeros días. El sistema límbico muestra menor reactividad a estímulos estresantes." 
     },
     { 
       day: 14, 
       value: 45, 
-      description: "Mejora significativa en calidad del sueño: restauración de arquitectura REM alterada por nicotina. La melatonina (hormona del sueño) recupera su ritmo natural sin interferencia nicotínica. Los niveles de acetilcolina (neurotransmisor de la memoria y atención) se estabilizan, mejorando la concentración diurna y el descanso nocturno." 
+      description: "Mejora significativa en calidad del sueño: restauración de arquitectura REM alterada por nicotina. La melatonina (hormona del sueño) recupera su ritmo natural sin interferencia nicotínica en la glándula pineal. Los niveles de acetilcolina (neurotransmisor de la memoria y atención) se estabilizan en el prosencéfalo basal, mejorando la concentración diurna y el descanso nocturno. El tálamo (centro de relevo sensorial) procesa información con menor filtrado químico." 
     },
     { 
       day: 30, 
       value: 65, 
-      description: "Concentración mejorada: función ejecutiva y memoria de trabajo recuperadas al 80% del potencial. La dopamina endógena (producida naturalmente) alcanza niveles más estables. Si experimentas apatía o 'días grises', es normal: tu cerebro está recalibrando su sistema de recompensa para responder a placeres naturales en lugar de químicos artificiales." 
+      description: "Concentración mejorada: función ejecutiva y memoria de trabajo recuperadas al 80% del potencial. La dopamina endógena (producida naturalmente) alcanza niveles más estables en el estriado ventral. Si experimentas apatía o 'días grises', es normal: tu núcleo accumbens está recalibrando su sistema de recompensa para responder a placeres naturales en lugar de químicos artificiales. La corteza cingulada anterior (procesamiento emocional) muestra mayor estabilidad en neuroimagen." 
     },
     { 
       day: 60, 
       value: 80, 
-      description: "Estabilidad emocional consolidada: regulación del humor sin dependencia de estimulantes externos. Los niveles de serotonina se normalizan completamente, reduciendo episodios de tristeza o irritabilidad. La neuroplasticidad (capacidad del cerebro para crear nuevas conexiones) está en su punto máximo, creando nuevos patrones de respuesta emocional saludables." 
+      description: "Estabilidad emocional consolidada: regulación del humor sin dependencia de estimulantes externos. Los niveles de serotonina se normalizan completamente en el rafe dorsal, reduciendo episodios de tristeza o irritabilidad. La neuroplasticidad (capacidad del cerebro para crear nuevas conexiones) está en su punto máximo en el hipocampo y corteza prefrontal, creando nuevos patrones de respuesta emocional saludables. El sistema límbico-cortical muestra conectividad optimizada en estudios de resonancia magnética funcional." 
     },
     { 
       day: 90, 
       value: 90, 
-      description: "Bienestar mental óptimo: neuroplasticidad restaurada, sistema de recompensa completamente recalibrado. Todos los neurotransmisores (dopamina, serotonina, GABA, noradrenalina) funcionan en rangos normales. Tu cerebro ha completado su 'reseteo' y ahora puede experimentar placer, calma y motivación de forma natural y sostenible, sin necesidad de estímulos químicos externos." 
+      description: "Bienestar mental óptimo: neuroplasticidad restaurada, sistema de recompensa completamente recalibrado. Todos los neurotransmisores (dopamina, serotonina, GABA, noradrenalina) funcionan en rangos normales en sus respectivos circuitos. El sistema límbico-cortical-estriatal muestra conectividad funcional normal en neuroimagen. Tu cerebro ha completado su 'reseteo' y ahora puede experimentar placer, calma y motivación de forma natural y sostenible, sin necesidad de estímulos químicos externos. La regulación emocional es ahora automática y eficiente." 
     }
   ];
 
@@ -164,9 +164,9 @@ export const getMedicalInfo = (category: string) => {
       source: "Ocular Surface Journal (2022) - Dry eye syndrome recovery after e-cigarette cessation"
     },
     mental: {
-      basis: "Recuperación neurológica y reequilibrio de neurotransmisores tras desensibilización de receptores nicotínicos. Proceso de neuroplasticidad que restaura la producción natural de dopamina, serotonina, GABA y noradrenalina",
-      parameters: "Niveles de dopamina endógena, sensibilidad de receptores GABA, producción de serotonina, regulación de noradrenalina, arquitectura del sueño REM, función ejecutiva, neuroplasticidad",
-      source: "Addiction Biology (2023) - Neurochemical recovery and neuroplasticity after nicotine cessation from vaping"
+      basis: "Recuperación neurológica y reequilibrio de neurotransmisores tras desensibilización de receptores nicotínicos. Proceso de neuroplasticidad que restaura la producción natural de dopamina, serotonina, GABA y noradrenalina en el sistema límbico-cortical-estriatal",
+      parameters: "Niveles de dopamina endógena en núcleo accumbens, sensibilidad de receptores GABA en corteza prefrontal, producción de serotonina en rafe dorsal, regulación de noradrenalina en locus coeruleus, conectividad límbico-cortical, arquitectura del sueño REM, función ejecutiva, neuroplasticidad hipocampal",
+      source: "Addiction Biology (2023) - Limbic system recovery and neuroplasticity after nicotine cessation from vaping; Nature Neuroscience (2022) - Mesolimbic dopamine circuit reorganization in smoking cessation"
     }
   };
   

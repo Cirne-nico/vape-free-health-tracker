@@ -68,7 +68,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      <div className="max-w-4xl mx-auto">
+      {/* CONTENEDOR PRINCIPAL CON PADDING SEGURO */}
+      <div className="max-w-4xl mx-auto pt-safe-area">
         <div className="space-y-4 sm:space-y-6">
           <MainHeader 
             time={time}

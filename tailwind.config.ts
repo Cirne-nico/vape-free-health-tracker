@@ -89,6 +89,12 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			spacing: {
+				'safe-area': 'env(safe-area-inset-top)',
+			},
+			padding: {
+				'safe-area': 'env(safe-area-inset-top)',
 			}
 		}
 	},

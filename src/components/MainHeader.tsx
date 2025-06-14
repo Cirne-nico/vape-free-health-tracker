@@ -108,8 +108,8 @@ const MainHeader = ({
 
   return (
     <TooltipProvider>
-      {/* Header principal con imagen de fondo y optimizado para Android */}
-      <Card className="relative overflow-hidden text-white rounded-none mx-0">
+      {/* Header principal con imagen de fondo - CORREGIDO para evitar overflow */}
+      <Card className="relative overflow-hidden text-white rounded-lg mx-2 sm:mx-4 mt-2 sm:mt-4">
         {/* Imagen de fondo con blur */}
         <div 
           className="absolute inset-0"
@@ -126,7 +126,7 @@ const MainHeader = ({
         
         <CardContent className="relative p-4 sm:p-6 z-10">
           <div className="flex flex-col space-y-4">
-            {/* Logo y título de la app centrado para Android */}
+            {/* Logo y título de la app centrado */}
             <div className="text-center mb-3">
               <div className="flex items-center justify-center gap-3 mb-2">
                 <Logo size="sm" className="text-white flex-shrink-0" />
@@ -197,7 +197,7 @@ const MainHeader = ({
 
             {/* Botones de pánico y recaída */}
             <div className="flex justify-center gap-2 pt-2">
-              {/* Botón de pánico - NUEVO */}
+              {/* Botón de pánico */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button

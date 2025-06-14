@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { healthRecoveryData, HealthRecoveryPoint } from '@/data/healthRecoveryData';
+import { healthRecoveryData, HealthRecoveryPoint } from '@/data/healthRecovery';
 import { HealthCategoryKey } from '@/components/HealthCategories';
 
 export const useHealthData = (daysSince: number) => {
@@ -9,7 +9,6 @@ export const useHealthData = (daysSince: number) => {
       curr.day <= daysSince ? curr : prev
     , data[0]);
     
-    // Interpolación para días intermedios
     const nextPoint = data.find(point => point.day > daysSince);
     if (nextPoint && currentPoint) {
       const daysSincePoint = daysSince - currentPoint.day;

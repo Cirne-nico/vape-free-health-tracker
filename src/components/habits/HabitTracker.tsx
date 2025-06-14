@@ -96,17 +96,22 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     if (isConsolidated) return;
 
     const weeklyProgress = getWeeklyProgressData(data);
-    const recentWeeks = weeklyProgress.slice(-6); // Últimas 6 semanas
+    const recentWeeks = weeklyProgress.slice(-8); // Últimas 8 semanas para tener margen
 
     // Criterio especial para compromiso social: solo necesita 1 vez por semana
     if (habitId === 'social_commitment') {
-      const fourWeeksWith1Day = checkConsecutiveWeeks(recentWeeks.slice(-4), 1);
-      const sixWeeksWith1Day = recentWeeks.length >= 6 && 
-        recentWeeks.every(week => week.completedDays >= 1);
-      
-      if (fourWeeksWith1Day || sixWeeksWith1Day) {
-        consolidateHabit();
-        return;
+      // Buscar 8 semanas consecutivas con al menos 1 día completado
+      let consecutiveWeeks = 0;
+      for (let i = recentWeeks.length - 1; i >= 0; i--) {
+        if (recentWeeks[i].completedDays >= 1) {
+          consecutiveWeeks++;
+          if (consecutiveWeeks >= 8) {
+            consolidateHabit();
+            return;
+          }
+        } else {
+          break; // Rompe la racha
+        }
       }
     } else {
       // Criterio 1: 4 semanas seguidas con 5/7 días
@@ -114,7 +119,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       
       // Criterio 2: 6 semanas con 4/7 días
       const sixWeeksWith4Days = recentWeeks.length >= 6 && 
-        recentWeeks.every(week => week.completedDays >= 4);
+        recentWeeks.slice(-6).every(week => week.completedDays >= 4);
 
       if (fourWeeksWith5Days || sixWeeksWith4Days) {
         consolidateHabit();
@@ -186,6 +191,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     });
   };
 
+  // ✅ FUNCIÓN CORREGIDA: Cálculo especial para compromiso social
   const getCurrentWeekProgress = () => {
     const today = new Date();
     const currentWeek = getWeekNumber(today);
@@ -197,6 +203,12 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       entry.completed
     );
     
+    // ✅ CORRECCIÓN PRINCIPAL: Para compromiso social, 1 día = 100%
+    if (habitId === 'social_commitment') {
+      return weekData.length >= 1 ? 100 : 0;
+    }
+    
+    // Para otros hábitos, mantener el cálculo normal
     return (weekData.length / 7) * 100;
   };
 
@@ -226,16 +238,19 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     return streak;
   };
 
+  // ✅ FUNCIÓN CORREGIDA: Criterios específicos para cada hábito
   const getConsolidationCriteria = () => {
     if (habitId === 'social_commitment') {
       return {
-        description: 'Para compromiso social: 4 semanas seguidas con 1+ día O 6 semanas con 1+ día',
-        minDays: 1
+        description: 'Para compromiso social: 8 semanas consecutivas con 1+ día por semana',
+        minDays: 1,
+        weeksRequired: 8
       };
     }
     return {
       description: 'Para ejercicio y sueño: 4 semanas seguidas con 5+ días O 6 semanas con 4+ días',
-      minDays: habitId === 'daily_exercise' || habitId === 'strict_sleep_schedule' ? 5 : 4
+      minDays: habitId === 'daily_exercise' || habitId === 'strict_sleep_schedule' ? 5 : 4,
+      weeksRequired: 4
     };
   };
 
@@ -244,7 +259,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
   const weeklyProgress = getCurrentWeekProgress();
   const currentStreak = getStreak();
   const weeklyData = getWeeklyProgressData(trackingData);
-  const recentWeeks = weeklyData.slice(-6);
+  const recentWeeks = weeklyData.slice(-8); // Mostrar más semanas para compromiso social
   const criteria = getConsolidationCriteria();
 
   return (
@@ -271,7 +286,12 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                   <p className="font-semibold">Consolidación:</p>
                   <p className="text-sm">{criteria.description}</p>
                   <p className="font-semibold">Recuento semanal:</p>
-                  <p className="text-sm">Se reinicia cada 7 días, pero guarda el historial de semanas previas.</p>
+                  <p className="text-sm">
+                    {habitId === 'social_commitment' 
+                      ? 'Para compromiso social: 1 vez por semana = 100% completado'
+                      : 'Se reinicia cada 7 días, pero guarda el historial de semanas previas.'
+                    }
+                  </p>
                 </div>
               </TooltipContent>
             </Tooltip>
@@ -285,7 +305,9 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
             </div>
             <div className="bg-white p-2 rounded">
               <div className="text-lg font-bold text-green-600">{Math.round(weeklyProgress)}%</div>
-              <div className="text-xs text-gray-600">esta semana</div>
+              <div className="text-xs text-gray-600">
+                {habitId === 'social_commitment' ? 'esta semana' : 'esta semana'}
+              </div>
             </div>
             <div className="bg-white p-2 rounded">
               <div className="space-y-1">
@@ -320,6 +342,12 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
               <span>{Math.round(weeklyProgress)}%</span>
             </div>
             <Progress value={weeklyProgress} className="h-2" />
+            {/* ✅ INFORMACIÓN ADICIONAL para compromiso social */}
+            {habitId === 'social_commitment' && (
+              <div className="text-xs text-gray-600 text-center">
+                {weeklyProgress === 100 ? '✅ Semana completada (1+ día)' : '⏳ Necesitas 1 día esta semana'}
+              </div>
+            )}
           </div>
 
           {/* Progreso hacia consolidación */}
@@ -331,10 +359,10 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
               </h4>
               <div className="space-y-2">
                 <div className="text-xs text-gray-600">
-                  Últimas {recentWeeks.length} semanas:
+                  Últimas {Math.min(recentWeeks.length, criteria.weeksRequired)} semanas:
                 </div>
-                <div className="flex gap-1">
-                  {recentWeeks.map((week, index) => {
+                <div className="flex gap-1 flex-wrap">
+                  {recentWeeks.slice(-criteria.weeksRequired).map((week, index) => {
                     const isGood = habitId === 'social_commitment' ? 
                       week.completedDays >= 1 : 
                       week.completedDays >= criteria.minDays;

@@ -20,7 +20,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Como una hidra de humo que adopta mil formas: ansiedad, aburrimiento, placer, tristeza. Cada rostro vencido revela el siguiente.',
     reward: 'Reconocimiento de los patrones de autoengaño',
     nikotisInfluence: 'Nikotis susurra: "Solo necesitas una calada para sentirte mejor"',
-    herculaResponse: 'Hércula observa: "Cada forma del humo es una sombra que se desvanece al ser contemplada"'
+    herculaResponse: 'Hércula observa: "Las formas del humo cambian, pero el viento las dispersa igual"'
   },
   {
     id: 'routine_lion',
@@ -163,7 +163,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un altar donde Nikotis era dios protector. Hércula lo contempla por última vez antes de derribarlo.',
     reward: 'Cierre simbólico y emocional del ciclo adictivo',
     nikotisInfluence: 'Nikotis implora: "Fui tu refugio, tu consuelo, tu compañía"',
-    herculaResponse: 'Hércula contempla: "Los altares cambian, pero el que reza permanece"'
+    herculaResponse: 'Hércula contempla: "Los altares cambian, pero quien reza permanece"'
   },
   {
     id: 'flower_that_smells_again',

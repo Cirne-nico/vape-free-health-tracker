@@ -20,7 +20,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Como una hidra de humo que adopta mil formas: ansiedad, aburrimiento, placer, tristeza. Cada rostro vencido revela el siguiente.',
     reward: 'Reconocimiento de los patrones de autoengaño',
     nikotisInfluence: 'Nikotis susurra: "Solo necesitas una calada para sentirte mejor"',
-    herculaResponse: 'Hércula responde: "Cada forma del humo es una mentira que se desvanece al ser nombrada"'
+    herculaResponse: 'Hércula observa: "Cada forma del humo es una sombra que se desvanece al ser contemplada"'
   },
   {
     id: 'routine_lion',
@@ -31,7 +31,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Una bestia dormida al pie del escritorio, que ruge cada vez que se enciende el móvil o se acaba el café.',
     reward: 'Libertad de los automatismos condicionados',
     nikotisInfluence: 'Nikotis ruge: "Tu rutina está incompleta sin mí"',
-    herculaResponse: 'Hércula declara: "Creo nuevos rituales que nutren en lugar de drenar"'
+    herculaResponse: 'Hércula camina: "Los senderos se abren cuando dejamos de seguir las huellas de ayer"'
   },
   {
     id: 'empty_hands_cave',
@@ -42,7 +42,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Hércula atraviesa un túnel de eco y ansiedad donde sus manos tiemblan y buscan sin encontrar.',
     reward: 'Reconexión con la sensibilidad táctil natural',
     nikotisInfluence: 'Nikotis murmura: "Tus manos están vacías, como tu vida sin mí"',
-    herculaResponse: 'Hércula afirma: "Mis manos vacías están listas para crear, no para consumir"'
+    herculaResponse: 'Hércula palpa: "Las manos vacías pueden sentir el mundo entero"'
   },
   {
     id: 'first_monday_swamp',
@@ -53,7 +53,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Lodazal emocional y nervioso donde los pies se hunden y la voluntad se resbala.',
     reward: 'Demostración de que el trabajo es posible sin nicotina',
     nikotisInfluence: 'Nikotis grita: "No podrás concentrarte ni rendir sin mí"',
-    herculaResponse: 'Hércula persiste: "Mi mente es más clara sin la niebla química"'
+    herculaResponse: 'Hércula avanza: "Cada paso en el barro enseña dónde está el suelo firme"'
   },
   {
     id: 'insomnia_serpent',
@@ -64,7 +64,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Una serpiente silente que se enrolla en el pecho, susurrando que una calada devolverá el sueño.',
     reward: 'Recuperación del sueño natural y reparador',
     nikotisInfluence: 'Nikotis sisea: "Sin mí, nunca volverás a dormir en paz"',
-    herculaResponse: 'Hércula respira: "Mi cuerpo recuerda cómo descansar sin químicos"'
+    herculaResponse: 'Hércula yace: "El sueño llega cuando el cuerpo recuerda sus propios ritmos"'
   },
   {
     id: 'gray_days_mirror',
@@ -75,7 +75,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un espejo que distorsiona la luz del día: todo parece más aburrido, más lento, más inútil. Pero hay que atravesarlo.',
     reward: 'Comprensión de que la tristeza es temporal y adaptativa',
     nikotisInfluence: 'Nikotis refleja: "Mira qué gris es tu vida sin mí"',
-    herculaResponse: 'Hércula observa: "Los colores regresan cuando el espejo se limpia"'
+    herculaResponse: 'Hércula mira: "Los espejos empañados también se limpian con el tiempo"'
   },
   {
     id: 'celebrations_island',
@@ -86,7 +86,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un lugar lleno de música y brindis, donde Nikotis aparece disfrazada de nostalgia y alegría.',
     reward: 'Capacidad de celebrar sin necesidad de sustancias',
     nikotisInfluence: 'Nikotis canta: "Las fiestas no son lo mismo sin mí"',
-    herculaResponse: 'Hércula celebra: "Mi alegría es auténtica, no química"'
+    herculaResponse: 'Hércula baila: "La música suena igual, solo cambia quien la escucha"'
   },
   {
     id: 'anxiety_bridge',
@@ -97,7 +97,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un puente tambaleante entre dos acantilados emocionales. Solo se cruza si se respira hondo.',
     reward: 'Desarrollo de herramientas genuinas de autorregulación',
     nikotisInfluence: 'Nikotis amenaza: "Caerás al vacío sin mi apoyo"',
-    herculaResponse: 'Hércula camina: "Cada paso me enseña que puedo sostener mi propio peso"'
+    herculaResponse: 'Hércula cruza: "Los puentes se sostienen paso a paso, no de una vez"'
   },
   {
     id: 'judgment_crows',
@@ -108,7 +108,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Bandadas negras que graznan dudas sobre el hombro. El reto: no combatirlas, sino dejar que pasen.',
     reward: 'Liberación de la autocrítica destructiva',
     nikotisInfluence: 'Nikotis grazna: "Eres débil, siempre has sido débil"',
-    herculaResponse: 'Hércula escucha: "Los cuervos pasan, pero yo permanezco"'
+    herculaResponse: 'Hércula escucha: "Los cuervos vuelan, pero el cielo permanece"'
   },
   {
     id: 'comparison_mountain',
@@ -119,7 +119,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Una cima neblinosa donde la voz de Nikotis murmura: "Otros lo manejan, tú también podrías".',
     reward: 'Aceptación de que cada camino es único',
     nikotisInfluence: 'Nikotis compara: "Mira cómo otros disfrutan lo que tú te niegas"',
-    herculaResponse: 'Hércula asciende: "Mi cumbre es diferente, pero es mía"'
+    herculaResponse: 'Hércula asciende: "Cada montaña tiene su propia cumbre"'
   },
   {
     id: 'small_excuses_lake',
@@ -130,7 +130,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Cada gota del lago es una excusa racionalizada: "Hoy tuve un mal día", "lo controlo", "solo por esta vez".',
     reward: 'Claridad mental para reconocer las trampas cognitivas',
     nikotisInfluence: 'Nikotis gotea: "Solo una vez no hará daño"',
-    herculaResponse: 'Hércula se aleja: "Cada gota del lago es un océano de recaída"'
+    herculaResponse: 'Hércula bordea: "Las gotas forman lagos, los lagos forman océanos"'
   },
   {
     id: 'slow_time_guardian',
@@ -141,7 +141,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un gigante que arrastra los minutos y desafía a Hércula a mantener el rumbo incluso cuando nada parece mejorar.',
     reward: 'Paciencia y confianza en los procesos naturales',
     nikotisInfluence: 'Nikotis ralentiza: "Nada cambia, nada mejora sin mí"',
-    herculaResponse: 'Hércula persevera: "Los cambios profundos requieren tiempo profundo"'
+    herculaResponse: 'Hércula espera: "Los robles crecen despacio, pero duran siglos"'
   },
   {
     id: 'lost_lungs_treasure',
@@ -152,7 +152,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Una cámara sellada donde solo se entra cuando se deja de correr tras los beneficios y se camina por el proceso.',
     reward: 'Recuperación completa de la función respiratoria',
     nikotisInfluence: 'Nikotis oculta: "Nunca recuperarás lo que perdiste"',
-    herculaResponse: 'Hércula respira: "Mi tesoro se revela cuando dejo de buscarlo"'
+    herculaResponse: 'Hércula respira: "Los tesoros aparecen cuando dejamos de buscarlos"'
   },
   {
     id: 'old_altar_voices',
@@ -163,7 +163,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un altar donde Nikotis era dios protector. Hércula lo contempla por última vez antes de derribarlo.',
     reward: 'Cierre simbólico y emocional del ciclo adictivo',
     nikotisInfluence: 'Nikotis implora: "Fui tu refugio, tu consuelo, tu compañía"',
-    herculaResponse: 'Hércula despide: "Fuiste mi prisión disfrazada de refugio"'
+    herculaResponse: 'Hércula contempla: "Los altares cambian, pero el que reza permanece"'
   },
   {
     id: 'flower_that_smells_again',
@@ -174,7 +174,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un momento suave, sin heroísmo ni lucha. Solo gozo: la señal de que ha empezado una nueva mitología.',
     reward: 'Reconexión plena con los sentidos y placeres naturales',
     nikotisInfluence: 'Nikotis se desvanece: "Ya no me necesitas..."',
-    herculaResponse: 'Hércula florece: "Ahora puedo oler la vida sin filtros"'
+    herculaResponse: 'Hércula huele: "Las flores siempre estuvieron ahí, esperando"'
   },
   {
     id: 'sweet_memory_eclipse',
@@ -185,7 +185,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'El cielo se oscurece cuando evocamos ciertos momentos. Hércula aprende a recordarlos sin recrearlos.',
     reward: 'Integración saludable de la historia personal',
     nikotisInfluence: 'Nikotis nostálgica: "Recuerda los buenos momentos que compartimos"',
-    herculaResponse: 'Hércula integra: "Los recuerdos son míos, pero el presente también"'
+    herculaResponse: 'Hércula recuerda: "Los eclipses pasan, pero la luna sigue ahí"'
   },
   {
     id: 'temptations_market',
@@ -196,7 +196,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un mercado ruidoso donde los colores y sabores prometen felicidad instantánea. Pero son solo humo y gasto.',
     reward: 'Inmunidad a los estímulos comerciales de la industria',
     nikotisInfluence: 'Nikotis vende: "Nuevos sabores, nuevas experiencias te esperan"',
-    herculaResponse: 'Hércula pasa de largo: "No compro lo que ya no necesito"'
+    herculaResponse: 'Hércula camina: "Los mercados gritan, pero el bolsillo decide"'
   },
   {
     id: 'social_silence_bell',
@@ -207,7 +207,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Una campana de cristal aísla a Hércula del grupo. Su tarea: no romperla, sino hacerla transparente.',
     reward: 'Confianza social sin necesidad de conformidad',
     nikotisInfluence: 'Nikotis aísla: "Estás sola, diferente, excluida"',
-    herculaResponse: 'Hércula transparenta: "Mi diferencia es mi fortaleza"'
+    herculaResponse: 'Hércula convive: "El cristal separa, pero también deja ver"'
   },
   {
     id: 'past_relapses_wall',
@@ -218,7 +218,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Un muro tallado con las fechas de cada caída. Hércula lo atraviesa sin mirar atrás.',
     reward: 'Liberación del peso de los errores pasados',
     nikotisInfluence: 'Nikotis recuerda: "Ya fallaste antes, fallarás de nuevo"',
-    herculaResponse: 'Hércula atraviesa: "Cada caída me enseñó a levantarme mejor"'
+    herculaResponse: 'Hércula pasa: "Los muros se construyeron para ser atravesados"'
   },
   {
     id: 'impatience_rain',
@@ -229,7 +229,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Lluvia persistente, sin tormenta, sin sol. Se camina mojado, pero se camina.',
     reward: 'Tolerancia a la incomodidad y paciencia con los procesos',
     nikotisInfluence: 'Nikotis empapa: "Esta lluvia nunca parará sin mí"',
-    herculaResponse: 'Hércula camina: "La lluvia también pasa, como todo"'
+    herculaResponse: 'Hércula se moja: "La lluvia moja a todos por igual"'
   },
   {
     id: 'autonomy_tower',
@@ -240,7 +240,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Piso a piso, Hércula asciende. Cada paso es una práctica nueva: música, paseo, abrazo, escritura.',
     reward: 'Sistema completo de autocuidado genuino',
     nikotisInfluence: 'Nikotis desde abajo: "Nunca llegarás a la cima sin mí"',
-    herculaResponse: 'Hércula construye: "Cada piso es una nueva forma de cuidarme"'
+    herculaResponse: 'Hércula construye: "Las torres se levantan piedra a piedra"'
   },
   {
     id: 'self_deception_labyrinth',
@@ -251,7 +251,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Pasillos que giran sobre sí mismos: "No es tan malo", "la vida es corta". Salir implica nombrar la trampa.',
     reward: 'Claridad mental total y honestidad consigo misma',
     nikotisInfluence: 'Nikotis confunde: "Solo una vez, para celebrar el año"',
-    herculaResponse: 'Hércula encuentra la salida: "La verdad es el único camino que no gira"'
+    herculaResponse: 'Hércula encuentra: "Los laberintos tienen salida, solo hay que caminar"'
   }
 ];
 

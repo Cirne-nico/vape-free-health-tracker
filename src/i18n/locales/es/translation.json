@@ -36,7 +36,7 @@
     "emotivity": "Emotividad",
     "health": "Salud",
     "epopeya": "Epopeya",
-    "gestas": "Gestas",
+    "gestas": "La épica",
     "poderio": "Poderío",
     "donate": "Donar",
     "settings": "Ajustes"
@@ -54,7 +54,8 @@
     "selectLimit": "Selecciona hasta 3 emociones que mejor describan cómo te sientes",
     "maxEmotions": "Solo puedes seleccionar máximo 3 emociones",
     "success": "Estado emocional registrado",
-    "selectAtLeast": "Selecciona al menos una emoción"
+    "selectAtLeast": "Selecciona al menos una emoción",
+    "minDaysRequired": "Requiere al menos {{count}} días de registros emocionales"
   },
   "socialStats": {
     "title": "Datos Epidemiológicos",
@@ -419,5 +420,21 @@
     "en": "English",
     "ca": "Català",
     "el": "Ελληνικά"
+  },
+  "setup": {
+    "nameQuestion": "¿Cómo te gustaría que te llamemos?",
+    "namePlaceholder": "Tu nombre o apodo",
+    "savingsQuestion": "Antes de comenzar, ¿te gustaría configurar el cálculo de ahorros personalizado?",
+    "configureCosts": "Configurar mis gastos",
+    "useDefaults": "Usar valores por defecto",
+    "lastVapeQuestion": "¿Cuándo fue tu último vapeo?",
+    "startProcess": "Iniciar el proceso"
+  },
+  "dayContent": {
+    "evolution": "📋 Evolución ({{period}}):",
+    "advice": "💡 Consejo:",
+    "reminder": "🔔 Recordatorio:",
+    "intrusiveThought": "🧠 Pensamiento intrusivo:",
+    "counterResponse": "💪 Contrarréplica:"
   }
 }

@@ -54,7 +54,8 @@
     "selectLimit": "Selecciona fins a 3 emocions que millor descriguin com et sents",
     "maxEmotions": "Només pots seleccionar màxim 3 emocions",
     "success": "Estat emocional registrat",
-    "selectAtLeast": "Selecciona almenys una emoció"
+    "selectAtLeast": "Selecciona almenys una emoció",
+    "minDaysRequired": "Requereix almenys {{count}} dies de registres emocionals"
   },
   "socialStats": {
     "title": "Dades Epidemiològiques",
@@ -419,5 +420,21 @@
     "en": "English",
     "ca": "Català",
     "el": "Ελληνικά"
+  },
+  "setup": {
+    "nameQuestion": "Com t'agradaria que et diguéssim?",
+    "namePlaceholder": "El teu nom o sobrenom",
+    "savingsQuestion": "Abans de començar, voldries configurar el càlcul d'estalvis personalitzat?",
+    "configureCosts": "Configurar les meves despeses",
+    "useDefaults": "Utilitzar valors per defecte",
+    "lastVapeQuestion": "Quan va ser el teu últim vàping?",
+    "startProcess": "Iniciar el procés"
+  },
+  "dayContent": {
+    "evolution": "📋 Evolució ({{period}}):",
+    "advice": "💡 Consell:",
+    "reminder": "🔔 Recordatori:",
+    "intrusiveThought": "🧠 Pensament intrusiu:",
+    "counterResponse": "💪 Contrarèplica:"
   }
 }

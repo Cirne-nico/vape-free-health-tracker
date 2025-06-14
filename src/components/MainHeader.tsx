@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
-import { Clock, TrendingUp, AlertTriangle, Trophy, User, Zap } from 'lucide-react';
+import { Clock, TrendingUp, AlertTriangle, Trophy, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 import PanicButton from './PanicButton';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface MainHeaderProps {
   time: {
@@ -103,6 +104,11 @@ const MainHeader = ({
       
       <CardContent className="relative p-2 sm:p-3 z-10">
         <div className="flex flex-col space-y-1 sm:space-y-2">
+          {/* Language switcher in top right corner */}
+          <div className="absolute top-2 right-2 z-20">
+            <LanguageSwitcher />
+          </div>
+          
           {/* Logo y título */}
           <div className="text-center mb-1">
             <div className="flex items-center justify-center gap-2 mb-1">

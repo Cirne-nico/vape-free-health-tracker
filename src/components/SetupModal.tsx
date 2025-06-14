@@ -3,8 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar, CalendarIcon, ChevronRight, User, Globe } from 'lucide-react';
+import { ChevronRight, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 import ConsumptionSurvey from './ConsumptionSurvey';
@@ -58,6 +57,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
   const changeLanguage = (lang: string) => {
     setLanguage(lang);
     i18n.changeLanguage(lang);
+    document.documentElement.dir = lang === 'el' ? 'rtl' : 'ltr';
   };
 
   if (showSurvey) {
@@ -78,7 +78,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
         <div className="absolute left-0 top-0 w-full h-full bg-[url('/dot-grid.png')] bg-repeat opacity-50 animate-pulse"></div>
       </div>
       
-      <div className="relative max-w-md w-full space-y-8">
+      <div className="relative max-w-md w-full space-y-8 overflow-y-auto max-h-[90vh]">
         <div className="text-center space-y-6">
           <Logo className="w-16 h-16 mx-auto" />
           
@@ -134,14 +134,14 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
               <div className="space-y-2">
                 <Label htmlFor="user-name" className="text-white flex items-center gap-2">
                   <User className="w-4 h-4" />
-                  ¿Cómo te gustaría que te llamemos?
+                  {t('setup.nameQuestion')}
                 </Label>
                 <Input
                   id="user-name"
                   type="text"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  placeholder="Tu nombre o apodo"
+                  placeholder={t('setup.namePlaceholder')}
                   className="bg-white/10 border-white/30 text-white placeholder:text-white/60"
                   required
                 />
@@ -149,7 +149,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
 
               <div className="text-center">
                 <p className="text-blue-100 mb-4">
-                  Antes de comenzar, ¿te gustaría configurar el cálculo de ahorros personalizado?
+                  {t('setup.savingsQuestion')}
                 </p>
                 
                 <div className="space-y-3">
@@ -157,7 +157,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
                     onClick={() => setShowSurvey(true)}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                    Configurar mis gastos
+                    {t('setup.configureCosts')}
                     <ChevronRight className="w-4 h-4 ml-2" />
                   </Button>
                   
@@ -166,7 +166,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
                     onClick={handleSkipSurvey}
                     className="w-full bg-white/10 border-white/30 text-white hover:bg-white/20"
                   >
-                    Usar valores por defecto
+                    {t('setup.useDefaults')}
                   </Button>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
               <div className="space-y-4 pt-4 border-t border-white/20">
                 <div className="space-y-2">
                   <Label htmlFor="quit-date" className="text-white">
-                    ¿Cuándo fue tu último vapeo?
+                    {t('setup.lastVapeQuestion')}
                   </Label>
                   <div className="space-y-2">
                     <Input
@@ -200,7 +200,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
                   disabled={!date || !time || !userName.trim()}
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                 >
-                  Iniciar el proceso
+                  {t('setup.startProcess')}
                 </Button>
               </div>
             </CardContent>

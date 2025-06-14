@@ -54,7 +54,8 @@
     "selectLimit": "Select up to 3 emotions that best describe how you feel",
     "maxEmotions": "You can only select a maximum of 3 emotions",
     "success": "Emotional state recorded",
-    "selectAtLeast": "Select at least one emotion"
+    "selectAtLeast": "Select at least one emotion",
+    "minDaysRequired": "Requires at least {{count}} days of emotional records"
   },
   "socialStats": {
     "title": "Epidemiological Data",
@@ -419,5 +420,21 @@
     "en": "English",
     "ca": "Català",
     "el": "Ελληνικά"
+  },
+  "setup": {
+    "nameQuestion": "What would you like us to call you?",
+    "namePlaceholder": "Your name or nickname",
+    "savingsQuestion": "Before starting, would you like to set up personalized savings calculation?",
+    "configureCosts": "Configure my expenses",
+    "useDefaults": "Use default values",
+    "lastVapeQuestion": "When was your last vape?",
+    "startProcess": "Start the process"
+  },
+  "dayContent": {
+    "evolution": "📋 Evolution ({{period}}):",
+    "advice": "💡 Advice:",
+    "reminder": "🔔 Reminder:",
+    "intrusiveThought": "🧠 Intrusive thought:",
+    "counterResponse": "💪 Counter-response:"
   }
 }

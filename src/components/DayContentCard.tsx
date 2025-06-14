@@ -1,4 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import contenidosData from '@/data/contenidos.json';
 
 interface DayContentCardProps {
@@ -6,6 +7,8 @@ interface DayContentCardProps {
 }
 
 const DayContentCard = ({ startDate }: DayContentCardProps) => {
+  const { t } = useTranslation();
+  
   const getCurrentDayContent = () => {
     if (!startDate) return null;
     
@@ -243,33 +246,32 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
         <div className="space-y-3">
           {/* COLORES SIMPLIFICADOS - Solo azul y gris */}
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-            <p className="text-sm font-medium text-blue-700 mb-1">📋 Evolución ({validityPeriod}):</p>
+            <p className="text-sm font-medium text-blue-700 mb-1">{t('dayContent.evolution', { period: validityPeriod })}:</p>
             <p className="text-gray-700">{cleanDayReferences(dayContent.sintesis)}</p>
           </div>
           
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-            <p className="text-sm font-medium text-blue-700 mb-1">💡 Consejo:</p>
+            <p className="text-sm font-medium text-blue-700 mb-1">{t('dayContent.advice')}:</p>
             <p className="text-gray-700">{cleanDayReferences(dayContent.consejo)}</p>
           </div>
           
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-            <p className="text-sm font-medium text-blue-700 mb-1">🔔 Recordatorio:</p>
+            <p className="text-sm font-medium text-blue-700 mb-1">{t('dayContent.reminder')}:</p>
             <p className="text-gray-700">{cleanDayReferences(dayContent.recordatorio)}</p>
           </div>
           
           {/* Mantener rojo para pensamiento intrusivo y verde para contrarréplica */}
           <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-            <p className="text-sm font-medium text-gray-700 mb-3">💭 Gestión de pensamientos intrusivos:</p>
+            <p className="text-sm font-medium text-gray-700 mb-3">{t('dayContent.intrusiveThought')}:</p>
             
             {/* Pensamiento intrusivo en rojo */}
             <div className="bg-red-100 p-2 rounded mb-2 border-l-4 border-red-400">
-              <p className="text-sm font-medium text-red-700 mb-1">🧠 Pensamiento intrusivo:</p>
               <p className="text-red-800 italic">"{intrusiveThought}"</p>
             </div>
             
             {/* Contrarréplica en verde */}
             <div className="bg-green-100 p-2 rounded border-l-4 border-green-400">
-              <p className="text-sm font-medium text-green-700 mb-1">💪 Contrarréplica:</p>
+              <p className="text-sm font-medium text-green-700 mb-1">{t('dayContent.counterResponse')}:</p>
               <p className="text-green-800 font-medium italic">"{dayContent.contrareplica}"</p>
             </div>
           </div>

@@ -10,15 +10,15 @@ interface VigorMedalContentProps {
 
 export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProps) => {
   const [isRevealed, setIsRevealed] = useState(false);
-  const { getCurrentHealthValue } = useHealthData();
+  const { getCurrentValue } = useHealthData(medal.days);
 
   const getHealthDataForDay = (days: number) => {
     return {
-      respiratory: getCurrentHealthValue('respiratory', days),
-      cardiovascular: getCurrentHealthValue('cardiovascular', days),
-      liver: getCurrentHealthValue('liver', days),
-      skinEyes: getCurrentHealthValue('skinEyes', days),
-      mental: getCurrentHealthValue('mental', days)
+      respiratory: getCurrentValue('respiratory'),
+      cardiovascular: getCurrentValue('cardiovascular'),
+      liver: getCurrentValue('liver'),
+      skinEyes: getCurrentValue('skinEyes'),
+      mental: getCurrentValue('mental')
     };
   };
 

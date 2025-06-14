@@ -15,7 +15,7 @@ const QuestProgress = ({ quest, onAddCheck, onRemoveCheck }: QuestProgressProps)
         <span className="text-sm font-medium">
           Progreso: {quest.currentChecks}/{quest.requiredChecks}
         </span>
-        <div className="flex gap-1">
+        <div className="flex gap-1 flex-wrap justify-end">
           {Array.from({ length: quest.requiredChecks }, (_, i) => (
             <button
               key={i}

@@ -43,10 +43,10 @@ const CollapsibleQuestGroup = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="w-full p-4 justify-between hover:bg-gray-50 rounded-lg"
         >
-          <div className="flex items-center gap-3">
-            <span className="text-xl">{categoryInfo.icon}</span>
-            <div className="text-left">
-              <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <span className="text-xl flex-shrink-0">{categoryInfo.icon}</span>
+            <div className="text-left min-w-0 flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-lg font-semibold text-gray-800">
                   {categoryInfo.title}
                 </h3>
@@ -57,14 +57,14 @@ const CollapsibleQuestGroup = ({
                   </div>
                 )}
               </div>
-              <p className="text-sm text-gray-600">{categoryInfo.description}</p>
+              <p className="text-sm text-gray-600 truncate">{categoryInfo.description}</p>
               <p className="text-xs text-gray-500 mt-1">
                 {completedCount}/{quests.length} gestas completadas
               </p>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-shrink-0 ml-2">
             {isExpanded ? (
               <ChevronUp className="w-5 h-5 text-gray-500" />
             ) : (

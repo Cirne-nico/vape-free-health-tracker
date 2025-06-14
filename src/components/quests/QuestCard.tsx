@@ -21,32 +21,34 @@ const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCar
     <Card className={`${quest.isCompleted ? 'bg-green-50 border-green-200' : 'bg-white'} ${isUltimateQuest ? 'border-2 border-purple-400 bg-gradient-to-r from-purple-50 to-pink-50' : ''}`}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-3 flex-1">
-            <div className="text-2xl">{quest.icon}</div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className={`font-bold ${quest.isCompleted ? 'text-green-700' : 'text-gray-800'} ${isUltimateQuest ? 'text-purple-700' : ''}`}>
+          <div className="flex items-start gap-3 flex-1 min-w-0">
+            <div className="text-2xl flex-shrink-0">{quest.icon}</div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <h3 className={`font-bold ${quest.isCompleted ? 'text-green-700' : 'text-gray-800'} ${isUltimateQuest ? 'text-purple-700' : ''} truncate`}>
                   {quest.title}
                 </h3>
-                {quest.isCompleted && <Trophy className="w-4 h-4 text-yellow-500" />}
+                {quest.isCompleted && <Trophy className="w-4 h-4 text-yellow-500 flex-shrink-0" />}
                 {quest.isCompleted && quest.medalIcon && (
-                  <Medal className="w-4 h-4 text-orange-500" title="Medalla épica obtenida" />
+                  <Medal className="w-4 h-4 text-orange-500 flex-shrink-0" title="Medalla épica obtenida" />
                 )}
                 {isUltimateQuest && (
-                  <Crown className="w-4 h-4 text-purple-500" title="Medalla de Maestría Total" />
+                  <Crown className="w-4 h-4 text-purple-500 flex-shrink-0" title="Medalla de Maestría Total" />
                 )}
               </div>
-              <p className="text-sm text-gray-600">{quest.description}</p>
-              {quest.isCustom && (
-                <Badge variant="outline" className="text-xs mt-2">
-                  Personalizada
-                </Badge>
-              )}
-              {isUltimateQuest && (
-                <Badge className="bg-purple-500 text-white text-xs mt-2">
-                  Se desbloquea automáticamente
-                </Badge>
-              )}
+              <p className="text-sm text-gray-600 line-clamp-2">{quest.description}</p>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {quest.isCustom && (
+                  <Badge variant="outline" className="text-xs">
+                    Personalizada
+                  </Badge>
+                )}
+                {isUltimateQuest && (
+                  <Badge className="bg-purple-500 text-white text-xs">
+                    Se desbloquea automáticamente
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
           
@@ -56,7 +58,7 @@ const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCar
               variant="outline"
               size="sm"
               onClick={() => onDeleteQuest(quest.id)}
-              className="text-red-600 hover:text-red-700 border-red-300 hover:bg-red-50 flex items-center gap-1 ml-2"
+              className="text-red-600 hover:text-red-700 border-red-300 hover:bg-red-50 flex items-center gap-1 ml-2 flex-shrink-0"
               title="Esta gesta no me representa - Eliminar"
             >
               <Trash2 className="w-3 h-3" />

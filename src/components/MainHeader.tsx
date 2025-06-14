@@ -108,7 +108,7 @@ const MainHeader = ({
 
   return (
     <TooltipProvider>
-      {/* Header principal - COMPLETAMENTE CORREGIDO */}
+      {/* Header principal - ALTURA REDUCIDA AÚN MÁS */}
       <Card className="relative overflow-hidden text-white rounded-lg">
         {/* Imagen de fondo con blur */}
         <div 
@@ -124,14 +124,14 @@ const MainHeader = ({
         {/* Overlay para mejorar legibilidad */}
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
         
-        {/* CONTENIDO PRINCIPAL - ALTURA REDUCIDA */}
-        <CardContent className="relative p-3 sm:p-4 z-10">
-          <div className="flex flex-col space-y-2 sm:space-y-3">
-            {/* Logo y título de la app - MÁS COMPACTO */}
-            <div className="text-center mb-2">
+        {/* CONTENIDO PRINCIPAL - ALTURA MÍNIMA */}
+        <CardContent className="relative p-2 sm:p-3 z-10">
+          <div className="flex flex-col space-y-1 sm:space-y-2">
+            {/* Logo y título de la app - ULTRA COMPACTO */}
+            <div className="text-center mb-1">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Logo size="sm" className="text-white flex-shrink-0" />
-                <h1 className="text-lg sm:text-xl font-bold text-white leading-none tracking-wide">
+                <h1 className="text-base sm:text-lg font-bold text-white leading-none tracking-wide">
                   UMBRAL
                 </h1>
               </div>
@@ -140,8 +140,8 @@ const MainHeader = ({
               </p>
             </div>
 
-            {/* Título principal - MÁS COMPACTO */}
-            <div className="text-center space-y-1">
+            {/* Título principal - ULTRA COMPACTO */}
+            <div className="text-center">
               <h2 className="text-sm sm:text-base font-bold text-white">
                 Ya sin nicotina, el cuerpo escucha:
               </h2>
@@ -150,14 +150,14 @@ const MainHeader = ({
               </h3>
             </div>
 
-            {/* Tiempo transcurrido - MÁS COMPACTO */}
-            <div className="text-center py-1">
-              <h4 className="text-xl sm:text-2xl font-bold mb-1">
+            {/* Tiempo transcurrido - COMPACTO */}
+            <div className="text-center">
+              <h4 className="text-lg sm:text-xl font-bold">
                 {time.days > 0 ? `${time.days} días sin vapear` : `${time.hours}h ${time.minutes}m sin vapear`}
               </h4>
             </div>
 
-            {/* Progreso visual - MÁS COMPACTO */}
+            {/* Progreso visual - COMPACTO */}
             <div className="space-y-1">
               <div className="flex justify-between text-xs">
                 <span>Progreso hacia {progressInfo.targetLabel}</span>
@@ -171,25 +171,25 @@ const MainHeader = ({
               )}
             </div>
 
-            {/* Estadísticas centrales - MÁS COMPACTAS */}
+            {/* Estadísticas centrales - ICONOS AL LADO DE LOS NÚMEROS */}
             <div className="grid grid-cols-2 gap-2 text-center">
               <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
-                <div className="flex items-center justify-center mb-1">
-                  <Clock className="w-3 h-3 mr-1" />
+                <div className="flex items-center justify-center gap-1">
+                  <Clock className="w-4 h-4 text-blue-300" />
+                  <p className="text-base sm:text-lg font-bold">{time.totalHours}</p>
                 </div>
-                <p className="text-base sm:text-lg font-bold">{time.totalHours}</p>
                 <p className="text-green-100 text-xs">horas totales</p>
               </div>
               <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
-                <div className="flex items-center justify-center mb-1">
-                  <Trophy className="w-3 h-3 mr-1" />
+                <div className="flex items-center justify-center gap-1">
+                  <Trophy className="w-4 h-4 text-yellow-300" />
+                  <p className="text-base sm:text-lg font-bold">{totalMedals}</p>
                 </div>
-                <p className="text-base sm:text-lg font-bold">{totalMedals}</p>
                 <p className="text-green-100 text-xs">medallas</p>
               </div>
             </div>
 
-            {/* Cita crítica - MÁS COMPACTA */}
+            {/* Cita crítica - COMPACTA */}
             <div className="text-center">
               <p className="text-xs text-green-100 italic font-light leading-relaxed">
                 {getCriticalQuote()}
@@ -197,8 +197,8 @@ const MainHeader = ({
             </div>
 
             {/* BOTONES SIMÉTRICOS Y CENTRADOS - MISMO TAMAÑO */}
-            <div className="flex justify-center gap-3 pt-1">
-              {/* Botón de pánico - MISMO TAMAÑO QUE RECAÍDA */}
+            <div className="flex justify-center gap-3">
+              {/* Botón de pánico */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -219,7 +219,7 @@ const MainHeader = ({
                 </TooltipContent>
               </Tooltip>
 
-              {/* Botón de recaída - MISMO TAMAÑO QUE PÁNICO */}
+              {/* Botón de recaída */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button

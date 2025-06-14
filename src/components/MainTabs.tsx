@@ -66,7 +66,7 @@ const MainTabs = ({
             className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
             <Scroll className="w-4 h-4" />
-            <span>La épica</span>
+            <span>Gestas</span>
           </TabsTrigger>
           
           <TabsTrigger 
@@ -140,7 +140,7 @@ const MainTabs = ({
 
         <TabsContent value="settings" className="mt-4 sm:mt-6">
           <SettingsPanel />
-        </TabsContent>
+        </Tabs>
       </Tabs>
     </div>
   );

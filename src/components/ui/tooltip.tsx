@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
@@ -6,7 +5,9 @@ import { cn } from "@/lib/utils"
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+const Tooltip = ({ delayDuration = 100, ...props }: React.ComponentProps<typeof TooltipPrimitive.Root>) => (
+  <TooltipPrimitive.Root delayDuration={delayDuration} {...props} />
+)
 
 const TooltipTrigger = TooltipPrimitive.Trigger
 
@@ -26,4 +27,45 @@ const TooltipContent = React.forwardRef<
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+// Componente de tooltip adaptado para móvil
+const MobileTooltip = ({ children, content, ...props }: { 
+  children: React.ReactNode; 
+  content: React.ReactNode;
+  [key: string]: any;
+}) => {
+  const [isTouch, setIsTouch] = React.useState(false);
+
+  React.useEffect(() => {
+    // Detectar si es un dispositivo táctil
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsTouch(isTouchDevice);
+  }, []);
+
+  if (isTouch) {
+    // En dispositivos táctiles, mostrar el tooltip con un clic largo
+    return (
+      <Tooltip {...props}>
+        <TooltipTrigger asChild>
+          {children}
+        </TooltipTrigger>
+        <TooltipContent side="top" align="center" className="touch-none">
+          {content}
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
+  // En dispositivos no táctiles, comportamiento normal
+  return (
+    <Tooltip {...props}>
+      <TooltipTrigger asChild>
+        {children}
+      </TooltipTrigger>
+      <TooltipContent>
+        {content}
+      </TooltipContent>
+    </Tooltip>
+  );
+};
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, MobileTooltip }

@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Info } from 'lucide-react';
+import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { HealthCategoryKey, healthCategories } from '@/components/HealthCategories';
-import { scientificReferences } from '@/data/healthRecoveryData';
+import { scientificReferences } from '@/data/healthRecovery';
 
 interface HealthProgressCardProps {
   category: HealthCategoryKey;
@@ -74,7 +74,14 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
         {/* Información científica */}
         <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
           <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+            <TooltipHelper
+              content={
+                <div className="space-y-1">
+                  <p className="font-semibold">Fuente científica</p>
+                  <p className="text-sm">Datos basados en estudios médicos recientes</p>
+                </div>
+              }
+            />
             <div>
               <p className="text-xs text-blue-600 italic">{reference}</p>
             </div>

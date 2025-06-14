@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Brain, AlertTriangle, TrendingUp, Clock, Target } from 'lucide-react';
 
 interface PredictiveAnalysisProps {
@@ -182,6 +183,15 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
         <CardTitle className="flex items-center gap-2">
           <Brain className="w-5 h-5 text-purple-600" />
           Análisis Predictivo
+          <TooltipHelper
+            content={
+              <div className="space-y-2">
+                <p className="font-semibold">¿Qué es esto?</p>
+                <p className="text-sm">Un análisis basado en tus patrones emocionales que predice posibles desafíos y oportunidades en tu proceso.</p>
+                <p className="text-sm">Todas las predicciones son orientativas y mejoran con más datos.</p>
+              </div>
+            }
+          />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">

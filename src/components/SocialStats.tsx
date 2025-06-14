@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Users, TrendingUp } from 'lucide-react';
 
 interface SocialStatsProps {
@@ -37,6 +38,15 @@ const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-4 h-4 text-green-600" />
             <span className="text-sm font-medium text-gray-700">Tasa de Éxito a Largo Plazo</span>
+            <TooltipHelper
+              content={
+                <div className="space-y-1">
+                  <p className="font-semibold">¿Qué significa esto?</p>
+                  <p className="text-sm">Este porcentaje representa la proporción de personas que, habiendo llegado al mismo punto que tú, logran mantener la abstinencia permanente.</p>
+                  <p className="text-sm">Basado en estudios longitudinales sobre cesación de nicotina.</p>
+                </div>
+              }
+            />
           </div>
           <p className="text-3xl font-bold text-green-600">{successRate}%</p>
           <p className="text-sm text-gray-600 mt-2">

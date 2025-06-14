@@ -5,7 +5,7 @@ import { EpicQuest } from '@/data/epicQuests';
 import { useQuestManager } from '@/hooks/useQuestManager';
 import QuestStats from './quests/QuestStats';
 import QuestForm from './quests/QuestForm';
-import QuestCard from './quests/QuestCard';
+import CollapsibleQuestGroup from './quests/CollapsibleQuestGroup';
 
 const EpicQuestsManager = () => {
   const { quests, saveQuests } = useQuestManager();
@@ -119,38 +119,6 @@ const EpicQuestsManager = () => {
     ultimate: { title: 'Maestría Total', icon: '💥', description: 'Medalla final que se desbloquea automáticamente' }
   };
 
-  const QuestGroup = ({ category, quests: categoryQuests }: { category: keyof typeof categoryInfo; quests: EpicQuest[] }) => {
-    if (categoryQuests.length === 0) return null;
-    
-    const info = categoryInfo[category];
-    
-    return (
-      <Card className="mb-6">
-        <CardContent className="p-4">
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold flex items-center gap-2 text-gray-800">
-              <span className="text-xl">{info.icon}</span>
-              {info.title}
-            </h3>
-            <p className="text-sm text-gray-600 mt-1">{info.description}</p>
-          </div>
-          
-          <div className="space-y-4">
-            {categoryQuests.map((quest) => (
-              <QuestCard
-                key={quest.id}
-                quest={quest}
-                onAddCheck={addCheck}
-                onRemoveCheck={removeCheck}
-                onDeleteQuest={deleteQuest}
-              />
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    );
-  };
-
   return (
     <div className="space-y-6">
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
@@ -208,11 +176,46 @@ const EpicQuestsManager = () => {
       </div>
 
       <div className="space-y-4">
-        <QuestGroup category="emotional" quests={groupedQuests.emotional} />
-        <QuestGroup category="social" quests={groupedQuests.social} />
-        <QuestGroup category="substance" quests={groupedQuests.substance} />
-        <QuestGroup category="psychological" quests={groupedQuests.psychological} />
-        <QuestGroup category="ultimate" quests={groupedQuests.ultimate} />
+        <CollapsibleQuestGroup 
+          category="emotional" 
+          quests={groupedQuests.emotional}
+          categoryInfo={categoryInfo.emotional}
+          onAddCheck={addCheck}
+          onRemoveCheck={removeCheck}
+          onDeleteQuest={deleteQuest}
+        />
+        <CollapsibleQuestGroup 
+          category="social" 
+          quests={groupedQuests.social}
+          categoryInfo={categoryInfo.social}
+          onAddCheck={addCheck}
+          onRemoveCheck={removeCheck}
+          onDeleteQuest={deleteQuest}
+        />
+        <CollapsibleQuestGroup 
+          category="substance" 
+          quests={groupedQuests.substance}
+          categoryInfo={categoryInfo.substance}
+          onAddCheck={addCheck}
+          onRemoveCheck={removeCheck}
+          onDeleteQuest={deleteQuest}
+        />
+        <CollapsibleQuestGroup 
+          category="psychological" 
+          quests={groupedQuests.psychological}
+          categoryInfo={categoryInfo.psychological}
+          onAddCheck={addCheck}
+          onRemoveCheck={removeCheck}
+          onDeleteQuest={deleteQuest}
+        />
+        <CollapsibleQuestGroup 
+          category="ultimate" 
+          quests={groupedQuests.ultimate}
+          categoryInfo={categoryInfo.ultimate}
+          onAddCheck={addCheck}
+          onRemoveCheck={removeCheck}
+          onDeleteQuest={deleteQuest}
+        />
       </div>
 
       {quests.length === 0 && (

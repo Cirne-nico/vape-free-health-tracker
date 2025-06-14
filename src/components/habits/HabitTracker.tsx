@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Calendar, CheckCircle, Target, Trophy, Info, Plus } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { TooltipHelper } from '@/components/ui/tooltip-helper';
+import { Calendar, CheckCircle, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface HabitTracking {
@@ -191,7 +191,6 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     });
   };
 
-  // ✅ FUNCIÓN CORREGIDA: Cálculo especial para compromiso social
   const getCurrentWeekProgress = () => {
     const today = new Date();
     const currentWeek = getWeekNumber(today);
@@ -203,7 +202,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       entry.completed
     );
     
-    // ✅ CORRECCIÓN PRINCIPAL: Para compromiso social, 1 día = 100%
+    // Para compromiso social, 1 día = 100%
     if (habitId === 'social_commitment') {
       return weekData.length >= 1 ? 100 : 0;
     }
@@ -238,7 +237,6 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     return streak;
   };
 
-  // ✅ FUNCIÓN CORREGIDA: Criterios específicos para cada hábito
   const getConsolidationCriteria = () => {
     if (habitId === 'social_commitment') {
       return {
@@ -263,149 +261,140 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
   const criteria = getConsolidationCriteria();
 
   return (
-    <TooltipProvider>
-      <Card className={`mt-3 ${isConsolidated ? 'bg-green-50 border-green-300' : 'bg-blue-50 border-blue-200'}`}>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            Seguimiento de {habitName}
-            {isConsolidated && (
-              <Badge className="bg-green-500 text-white">
-                <Trophy className="w-3 h-3 mr-1" />
-                Consolidado
-              </Badge>
-            )}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-3 h-3 text-gray-500 hover:text-gray-700 cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs p-3">
-                <div className="space-y-2">
-                  <p className="font-semibold">¿Cómo funciona?</p>
-                  <p className="text-sm">Marca como completado cada día que logres el hábito. Solo puedes marcar una vez por día.</p>
-                  <p className="font-semibold">Consolidación:</p>
-                  <p className="text-sm">{criteria.description}</p>
-                  <p className="font-semibold">Recuento semanal:</p>
-                  <p className="text-sm">
-                    {habitId === 'social_commitment' 
-                      ? 'Para compromiso social: 1 vez por semana = 100% completado'
-                      : 'Se reinicia cada 7 días, pero guarda el historial de semanas previas.'
-                    }
-                  </p>
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="bg-white p-2 rounded">
-              <div className="text-lg font-bold text-blue-600">{currentStreak}</div>
-              <div className="text-xs text-gray-600">días seguidos</div>
-            </div>
-            <div className="bg-white p-2 rounded">
-              <div className="text-lg font-bold text-green-600">{Math.round(weeklyProgress)}%</div>
-              <div className="text-xs text-gray-600">
-                {habitId === 'social_commitment' ? 'esta semana' : 'esta semana'}
-              </div>
-            </div>
-            <div className="bg-white p-2 rounded">
-              <div className="space-y-1">
-                <Button
-                  size="sm"
-                  variant={todayCompleted ? "default" : "outline"}
-                  onClick={toggleToday}
-                  className={`w-full h-8 ${
-                    todayCompleted 
-                      ? 'bg-green-500 hover:bg-green-600 text-white' 
-                      : 'border-green-300 text-green-700 hover:bg-green-50'
-                  }`}
-                  disabled={isConsolidated}
-                  title={isConsolidated ? "Hábito ya consolidado" : "Marcar como completado hoy"}
-                >
-                  {todayCompleted ? (
-                    <CheckCircle className="w-4 h-4" />
-                  ) : (
-                    <Plus className="w-4 h-4" />
-                  )}
-                </Button>
-                <div className="text-xs text-gray-600">
-                  {todayCompleted ? 'Hecho hoy' : 'Marcar hoy'}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <div className="flex justify-between text-xs">
-              <span>Progreso semanal</span>
-              <span>{Math.round(weeklyProgress)}%</span>
-            </div>
-            <Progress value={weeklyProgress} className="h-2" />
-            {/* ✅ INFORMACIÓN ADICIONAL para compromiso social */}
-            {habitId === 'social_commitment' && (
-              <div className="text-xs text-gray-600 text-center">
-                {weeklyProgress === 100 ? '✅ Semana completada (1+ día)' : '⏳ Necesitas 1 día esta semana'}
-              </div>
-            )}
-          </div>
-
-          {/* Progreso hacia consolidación */}
-          {!isConsolidated && recentWeeks.length > 0 && (
-            <div className="bg-white p-3 rounded-lg border">
-              <h4 className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
-                <Target className="w-3 h-3" />
-                Progreso hacia consolidación
-              </h4>
-              <div className="space-y-2">
-                <div className="text-xs text-gray-600">
-                  Últimas {Math.min(recentWeeks.length, criteria.weeksRequired)} semanas:
-                </div>
-                <div className="flex gap-1 flex-wrap">
-                  {recentWeeks.slice(-criteria.weeksRequired).map((week, index) => {
-                    const isGood = habitId === 'social_commitment' ? 
-                      week.completedDays >= 1 : 
-                      week.completedDays >= criteria.minDays;
-                    const isOk = habitId === 'social_commitment' ? 
-                      false : 
-                      week.completedDays >= 4;
-                    
-                    return (
-                      <div
-                        key={`${week.year}-${week.week}`}
-                        className={`w-6 h-6 rounded text-xs flex items-center justify-center ${
-                          isGood ? 'bg-green-500 text-white' :
-                          isOk ? 'bg-yellow-500 text-white' :
-                          'bg-gray-300 text-gray-600'
-                        }`}
-                        title={`Semana ${week.week}: ${week.completedDays}/7 días`}
-                      >
-                        {week.completedDays}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="text-xs text-gray-500">
-                  🎯 {criteria.description}
-                </div>
-              </div>
-            </div>
-          )}
-
+    <Card className={`mt-3 ${isConsolidated ? 'bg-green-50 border-green-300' : 'bg-blue-50 border-blue-200'}`}>
+      <CardHeader className="pb-3">
+        <CardTitle className="text-sm flex items-center gap-2">
+          <Calendar className="w-4 h-4" />
+          Seguimiento de {habitName}
           {isConsolidated && (
-            <div className="bg-green-100 p-3 rounded-lg border border-green-300">
-              <div className="text-center">
-                <Trophy className="w-6 h-6 mx-auto text-green-600 mb-2" />
-                <p className="text-sm font-semibold text-green-800">¡Hábito Consolidado!</p>
-                <p className="text-xs text-green-700">
-                  Has obtenido una medalla por consolidar este hábito científico
+            <Badge className="bg-green-500 text-white">
+              Consolidado
+            </Badge>
+          )}
+          <TooltipHelper
+            content={
+              <div className="space-y-2">
+                <p className="font-semibold">¿Cómo funciona?</p>
+                <p className="text-sm">Marca como completado cada día que logres el hábito. Solo puedes marcar una vez por día.</p>
+                <p className="font-semibold">Consolidación:</p>
+                <p className="text-sm">{criteria.description}</p>
+                <p className="font-semibold">Recuento semanal:</p>
+                <p className="text-sm">
+                  {habitId === 'social_commitment' 
+                    ? 'Para compromiso social: 1 vez por semana = 100% completado'
+                    : 'Se reinicia cada 7 días, pero guarda el historial de semanas previas.'
+                  }
                 </p>
               </div>
+            }
+          />
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="bg-white p-2 rounded">
+            <div className="text-lg font-bold text-blue-600">{currentStreak}</div>
+            <div className="text-xs text-gray-600">días seguidos</div>
+          </div>
+          <div className="bg-white p-2 rounded">
+            <div className="text-lg font-bold text-green-600">{Math.round(weeklyProgress)}%</div>
+            <div className="text-xs text-gray-600">
+              {habitId === 'social_commitment' ? 'esta semana' : 'esta semana'}
+            </div>
+          </div>
+          <div className="bg-white p-2 rounded">
+            <div className="space-y-1">
+              <Button
+                size="sm"
+                variant={todayCompleted ? "default" : "outline"}
+                onClick={toggleToday}
+                className={`w-full h-8 ${
+                  todayCompleted 
+                    ? 'bg-green-500 hover:bg-green-600 text-white' 
+                    : 'border-green-300 text-green-700 hover:bg-green-50'
+                }`}
+                disabled={isConsolidated}
+                title={isConsolidated ? "Hábito ya consolidado" : "Marcar como completado hoy"}
+              >
+                {todayCompleted ? (
+                  <CheckCircle className="w-4 h-4" />
+                ) : (
+                  <Plus className="w-4 h-4" />
+                )}
+              </Button>
+              <div className="text-xs text-gray-600">
+                {todayCompleted ? 'Hecho hoy' : 'Marcar hoy'}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="space-y-2">
+          <div className="flex justify-between text-xs">
+            <span>Progreso semanal</span>
+            <span>{Math.round(weeklyProgress)}%</span>
+          </div>
+          <Progress value={weeklyProgress} className="h-2" />
+          {habitId === 'social_commitment' && (
+            <div className="text-xs text-gray-600 text-center">
+              {weeklyProgress === 100 ? '✅ Semana completada (1+ día)' : '⏳ Necesitas 1 día esta semana'}
             </div>
           )}
-        </CardContent>
-      </Card>
-    </TooltipProvider>
+        </div>
+
+        {/* Progreso hacia consolidación */}
+        {!isConsolidated && recentWeeks.length > 0 && (
+          <div className="bg-white p-3 rounded-lg border">
+            <h4 className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
+              Progreso hacia consolidación
+            </h4>
+            <div className="space-y-2">
+              <div className="text-xs text-gray-600">
+                Últimas {Math.min(recentWeeks.length, criteria.weeksRequired)} semanas:
+              </div>
+              <div className="flex gap-1 flex-wrap">
+                {recentWeeks.slice(-criteria.weeksRequired).map((week, index) => {
+                  const isGood = habitId === 'social_commitment' ? 
+                    week.completedDays >= 1 : 
+                    week.completedDays >= criteria.minDays;
+                  const isOk = habitId === 'social_commitment' ? 
+                    false : 
+                    week.completedDays >= 4;
+                  
+                  return (
+                    <div
+                      key={`${week.year}-${week.week}`}
+                      className={`w-6 h-6 rounded text-xs flex items-center justify-center ${
+                        isGood ? 'bg-green-500 text-white' :
+                        isOk ? 'bg-yellow-500 text-white' :
+                        'bg-gray-300 text-gray-600'
+                      }`}
+                      title={`Semana ${week.week}: ${week.completedDays}/7 días`}
+                    >
+                      {week.completedDays}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="text-xs text-gray-500">
+                🎯 {criteria.description}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {isConsolidated && (
+          <div className="bg-green-100 p-3 rounded-lg border border-green-300">
+            <div className="text-center">
+              <p className="text-sm font-semibold text-green-800">¡Hábito Consolidado!</p>
+              <p className="text-xs text-green-700">
+                Has obtenido una medalla por consolidar este hábito científico
+              </p>
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 };
 

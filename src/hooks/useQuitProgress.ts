@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 export const useQuitProgress = (startDate: Date | null) => {
@@ -49,11 +48,67 @@ export const useQuitProgress = (startDate: Date | null) => {
     }
   };
 
+  // ✅ FUNCIÓN CORREGIDA: Blur se elimina completamente a los 365 días
   const calculateBlurLevel = () => {
     const time = calculateTimeSince();
     const maxBlur = 8;
-    const blurReduction = (time.days / 90) * maxBlur;
+    
+    // A los 365 días, blur = 0 (completamente nítido)
+    if (time.days >= 365) {
+      return 0;
+    }
+    
+    // Reducción progresiva del blur hasta los 365 días
+    const blurReduction = (time.days / 365) * maxBlur;
     return Math.max(0, maxBlur - blurReduction);
+  };
+
+  // ✅ NUEVA FUNCIÓN: Calcular contraste del texto según la nitidez de la imagen
+  const calculateTextContrast = () => {
+    const time = calculateTimeSince();
+    
+    // A medida que la imagen se vuelve más nítida, necesitamos más contraste
+    if (time.days >= 365) {
+      // Imagen completamente nítida = máximo contraste
+      return {
+        primaryText: 'text-white drop-shadow-lg',
+        secondaryText: 'text-white drop-shadow-md',
+        accentText: 'text-purple-100 drop-shadow-md',
+        overlayIntensity: 'from-purple-800/90 to-indigo-800/90' // Overlay más oscuro
+      };
+    } else if (time.days >= 270) {
+      // 75% del camino - aumentar contraste significativamente
+      return {
+        primaryText: 'text-white drop-shadow-md',
+        secondaryText: 'text-white drop-shadow-sm',
+        accentText: 'text-purple-100 drop-shadow-sm',
+        overlayIntensity: 'from-purple-700/85 to-indigo-700/85'
+      };
+    } else if (time.days >= 180) {
+      // 50% del camino - contraste moderado
+      return {
+        primaryText: 'text-white drop-shadow-sm',
+        secondaryText: 'text-white',
+        accentText: 'text-purple-100',
+        overlayIntensity: 'from-purple-600/80 to-indigo-600/80'
+      };
+    } else if (time.days >= 90) {
+      // 25% del camino - ligero aumento de contraste
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white',
+        accentText: 'text-purple-100',
+        overlayIntensity: 'from-purple-600/80 to-indigo-600/80'
+      };
+    } else {
+      // Primeros días - contraste normal
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white',
+        accentText: 'text-purple-100',
+        overlayIntensity: 'from-purple-600/80 to-indigo-600/80'
+      };
+    }
   };
 
   const calculateProgressPercentage = () => {
@@ -93,6 +148,7 @@ export const useQuitProgress = (startDate: Date | null) => {
     calculateTimeSince,
     calculateSavings,
     calculateBlurLevel,
+    calculateTextContrast, // ✅ NUEVA FUNCIÓN EXPORTADA
     calculateProgressPercentage,
     getProgressInfo
   };

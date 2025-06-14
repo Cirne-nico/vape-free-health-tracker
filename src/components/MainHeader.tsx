@@ -26,6 +26,12 @@ interface MainHeaderProps {
     isFirstPhase: boolean;
   };
   blurLevel: number;
+  textContrast: {
+    primaryText: string;
+    secondaryText: string;
+    accentText: string;
+    overlayIntensity: string;
+  };
   unlockedAchievements: any[];
   unlockedHealthAchievements: any[];
   onRelapse: () => void;
@@ -36,7 +42,8 @@ const MainHeader = ({
   savings, 
   progressPercentage, 
   progressInfo,
-  blurLevel, 
+  blurLevel,
+  textContrast, // ✅ NUEVA PROP PARA CONTRASTE ADAPTATIVO
   unlockedAchievements,
   unlockedHealthAchievements,
   onRelapse 
@@ -108,97 +115,95 @@ const MainHeader = ({
 
   return (
     <TooltipProvider>
-      {/* Header principal - ALTURA REDUCIDA AÚN MÁS */}
+      {/* Header principal */}
       <Card className="relative overflow-hidden text-white rounded-lg">
-        {/* Imagen de fondo con blur */}
+        {/* Imagen de fondo con blur PROGRESIVO */}
         <div 
           className="absolute inset-0"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: `blur(${blurLevel}px)`,
+            filter: `blur(${blurLevel}px)`, // ✅ BLUR PROGRESIVO: 8px → 0px en 365 días
           }}
         />
         
-        {/* Overlay MORADO - CAMBIO PRINCIPAL AQUÍ */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/80 to-indigo-600/80" />
+        {/* ✅ OVERLAY ADAPTATIVO: Se oscurece progresivamente para mantener contraste */}
+        <div className={`absolute inset-0 bg-gradient-to-r ${textContrast.overlayIntensity}`} />
         
-        {/* CONTENIDO PRINCIPAL - ALTURA MÍNIMA */}
         <CardContent className="relative p-2 sm:p-3 z-10">
           <div className="flex flex-col space-y-1 sm:space-y-2">
-            {/* Logo y título de la app - ULTRA COMPACTO */}
+            {/* Logo y título - ✅ CONTRASTE ADAPTATIVO */}
             <div className="text-center mb-1">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Logo size="sm" className="text-white flex-shrink-0" />
-                <h1 className="text-base sm:text-lg font-bold text-white leading-none tracking-wide">
+                <h1 className={`text-base sm:text-lg font-bold leading-none tracking-wide ${textContrast.primaryText}`}>
                   UMBRAL
                 </h1>
               </div>
-              <p className="text-xs text-purple-100 italic font-medium">
+              <p className={`text-xs italic font-medium ${textContrast.accentText}`}>
                 acompaña tu proceso de abandono del vapeo
               </p>
             </div>
 
-            {/* Título principal - ULTRA COMPACTO */}
+            {/* Título principal - ✅ CONTRASTE ADAPTATIVO */}
             <div className="text-center">
-              <h2 className="text-sm sm:text-base font-bold text-white">
+              <h2 className={`text-sm sm:text-base font-bold ${textContrast.primaryText}`}>
                 Ya sin nicotina, el cuerpo escucha:
               </h2>
-              <h3 className="text-xs sm:text-sm font-semibold text-purple-100">
+              <h3 className={`text-xs sm:text-sm font-semibold ${textContrast.accentText}`}>
                 hacia la sociabilidad mínima
               </h3>
             </div>
 
-            {/* Tiempo transcurrido - COMPACTO */}
+            {/* Tiempo transcurrido - ✅ CONTRASTE ADAPTATIVO */}
             <div className="text-center">
-              <h4 className="text-lg sm:text-xl font-bold">
+              <h4 className={`text-lg sm:text-xl font-bold ${textContrast.primaryText}`}>
                 {time.days > 0 ? `${time.days} días sin vapear` : `${time.hours}h ${time.minutes}m sin vapear`}
               </h4>
             </div>
 
-            {/* Progreso visual - COMPACTO */}
+            {/* Progreso visual - ✅ CONTRASTE ADAPTATIVO */}
             <div className="space-y-1">
-              <div className="flex justify-between text-xs">
+              <div className={`flex justify-between text-xs ${textContrast.secondaryText}`}>
                 <span>Progreso hacia {progressInfo.targetLabel}</span>
                 <span className="font-semibold">{Math.min(progressPercentage, 100).toFixed(1)}%</span>
               </div>
               <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
               {!progressInfo.isFirstPhase && (
-                <div className="text-xs text-purple-200 text-center">
+                <div className={`text-xs text-center ${textContrast.accentText}`}>
                   ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
                 </div>
               )}
             </div>
 
-            {/* Estadísticas centrales - ICONOS AL LADO DE LOS NÚMEROS */}
+            {/* Estadísticas centrales - ✅ CONTRASTE ADAPTATIVO */}
             <div className="grid grid-cols-2 gap-2 text-center">
               <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
                 <div className="flex items-center justify-center gap-1">
-                  <Clock className="w-4 h-4 text-purple-300" />
-                  <p className="text-base sm:text-lg font-bold">{time.totalHours}</p>
+                  <Clock className={`w-4 h-4 ${textContrast.accentText}`} />
+                  <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText}`}>{time.totalHours}</p>
                 </div>
-                <p className="text-purple-100 text-xs">horas totales</p>
+                <p className={`text-xs ${textContrast.accentText}`}>horas totales</p>
               </div>
               <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
                 <div className="flex items-center justify-center gap-1">
                   <Trophy className="w-4 h-4 text-yellow-300" />
-                  <p className="text-base sm:text-lg font-bold">{totalMedals}</p>
+                  <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText}`}>{totalMedals}</p>
                 </div>
-                <p className="text-purple-100 text-xs">medallas</p>
+                <p className={`text-xs ${textContrast.accentText}`}>medallas</p>
               </div>
             </div>
 
-            {/* Cita crítica - COMPACTA */}
+            {/* Cita crítica - ✅ CONTRASTE ADAPTATIVO */}
             <div className="text-center">
-              <p className="text-xs text-purple-100 italic font-light leading-relaxed">
+              <p className={`text-xs italic font-light leading-relaxed ${textContrast.accentText}`}>
                 {getCriticalQuote()}
               </p>
             </div>
 
-            {/* BOTONES OPACOS - CAMBIO PRINCIPAL AQUÍ */}
+            {/* Botones opacos */}
             <div className="flex justify-center gap-3">
-              {/* Botón de pánico - AHORA OPACO */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -219,7 +224,6 @@ const MainHeader = ({
                 </TooltipContent>
               </Tooltip>
 
-              {/* Botón de recaída - AHORA OPACO */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button

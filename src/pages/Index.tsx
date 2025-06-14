@@ -16,7 +16,8 @@ const Index = () => {
     currentTime, 
     calculateTimeSince, 
     calculateSavings, 
-    calculateBlurLevel, 
+    calculateBlurLevel,
+    calculateTextContrast, // ✅ NUEVA FUNCIÓN IMPORTADA
     calculateProgressPercentage,
     getProgressInfo
   } = useQuitProgress(startDate);
@@ -59,6 +60,7 @@ const Index = () => {
   const progressPercentage = calculateProgressPercentage();
   const progressInfo = getProgressInfo();
   const blurLevel = calculateBlurLevel();
+  const textContrast = calculateTextContrast(); // ✅ NUEVO CÁLCULO DE CONTRASTE
   const unlockedAchievements = getUnlockedAchievements(time.days);
   const unlockedHealthAchievements = getUnlockedHealthAchievements(time.days);
 
@@ -68,7 +70,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      {/* CONTENEDOR PRINCIPAL - PADDING CORREGIDO */}
       <div className="max-w-4xl mx-auto p-2 sm:p-4">
         <div className="space-y-4 sm:space-y-6">
           <MainHeader 
@@ -77,6 +78,7 @@ const Index = () => {
             progressPercentage={progressPercentage}
             progressInfo={progressInfo}
             blurLevel={blurLevel}
+            textContrast={textContrast} // ✅ NUEVA PROP PASADA AL HEADER
             unlockedAchievements={unlockedAchievements}
             unlockedHealthAchievements={unlockedHealthAchievements}
             onRelapse={handleRelapse}

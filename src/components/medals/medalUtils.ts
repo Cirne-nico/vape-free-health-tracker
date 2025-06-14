@@ -245,7 +245,7 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/Estres_laboral.png';
             break;
           case 'work_break':
-            updated.medalIcon = '/lovable-uploads/Descanso_trabajo.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/Descanso_trabajo copy.png'; // CORREGIDA
             break;
           case 'anxiety_periods':
             updated.medalIcon = '/lovable-uploads/gesta_ansiedad.png';
@@ -275,10 +275,10 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/euforia.png';
             break;
           case 'pelimanta':
-            updated.medalIcon = '/lovable-uploads/Pelimanta.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/Pelimanta copy.png'; // CORREGIDA
             break;
           case 'writing_effort':
-            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir copy.png'; // CORREGIDA
             break;
           case 'bad_news':
             updated.medalIcon = '/lovable-uploads/mala_noticia.png';

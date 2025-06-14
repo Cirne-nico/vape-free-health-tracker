@@ -30,34 +30,64 @@ const MainTabs = ({
   return (
     <div className="space-y-4 sm:space-y-6">
       <Tabs defaultValue="emotions" className="w-full">
-        <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
-          <TabsTrigger value="emotions" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">General</span>
+        {/* PESTAÑAS MEJORADAS - Ahora en 2 filas para mejor usabilidad móvil */}
+        <TabsList className="grid w-full grid-cols-4 grid-rows-2 gap-1 bg-white shadow-sm h-auto p-2 sm:grid-cols-7 sm:grid-rows-1 sm:h-12">
+          {/* Primera fila en móvil / Fila única en desktop */}
+          <TabsTrigger 
+            value="emotions" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Clock className="w-4 h-4" />
+            <span>General</span>
           </TabsTrigger>
-          <TabsTrigger value="emotivity" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Brain className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">Emotividad</span>
+          
+          <TabsTrigger 
+            value="emotivity" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Brain className="w-4 h-4" />
+            <span>Emotividad</span>
           </TabsTrigger>
-          <TabsTrigger value="health" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">Salud</span>
+          
+          <TabsTrigger 
+            value="health" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Heart className="w-4 h-4" />
+            <span>Salud</span>
           </TabsTrigger>
-          <TabsTrigger value="achievements" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">Epopeya</span>
+          
+          <TabsTrigger 
+            value="achievements" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Trophy className="w-4 h-4" />
+            <span>Epopeya</span>
           </TabsTrigger>
-          <TabsTrigger value="epic" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Scroll className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">La épica</span>
+
+          {/* Segunda fila en móvil / Continuación en desktop */}
+          <TabsTrigger 
+            value="epic" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Scroll className="w-4 h-4" />
+            <span>La épica</span>
           </TabsTrigger>
-          <TabsTrigger value="poderio" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">Poderío</span>
+          
+          <TabsTrigger 
+            value="poderio" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Zap className="w-4 h-4" />
+            <span>Poderío</span>
           </TabsTrigger>
-          <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
-            <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="leading-tight">Ajustes</span>
+          
+          <TabsTrigger 
+            value="settings" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Settings className="w-4 h-4" />
+            <span>Ajustes</span>
           </TabsTrigger>
         </TabsList>
 

@@ -177,7 +177,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>

@@ -7,33 +7,33 @@ export interface HealthCategory {
 
 export const healthCategories = {
   respiratory: {
-    title: 'Pulmones',
+    title: 'Lungs',
     icon: '🫁',
-    description: 'Capacidad pulmonar y función respiratoria',
+    description: 'Pulmonary capacity and respiratory function',
     color: '#3B82F6'
   },
   cardiovascular: {
-    title: 'Corazón', 
+    title: 'Heart', 
     icon: '❤️',
-    description: 'Presión arterial y función cardíaca',
+    description: 'Blood pressure and cardiac function',
     color: '#EF4444'
   },
   liver: {
-    title: 'Hígado',
+    title: 'Liver',
     icon: '🔶',
-    description: 'Función hepática y valores ALT/GGT',
+    description: 'Liver function and ALT/GGT values',
     color: '#F59E0B'
   },
   skinEyes: {
-    title: 'Piel y Ojos',
+    title: 'Skin & Eyes',
     icon: '👁️',
-    description: 'Hidratación y salud dermatológica',
+    description: 'Hydration and dermatological health',
     color: '#10B981'
   },
   mental: {
-    title: 'Bienestar Mental',
+    title: 'Mental Wellbeing',
     icon: '🧠',
-    description: 'Estabilidad emocional y calidad del sueño',
+    description: 'Emotional stability and sleep quality',
     color: '#8B5CF6'
   }
 } as const;

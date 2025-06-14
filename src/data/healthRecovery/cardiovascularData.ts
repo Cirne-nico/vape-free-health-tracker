@@ -4,50 +4,50 @@ export const cardiovascularData: HealthRecoveryPoint[] = [
   { 
     day: 0, 
     value: 0, 
-    description: "Frecuencia cardíaca elevada (80-90 lpm)",
-    medicalBasis: "Vasoconstricción periférica por efectos nicotínicos",
-    timeline: "Estado inicial"
+    description: "Elevated heart rate (80-90 bpm)",
+    medicalBasis: "Peripheral vasoconstriction due to nicotinic effects",
+    timeline: "Initial state"
   },
   { 
     day: 1, 
     value: 10, 
-    description: "Estabilización inicial",
-    medicalBasis: "Reducción de 10-15 lpm en frecuencia cardíaca",
-    timeline: "24 horas"
+    description: "Initial stabilization",
+    medicalBasis: "Reduction of 10-15 bpm in heart rate",
+    timeline: "24 hours"
   },
   { 
     day: 7, 
     value: 30, 
-    description: "Presión arterial mejora 8-12 mmHg",
-    medicalBasis: "Reversión de vasoconstricción",
-    timeline: "Una semana"
+    description: "Blood pressure improves 8-12 mmHg",
+    medicalBasis: "Reversal of vasoconstriction",
+    timeline: "One week"
   },
   { 
     day: 14, 
     value: 50, 
-    description: "Circulación periférica optimizada",
-    medicalBasis: "Aumento del 30% en flujo sanguíneo",
-    timeline: "Dos semanas"
+    description: "Optimized peripheral circulation",
+    medicalBasis: "30% increase in blood flow",
+    timeline: "Two weeks"
   },
   { 
     day: 30, 
     value: 70, 
-    description: "Riesgo cardiovascular reducido 25%",
-    medicalBasis: "Mejora en función endotelial",
-    timeline: "Un mes"
+    description: "Cardiovascular risk reduced by 25%",
+    medicalBasis: "Improvement in endothelial function",
+    timeline: "One month"
   },
   { 
     day: 60, 
     value: 85, 
-    description: "Función cardíaca normalizada",
-    medicalBasis: "Variabilidad cardíaca restaurada",
-    timeline: "Dos meses"
+    description: "Normalized cardiac function",
+    medicalBasis: "Restored heart rate variability",
+    timeline: "Two months"
   },
   { 
     day: 90, 
     value: 92, 
-    description: "Salud cardiovascular óptima",
-    medicalBasis: "Riesgo equiparado a no fumadores",
-    timeline: "Tres meses"
+    description: "Optimal cardiovascular health",
+    medicalBasis: "Risk equated to non-smokers",
+    timeline: "Three months"
   }
 ];

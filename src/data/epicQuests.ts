@@ -5,7 +5,7 @@ export interface EpicQuest {
   requiredChecks: number;
   currentChecks: number;
   icon: string;
-  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational';
+  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational' | 'ultimate';
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
@@ -15,182 +15,182 @@ export interface EpicQuest {
 export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>[] = [
   {
     id: 'party',
-    title: 'Salir de fiesta',
-    description: 'Disfrutar de una fiesta o celebración sin necesidad de vapear',
+    title: 'Going to a party',
+    description: 'Enjoy a party or celebration without needing to vape',
     requiredChecks: 3,
     icon: '🎉',
     category: 'social',
-    reward: 'La diversión no depende al menos de esta sustancia',
+    reward: 'Fun no longer depends on this substance',
     medalIcon: '/lovable-uploads/fiesta.png'
   },
   {
     id: 'fight_friend',
-    title: 'Pelear-te con une amigue/pareja/vínculo',
-    description: 'Gestionar un conflicto emocional intenso sin recurrir al vapeo',
+    title: 'Argument with a friend/partner',
+    description: 'Managing an intense emotional conflict without resorting to vaping',
     requiredChecks: 2,
     icon: '💔',
     category: 'emotional',
-    reward: 'Capacidad de procesar emociones difíciles sin recurrir a la Nicotina',
+    reward: 'Ability to process difficult emotions without resorting to nicotine',
     medalIcon: '/lovable-uploads/Discusión_pelea.png'
   },
   {
     id: 'bad_news',
-    title: 'Recibir una mala noticia',
-    description: 'Afrontar noticias impactantes o dolorosas sin vapear como escape',
+    title: 'Receiving bad news',
+    description: 'Facing impactful or painful news without vaping as an escape',
     requiredChecks: 3,
     icon: '📰',
     category: 'emotional',
-    reward: 'Fortaleza emocional para enfrentar la adversidad',
+    reward: 'Emotional strength to face adversity',
     medalIcon: '/lovable-uploads/mala_noticia.png'
   },
   {
     id: 'work_stress',
-    title: 'Estrés laboral',
-    description: 'Manejar presión, deadlines o conflictos en el trabajo sin vapear',
+    title: 'Work stress',
+    description: 'Managing pressure, deadlines, or conflicts at work without vaping',
     requiredChecks: 3,
     icon: '💼',
     category: 'situational',
-    reward: 'Herramientas de gestión del estrés profesional',
+    reward: 'Professional stress management tools',
     medalIcon: '/lovable-uploads/Estres_laboral.png'
   },
   {
     id: 'work_break',
-    title: 'Descanso en el trabajo',
-    description: 'Disfrutar de los descansos laborales sin necesidad de vapear',
+    title: 'Work break',
+    description: 'Enjoying work breaks without needing to vape',
     requiredChecks: 3,
     icon: '☕',
     category: 'situational',
-    reward: 'Descansos genuinos y reparadores',
+    reward: 'Genuine and restorative breaks',
     medalIcon: '/lovable-uploads/Descanso_trabajo copy.png'
   },
   {
     id: 'control_illusion',
-    title: 'Superar el "Yo controlo, unas caladas no hacen daño a nadie"',
-    description: 'Resistir el pensamiento más peligroso de la recuperación',
+    title: 'Overcoming "I can control it, a few puffs won\'t hurt anyone"',
+    description: 'Resisting the most dangerous thought in recovery',
     requiredChecks: 4,
     icon: '🧠',
     category: 'psychological',
-    reward: 'Claridad mental sobre los mecanismos de autoengaño',
+    reward: 'Mental clarity about self-deception mechanisms',
     medalIcon: '/lovable-uploads/Yo_controlo.png'
   },
   {
     id: 'with_coffee',
-    title: 'Con el café',
-    description: 'Disfrutar del café sin asociarlo automáticamente con vapear',
+    title: 'With coffee',
+    description: 'Enjoying coffee without automatically associating it with vaping',
     requiredChecks: 3,
     icon: '☕',
     category: 'substance',
-    reward: 'Desvinculación de rituales adictivos',
+    reward: 'Decoupling from addictive rituals',
     medalIcon: '/lovable-uploads/gesta_café.png'
   },
   {
     id: 'with_beer',
-    title: 'Con la birra (u otra bebida alcohólica)',
-    description: 'Beber alcohol sin que active el deseo de vapear',
+    title: 'With beer (or other alcoholic drink)',
+    description: 'Drinking alcohol without triggering the desire to vape',
     requiredChecks: 3,
     icon: '🍺',
     category: 'substance',
-    reward: 'Control sobre asociaciones cruzadas de sustancias',
+    reward: 'Control over cross-substance associations',
     medalIcon: '/lovable-uploads/gesta_birra.png'
   },
   {
     id: 'sixth_beer',
-    title: 'Con la 6ª birra',
-    description: 'Mantener el control incluso en estados de desinhibición alcohólica',
+    title: 'With the 6th beer',
+    description: 'Maintaining control even in states of alcoholic disinhibition',
     requiredChecks: 3,
     icon: '🍻',
     category: 'substance',
-    reward: 'Autocontrol en estados alterados de conciencia',
+    reward: 'Self-control in altered states of consciousness',
     medalIcon: '/lovable-uploads/6a_birra.png'
   },
   {
     id: 'other_substances',
-    title: 'Con otras sustancias',
-    description: 'Usar otras sustancias sin que desencadenen el deseo de vapear',
+    title: 'With other substances',
+    description: 'Using other substances without triggering the desire to vape',
     requiredChecks: 3,
     icon: '💊',
     category: 'substance',
-    reward: 'Independencia entre diferentes tipos de consumo',
+    reward: 'Independence between different types of consumption',
     medalIcon: '/lovable-uploads/Otras_sustancias.png'
   },
   {
     id: 'strong_boredom',
-    title: 'Aburrimiento fuerte',
-    description: 'Tolerar estados de aburrimiento intenso sin buscar estimulación química',
+    title: 'Strong boredom',
+    description: 'Tolerating states of intense boredom without seeking chemical stimulation',
     requiredChecks: 2,
     icon: '😴',
     category: 'emotional',
-    reward: 'Capacidad de estar presente sin necesidad de estímulos externos',
+    reward: 'Ability to be present without needing external stimuli',
     medalIcon: '/lovable-uploads/aburrimiento.png'
   },
   {
     id: 'prolonged_sadness',
-    title: 'Período de tristeza prolongado',
-    description: 'Atravesar episodios de tristeza profunda sin vapear',
+    title: 'Period of prolonged sadness',
+    description: 'Going through episodes of deep sadness without vaping',
     requiredChecks: 1,
     icon: '😢',
     category: 'emotional',
-    reward: 'Aceptación y procesamiento natural de emociones difíciles',
+    reward: 'Acceptance and natural processing of difficult emotions',
     medalIcon: '/lovable-uploads/tristeza.png'
   },
   {
     id: 'social_situation',
-    title: 'Situación social con amigues',
-    description: 'Socializar cómodamente sin vapear como facilitador social',
+    title: 'Social situation with friends',
+    description: 'Socializing comfortably without vaping as a social facilitator',
     requiredChecks: 3,
     icon: '👥',
     category: 'social',
-    reward: 'Confianza social auténtica sin dependencias químicas',
+    reward: 'Authentic social confidence without chemical dependencies',
     medalIcon: '/lovable-uploads/situación_social.png'
   },
   {
     id: 'euphoria_moment',
-    title: 'Momento de euforia',
-    description: 'Experimentar alegría intensa sin querer "potenciarla" vapeando',
+    title: 'Moment of euphoria',
+    description: 'Experiencing intense joy without wanting to "enhance it" by vaping',
     requiredChecks: 3,
     icon: '🎊',
     category: 'emotional',
-    reward: 'Disfrute pleno de emociones positivas naturales',
+    reward: 'Full enjoyment of natural positive emotions',
     medalIcon: '/lovable-uploads/euforia.png'
   },
   {
     id: 'anxiety_periods',
-    title: 'Períodos de ansiedad',
-    description: 'Gestionar episodios de ansiedad sin vapear como ansiolítico',
+    title: 'Periods of anxiety',
+    description: 'Managing episodes of anxiety without vaping as an anxiolytic',
     requiredChecks: 1,
     icon: '😰',
     category: 'emotional',
-    reward: 'Herramientas naturales de regulación de la ansiedad',
+    reward: 'Natural tools for anxiety regulation',
     medalIcon: '/lovable-uploads/gesta_ansiedad.png'
   },
   {
     id: 'pelimanta',
-    title: 'Pelimanta',
-    description: 'Disfrutar de momentos de relajación en casa sin vapear',
+    title: 'Movie night at home',
+    description: 'Enjoying relaxation moments at home without vaping',
     requiredChecks: 3,
     icon: '🛋️',
     category: 'situational',
-    reward: 'Relajación auténtica sin dependencias químicas',
+    reward: 'Authentic relaxation without chemical dependencies',
     medalIcon: '/lovable-uploads/Pelimanta copy.png'
   },
   {
     id: 'writing_effort',
-    title: 'Acabas de escribir algo con gran esfuerzo y te dispones a releerlo',
-    description: 'Completar tareas creativas o intelectuales sin vapear como recompensa',
+    title: 'You just finished writing something with great effort and are about to reread it',
+    description: 'Completing creative or intellectual tasks without vaping as a reward',
     requiredChecks: 3,
     icon: '✍️',
     category: 'psychological',
-    reward: 'Satisfacción genuina por el trabajo intelectual',
+    reward: 'Genuine satisfaction from intellectual work',
     medalIcon: '/lovable-uploads/Acabas_de_escribir copy.png'
   },
   {
     id: 'ultimate_achievement',
-    title: 'CRACK! - Maestría Total',
-    description: 'Has completado TODAS las gestas épicas disponibles. Eres une verdadere maestre de la recuperación.',
+    title: 'CRACK! - Total Mastery',
+    description: 'You have completed ALL available epic feats. You are a true master of recovery.',
     requiredChecks: 1,
     icon: '💥',
-    category: 'psychological',
-    reward: 'Reconocimiento como maestre absolute de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
+    category: 'ultimate',
+    reward: 'Recognition as an absolute master of recovery. You have demonstrated that you can overcome any situation without vaping.',
     medalIcon: '/lovable-uploads/Crack.png'
   }
 ];
@@ -215,10 +215,10 @@ export const getCategoryColor = (category: EpicQuest['category']) => {
 export const getCategoryName = (category: EpicQuest['category']) => {
   switch (category) {
     case 'social': return 'Social';
-    case 'emotional': return 'Emocional';
-    case 'substance': return 'Sustancias';
-    case 'psychological': return 'Psicológico';
-    case 'situational': return 'Situacional';
+    case 'emotional': return 'Emotional';
+    case 'substance': return 'Substances';
+    case 'psychological': return 'Psychological';
+    case 'situational': return 'Situational';
     default: return 'General';
   }
 };

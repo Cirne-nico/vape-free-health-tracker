@@ -10,7 +10,8 @@ import PredictiveAnalysis from './PredictiveAnalysis';
 import MedalsSection from './MedalsSection';
 import EpicQuestsManager from './EpicQuestsManager';
 import HabitsManager from './HabitsManager';
-import { Clock, Trophy, Heart, Brain, Settings, Scroll, Zap } from 'lucide-react';
+import DonationSection from './DonationSection';
+import { Clock, Trophy, Heart, Brain, Settings, Scroll, Zap, Gift } from 'lucide-react';
 
 interface MainTabsProps {
   startDate: Date | null;
@@ -30,8 +31,8 @@ const MainTabs = ({
   return (
     <div className="space-y-4 sm:space-y-6">
       <Tabs defaultValue="emotions" className="w-full">
-        {/* PESTAÑAS MEJORADAS - Ahora en 2 filas para mejor usabilidad móvil */}
-        <TabsList className="grid w-full grid-cols-4 grid-rows-2 gap-1 bg-white shadow-sm h-auto p-2 sm:grid-cols-7 sm:grid-rows-1 sm:h-12">
+        {/* PESTAÑAS MEJORADAS - Ahora en 2 filas para mejor usabilidad móvil + nueva pestaña Donar */}
+        <TabsList className="grid w-full grid-cols-4 grid-rows-2 gap-1 bg-white shadow-sm h-auto p-2 sm:grid-cols-8 sm:grid-rows-1 sm:h-12">
           {/* Primera fila en móvil / Fila única en desktop */}
           <TabsTrigger 
             value="emotions" 
@@ -80,6 +81,14 @@ const MainTabs = ({
           >
             <Zap className="w-4 h-4" />
             <span>Poderío</span>
+          </TabsTrigger>
+          
+          <TabsTrigger 
+            value="donate" 
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Gift className="w-4 h-4" />
+            <span>Donar</span>
           </TabsTrigger>
           
           <TabsTrigger 
@@ -136,6 +145,10 @@ const MainTabs = ({
 
         <TabsContent value="poderio" className="mt-4 sm:mt-6">
           <HabitsManager />
+        </TabsContent>
+
+        <TabsContent value="donate" className="mt-4 sm:mt-6">
+          <DonationSection />
         </TabsContent>
 
         <TabsContent value="settings" className="mt-4 sm:mt-6">

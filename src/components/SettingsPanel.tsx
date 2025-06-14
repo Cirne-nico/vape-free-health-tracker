@@ -4,16 +4,23 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import DonationSection from './DonationSection';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
 import TermsModal from './TermsModal';
 
 const SettingsPanel = () => {
   const [notifications, setNotifications] = useState(true);
   const [notificationTime, setNotificationTime] = useState('09:00');
-  const [costPerWeek, setCostPerWeek] = useState('20');
-  const [coilCost, setCoilCost] = useState('4');
+  
+  // Estados para configuración de costos mejorada
+  const [vaperType, setVaperType] = useState('disposable');
+  const [disposablePrice, setDisposablePrice] = useState('8');
+  const [disposablesPerWeek, setDisposablesPerWeek] = useState('2');
+  const [liquidPrice, setLiquidPrice] = useState('12');
+  const [liquidSize, setLiquidSize] = useState('30');
+  const [liquidMlPerWeek, setLiquidMlPerWeek] = useState('20');
+  const [coilPrice, setCoilPrice] = useState('4');
   const [coilDays, setCoilDays] = useState('10');
 
   useEffect(() => {
@@ -22,18 +29,65 @@ const SettingsPanel = () => {
     
     setNotifications(settings.notifications ?? true);
     setNotificationTime(settings.notificationTime || '09:00');
-    setCostPerWeek(settings.costPerWeek || '20');
-    setCoilCost(settings.coilCost || '4');
-    setCoilDays(settings.coilDays || '10');
+    
+    // Cargar configuración de costos
+    setVaperType(settings.vaperType || 'disposable');
+    setDisposablePrice(settings.disposablePrice?.toString() || '8');
+    setDisposablesPerWeek(settings.disposablesPerWeek?.toString() || '2');
+    setLiquidPrice(settings.liquidPrice?.toString() || '12');
+    setLiquidSize(settings.liquidSize?.toString() || '30');
+    setLiquidMlPerWeek(settings.liquidMlPerWeek?.toString() || '20');
+    setCoilPrice(settings.coilPrice?.toString() || '4');
+    setCoilDays(settings.coilDays?.toString() || '10');
   }, []);
 
+  const calculateDailyCost = () => {
+    switch (vaperType) {
+      case 'disposable':
+        const weeklyDisposables = parseFloat(disposablesPerWeek) || 2;
+        const pricePerDisposable = parseFloat(disposablePrice) || 8;
+        return (weeklyDisposables * pricePerDisposable) / 7;
+        
+      case 'pod':
+        const weeklyLiquid = parseFloat(liquidMlPerWeek) || 20;
+        const bottleSize = parseFloat(liquidSize) || 30;
+        const bottlePrice = parseFloat(liquidPrice) || 12;
+        const bottlesPerWeek = weeklyLiquid / bottleSize;
+        return (bottlesPerWeek * bottlePrice) / 7;
+        
+      case 'mod':
+        const modWeeklyLiquid = parseFloat(liquidMlPerWeek) || 20;
+        const modBottleSize = parseFloat(liquidSize) || 30;
+        const modBottlePrice = parseFloat(liquidPrice) || 12;
+        const modBottlesPerWeek = modWeeklyLiquid / modBottleSize;
+        const liquidDailyCost = (modBottlesPerWeek * modBottlePrice) / 7;
+        
+        const coilDailyCost = (parseFloat(coilPrice) || 4) / (parseFloat(coilDays) || 10);
+        return liquidDailyCost + coilDailyCost;
+        
+      default:
+        return 0;
+    }
+  };
+
   const saveSettings = () => {
+    const dailyCost = calculateDailyCost();
+    
     const settings = {
       notifications,
       notificationTime,
-      costPerWeek: parseFloat(costPerWeek) || 20,
-      coilCost: parseFloat(coilCost) || 4,
-      coilDays: parseInt(coilDays) || 10
+      vaperType,
+      disposablePrice: parseFloat(disposablePrice),
+      disposablesPerWeek: parseFloat(disposablesPerWeek),
+      liquidPrice: parseFloat(liquidPrice),
+      liquidSize: parseFloat(liquidSize),
+      liquidMlPerWeek: parseFloat(liquidMlPerWeek),
+      coilPrice: parseFloat(coilPrice),
+      coilDays: parseFloat(coilDays),
+      dailyCost,
+      // Mantener compatibilidad con versiones anteriores
+      costPerWeek: dailyCost * 7,
+      coilCost: parseFloat(coilPrice)
     };
 
     localStorage.setItem('app-settings', JSON.stringify(settings));
@@ -43,7 +97,6 @@ const SettingsPanel = () => {
     if (notifications && 'Notification' in window) {
       Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
-          // Programar notificación diaria
           const [hours, minutes] = notificationTime.split(':').map(Number);
           const now = new Date();
           const scheduledTime = new Date();
@@ -95,14 +148,10 @@ const SettingsPanel = () => {
     toast.success('Datos exportados correctamente');
   };
 
-  const dailyCost = ((parseFloat(costPerWeek) || 20) / 7) + ((parseFloat(coilCost) || 4) / (parseInt(coilDays) || 10));
+  const dailyCost = calculateDailyCost();
 
   return (
     <div className="space-y-6">
-      
-      {/* Sección de Donaciones */}
-      <DonationSection />
-
       <Card>
         <CardHeader>
           <CardTitle>⚙️ Configuración de la Aplicación</CardTitle>
@@ -139,46 +188,150 @@ const SettingsPanel = () => {
             )}
           </div>
 
-          {/* Configuración de costos */}
+          {/* Configuración de costos mejorada */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Cálculo de Ahorros</h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="cost-per-week">Costo líquido por semana (€)</Label>
-                <Input
-                  id="cost-per-week"
-                  type="number"
-                  step="0.01"
-                  value={costPerWeek}
-                  onChange={(e) => setCostPerWeek(e.target.value)}
-                  placeholder="20.00"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="coil-cost">Costo de resistencia (€)</Label>
-                <Input
-                  id="coil-cost"
-                  type="number"
-                  step="0.01"
-                  value={coilCost}
-                  onChange={(e) => setCoilCost(e.target.value)}
-                  placeholder="4.00"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="coil-days">Duración resistencia (días)</Label>
-                <Input
-                  id="coil-days"
-                  type="number"
-                  value={coilDays}
-                  onChange={(e) => setCoilDays(e.target.value)}
-                  placeholder="10"
-                />
-              </div>
+            {/* Tipo de vaper */}
+            <div className="space-y-2">
+              <Label htmlFor="vaper-type">Tipo de vaper que usabas</Label>
+              <Select value={vaperType} onValueChange={setVaperType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecciona tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="disposable">🗑️ Desechable</SelectItem>
+                  <SelectItem value="pod">📦 Pod/Cartucho</SelectItem>
+                  <SelectItem value="mod">🔧 Mod/Tanque</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
+
+            {/* Configuración específica por tipo */}
+            {vaperType === 'disposable' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+                <div className="space-y-2">
+                  <Label htmlFor="disposables-week">Desechables por semana</Label>
+                  <Input
+                    id="disposables-week"
+                    type="number"
+                    step="0.5"
+                    value={disposablesPerWeek}
+                    onChange={(e) => setDisposablesPerWeek(e.target.value)}
+                    placeholder="2"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="disposable-price">Precio por desechable (€)</Label>
+                  <Input
+                    id="disposable-price"
+                    type="number"
+                    step="0.01"
+                    value={disposablePrice}
+                    onChange={(e) => setDisposablePrice(e.target.value)}
+                    placeholder="8.00"
+                  />
+                </div>
+              </div>
+            )}
+
+            {vaperType === 'pod' && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-lg">
+                <div className="space-y-2">
+                  <Label htmlFor="liquid-ml-week">Líquido por semana (ml)</Label>
+                  <Input
+                    id="liquid-ml-week"
+                    type="number"
+                    value={liquidMlPerWeek}
+                    onChange={(e) => setLiquidMlPerWeek(e.target.value)}
+                    placeholder="20"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="liquid-size">Tamaño del bote (ml)</Label>
+                  <Input
+                    id="liquid-size"
+                    type="number"
+                    value={liquidSize}
+                    onChange={(e) => setLiquidSize(e.target.value)}
+                    placeholder="30"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="liquid-price">Precio del bote (€)</Label>
+                  <Input
+                    id="liquid-price"
+                    type="number"
+                    step="0.01"
+                    value={liquidPrice}
+                    onChange={(e) => setLiquidPrice(e.target.value)}
+                    placeholder="12.00"
+                  />
+                </div>
+              </div>
+            )}
+
+            {vaperType === 'mod' && (
+              <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="mod-liquid-ml">Líquido por semana (ml)</Label>
+                    <Input
+                      id="mod-liquid-ml"
+                      type="number"
+                      value={liquidMlPerWeek}
+                      onChange={(e) => setLiquidMlPerWeek(e.target.value)}
+                      placeholder="20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="mod-liquid-size">Tamaño del bote (ml)</Label>
+                    <Input
+                      id="mod-liquid-size"
+                      type="number"
+                      value={liquidSize}
+                      onChange={(e) => setLiquidSize(e.target.value)}
+                      placeholder="30"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="mod-liquid-price">Precio del bote (€)</Label>
+                    <Input
+                      id="mod-liquid-price"
+                      type="number"
+                      step="0.01"
+                      value={liquidPrice}
+                      onChange={(e) => setLiquidPrice(e.target.value)}
+                      placeholder="12.00"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="coil-price">Precio de resistencia (€)</Label>
+                    <Input
+                      id="coil-price"
+                      type="number"
+                      step="0.01"
+                      value={coilPrice}
+                      onChange={(e) => setCoilPrice(e.target.value)}
+                      placeholder="4.00"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="coil-days">Duración resistencia (días)</Label>
+                    <Input
+                      id="coil-days"
+                      type="number"
+                      value={coilDays}
+                      onChange={(e) => setCoilDays(e.target.value)}
+                      placeholder="10"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="bg-blue-50 p-3 rounded-lg">
               <p className="text-sm text-blue-700">

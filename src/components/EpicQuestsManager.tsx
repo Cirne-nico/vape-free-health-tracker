@@ -125,7 +125,7 @@ const EpicQuestsManager = () => {
     emotional: { title: 'Gestión Emocional', icon: '💭', description: 'Manejo de estados emocionales intensos' },
     substance: { title: 'Otras Sustancias', icon: '🍺', description: 'Situaciones con alcohol u otras sustancias' },
     psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' },
-    situational: { title: 'Contextos Laborales', icon: '📍', description: 'Situaciones específicas del trabajo' }
+    situational: { title: 'Contextos Específicos', icon: '📍', description: 'Lugares y momentos particulares' }
   };
 
   const QuestGroup = ({ category, quests: categoryQuests }: { category: keyof typeof categoryInfo; quests: EpicQuest[] }) => {

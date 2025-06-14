@@ -49,7 +49,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Manejar presión, deadlines o conflictos en el trabajo sin vapear',
     requiredChecks: 3,
     icon: '💼',
-    category: 'situational',
+    category: 'psychological',
     reward: 'Herramientas de gestión del estrés profesional',
     medalIcon: '/lovable-uploads/Estres_laboral.png'
   },
@@ -59,7 +59,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Disfrutar de los descansos laborales sin necesidad de vapear',
     requiredChecks: 3,
     icon: '☕',
-    category: 'situational',
+    category: 'psychological',
     reward: 'Descansos genuinos y reparadores',
     medalIcon: '/lovable-uploads/Descanso_trabajo copy.png'
   },

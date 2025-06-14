@@ -5,40 +5,46 @@ import { toast } from 'sonner';
 export const useQuestManager = () => {
   const [quests, setQuests] = useState<EpicQuest[]>([]);
 
+  // Cargar gestas del localStorage
   useEffect(() => {
     const savedQuests = localStorage.getItem('epic-quests');
     if (savedQuests) {
       const loadedQuests = JSON.parse(savedQuests);
       setQuests(loadedQuests);
     } else {
+      // Inicializar con gestas por defecto
       const initialQuests = defaultEpicQuests.map(createEpicQuest);
       setQuests(initialQuests);
       localStorage.setItem('epic-quests', JSON.stringify(initialQuests));
     }
   }, []);
 
+  // Función para verificar si se debe desbloquear la medalla final
   const checkUltimateAchievement = (updatedQuests: EpicQuest[]) => {
-    const completedQuests = updatedQuests.filter(q => 
-      q.isCompleted && q.id !== 'ultimate_achievement'
-    );
-    
+    // Contar gestas con medalla (excluyendo la medalla final)
     const questsWithMedals = updatedQuests.filter(q => 
       q.medalIcon && q.id !== 'ultimate_achievement'
     );
     
-    const allMedalQuestsCompleted = questsWithMedals.every(q => q.isCompleted);
+    // Verificar si todas las gestas con medalla están completadas
+    const allMedalQuestsCompleted = questsWithMedals.length > 0 && 
+                                   questsWithMedals.every(q => q.isCompleted);
+    
+    // Obtener la gesta ultimate
     const ultimateQuest = updatedQuests.find(q => q.id === 'ultimate_achievement');
     
+    // Condiciones para desbloquear la medalla final
     const shouldUnlock = ultimateQuest && 
                         !ultimateQuest.isCompleted && 
-                        questsWithMedals.length > 0 && 
                         allMedalQuestsCompleted;
     
+    // Condiciones para desactivar la medalla final
     const shouldDeactivate = ultimateQuest && 
                             ultimateQuest.isCompleted && 
                             !allMedalQuestsCompleted;
     
     if (shouldUnlock) {
+      // Desbloquear automáticamente la medalla final
       const finalUpdatedQuests = updatedQuests.map(quest => {
         if (quest.id === 'ultimate_achievement') {
           return {
@@ -59,6 +65,7 @@ export const useQuestManager = () => {
     }
     
     if (shouldDeactivate) {
+      // Desactivar la medalla final si ya no se cumplen las condiciones
       const finalUpdatedQuests = updatedQuests.map(quest => {
         if (quest.id === 'ultimate_achievement') {
           return {
@@ -70,19 +77,17 @@ export const useQuestManager = () => {
         return quest;
       });
       
-      toast.info('La medalla de Maestría Total se ha desactivado', {
-        description: 'Completa todas las gestas épicas para volver a desbloquearla.',
-        duration: 5000
-      });
-      
       return finalUpdatedQuests;
     }
     
     return updatedQuests;
   };
 
+  // Guardar gestas en localStorage
   const saveQuests = (updatedQuests: EpicQuest[]) => {
+    // Verificar medalla final antes de guardar
     const finalQuests = checkUltimateAchievement(updatedQuests);
+    
     setQuests(finalQuests);
     localStorage.setItem('epic-quests', JSON.stringify(finalQuests));
   };

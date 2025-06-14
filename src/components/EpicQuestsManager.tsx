@@ -102,13 +102,25 @@ const EpicQuestsManager = () => {
     toast.success('Nueva hazaña añadida');
   };
 
-  // Agrupar gestas por categoría - INCLUYENDO ULTIMATE
+  // Verificar si se deben mostrar todas las gestas con medallas completadas
+  const questsWithMedals = quests.filter(q => q.medalIcon && q.id !== 'ultimate_achievement');
+  const allMedalQuestsCompleted = questsWithMedals.length > 0 && questsWithMedals.every(q => q.isCompleted);
+  
+  // Filtrar la gesta ultimate_achievement si no se han completado todas las demás gestas con medallas
+  const filteredQuests = quests.filter(q => {
+    if (q.id === 'ultimate_achievement') {
+      return allMedalQuestsCompleted || q.isCompleted;
+    }
+    return true;
+  });
+
+  // Agrupar gestas por categoría - EXCLUYENDO ultimate si no corresponde
   const groupedQuests = {
-    social: quests.filter(q => q.category === 'social'),
-    emotional: quests.filter(q => q.category === 'emotional'),
-    substance: quests.filter(q => q.category === 'substance'),
-    psychological: quests.filter(q => q.category === 'psychological'),
-    ultimate: quests.filter(q => q.category === 'ultimate')
+    social: filteredQuests.filter(q => q.category === 'social'),
+    emotional: filteredQuests.filter(q => q.category === 'emotional'),
+    substance: filteredQuests.filter(q => q.category === 'substance'),
+    psychological: filteredQuests.filter(q => q.category === 'psychological'),
+    ultimate: filteredQuests.filter(q => q.category === 'ultimate')
   };
 
   const categoryInfo = {
@@ -208,14 +220,18 @@ const EpicQuestsManager = () => {
           onRemoveCheck={removeCheck}
           onDeleteQuest={deleteQuest}
         />
-        <CollapsibleQuestGroup 
-          category="ultimate" 
-          quests={groupedQuests.ultimate}
-          categoryInfo={categoryInfo.ultimate}
-          onAddCheck={addCheck}
-          onRemoveCheck={removeCheck}
-          onDeleteQuest={deleteQuest}
-        />
+        
+        {/* Solo mostrar la categoría ultimate si hay gestas en ella (después de filtrar) */}
+        {groupedQuests.ultimate.length > 0 && (
+          <CollapsibleQuestGroup 
+            category="ultimate" 
+            quests={groupedQuests.ultimate}
+            categoryInfo={categoryInfo.ultimate}
+            onAddCheck={addCheck}
+            onRemoveCheck={removeCheck}
+            onDeleteQuest={deleteQuest}
+          />
+        )}
       </div>
 
       {quests.length === 0 && (

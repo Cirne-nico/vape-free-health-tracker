@@ -102,18 +102,21 @@ const EpicQuestsManager = () => {
     toast.success('Nueva hazaña añadida');
   };
 
+  // Agrupar gestas por categoría - INCLUYENDO ULTIMATE
   const groupedQuests = {
     social: quests.filter(q => q.category === 'social'),
     emotional: quests.filter(q => q.category === 'emotional'),
     substance: quests.filter(q => q.category === 'substance'),
-    psychological: quests.filter(q => q.category === 'psychological')
+    psychological: quests.filter(q => q.category === 'psychological'),
+    ultimate: quests.filter(q => q.category === 'ultimate')
   };
 
   const categoryInfo = {
     social: { title: 'Situaciones Sociales', icon: '👥', description: 'Interacciones con otras personas' },
     emotional: { title: 'Gestión Emocional', icon: '💭', description: 'Manejo de estados emocionales intensos' },
     substance: { title: 'Otras Sustancias', icon: '🍺', description: 'Situaciones con alcohol u otras sustancias' },
-    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' }
+    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' },
+    ultimate: { title: 'Maestría Total', icon: '💥', description: 'Medalla final que se desbloquea automáticamente' }
   };
 
   const QuestGroup = ({ category, quests: categoryQuests }: { category: keyof typeof categoryInfo; quests: EpicQuest[] }) => {
@@ -209,6 +212,7 @@ const EpicQuestsManager = () => {
         <QuestGroup category="social" quests={groupedQuests.social} />
         <QuestGroup category="substance" quests={groupedQuests.substance} />
         <QuestGroup category="psychological" quests={groupedQuests.psychological} />
+        <QuestGroup category="ultimate" quests={groupedQuests.ultimate} />
       </div>
 
       {quests.length === 0 && (

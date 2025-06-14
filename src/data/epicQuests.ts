@@ -5,7 +5,7 @@ export interface EpicQuest {
   requiredChecks: number;
   currentChecks: number;
   icon: string;
-  category: 'social' | 'emotional' | 'substance' | 'psychological';
+  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'ultimate';
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
@@ -189,7 +189,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Has completado TODAS las gestas épicas disponibles. Eres une verdadere maestre de la recuperación.',
     requiredChecks: 1,
     icon: '💥',
-    category: 'psychological',
+    category: 'ultimate',
     reward: 'Reconocimiento como maestre absolute de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
     medalIcon: '/lovable-uploads/Crack.png'
   }
@@ -207,6 +207,7 @@ export const getCategoryColor = (category: EpicQuest['category']) => {
     case 'emotional': return 'bg-red-100 text-red-800 border-red-300';
     case 'substance': return 'bg-orange-100 text-orange-800 border-orange-300';
     case 'psychological': return 'bg-purple-100 text-purple-800 border-purple-300';
+    case 'ultimate': return 'bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 border-purple-300';
     default: return 'bg-gray-100 text-gray-800 border-gray-300';
   }
 };
@@ -217,6 +218,7 @@ export const getCategoryName = (category: EpicQuest['category']) => {
     case 'emotional': return 'Emocional';
     case 'substance': return 'Sustancias';
     case 'psychological': return 'Psicológico';
+    case 'ultimate': return 'Maestría Total';
     default: return 'General';
   }
 };

@@ -5,7 +5,7 @@ export interface EpicQuest {
   requiredChecks: number;
   currentChecks: number;
   icon: string;
-  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational';
+  category: 'social' | 'emotional' | 'substance' | 'psychological';
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
@@ -183,7 +183,6 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     reward: 'Satisfacción genuina por el trabajo intelectual',
     medalIcon: '/lovable-uploads/Acabas_de_escribir copy.png'
   },
-  // ✅ GESTA FINAL AL FINAL DE LA LISTA
   {
     id: 'ultimate_achievement',
     title: 'CRACK! - Maestría Total',
@@ -208,7 +207,6 @@ export const getCategoryColor = (category: EpicQuest['category']) => {
     case 'emotional': return 'bg-red-100 text-red-800 border-red-300';
     case 'substance': return 'bg-orange-100 text-orange-800 border-orange-300';
     case 'psychological': return 'bg-purple-100 text-purple-800 border-purple-300';
-    case 'situational': return 'bg-green-100 text-green-800 border-green-300';
     default: return 'bg-gray-100 text-gray-800 border-gray-300';
   }
 };
@@ -219,7 +217,6 @@ export const getCategoryName = (category: EpicQuest['category']) => {
     case 'emotional': return 'Emocional';
     case 'substance': return 'Sustancias';
     case 'psychological': return 'Psicológico';
-    case 'situational': return 'Situacional';
     default: return 'General';
   }
 };

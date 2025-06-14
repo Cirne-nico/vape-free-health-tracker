@@ -106,16 +106,14 @@ const EpicQuestsManager = () => {
     social: quests.filter(q => q.category === 'social'),
     emotional: quests.filter(q => q.category === 'emotional'),
     substance: quests.filter(q => q.category === 'substance'),
-    psychological: quests.filter(q => q.category === 'psychological'),
-    situational: quests.filter(q => q.category === 'situational')
+    psychological: quests.filter(q => q.category === 'psychological')
   };
 
   const categoryInfo = {
     social: { title: 'Situaciones Sociales', icon: '👥', description: 'Interacciones con otras personas' },
     emotional: { title: 'Gestión Emocional', icon: '💭', description: 'Manejo de estados emocionales intensos' },
     substance: { title: 'Otras Sustancias', icon: '🍺', description: 'Situaciones con alcohol u otras sustancias' },
-    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' },
-    situational: { title: 'Contextos Específicos', icon: '📍', description: 'Lugares y momentos particulares' }
+    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' }
   };
 
   const QuestGroup = ({ category, quests: categoryQuests }: { category: keyof typeof categoryInfo; quests: EpicQuest[] }) => {
@@ -211,7 +209,6 @@ const EpicQuestsManager = () => {
         <QuestGroup category="social" quests={groupedQuests.social} />
         <QuestGroup category="substance" quests={groupedQuests.substance} />
         <QuestGroup category="psychological" quests={groupedQuests.psychological} />
-        <QuestGroup category="situational" quests={groupedQuests.situational} />
       </div>
 
       {quests.length === 0 && (

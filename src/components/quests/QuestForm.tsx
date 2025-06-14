@@ -16,7 +16,7 @@ const QuestForm = ({ onAddQuest }: QuestFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [requiredChecks, setRequiredChecks] = useState(3);
-  const [category, setCategory] = useState<EpicQuest['category']>('situational');
+  const [category, setCategory] = useState<EpicQuest['category']>('psychological');
   const [icon, setIcon] = useState('⚔️');
 
   const handleSubmit = () => {
@@ -38,7 +38,7 @@ const QuestForm = ({ onAddQuest }: QuestFormProps) => {
     setTitle('');
     setDescription('');
     setRequiredChecks(3);
-    setCategory('situational');
+    setCategory('psychological');
     setIcon('⚔️');
     setShowDialog(false);
   };
@@ -104,7 +104,6 @@ const QuestForm = ({ onAddQuest }: QuestFormProps) => {
                   <SelectItem value="emotional">Emocional</SelectItem>
                   <SelectItem value="substance">Sustancias</SelectItem>
                   <SelectItem value="psychological">Psicológico</SelectItem>
-                  <SelectItem value="situational">Situacional</SelectItem>
                 </SelectContent>
               </Select>
             </div>

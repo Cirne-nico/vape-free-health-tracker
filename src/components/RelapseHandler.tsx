@@ -71,18 +71,18 @@ export const useRelapseHandler = ({
         return;
     }
     
-    // Calcular nueva fecha de inicio restando los días de penalización
-    const millisecondsToSubtract = daysToSubtract * 24 * 60 * 60 * 1000;
-    const newStartDate = new Date(startDate.getTime() + millisecondsToSubtract);
-    
-    // Si la penalización es mayor que el progreso actual, poner en día 0
+    // CORRECCIÓN: Verificar si la penalización es mayor que el progreso actual
     if (daysToSubtract >= currentDays) {
+      // Si la penalización es mayor o igual al progreso, reiniciar a hoy
       setStartDate(new Date());
       localStorage.setItem('vaping-quit-date', new Date().toISOString());
       resetAchievements();
       penaltyMessage += ' Como la penalización supera tu progreso actual, el contador se ha puesto en cero.';
     } else {
-      // Aplicar la penalización normal
+      // Calcular nueva fecha de inicio restando los días de penalización
+      const millisecondsToSubtract = daysToSubtract * 24 * 60 * 60 * 1000;
+      const newStartDate = new Date(startDate.getTime() + millisecondsToSubtract);
+      
       setStartDate(newStartDate);
       localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
       

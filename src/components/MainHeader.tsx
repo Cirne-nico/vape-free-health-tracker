@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Clock, TrendingUp, AlertTriangle, Trophy, User, Info } from 'lucide-react';
+import { Clock, TrendingUp, AlertTriangle, Trophy, User, Info, Zap } from 'lucide-react';
 import Logo from './Logo';
+import PanicButton from './PanicButton';
 
 interface MainHeaderProps {
   time: {
@@ -41,6 +42,7 @@ const MainHeader = ({
   onRelapse 
 }: MainHeaderProps) => {
   const [userName, setUserName] = useState<string>('');
+  const [showPanicButton, setShowPanicButton] = useState(false);
 
   useEffect(() => {
     const savedUserName = localStorage.getItem('user-name');
@@ -193,8 +195,30 @@ const MainHeader = ({
               </p>
             </div>
 
-            {/* Botón de recaída reducido 30% */}
-            <div className="flex justify-center pt-2">
+            {/* Botones de pánico y recaída */}
+            <div className="flex justify-center gap-2 pt-2">
+              {/* Botón de pánico - NUEVO */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={() => setShowPanicButton(true)}
+                    variant="outline"
+                    className="bg-orange-500/20 border-orange-300 text-white hover:bg-orange-500/30 text-xs px-2 py-1 h-7"
+                  >
+                    <Zap className="w-2.5 h-2.5 mr-1" />
+                    Pánico
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs p-3 text-sm">
+                  <div className="space-y-1">
+                    <p className="font-semibold">Protocolo Anti-Antojo</p>
+                    <p>Pasos inmediatos para superar momentos de antojo intenso:</p>
+                    <p>• Beber agua • Respirar 4-6 • Manipular objeto • Ejercicio rápido</p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+
+              {/* Botón de recaída */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -225,6 +249,12 @@ const MainHeader = ({
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal del botón de pánico */}
+      <PanicButton 
+        isOpen={showPanicButton}
+        onClose={() => setShowPanicButton(false)}
+      />
     </TooltipProvider>
   );
 };

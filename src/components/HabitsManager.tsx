@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Info, ExternalLink, Zap } from 'lucide-react';
 import { scientificHabits, createHabit, Habit } from '@/data/habitsData';
+import HabitTracker from './habits/HabitTracker';
 import PanicButton from './PanicButton';
 
 const HabitsManager = () => {
@@ -35,6 +36,9 @@ const HabitsManager = () => {
   const activeHabitsCount = habits.filter(h => h.isActive).length;
   const totalHabits = habits.length;
   const activationPercentage = (activeHabitsCount / totalHabits) * 100;
+
+  // Hábitos que necesitan seguimiento
+  const trackableHabits = ['daily_exercise', 'strict_sleep_schedule', 'social_commitment'];
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -188,6 +192,15 @@ const HabitsManager = () => {
                           </Button>
                         </div>
                       </div>
+                    )}
+
+                    {/* Seguimiento para hábitos específicos */}
+                    {trackableHabits.includes(habit.id) && (
+                      <HabitTracker 
+                        habitId={habit.id}
+                        habitName={habit.shortName}
+                        isActive={habit.isActive}
+                      />
                     )}
                   </CardContent>
                 </Card>

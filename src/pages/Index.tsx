@@ -68,8 +68,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      {/* CONTENEDOR PRINCIPAL CON PADDING SEGURO */}
-      <div className="max-w-4xl mx-auto pt-safe-area">
+      {/* CONTENEDOR PRINCIPAL - PADDING CORREGIDO */}
+      <div className="max-w-4xl mx-auto p-2 sm:p-4">
         <div className="space-y-4 sm:space-y-6">
           <MainHeader 
             time={time}
@@ -82,15 +82,13 @@ const Index = () => {
             onRelapse={handleRelapse}
           />
 
-          <div className="p-2 sm:p-4 space-y-4 sm:space-y-6">
-            <MainTabs 
-              startDate={startDate}
-              currentDay={time.days}
-              totalSavings={savings.total}
-              unlockedAchievements={unlockedAchievements}
-              unlockedHealthAchievements={unlockedHealthAchievements}
-            />
-          </div>
+          <MainTabs 
+            startDate={startDate}
+            currentDay={time.days}
+            totalSavings={savings.total}
+            unlockedAchievements={unlockedAchievements}
+            unlockedHealthAchievements={unlockedHealthAchievements}
+          />
         </div>
       </div>
 

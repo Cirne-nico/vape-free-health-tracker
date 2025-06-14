@@ -108,8 +108,8 @@ const MainHeader = ({
 
   return (
     <TooltipProvider>
-      {/* Header principal con imagen de fondo - CORREGIDO para evitar overflow */}
-      <Card className="relative overflow-hidden text-white rounded-lg mx-2 sm:mx-4 mt-2 sm:mt-4">
+      {/* Header principal - COMPLETAMENTE CORREGIDO */}
+      <Card className="relative overflow-hidden text-white rounded-lg">
         {/* Imagen de fondo con blur */}
         <div 
           className="absolute inset-0"
@@ -124,41 +124,42 @@ const MainHeader = ({
         {/* Overlay para mejorar legibilidad */}
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
         
-        <CardContent className="relative p-4 sm:p-6 z-10">
-          <div className="flex flex-col space-y-4">
-            {/* Logo y título de la app centrado */}
-            <div className="text-center mb-3">
-              <div className="flex items-center justify-center gap-3 mb-2">
+        {/* CONTENIDO PRINCIPAL - ALTURA REDUCIDA */}
+        <CardContent className="relative p-3 sm:p-4 z-10">
+          <div className="flex flex-col space-y-2 sm:space-y-3">
+            {/* Logo y título de la app - MÁS COMPACTO */}
+            <div className="text-center mb-2">
+              <div className="flex items-center justify-center gap-2 mb-1">
                 <Logo size="sm" className="text-white flex-shrink-0" />
-                <h1 className="text-xl sm:text-2xl font-bold text-white leading-none tracking-wide">
+                <h1 className="text-lg sm:text-xl font-bold text-white leading-none tracking-wide">
                   UMBRAL
                 </h1>
               </div>
-              <p className="text-xs sm:text-sm text-black italic font-medium">
+              <p className="text-xs text-black italic font-medium">
                 acompaña tu proceso de abandono del vapeo
               </p>
             </div>
 
-            {/* Título principal más elegante */}
+            {/* Título principal - MÁS COMPACTO */}
             <div className="text-center space-y-1">
-              <h2 className="text-base sm:text-xl font-bold text-white">
+              <h2 className="text-sm sm:text-base font-bold text-white">
                 Ya sin nicotina, el cuerpo escucha:
               </h2>
-              <h3 className="text-sm sm:text-lg font-semibold text-green-100">
+              <h3 className="text-xs sm:text-sm font-semibold text-green-100">
                 hacia la sociabilidad mínima
               </h3>
             </div>
 
-            {/* Tiempo transcurrido con mejor jerarquía */}
-            <div className="text-center py-2">
-              <h4 className="text-2xl sm:text-3xl font-bold mb-1">
+            {/* Tiempo transcurrido - MÁS COMPACTO */}
+            <div className="text-center py-1">
+              <h4 className="text-xl sm:text-2xl font-bold mb-1">
                 {time.days > 0 ? `${time.days} días sin vapear` : `${time.hours}h ${time.minutes}m sin vapear`}
               </h4>
             </div>
 
-            {/* Progreso visual */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs sm:text-sm">
+            {/* Progreso visual - MÁS COMPACTO */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs">
                 <span>Progreso hacia {progressInfo.targetLabel}</span>
                 <span className="font-semibold">{Math.min(progressPercentage, 100).toFixed(1)}%</span>
               </div>
@@ -170,42 +171,42 @@ const MainHeader = ({
               )}
             </div>
 
-            {/* Estadísticas centrales */}
-            <div className="grid grid-cols-2 gap-3 text-center">
-              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3">
+            {/* Estadísticas centrales - MÁS COMPACTAS */}
+            <div className="grid grid-cols-2 gap-2 text-center">
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
                 <div className="flex items-center justify-center mb-1">
-                  <Clock className="w-4 h-4 mr-1" />
+                  <Clock className="w-3 h-3 mr-1" />
                 </div>
-                <p className="text-lg sm:text-xl font-bold">{time.totalHours}</p>
+                <p className="text-base sm:text-lg font-bold">{time.totalHours}</p>
                 <p className="text-green-100 text-xs">horas totales</p>
               </div>
-              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-3">
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
                 <div className="flex items-center justify-center mb-1">
-                  <Trophy className="w-4 h-4 mr-1" />
+                  <Trophy className="w-3 h-3 mr-1" />
                 </div>
-                <p className="text-lg sm:text-xl font-bold">{totalMedals}</p>
+                <p className="text-base sm:text-lg font-bold">{totalMedals}</p>
                 <p className="text-green-100 text-xs">medallas</p>
               </div>
             </div>
 
-            {/* Cita crítica en lugar de mensaje motivacional */}
+            {/* Cita crítica - MÁS COMPACTA */}
             <div className="text-center">
-              <p className="text-xs sm:text-sm text-green-100 italic font-light leading-relaxed">
+              <p className="text-xs text-green-100 italic font-light leading-relaxed">
                 {getCriticalQuote()}
               </p>
             </div>
 
-            {/* Botones de pánico y recaída */}
-            <div className="flex justify-center gap-2 pt-2">
-              {/* Botón de pánico */}
+            {/* BOTONES SIMÉTRICOS Y CENTRADOS - MISMO TAMAÑO */}
+            <div className="flex justify-center gap-3 pt-1">
+              {/* Botón de pánico - MISMO TAMAÑO QUE RECAÍDA */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={() => setShowPanicButton(true)}
                     variant="outline"
-                    className="bg-orange-500/20 border-orange-300 text-white hover:bg-orange-500/30 text-xs px-2 py-1 h-7"
+                    className="bg-orange-500/20 border-orange-300 text-white hover:bg-orange-500/30 text-xs px-3 py-2 h-8 min-w-[80px]"
                   >
-                    <Zap className="w-2.5 h-2.5 mr-1" />
+                    <Zap className="w-3 h-3 mr-1" />
                     Pánico
                   </Button>
                 </TooltipTrigger>
@@ -218,15 +219,15 @@ const MainHeader = ({
                 </TooltipContent>
               </Tooltip>
 
-              {/* Botón de recaída */}
+              {/* Botón de recaída - MISMO TAMAÑO QUE PÁNICO */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={onRelapse}
                     variant="outline"
-                    className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 relative text-xs px-2 py-1 h-7"
+                    className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 text-xs px-3 py-2 h-8 min-w-[80px]"
                   >
-                    <AlertTriangle className="w-2.5 h-2.5 mr-1" />
+                    <AlertTriangle className="w-3 h-3 mr-1" />
                     Recaída
                     <Info className="w-2 h-2 ml-1 opacity-70" />
                   </Button>

@@ -6,12 +6,14 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus } from 'lucide-react';
 import { EpicQuest } from '@/data/epicQuests';
+import { useTranslation } from 'react-i18next';
 
 interface QuestFormProps {
   onAddQuest: (questData: Omit<EpicQuest, 'id' | 'currentChecks' | 'isCompleted'>) => void;
 }
 
 const QuestForm = ({ onAddQuest }: QuestFormProps) => {
+  const { t } = useTranslation();
   const [showDialog, setShowDialog] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -29,7 +31,7 @@ const QuestForm = ({ onAddQuest }: QuestFormProps) => {
       icon,
       category,
       isCustom: true,
-      reward: `Superación personal: ${title.trim()}`
+      reward: `${t('epicQuests.questCard.personalAchievement')}: ${title.trim()}`
     };
 
     onAddQuest(questData);
@@ -48,37 +50,37 @@ const QuestForm = ({ onAddQuest }: QuestFormProps) => {
       <DialogTrigger asChild>
         <Button className="bg-amber-600 hover:bg-amber-700">
           <Plus className="w-4 h-4 mr-2" />
-          Añadir Hazaña Personalizada
+          {t('epicQuests.addCustomQuest')}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Crear Nueva Hazaña</DialogTitle>
+          <DialogTitle>{t('epicQuests.questForm.title')}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <Label htmlFor="title">Título *</Label>
+            <Label htmlFor="title">{t('epicQuests.questForm.titleField')}</Label>
             <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ej: Presentación importante en el trabajo"
+              placeholder={t('epicQuests.questForm.titlePlaceholder')}
             />
           </div>
           
           <div>
-            <Label htmlFor="description">Descripción</Label>
+            <Label htmlFor="description">{t('epicQuests.questForm.description')}</Label>
             <Input
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Descripción detallada de la situación"
+              placeholder={t('epicQuests.questForm.descriptionPlaceholder')}
             />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="checks">Checks requeridos</Label>
+              <Label htmlFor="checks">{t('epicQuests.questForm.checks')}</Label>
               <Select value={requiredChecks.toString()} onValueChange={(value) => setRequiredChecks(parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />
@@ -94,38 +96,38 @@ const QuestForm = ({ onAddQuest }: QuestFormProps) => {
             </div>
             
             <div>
-              <Label htmlFor="category">Categoría</Label>
+              <Label htmlFor="category">{t('epicQuests.questForm.category')}</Label>
               <Select value={category} onValueChange={(value) => setCategory(value as EpicQuest['category'])}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="social">Social</SelectItem>
-                  <SelectItem value="emotional">Emocional</SelectItem>
-                  <SelectItem value="substance">Sustancias</SelectItem>
-                  <SelectItem value="psychological">Psicológico</SelectItem>
+                  <SelectItem value="social">{t('epicQuests.categories.social.title')}</SelectItem>
+                  <SelectItem value="emotional">{t('epicQuests.categories.emotional.title')}</SelectItem>
+                  <SelectItem value="substance">{t('epicQuests.categories.substance.title')}</SelectItem>
+                  <SelectItem value="psychological">{t('epicQuests.categories.psychological.title')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           
           <div>
-            <Label htmlFor="icon">Icono</Label>
+            <Label htmlFor="icon">{t('epicQuests.questForm.icon')}</Label>
             <Input
               id="icon"
               value={icon}
               onChange={(e) => setIcon(e.target.value)}
-              placeholder="Ej: ⚔️, 🎯, 💪"
+              placeholder={t('epicQuests.questForm.iconPlaceholder')}
               maxLength={2}
             />
           </div>
           
           <div className="flex gap-2 pt-4">
             <Button onClick={handleSubmit} className="flex-1">
-              Crear Hazaña
+              {t('epicQuests.questForm.create')}
             </Button>
             <Button variant="outline" onClick={() => setShowDialog(false)}>
-              Cancelar
+              {t('epicQuests.questForm.cancel')}
             </Button>
           </div>
         </div>

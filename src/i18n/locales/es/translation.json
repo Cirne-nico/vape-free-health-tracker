@@ -80,7 +80,39 @@
     "nextBadge": "Próximo Estado Emocional",
     "unlockedBadges": "Estados Emocionales Alcanzados",
     "motivationalMessage": "🧠 Tu progreso se basa en cambios emocionales reales, no solo en el tiempo transcurrido. Cada estado desbloqueado refleja una transformación auténtica en tu bienestar.",
-    "registrationInfo": "📊 Registra tus emociones regularmente para desbloquear estados emocionales. Llevas {{count}} registros hasta ahora."
+    "registrationInfo": "📊 Registra tus emociones regularmente para desbloquear estados emocionales. Llevas {{count}} registros hasta ahora.",
+    "progressToNextLevel": "Progreso al siguiente nivel",
+    "remainingStates": "{{count}} estados restantes",
+    "levels": {
+      "dorsal": {
+        "name": "Estado dorsal",
+        "description": "Supervivencia. El sistema está colapsado, desconectado del mundo."
+      },
+      "dorsalAwakening": {
+        "name": "Despertar dorsal",
+        "description": "Primeros movimientos. Algo empieza a salir del letargo."
+      },
+      "sympatheticTransition": {
+        "name": "Transición simpática",
+        "description": "La hiperactivación se calma. Menor reactividad al entorno."
+      },
+      "emergingBalance": {
+        "name": "Equilibrio emergente",
+        "description": "Serenidad como nueva base. Los sistemas se regulan."
+      },
+      "earlyVentral": {
+        "name": "Ventral temprano",
+        "description": "Conexión auténtica. Calma y vitalidad danzan juntas."
+      },
+      "matureVentral": {
+        "name": "Ventral maduro",
+        "description": "Flexibilidad emocional. Navegación fluida entre estados positivos."
+      },
+      "totalPresence": {
+        "name": "Presencia total",
+        "description": "Estado ventral pleno. La calma radiante que abraza la alegría."
+      }
+    }
   },
   "predictiveAnalysis": {
     "title": "Análisis Predictivo",
@@ -151,15 +183,24 @@
           "sense": "El cerebro se adapta gradualmente sin nicotina, mejorando estado de ánimo y concentración.",
           "science": "Basado en neuroplasticidad y estudios de adicción (Nature Neuroscience, 2023)."
         }
-      }
+      },
+      "function": "Función",
+      "sense": "Sentido",
+      "science": "Base científica"
     },
     "progressCard": {
       "currentRecovery": "recuperación actual",
       "currentState": "Estado actual:",
       "medicalBasis": "Base médica:",
       "scientificInfo": "Información científica",
+      "scientificSource": "Fuente científica",
+      "basedOnStudies": "Datos basados en estudios médicos recientes",
       "nextMilestone": "Próximo hito (Día {{day}}):",
-      "daysRemaining": "En {{days}} días"
+      "daysRemaining": "En {{days}} días",
+      "evolution": "Evolución hasta Hoy",
+      "progressBasedOn": "Progreso real basado en {{days}} días de recuperación",
+      "recovery": "Recuperación",
+      "chartNote": "Gráfica basada en investigaciones médicas sobre recuperación post-vapeo"
     }
   },
   "epicQuests": {
@@ -218,7 +259,19 @@
       "ultimateDescription": "Medalla Automática: Se desbloquea cuando completes todas las demás gestas épicas con medalla.",
       "status": "Estado:",
       "unlocked": "Desbloqueada",
-      "locked": "Bloqueada"
+      "locked": "Bloqueada",
+      "automaticMedalError": "Esta medalla se desbloquea automáticamente al completar todas las demás gestas",
+      "automaticMedalManagement": "Esta medalla se gestiona automáticamente",
+      "cannotDeleteUltimate": "No puedes eliminar la medalla de Maestría Total",
+      "thisFeat": "esta gesta",
+      "confirmDelete": "¿Estás segura de que quieres eliminar \"{{title}}\"? Esta acción no se puede deshacer.",
+      "customDeleted": "Gesta personalizada eliminada",
+      "featDeleted": "Gesta \"{{title}}\" eliminada - No se aplicaba a tu situación",
+      "newFeatAdded": "Nueva hazaña añadida",
+      "medalUnlocked": "¡Medalla épica desbloqueada",
+      "featCompleted": "¡Hazaña completada",
+      "epicChallengeOvercome": "Has superado un desafío épico",
+      "personalAchievement": "Superación personal"
     },
     "questForm": {
       "title": "Crear Nueva Hazaña",
@@ -232,7 +285,8 @@
       "iconPlaceholder": "Ej: ⚔️, 🎯, 💪",
       "create": "Crear Hazaña",
       "cancel": "Cancelar"
-    }
+    },
+    "noFeatsConfigured": "No tienes hazañas configuradas"
   },
   "habitsManager": {
     "title": "⚡ Poderío - Hábitos Científicos",
@@ -434,7 +488,7 @@
     "evolution": "📋 Evolución ({{period}}):",
     "advice": "💡 Consejo:",
     "reminder": "🔔 Recordatorio:",
-    "intrusiveThought": "🧠 Pensamiento intrusivo:",
+    "intrusiveThought": "💭 Gestión de pensamientos intrusivos:",
     "counterResponse": "💪 Contrarréplica:"
   }
 }

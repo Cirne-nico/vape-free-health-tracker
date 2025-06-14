@@ -80,7 +80,39 @@
     "nextBadge": "Next Emotional State",
     "unlockedBadges": "Emotional States Achieved",
     "motivationalMessage": "🧠 Your progress is based on real emotional changes, not just time elapsed. Each unlocked state reflects an authentic transformation in your well-being.",
-    "registrationInfo": "📊 Record your emotions regularly to unlock emotional states. You have {{count}} records so far."
+    "registrationInfo": "📊 Record your emotions regularly to unlock emotional states. You have {{count}} records so far.",
+    "progressToNextLevel": "Progress to next level",
+    "remainingStates": "{{count}} remaining states",
+    "levels": {
+      "dorsal": {
+        "name": "Dorsal state",
+        "description": "Survival. The system is collapsed, disconnected from the world."
+      },
+      "dorsalAwakening": {
+        "name": "Dorsal awakening",
+        "description": "First movements. Something begins to emerge from lethargy."
+      },
+      "sympatheticTransition": {
+        "name": "Sympathetic transition",
+        "description": "Hyperactivation calms down. Reduced reactivity to the environment."
+      },
+      "emergingBalance": {
+        "name": "Emerging balance",
+        "description": "Serenity as a new base. Systems are regulating."
+      },
+      "earlyVentral": {
+        "name": "Early ventral",
+        "description": "Authentic connection. Calm and vitality dance together."
+      },
+      "matureVentral": {
+        "name": "Mature ventral",
+        "description": "Emotional flexibility. Fluid navigation between positive states."
+      },
+      "totalPresence": {
+        "name": "Total presence",
+        "description": "Full ventral state. The radiant calm that embraces joy."
+      }
+    }
   },
   "predictiveAnalysis": {
     "title": "Predictive Analysis",
@@ -151,15 +183,24 @@
           "sense": "The brain gradually adapts without nicotine, improving mood and concentration.",
           "science": "Based on neuroplasticity and addiction studies (Nature Neuroscience, 2023)."
         }
-      }
+      },
+      "function": "Function",
+      "sense": "Sense",
+      "science": "Scientific basis"
     },
     "progressCard": {
       "currentRecovery": "current recovery",
       "currentState": "Current state:",
       "medicalBasis": "Medical basis:",
       "scientificInfo": "Scientific information",
+      "scientificSource": "Scientific source",
+      "basedOnStudies": "Data based on recent medical studies",
       "nextMilestone": "Next milestone (Day {{day}}):",
-      "daysRemaining": "In {{days}} days"
+      "daysRemaining": "In {{days}} days",
+      "evolution": "Evolution until Today",
+      "progressBasedOn": "Real progress based on {{days}} days of recovery",
+      "recovery": "Recovery",
+      "chartNote": "Chart based on medical research on post-vaping recovery"
     }
   },
   "epicQuests": {
@@ -218,7 +259,19 @@
       "ultimateDescription": "Automatic Medal: Unlocks when you complete all other epic feats with medals.",
       "status": "Status:",
       "unlocked": "Unlocked",
-      "locked": "Locked"
+      "locked": "Locked",
+      "automaticMedalError": "This medal unlocks automatically when you complete all other feats",
+      "automaticMedalManagement": "This medal is managed automatically",
+      "cannotDeleteUltimate": "You cannot delete the Total Mastery medal",
+      "thisFeat": "this feat",
+      "confirmDelete": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "customDeleted": "Custom feat deleted",
+      "featDeleted": "Feat \"{{title}}\" deleted - It didn't apply to your situation",
+      "newFeatAdded": "New feat added",
+      "medalUnlocked": "Epic medal unlocked",
+      "featCompleted": "Feat completed",
+      "epicChallengeOvercome": "You've overcome an epic challenge",
+      "personalAchievement": "Personal achievement"
     },
     "questForm": {
       "title": "Create New Feat",
@@ -232,7 +285,8 @@
       "iconPlaceholder": "Ex: ⚔️, 🎯, 💪",
       "create": "Create Feat",
       "cancel": "Cancel"
-    }
+    },
+    "noFeatsConfigured": "You don't have any feats configured"
   },
   "habitsManager": {
     "title": "⚡ Power - Scientific Habits",
@@ -434,7 +488,7 @@
     "evolution": "📋 Evolution ({{period}}):",
     "advice": "💡 Advice:",
     "reminder": "🔔 Reminder:",
-    "intrusiveThought": "🧠 Intrusive thought:",
+    "intrusiveThought": "💭 Managing intrusive thoughts:",
     "counterResponse": "💪 Counter-response:"
   }
 }

@@ -1,6 +1,6 @@
-
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { useTranslation } from 'react-i18next';
 
 interface Level {
   name: string;
@@ -14,59 +14,61 @@ interface LevelSystemProps {
   unlockedBadgesCount: number;
 }
 
-const levels: Level[] = [
-  { 
-    name: 'Estado dorsal', 
-    icon: '🪨',
-    minBadges: 0, 
-    color: 'text-gray-600',
-    description: 'Supervivencia. El sistema está colapsado, desconectado del mundo.'
-  },
-  { 
-    name: 'Despertar dorsal', 
-    icon: '🌫️',
-    minBadges: 2, 
-    color: 'text-gray-500',
-    description: 'Primeros movimientos. Algo empieza a salir del letargo.'
-  },
-  { 
-    name: 'Transición simpática', 
-    icon: '💧',
-    minBadges: 4, 
-    color: 'text-blue-600',
-    description: 'La hiperactivación se calma. Menor reactividad al entorno.'
-  },
-  { 
-    name: 'Equilibrio emergente', 
-    icon: '🌿',
-    minBadges: 6, 
-    color: 'text-green-600',
-    description: 'Serenidad como nueva base. Los sistemas se regulan.'
-  },
-  { 
-    name: 'Ventral temprano', 
-    icon: '🌀',
-    minBadges: 8, 
-    color: 'text-cyan-600',
-    description: 'Conexión auténtica. Calma y vitalidad danzan juntas.'
-  },
-  { 
-    name: 'Ventral maduro', 
-    icon: '🌬️',
-    minBadges: 10, 
-    color: 'text-purple-600',
-    description: 'Flexibilidad emocional. Navegación fluida entre estados positivos.'
-  },
-  { 
-    name: 'Presencia total', 
-    icon: '🪶',
-    minBadges: 12, 
-    color: 'text-golden-600',
-    description: 'Estado ventral pleno. La calma radiante que abraza la alegría.'
-  }
-];
-
 const LevelSystem = ({ unlockedBadgesCount }: LevelSystemProps) => {
+  const { t } = useTranslation();
+  
+  const levels: Level[] = [
+    { 
+      name: t('virtualRewards.levels.dorsal.name'), 
+      icon: '🪨',
+      minBadges: 0, 
+      color: 'text-gray-600',
+      description: t('virtualRewards.levels.dorsal.description')
+    },
+    { 
+      name: t('virtualRewards.levels.dorsalAwakening.name'), 
+      icon: '🌫️',
+      minBadges: 2, 
+      color: 'text-gray-500',
+      description: t('virtualRewards.levels.dorsalAwakening.description')
+    },
+    { 
+      name: t('virtualRewards.levels.sympatheticTransition.name'), 
+      icon: '💧',
+      minBadges: 4, 
+      color: 'text-blue-600',
+      description: t('virtualRewards.levels.sympatheticTransition.description')
+    },
+    { 
+      name: t('virtualRewards.levels.emergingBalance.name'), 
+      icon: '🌿',
+      minBadges: 6, 
+      color: 'text-green-600',
+      description: t('virtualRewards.levels.emergingBalance.description')
+    },
+    { 
+      name: t('virtualRewards.levels.earlyVentral.name'), 
+      icon: '🌀',
+      minBadges: 8, 
+      color: 'text-cyan-600',
+      description: t('virtualRewards.levels.earlyVentral.description')
+    },
+    { 
+      name: t('virtualRewards.levels.matureVentral.name'), 
+      icon: '🌬️',
+      minBadges: 10, 
+      color: 'text-purple-600',
+      description: t('virtualRewards.levels.matureVentral.description')
+    },
+    { 
+      name: t('virtualRewards.levels.totalPresence.name'), 
+      icon: '🪶',
+      minBadges: 12, 
+      color: 'text-golden-600',
+      description: t('virtualRewards.levels.totalPresence.description')
+    }
+  ];
+
   const currentLevel = levels.slice().reverse().find(level => unlockedBadgesCount >= level.minBadges) || levels[0];
   const nextLevel = levels.find(level => unlockedBadgesCount < level.minBadges);
   const progressToNext = nextLevel ? 
@@ -88,8 +90,8 @@ const LevelSystem = ({ unlockedBadgesCount }: LevelSystemProps) => {
       {nextLevel && (
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span>Progreso al siguiente nivel</span>
-            <span>{nextLevel.minBadges - unlockedBadgesCount} estados restantes</span>
+            <span>{t('virtualRewards.progressToNextLevel')}</span>
+            <span>{t('virtualRewards.remainingStates', { count: nextLevel.minBadges - unlockedBadgesCount })}</span>
           </div>
           <Progress value={progressToNext} className="h-2" />
         </div>

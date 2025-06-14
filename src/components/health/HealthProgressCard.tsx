@@ -3,6 +3,7 @@ import { Progress } from '@/components/ui/progress';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { HealthCategoryKey, healthCategories } from '@/components/HealthCategories';
 import { scientificReferences } from '@/data/healthRecovery';
+import { useTranslation } from 'react-i18next';
 
 interface HealthProgressCardProps {
   category: HealthCategoryKey;
@@ -21,6 +22,7 @@ interface HealthProgressCardProps {
 }
 
 const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }: HealthProgressCardProps) => {
+  const { t } = useTranslation();
   const categoryData = healthCategories[category];
   const reference = scientificReferences[category];
 
@@ -42,7 +44,7 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span className="text-2xl">{categoryData.icon}</span>
-          {categoryData.title}
+          {t(`healthTracker.categories.${category}.title`)}
         </CardTitle>
         <p className="text-sm text-gray-600">{categoryData.description}</p>
       </CardHeader>
@@ -51,7 +53,7 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
           <div className="text-3xl font-bold" style={{ color: categoryData.color }}>
             {currentData.value}%
           </div>
-          <div className="text-sm text-gray-600">recuperación actual</div>
+          <div className="text-sm text-gray-600">{t('healthTracker.progressCard.currentRecovery')}</div>
           {currentData.timeline && (
             <div className="text-xs text-gray-500 mt-1">{currentData.timeline}</div>
           )}
@@ -60,13 +62,13 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
         <Progress value={currentData.value} className="h-3" />
         
         <div className="bg-gray-50 p-3 rounded-lg">
-          <p className="text-sm font-medium text-gray-700 mb-2">Estado actual:</p>
+          <p className="text-sm font-medium text-gray-700 mb-2">{t('healthTracker.progressCard.currentState')}</p>
           <p className="text-sm text-gray-600 leading-relaxed">
             {addSimpleExplanations(currentData.description)}
           </p>
           {currentData.medicalBasis && (
             <p className="text-xs text-gray-500 mt-2 italic">
-              Base médica: {addSimpleExplanations(currentData.medicalBasis)}
+              {t('healthTracker.progressCard.medicalBasis')} {addSimpleExplanations(currentData.medicalBasis)}
             </p>
           )}
         </div>
@@ -77,8 +79,8 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
             <TooltipHelper
               content={
                 <div className="space-y-1">
-                  <p className="font-semibold">Fuente científica</p>
-                  <p className="text-sm">Datos basados en estudios médicos recientes</p>
+                  <p className="font-semibold">{t('healthTracker.progressCard.scientificSource')}</p>
+                  <p className="text-sm">{t('healthTracker.progressCard.basedOnStudies')}</p>
                 </div>
               }
             />
@@ -92,13 +94,13 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
         {nextMilestone && (
           <div className="bg-green-50 p-3 rounded-lg border border-green-200">
             <p className="text-sm font-medium text-green-700 mb-2">
-              Próximo hito (Día {nextMilestone.day}):
+              {t('healthTracker.progressCard.nextMilestone', { day: nextMilestone.day })}
             </p>
             <p className="text-sm text-green-600 leading-relaxed">
               {addSimpleExplanations(nextMilestone.description)}
             </p>
             <p className="text-xs text-green-500 mt-1">
-              En {nextMilestone.day - daysSince} días
+              {t('healthTracker.progressCard.daysRemaining', { days: nextMilestone.day - daysSince })}
             </p>
           </div>
         )}

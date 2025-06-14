@@ -3,16 +3,18 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Brain, Heart } from 'lucide-react';
 import { EpicQuest } from '@/data/epicQuests';
 import { useQuestManager } from '@/hooks/useQuestManager';
+import { useTranslation } from 'react-i18next';
 import QuestStats from './quests/QuestStats';
 import QuestForm from './quests/QuestForm';
 import CollapsibleQuestGroup from './quests/CollapsibleQuestGroup';
 
 const EpicQuestsManager = () => {
+  const { t } = useTranslation();
   const { quests, saveQuests } = useQuestManager();
 
   const addCheck = (questId: string) => {
     if (questId === 'ultimate_achievement') {
-      toast.error('Esta medalla se desbloquea automáticamente al completar todas las demás gestas');
+      toast.error(t('epicQuests.questCard.automaticMedalError'));
       return;
     }
     
@@ -23,13 +25,13 @@ const EpicQuestsManager = () => {
         
         if (isCompleted && !quest.isCompleted) {
           if (quest.medalIcon) {
-            toast.success(`¡Medalla épica desbloqueada: ${quest.title}!`, {
-              description: `${quest.reward} - Tu medalla aparecerá en la pantalla principal`,
+            toast.success(`🏆 ${t('epicQuests.questCard.medalUnlocked')}: ${quest.title}!`, {
+              description: `${quest.reward} - ${t('epicQuests.questCard.medalVisible')}`,
               duration: 5000
             });
           } else {
-            toast.success(`¡Hazaña completada: ${quest.title}!`, {
-              description: quest.reward || 'Has superado un desafío épico'
+            toast.success(`${t('epicQuests.questCard.featCompleted')}: ${quest.title}!`, {
+              description: quest.reward || t('epicQuests.questCard.epicChallengeOvercome')
             });
           }
         }
@@ -48,7 +50,7 @@ const EpicQuestsManager = () => {
 
   const removeCheck = (questId: string) => {
     if (questId === 'ultimate_achievement') {
-      toast.error('Esta medalla se gestiona automáticamente');
+      toast.error(t('epicQuests.questCard.automaticMedalManagement'));
       return;
     }
     
@@ -70,12 +72,12 @@ const EpicQuestsManager = () => {
     const quest = quests.find(q => q.id === questId);
     
     if (quest && quest.id === 'ultimate_achievement') {
-      toast.error('No puedes eliminar la medalla de Maestría Total');
+      toast.error(t('epicQuests.questCard.cannotDeleteUltimate'));
       return;
     }
     
-    const questTitle = quest?.title || 'esta gesta';
-    if (!confirm(`¿Estás segura de que quieres eliminar "${questTitle}"? Esta acción no se puede deshacer.`)) {
+    const questTitle = quest?.title || t('epicQuests.questCard.thisFeat');
+    if (!confirm(t('epicQuests.questCard.confirmDelete', { title: questTitle }))) {
       return;
     }
     
@@ -83,9 +85,9 @@ const EpicQuestsManager = () => {
     saveQuests(updatedQuests);
     
     if (quest?.isCustom) {
-      toast.success('Gesta personalizada eliminada');
+      toast.success(t('epicQuests.questCard.customDeleted'));
     } else {
-      toast.success(`Gesta "${questTitle}" eliminada - No se aplicaba a tu situación`);
+      toast.success(t('epicQuests.questCard.featDeleted', { title: questTitle }));
     }
   };
 
@@ -99,7 +101,7 @@ const EpicQuestsManager = () => {
 
     const updatedQuests = [...quests, newQuest];
     saveQuests(updatedQuests);
-    toast.success('Nueva hazaña añadida');
+    toast.success(t('epicQuests.questCard.newFeatAdded'));
   };
 
   // Verificar si se deben mostrar todas las gestas con medallas completadas
@@ -124,11 +126,31 @@ const EpicQuestsManager = () => {
   };
 
   const categoryInfo = {
-    social: { title: 'Situaciones Sociales', icon: '👥', description: 'Interacciones con otras personas' },
-    emotional: { title: 'Gestión Emocional', icon: '💭', description: 'Manejo de estados emocionales intensos' },
-    substance: { title: 'Otras Sustancias', icon: '🍺', description: 'Situaciones con alcohol u otras sustancias' },
-    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' },
-    ultimate: { title: 'Maestría Total', icon: '💥', description: 'Medalla final que se desbloquea automáticamente' }
+    social: { 
+      title: t('epicQuests.categories.social.title'), 
+      icon: '👥', 
+      description: t('epicQuests.categories.social.description') 
+    },
+    emotional: { 
+      title: t('epicQuests.categories.emotional.title'), 
+      icon: '💭', 
+      description: t('epicQuests.categories.emotional.description') 
+    },
+    substance: { 
+      title: t('epicQuests.categories.substance.title'), 
+      icon: '🍺', 
+      description: t('epicQuests.categories.substance.description') 
+    },
+    psychological: { 
+      title: t('epicQuests.categories.psychological.title'), 
+      icon: '🧠', 
+      description: t('epicQuests.categories.psychological.description') 
+    },
+    ultimate: { 
+      title: t('epicQuests.categories.ultimate.title'), 
+      icon: '💥', 
+      description: t('epicQuests.categories.ultimate.description') 
+    }
   };
 
   return (
@@ -138,28 +160,22 @@ const EpicQuestsManager = () => {
           <div className="text-center">
             <h3 className="text-xl font-semibold text-blue-700 flex items-center justify-center gap-2 mb-4">
               <Brain className="w-5 h-5" />
-              Memoria Corporal y Neuroplasticidad
+              {t('epicQuests.title')}
               <Heart className="w-5 h-5" />
             </h3>
           </div>
           <div className="text-sm text-blue-800 leading-relaxed space-y-3">
             <p>
-              <strong>¿Por qué repetir cada situación varias veces?</strong> Cuando superas una situación difícil 
-              sin vapear <strong>3 veces</strong> (o las que corresponda), esa experiencia queda grabada en tu 
-              <strong> memoria corporal y cerebral</strong> como un nuevo patrón neurológico.
+              <strong>{t('epicQuests.explanation.question')}</strong> {t('epicQuests.explanation.answer')}
             </p>
             
             <p>
-              Tu sistema nervioso <strong>aprende</strong> que puede vivir esa experiencia y <strong>disfrutarla 
-              incluso más</strong> sin necesidad de nicotina. La repetición consolida nuevas conexiones neuronales 
-              que reemplazan las asociaciones adictivas.
+              {t('epicQuests.explanation.detail')}
             </p>
             
             <div className="bg-white/70 p-3 rounded-lg border border-blue-200">
               <p className="text-xs text-blue-700 italic">
-                💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
-                fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                💡 <strong>{t('epicQuests.explanation.science')}</strong>
               </p>
             </div>
           </div>
@@ -171,10 +187,9 @@ const EpicQuestsManager = () => {
       <Card className="bg-amber-50 border-amber-200">
         <CardContent className="p-4">
           <div className="text-center space-y-2">
-            <h4 className="font-semibold text-amber-800">✨ Personaliza tu Proceso</h4>
+            <h4 className="font-semibold text-amber-800">{t('epicQuests.customization.title')}</h4>
             <p className="text-sm text-amber-700">
-              Puedes eliminar cualquier gesta que no se aplique a tu situación. Por ejemplo, 
-              si no bebes alcohol, elimina las gestas relacionadas con bebidas alcohólicas.
+              {t('epicQuests.customization.description')}
             </p>
           </div>
         </CardContent>
@@ -234,7 +249,7 @@ const EpicQuestsManager = () => {
       {quests.length === 0 && (
         <Card>
           <CardContent className="text-center py-8">
-            <p className="text-gray-500 mb-4">No tienes hazañas configuradas</p>
+            <p className="text-gray-500 mb-4">{t('epicQuests.noFeatsConfigured')}</p>
             <QuestForm onAddQuest={addCustomQuest} />
           </CardContent>
         </Card>

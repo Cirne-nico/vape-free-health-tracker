@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { HealthCategoryKey, healthCategories } from '@/components/HealthCategories';
+import { useTranslation } from 'react-i18next';
 
 interface HealthChartCardProps {
   category: HealthCategoryKey;
@@ -9,14 +10,15 @@ interface HealthChartCardProps {
 }
 
 const HealthChartCard = ({ category, chartData, daysSince }: HealthChartCardProps) => {
+  const { t } = useTranslation();
   const categoryData = healthCategories[category];
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Evolución hasta Hoy</CardTitle>
+        <CardTitle className="text-lg">{t('healthTracker.progressCard.evolution')}</CardTitle>
         <p className="text-sm text-gray-500">
-          Progreso real basado en {daysSince} días de recuperación
+          {t('healthTracker.progressCard.progressBasedOn', { days: daysSince })}
         </p>
       </CardHeader>
       <CardContent>
@@ -37,7 +39,7 @@ const HealthChartCard = ({ category, chartData, daysSince }: HealthChartCardProp
                 tickFormatter={(value) => `${value}%`}
               />
               <Tooltip 
-                formatter={(value: number) => [`${value}%`, 'Recuperación']}
+                formatter={(value: number) => [`${value}%`, t('healthTracker.progressCard.recovery')]}
                 labelFormatter={(label) => label}
               />
               <Area
@@ -53,7 +55,7 @@ const HealthChartCard = ({ category, chartData, daysSince }: HealthChartCardProp
         </div>
         
         <div className="mt-2 text-xs text-center text-gray-500">
-          Gráfica basada en investigaciones médicas sobre recuperación post-vapeo
+          {t('healthTracker.progressCard.chartNote')}
         </div>
       </CardContent>
     </Card>

@@ -80,7 +80,39 @@
     "nextBadge": "Proper Estat Emocional",
     "unlockedBadges": "Estats Emocionals Assolits",
     "motivationalMessage": "🧠 El teu progrés es basa en canvis emocionals reals, no només en el temps transcorregut. Cada estat desbloquejat reflecteix una transformació autèntica en el teu benestar.",
-    "registrationInfo": "📊 Registra les teves emocions regularment per desbloquejar estats emocionals. Portes {{count}} registres fins ara."
+    "registrationInfo": "📊 Registra les teves emocions regularment per desbloquejar estats emocionals. Portes {{count}} registres fins ara.",
+    "progressToNextLevel": "Progrés al següent nivell",
+    "remainingStates": "{{count}} estats restants",
+    "levels": {
+      "dorsal": {
+        "name": "Estat dorsal",
+        "description": "Supervivència. El sistema està col·lapsat, desconnectat del món."
+      },
+      "dorsalAwakening": {
+        "name": "Despertar dorsal",
+        "description": "Primers moviments. Alguna cosa comença a sortir del letarg."
+      },
+      "sympatheticTransition": {
+        "name": "Transició simpàtica",
+        "description": "La hiperactivació es calma. Menor reactivitat a l'entorn."
+      },
+      "emergingBalance": {
+        "name": "Equilibri emergent",
+        "description": "Serenitat com a nova base. Els sistemes es regulen."
+      },
+      "earlyVentral": {
+        "name": "Ventral primerenc",
+        "description": "Connexió autèntica. Calma i vitalitat ballen juntes."
+      },
+      "matureVentral": {
+        "name": "Ventral madur",
+        "description": "Flexibilitat emocional. Navegació fluida entre estats positius."
+      },
+      "totalPresence": {
+        "name": "Presència total",
+        "description": "Estat ventral ple. La calma radiant que abraça l'alegria."
+      }
+    }
   },
   "predictiveAnalysis": {
     "title": "Anàlisi Predictiva",
@@ -151,15 +183,24 @@
           "sense": "El cervell s'adapta gradualment sense nicotina, millorant estat d'ànim i concentració.",
           "science": "Basat en neuroplasticitat i estudis d'addicció (Nature Neuroscience, 2023)."
         }
-      }
+      },
+      "function": "Funció",
+      "sense": "Sentit",
+      "science": "Base científica"
     },
     "progressCard": {
       "currentRecovery": "recuperació actual",
       "currentState": "Estat actual:",
       "medicalBasis": "Base mèdica:",
       "scientificInfo": "Informació científica",
+      "scientificSource": "Font científica",
+      "basedOnStudies": "Dades basades en estudis mèdics recents",
       "nextMilestone": "Propera fita (Dia {{day}}):",
-      "daysRemaining": "En {{days}} dies"
+      "daysRemaining": "En {{days}} dies",
+      "evolution": "Evolució fins Avui",
+      "progressBasedOn": "Progrés real basat en {{days}} dies de recuperació",
+      "recovery": "Recuperació",
+      "chartNote": "Gràfica basada en investigacions mèdiques sobre recuperació post-vàping"
     }
   },
   "epicQuests": {
@@ -218,7 +259,19 @@
       "ultimateDescription": "Medalla Automàtica: Es desbloqueja quan completis totes les altres gestes èpiques amb medalla.",
       "status": "Estat:",
       "unlocked": "Desbloquejada",
-      "locked": "Bloquejada"
+      "locked": "Bloquejada",
+      "automaticMedalError": "Aquesta medalla es desbloqueja automàticament en completar totes les altres gestes",
+      "automaticMedalManagement": "Aquesta medalla es gestiona automàticament",
+      "cannotDeleteUltimate": "No pots eliminar la medalla de Mestratge Total",
+      "thisFeat": "aquesta gesta",
+      "confirmDelete": "Estàs segur que vols eliminar \"{{title}}\"? Aquesta acció no es pot desfer.",
+      "customDeleted": "Gesta personalitzada eliminada",
+      "featDeleted": "Gesta \"{{title}}\" eliminada - No s'aplicava a la teva situació",
+      "newFeatAdded": "Nova gesta afegida",
+      "medalUnlocked": "Medalla èpica desbloquejada",
+      "featCompleted": "Gesta completada",
+      "epicChallengeOvercome": "Has superat un desafiament èpic",
+      "personalAchievement": "Superació personal"
     },
     "questForm": {
       "title": "Crear Nova Gesta",
@@ -232,7 +285,8 @@
       "iconPlaceholder": "Ex: ⚔️, 🎯, 💪",
       "create": "Crear Gesta",
       "cancel": "Cancel·lar"
-    }
+    },
+    "noFeatsConfigured": "No tens gestes configurades"
   },
   "habitsManager": {
     "title": "⚡ Poder - Hàbits Científics",
@@ -434,7 +488,58 @@
     "evolution": "📋 Evolució ({{period}}):",
     "advice": "💡 Consell:",
     "reminder": "🔔 Recordatori:",
-    "intrusiveThought": "🧠 Pensament intrusiu:",
+    "intrusiveThought": "💭 Gestió de pensaments intrusius:",
     "counterResponse": "💪 Contrarèplica:"
+  },
+  "virtualRewards": {
+    "progressToNextLevel": "Progrés al següent nivell",
+    "remainingStates": "{{count}} estats restants",
+    "levels": {
+      "dorsal": {
+        "name": "Estat dorsal",
+        "description": "Supervivència. El sistema està col·lapsat, desconnectat del món."
+      },
+      "dorsalAwakening": {
+        "name": "Despertar dorsal",
+        "description": "Primers moviments. Alguna cosa comença a sortir del letarg."
+      },
+      "sympatheticTransition": {
+        "name": "Transició simpàtica",
+        "description": "La hiperactivació es calma. Menor reactivitat a l'entorn."
+      },
+      "emergingBalance": {
+        "name": "Equilibri emergent",
+        "description": "Serenitat com a nova base. Els sistemes es regulen."
+      },
+      "earlyVentral": {
+        "name": "Ventral primerenc",
+        "description": "Connexió autèntica. Calma i vitalitat ballen juntes."
+      },
+      "matureVentral": {
+        "name": "Ventral madur",
+        "description": "Flexibilitat emocional. Navegació fluida entre estats positius."
+      },
+      "totalPresence": {
+        "name": "Presència total",
+        "description": "Estat ventral ple. La calma radiant que abraça l'alegria."
+      }
+    }
+  },
+  "epicQuests": {
+    "questCard": {
+      "automaticMedalError": "Aquesta medalla es desbloqueja automàticament en completar totes les altres gestes",
+      "automaticMedalManagement": "Aquesta medalla es gestiona automàticament",
+      "cannotDeleteUltimate": "No pots eliminar la medalla de Mestratge Total",
+      "thisFeat": "aquesta gesta",
+      "confirmDelete": "Estàs segur que vols eliminar \"{{title}}\"? Aquesta acció no es pot desfer.",
+      "customDeleted": "Gesta personalitzada eliminada",
+      "featDeleted": "Gesta \"{{title}}\" eliminada - No s'aplicava a la teva situació",
+      "newFeatAdded": "Nova gesta afegida",
+      "medalUnlocked": "Medalla èpica desbloquejada",
+      "featCompleted": "Gesta completada",
+      "epicChallengeOvercome": "Has superat un desafiament èpic",
+      "personalAchievement": "Superació personal"
+    },
+    "noFeatsConfigured": "No tens gestes configurades"
   }
 }

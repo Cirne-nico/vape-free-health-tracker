@@ -59,36 +59,43 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
           ))}
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 flex-wrap">
-            {selectedEmotions.map((emotionId) => {
-              const emotion = getEmotionById(emotionId);
-              return emotion ? (
-                <Badge key={emotionId} className="bg-blue-600 text-white">
-                  {emotion.icon} {emotion.name}
-                </Badge>
-              ) : null;
-            })}
+        {/* Emociones seleccionadas */}
+        {selectedEmotions.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex gap-2 flex-wrap">
+              {selectedEmotions.map((emotionId) => {
+                const emotion = getEmotionById(emotionId);
+                return emotion ? (
+                  <Badge key={emotionId} className="bg-blue-600 text-white">
+                    {emotion.icon} {emotion.name}
+                  </Badge>
+                ) : null;
+              })}
+            </div>
           </div>
+        )}
+        
+        {/* Botones de acción - Reorganizados verticalmente */}
+        <div className="space-y-2">
+          {/* Botón principal de guardar */}
+          <Button 
+            onClick={onSave}
+            disabled={selectedEmotions.length === 0}
+            className="w-full bg-blue-600 hover:bg-blue-700"
+          >
+            Guardar Estado
+          </Button>
           
-          <div className="flex gap-2">
-            {selectedEmotions.length > 0 && (
-              <Button 
-                onClick={clearEmotions}
-                variant="outline"
-                className="text-red-600 border-red-300 hover:bg-red-50"
-              >
-                Limpiar emociones
-              </Button>
-            )}
+          {/* Botón secundario de limpiar */}
+          {selectedEmotions.length > 0 && (
             <Button 
-              onClick={onSave}
-              disabled={selectedEmotions.length === 0}
-              className="bg-blue-600 hover:bg-blue-700"
+              onClick={clearEmotions}
+              variant="outline"
+              className="w-full text-red-600 border-red-300 hover:bg-red-50"
             >
-              Guardar Estado
+              Limpiar emociones
             </Button>
-          </div>
+          )}
         </div>
 
         <p className="text-sm text-gray-500">

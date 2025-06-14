@@ -45,7 +45,7 @@ export const getSpecialMedals = (currentDays: number) => {
     console.log('Added Athena medal:', athenaMedal);
   }
 
-  // Medalla de Victoria (Nike) para el año (365 días) - CORREGIDA LA RUTA
+  // Medalla de Victoria (Nike) para el año (365 días) - RUTA CORREGIDA
   if (currentDays >= 365) {
     const victoryMedal = {
       id: 'one_year_victory',
@@ -222,7 +222,7 @@ export const debugEpicMedals = () => {
     const quests = JSON.parse(savedQuests);
     console.log('Parsed quests:', quests);
     
-    // Actualizar gestas con medallas faltantes - RUTAS CORREGIDAS
+    // Actualizar gestas con medallas faltantes - RUTAS CORREGIDAS DEFINITIVAMENTE
     const updatedQuests = quests.map((quest: any) => {
       let updated = { ...quest };
       

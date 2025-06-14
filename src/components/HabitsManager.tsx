@@ -5,14 +5,12 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Info, ExternalLink, Zap } from 'lucide-react';
+import { Info, ExternalLink } from 'lucide-react';
 import { scientificHabits, createHabit, Habit } from '@/data/habitsData';
 import HabitTracker from './habits/HabitTracker';
-import PanicButton from './PanicButton';
 
 const HabitsManager = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
-  const [showPanicButton, setShowPanicButton] = useState(false);
 
   useEffect(() => {
     const savedHabits = localStorage.getItem('scientific-habits');
@@ -71,7 +69,7 @@ const HabitsManager = () => {
   return (
     <TooltipProvider>
       <div className="space-y-6">
-        {/* Header con botón de pánico */}
+        {/* Header sin botón de pánico */}
         <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
           <CardHeader>
             <CardTitle className="text-center text-purple-700 flex items-center justify-center gap-2">
@@ -96,30 +94,14 @@ const HabitsManager = () => {
           </CardHeader>
           
           <CardContent className="space-y-4">
-            {/* Estadísticas y botón de pánico */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white/70 p-4 rounded-lg">
-                <div className="text-center space-y-2">
-                  <div className="text-2xl font-bold text-purple-600">
-                    {activeHabitsCount}/{totalHabits}
-                  </div>
-                  <div className="text-sm text-purple-700">hábitos activos</div>
-                  <Progress value={activationPercentage} className="h-2" />
+            {/* Solo estadísticas */}
+            <div className="bg-white/70 p-4 rounded-lg">
+              <div className="text-center space-y-2">
+                <div className="text-2xl font-bold text-purple-600">
+                  {activeHabitsCount}/{totalHabits}
                 </div>
-              </div>
-              
-              <div className="bg-white/70 p-4 rounded-lg">
-                <Button 
-                  onClick={() => setShowPanicButton(true)}
-                  className="w-full bg-red-500 hover:bg-red-600 text-white font-bold"
-                  size="lg"
-                >
-                  <Zap className="w-5 h-5 mr-2" />
-                  🚨 BOTÓN DE PÁNICO
-                </Button>
-                <p className="text-xs text-center text-gray-600 mt-2">
-                  Para momentos de antojo intenso
-                </p>
+                <div className="text-sm text-purple-700">hábitos activos</div>
+                <Progress value={activationPercentage} className="h-2" />
               </div>
             </div>
 
@@ -130,6 +112,13 @@ const HabitsManager = () => {
                 </p>
               </div>
             )}
+
+            {/* Recordatorio del botón de pánico */}
+            <div className="bg-orange-100 p-3 rounded-lg border border-orange-300">
+              <p className="text-sm text-orange-800 text-center">
+                🚨 <strong>Recordatorio:</strong> El botón de pánico está disponible en la parte superior de la app para momentos de antojo intenso
+              </p>
+            </div>
           </CardContent>
         </Card>
 
@@ -224,12 +213,6 @@ const HabitsManager = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* Botón de pánico modal */}
-        <PanicButton 
-          isOpen={showPanicButton}
-          onClose={() => setShowPanicButton(false)}
-        />
       </div>
     </TooltipProvider>
   );

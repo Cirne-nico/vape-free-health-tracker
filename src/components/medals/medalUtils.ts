@@ -236,7 +236,7 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/gesta_birra.png';
             break;
           case 'sixth_beer':
-            updated.medalIcon = '/lovable-uploads/6abirra.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/6a_birra.png'; // CORREGIDA
             break;
           case 'other_substances':
             updated.medalIcon = '/lovable-uploads/Otras_sustancias.png';

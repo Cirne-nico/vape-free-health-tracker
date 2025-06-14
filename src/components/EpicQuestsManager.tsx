@@ -176,9 +176,6 @@ const EpicQuestsManager = () => {
               Puedes eliminar cualquier gesta que no se aplique a tu situación. Por ejemplo, 
               si no bebes alcohol, elimina las gestas relacionadas con bebidas alcohólicas.
             </p>
-            <p className="text-xs text-amber-600">
-              Solo la medalla de "Maestría Total" no se puede eliminar, ya que se desbloquea automáticamente.
-            </p>
           </div>
         </CardContent>
       </Card>

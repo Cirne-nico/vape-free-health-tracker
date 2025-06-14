@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -84,8 +83,8 @@ const TermsModal = () => {
             <section>
               <h3 className="font-semibold mb-2">6. Donaciones</h3>
               <p className="text-gray-700">
-                Las donaciones a través de Buy Me a Coffee son voluntarias y no otorgan derechos 
-                especiales sobre la aplicación. Son procesadas por Buy Me a Coffee según sus propios términos.
+                Las donaciones a través de Liberapay son voluntarias y no otorgan derechos 
+                especiales sobre la aplicación. Son procesadas por Liberapay según sus propios términos.
               </p>
             </section>
 

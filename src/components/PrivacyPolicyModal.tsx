@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -77,7 +76,7 @@ const PrivacyPolicyModal = () => {
               <h3 className="font-semibold mb-2">6. Contacto</h3>
               <p className="text-gray-700">
                 Si tienes preguntas sobre esta política de privacidad, puedes contactarnos a través 
-                de nuestro perfil en Buy Me a Coffee.
+                de nuestro perfil en Liberapay.
               </p>
             </section>
 

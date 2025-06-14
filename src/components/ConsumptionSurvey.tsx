@@ -718,54 +718,58 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
 
   return (
     <TooltipProvider>
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader>
-          <CardTitle className="text-center">
-            Configuración de consumo
-            <div className="text-sm font-normal text-muted-foreground mt-1">
-              Paso {step} de {totalSteps}
+      <div className="w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto">
+        <Card className="w-full">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-center">
+              Configuración de consumo
+              <div className="text-sm font-normal text-muted-foreground mt-1">
+                Paso {step} de {totalSteps}
+              </div>
+            </CardTitle>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                style={{ width: `${(step / totalSteps) * 100}%` }}
+              />
             </div>
-          </CardTitle>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${(step / totalSteps) * 100}%` }}
-            />
-          </div>
-        </CardHeader>
-        
-        <CardContent className="space-y-6">
-          {renderStep()}
+          </CardHeader>
           
-          <div className="flex justify-between gap-3">
-            {step > 1 ? (
-              <Button variant="outline" onClick={() => setStep(step - 1)}>
-                <ChevronLeft className="w-4 h-4 mr-1" />
-                Anterior
-              </Button>
-            ) : (
-              <Button variant="outline" onClick={onBack}>
-                <ChevronLeft className="w-4 h-4 mr-1" />
-                Volver
-              </Button>
-            )}
-            
-            {step < totalSteps ? (
-              <Button 
-                onClick={() => setStep(step + 1)}
-                disabled={!canContinue()}
-              >
-                Siguiente
-                <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            ) : (
-              <Button onClick={handleComplete}>
-                Completar configuración
-              </Button>
-            )}
+          <CardContent className="space-y-6 max-h-[60vh] overflow-y-auto">
+            {renderStep()}
+          </CardContent>
+          
+          <div className="p-6 pt-0">
+            <div className="flex justify-between gap-3">
+              {step > 1 ? (
+                <Button variant="outline" onClick={() => setStep(step - 1)}>
+                  <ChevronLeft className="w-4 h-4 mr-1" />
+                  Anterior
+                </Button>
+              ) : (
+                <Button variant="outline" onClick={onBack}>
+                  <ChevronLeft className="w-4 h-4 mr-1" />
+                  Volver
+                </Button>
+              )}
+              
+              {step < totalSteps ? (
+                <Button 
+                  onClick={() => setStep(step + 1)}
+                  disabled={!canContinue()}
+                >
+                  Siguiente
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
+              ) : (
+                <Button onClick={handleComplete}>
+                  Completar configuración
+                </Button>
+              )}
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </Card>
+      </div>
     </TooltipProvider>
   );
 };

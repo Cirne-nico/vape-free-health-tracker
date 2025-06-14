@@ -196,15 +196,15 @@ const MainHeader = ({
               </p>
             </div>
 
-            {/* BOTONES SIMÉTRICOS Y CENTRADOS - MISMO TAMAÑO */}
+            {/* BOTONES OPACOS - CAMBIO PRINCIPAL AQUÍ */}
             <div className="flex justify-center gap-3">
-              {/* Botón de pánico */}
+              {/* Botón de pánico - AHORA OPACO */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={() => setShowPanicButton(true)}
                     variant="outline"
-                    className="bg-orange-500/20 border-orange-300 text-white hover:bg-orange-500/30 text-xs px-3 py-2 h-8 min-w-[80px]"
+                    className="bg-orange-500 border-orange-600 text-white hover:bg-orange-600 text-xs px-3 py-2 h-8 min-w-[80px]"
                   >
                     <Zap className="w-3 h-3 mr-1" />
                     Pánico
@@ -219,13 +219,13 @@ const MainHeader = ({
                 </TooltipContent>
               </Tooltip>
 
-              {/* Botón de recaída */}
+              {/* Botón de recaída - AHORA OPACO */}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={onRelapse}
                     variant="outline"
-                    className="bg-red-500/20 border-red-300 text-white hover:bg-red-500/30 text-xs px-3 py-2 h-8 min-w-[80px]"
+                    className="bg-red-500 border-red-600 text-white hover:bg-red-600 text-xs px-3 py-2 h-8 min-w-[80px]"
                   >
                     <AlertTriangle className="w-3 h-3 mr-1" />
                     Recaída

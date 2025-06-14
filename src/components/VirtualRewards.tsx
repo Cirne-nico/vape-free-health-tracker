@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Brain } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { checkUnlockedBadges, getNextBadgeToUnlock, emotionalProgressBadges } from './emotionalProgressAnalyzer';
 import PointsDisplay from './rewards/PointsDisplay';
 import LevelSystem from './rewards/LevelSystem';
@@ -16,6 +17,7 @@ interface VirtualRewardsProps {
 }
 
 const VirtualRewards = ({ currentDay, totalSavings, unlockedAchievements }: VirtualRewardsProps) => {
+  const { t } = useTranslation();
   const [emotionLogs, setEmotionLogs] = useState<any[]>([]);
   const [unlockedEmotionalBadges, setUnlockedEmotionalBadges] = useState<string[]>([]);
 
@@ -58,16 +60,14 @@ const VirtualRewards = ({ currentDay, totalSavings, unlockedAchievements }: Virt
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="w-5 h-5 text-purple-500" />
-          Sistema de Progreso Emocional
+          {t('virtualRewards.title')}
           <TooltipHelper
             content={
               <div className="space-y-2">
-                <p className="font-semibold">¿Cómo funciona?</p>
-                <p className="text-sm">Este sistema analiza tus registros emocionales diarios para identificar patrones de progreso y otorgar insignias de reconocimiento.</p>
-                <p className="font-semibold">Sentido del sistema:</p>
-                <p className="text-sm">Motivar la constancia en el registro emocional y celebrar mejoras en tu bienestar psicológico durante el proceso de abandono del vapeo.</p>
-                <p className="font-semibold">Base científica:</p>
-                <p className="text-sm">Basado en la terapia cognitivo-conductual y estudios sobre autorregulación emocional en procesos de cesación de adicciones (Marlatt & Gordon, 1985).</p>
+                <p className="font-semibold">{t('virtualRewards.tooltip.title')}</p>
+                <p className="text-sm">{t('virtualRewards.tooltip.description')}</p>
+                <p className="font-semibold">{t('virtualRewards.tooltip.purpose')}</p>
+                <p className="text-sm">{t('virtualRewards.tooltip.science')}</p>
               </div>
             }
           />

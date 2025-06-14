@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Trophy, ChevronDown, ChevronUp } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import MedalDisplay from './MedalDisplay';
 import { Achievement, HealthAchievement } from './medals/medalTypes';
 
@@ -16,6 +17,7 @@ const MedalsSection = ({
   unlockedHealthAchievements, 
   totalSavings 
 }: MedalsSectionProps) => {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   
   const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
@@ -30,7 +32,7 @@ const MedalsSection = ({
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg flex items-center gap-2">
             <Trophy className="w-5 h-5" />
-            Medallas Obtenidas ({totalMedals})
+            {t('medals.title')} ({totalMedals})
           </CardTitle>
           <Button
             variant="ghost"
@@ -40,12 +42,12 @@ const MedalsSection = ({
           >
             {isExpanded ? (
               <>
-                <span className="text-sm">Ocultar</span>
+                <span className="text-sm">{t('medals.hide')}</span>
                 <ChevronUp className="w-4 h-4" />
               </>
             ) : (
               <>
-                <span className="text-sm">Ver medallas</span>
+                <span className="text-sm">{t('medals.show')}</span>
                 <ChevronDown className="w-4 h-4" />
               </>
             )}

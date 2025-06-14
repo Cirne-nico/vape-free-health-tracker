@@ -1,16 +1,18 @@
+import { useTranslation } from 'react-i18next';
 
 interface MotivationalMessagesProps {
   emotionLogsCount: number;
 }
 
 const MotivationalMessages = ({ emotionLogsCount }: MotivationalMessagesProps) => {
+  const { t } = useTranslation();
+  
   return (
     <>
       {/* Mensaje motivacional */}
       <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
         <p className="text-xs text-blue-700">
-          🧠 Tu progreso se basa en cambios emocionales reales, no solo en el tiempo transcurrido. 
-          Cada estado desbloqueado refleja una transformación auténtica en tu bienestar.
+          {t('virtualRewards.motivationalMessage')}
         </p>
       </div>
 
@@ -18,8 +20,7 @@ const MotivationalMessages = ({ emotionLogsCount }: MotivationalMessagesProps) =
       {emotionLogsCount < 7 && (
         <div className="bg-amber-50 rounded-lg p-3 border border-amber-200">
           <p className="text-xs text-amber-700">
-            📊 Registra tus emociones regularmente para desbloquear estados emocionales. 
-            Llevas {emotionLogsCount} registros hasta ahora.
+            {t('virtualRewards.registrationInfo', { count: emotionLogsCount })}
           </p>
         </div>
       )}

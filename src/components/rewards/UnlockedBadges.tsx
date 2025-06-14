@@ -1,5 +1,5 @@
-
 import { Brain } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { EmotionalProgressCriteria } from '../emotionalProgressAnalyzer';
 
 interface UnlockedBadgesProps {
@@ -7,13 +7,15 @@ interface UnlockedBadgesProps {
 }
 
 const UnlockedBadges = ({ unlockedBadgesData }: UnlockedBadgesProps) => {
+  const { t } = useTranslation();
+  
   if (unlockedBadgesData.length === 0) return null;
 
   return (
     <div>
       <h4 className="font-semibold mb-3 flex items-center gap-2">
         <Brain className="w-4 h-4" />
-        Estados Emocionales Alcanzados ({unlockedBadgesData.length})
+        {t('virtualRewards.unlockedBadges')} ({unlockedBadgesData.length})
       </h4>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {unlockedBadgesData.map(badge => (

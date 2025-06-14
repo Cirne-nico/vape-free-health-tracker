@@ -1,6 +1,7 @@
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useTranslation } from 'react-i18next';
 
 interface NotificationSettingsProps {
   notifications: boolean;
@@ -15,14 +16,16 @@ const NotificationSettings = ({
   onNotificationsChange,
   onNotificationTimeChange
 }: NotificationSettingsProps) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Notificaciones</h3>
+      <h3 className="text-lg font-semibold">{t('settings.notifications.title')}</h3>
       
       <div className="flex items-center justify-between">
         <div>
-          <Label htmlFor="notifications">Activar recordatorios diarios</Label>
-          <p className="text-sm text-gray-600">Recibe una notificación para registrar tu estado</p>
+          <Label htmlFor="notifications">{t('settings.notifications.enable')}</Label>
+          <p className="text-sm text-gray-600">{t('settings.notifications.description')}</p>
         </div>
         <Switch
           id="notifications"
@@ -33,7 +36,7 @@ const NotificationSettings = ({
 
       {notifications && (
         <div className="space-y-2">
-          <Label htmlFor="notification-time">Hora de recordatorio</Label>
+          <Label htmlFor="notification-time">{t('settings.notifications.time')}</Label>
           <Input
             id="notification-time"
             type="time"

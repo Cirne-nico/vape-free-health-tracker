@@ -4,12 +4,14 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Brain, AlertTriangle, TrendingUp, Clock, Target } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface PredictiveAnalysisProps {
   currentDay: number;
 }
 
 const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
+  const { t } = useTranslation();
   const [emotionLogs, setEmotionLogs] = useState<any[]>([]);
   const [analysis, setAnalysis] = useState<any>(null);
 
@@ -164,13 +166,12 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
       <Card className="border-dashed">
         <CardContent className="text-center py-8">
           <Brain className="w-12 h-12 mx-auto text-gray-400 mb-3" />
-          <h3 className="font-semibold text-gray-600 mb-2">Análisis Predictivo</h3>
+          <h3 className="font-semibold text-gray-600 mb-2">{t('predictiveAnalysis.title')}</h3>
           <p className="text-sm text-gray-500">
-            Registra tus emociones durante al menos 3 días para obtener 
-            análisis personalizados y predicciones útiles.
+            {t('predictiveAnalysis.notEnoughData.description')}
           </p>
           <Badge variant="outline" className="mt-3">
-            {emotionLogs.length}/3 registros mínimos
+            {t('predictiveAnalysis.notEnoughData.progress', { current: emotionLogs.length })}
           </Badge>
         </CardContent>
       </Card>
@@ -182,13 +183,13 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Brain className="w-5 h-5 text-purple-600" />
-          Análisis Predictivo
+          {t('predictiveAnalysis.title')}
           <TooltipHelper
             content={
               <div className="space-y-2">
-                <p className="font-semibold">¿Qué es esto?</p>
-                <p className="text-sm">Un análisis basado en tus patrones emocionales que predice posibles desafíos y oportunidades en tu proceso.</p>
-                <p className="text-sm">Todas las predicciones son orientativas y mejoran con más datos.</p>
+                <p className="font-semibold">{t('predictiveAnalysis.tooltip.title')}</p>
+                <p className="text-sm">{t('predictiveAnalysis.tooltip.description')}</p>
+                <p className="text-sm">{t('predictiveAnalysis.tooltip.note')}</p>
               </div>
             }
           />
@@ -199,17 +200,17 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
         <div className="bg-gray-50 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-4 h-4" />
-            <span className="font-medium">Tendencia Emocional</span>
+            <span className="font-medium">{t('predictiveAnalysis.emotionalTrend')}</span>
           </div>
           <Badge variant={
             analysis.trend === 'improving' ? 'default' : 
             analysis.trend === 'declining' ? 'destructive' : 'secondary'
           }>
-            {analysis.trend === 'improving' ? '📈 Mejorando' :
-             analysis.trend === 'declining' ? '📉 Desafiante' : '➡️ Estable'}
+            {analysis.trend === 'improving' ? t('predictiveAnalysis.improving') :
+             analysis.trend === 'declining' ? t('predictiveAnalysis.declining') : t('predictiveAnalysis.stable')}
           </Badge>
           <p className="text-sm text-gray-600 mt-1">
-            Basado en tus últimos {Math.min(7, emotionLogs.length)} registros
+            {t('predictiveAnalysis.basedOn', { count: Math.min(7, emotionLogs.length) })}
           </p>
         </div>
 
@@ -217,7 +218,7 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
         <div>
           <h4 className="font-semibold mb-3 flex items-center gap-2">
             <Target className="w-4 h-4" />
-            Predicciones
+            {t('predictiveAnalysis.predictions')}
           </h4>
           <div className="space-y-3">
             {analysis.predictions.map((prediction: any, index: number) => (
@@ -240,7 +241,7 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
         <div>
           <h4 className="font-semibold mb-3 flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            Recomendaciones Personalizadas
+            {t('predictiveAnalysis.recommendations')}
           </h4>
           <div className="space-y-3">
             {analysis.recommendations.map((rec: any, index: number) => (
@@ -259,8 +260,7 @@ const PredictiveAnalysis = ({ currentDay }: PredictiveAnalysisProps) => {
 
         <div className="bg-purple-50 rounded-lg p-3 border border-purple-200">
           <p className="text-xs text-purple-700">
-            🧠 Este análisis se basa en tus patrones únicos y mejora con más datos. 
-            Todas las predicciones son orientativas y completamente privadas.
+            {t('predictiveAnalysis.disclaimer')}
           </p>
         </div>
       </CardContent>

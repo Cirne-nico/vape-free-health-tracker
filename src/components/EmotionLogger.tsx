@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import DayContentCard from './DayContentCard';
 import EmotionSelector from './EmotionSelector';
 import DorsalStateAlert from './DorsalStateAlert';
@@ -9,6 +10,7 @@ interface EmotionLoggerProps {
 }
 
 const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
+  const { t } = useTranslation();
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [todayLog, setTodayLog] = useState<any>(null);
   const [emotionLogs, setEmotionLogs] = useState<any[]>([]);
@@ -39,13 +41,17 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
     if (selectedEmotions.includes(emotionId)) {
       setSelectedEmotions(prev => prev.filter(id => id !== emotionId));
     } else {
-      setSelectedEmotions(prev => [...prev, emotionId]);
+      if (selectedEmotions.length < 3) {
+        setSelectedEmotions(prev => [...prev, emotionId]);
+      } else {
+        toast.error(t('emotionLogger.maxEmotions'));
+      }
     }
   };
 
   const saveEmotions = () => {
     if (selectedEmotions.length === 0) {
-      toast.error('Selecciona al menos una emoción');
+      toast.error(t('emotionLogger.selectAtLeast'));
       return;
     }
 
@@ -72,7 +78,7 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
     
     setTodayLog(newLog);
     setEmotionLogs(updatedLogs);
-    toast.success('Estado emocional registrado');
+    toast.success(t('emotionLogger.success'));
   };
 
   return (

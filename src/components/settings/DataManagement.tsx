@@ -1,8 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 const DataManagement = () => {
+  const { t } = useTranslation();
+  
   const exportAllData = () => {
     const allData = {
       startDate: localStorage.getItem('vaping-quit-date'),
@@ -19,7 +22,7 @@ const DataManagement = () => {
     link.download = `backup-vapeo-libre-${new Date().toISOString().split('T')[0]}.json`;
     link.click();
     
-    toast.success('Datos exportados correctamente');
+    toast.success(t('settings.dataManagement.export'));
   };
 
   const resetApp = () => {
@@ -35,24 +38,23 @@ const DataManagement = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>💾 Gestión de Datos</CardTitle>
+        <CardTitle>{t('settings.dataManagement.title')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Button onClick={exportAllData} variant="outline">
-            Exportar Todos los Datos
+            {t('settings.dataManagement.export')}
           </Button>
           
           <Button onClick={resetApp} variant="destructive">
-            Reiniciar Aplicación
+            {t('settings.dataManagement.reset')}
           </Button>
         </div>
 
         <div className="bg-yellow-50 p-3 rounded-lg">
           <p className="text-sm text-yellow-700">
-            <strong>Información:</strong> Todos los datos se almacenan localmente en tu dispositivo. 
-            Exporta regularmente tus datos como respaldo.
+            <strong>{t('settings.dataManagement.info')}</strong>
           </p>
         </div>
       </CardContent>

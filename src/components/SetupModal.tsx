@@ -1,10 +1,11 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calendar, CalendarIcon, ChevronRight, User } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar, CalendarIcon, ChevronRight, User, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 import ConsumptionSurvey from './ConsumptionSurvey';
 
@@ -13,11 +14,13 @@ interface SetupModalProps {
 }
 
 const SetupModal = ({ onComplete }: SetupModalProps) => {
+  const { t, i18n } = useTranslation();
   const [showSurvey, setShowSurvey] = useState(false);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [userName, setUserName] = useState('');
   const [showMain, setShowMain] = useState(false);
+  const [language, setLanguage] = useState(i18n.language || 'es');
 
   useEffect(() => {
     // Pequeña animación inicial
@@ -34,6 +37,10 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
     // Guardar el nombre del usuario en localStorage
     localStorage.setItem('user-name', userName.trim());
     
+    // Guardar el idioma seleccionado
+    localStorage.setItem('umbral-language', language);
+    i18n.changeLanguage(language);
+    
     onComplete(selectedDate);
   };
 
@@ -46,6 +53,11 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
   const handleSkipSurvey = () => {
     setShowSurvey(false);
     setShowMain(true);
+  };
+
+  const changeLanguage = (lang: string) => {
+    setLanguage(lang);
+    i18n.changeLanguage(lang);
   };
 
   if (showSurvey) {
@@ -72,16 +84,41 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
           
           <div className="space-y-4">
             <h1 className="text-3xl font-light text-white tracking-wide">
-              Umbral
+              {t('app.name')}
             </h1>
             <p className="text-blue-200 text-lg font-light">
-              Acompañamiento en la retirada de la nicotina
+              {t('app.tagline')}
             </p>
           </div>
 
-          {/* Frases motivacionales animadas */}
-          <div className="text-sm text-blue-300 animate-pulse">
-            {/* Puedes agregar frases aquí */}
+          {/* Language selector */}
+          <div className="flex justify-center">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full p-1 inline-flex">
+              <button 
+                className={`px-3 py-1 rounded-full text-sm ${language === 'es' ? 'bg-white text-blue-900' : 'text-white'}`}
+                onClick={() => changeLanguage('es')}
+              >
+                🇪🇸 ES
+              </button>
+              <button 
+                className={`px-3 py-1 rounded-full text-sm ${language === 'en' ? 'bg-white text-blue-900' : 'text-white'}`}
+                onClick={() => changeLanguage('en')}
+              >
+                🇬🇧 EN
+              </button>
+              <button 
+                className={`px-3 py-1 rounded-full text-sm ${language === 'ca' ? 'bg-white text-blue-900' : 'text-white'}`}
+                onClick={() => changeLanguage('ca')}
+              >
+                🏴󠁥󠁳󠁣󠁴󠁿 CA
+              </button>
+              <button 
+                className={`px-3 py-1 rounded-full text-sm ${language === 'el' ? 'bg-white text-blue-900' : 'text-white'}`}
+                onClick={() => changeLanguage('el')}
+              >
+                🇬🇷 EL
+              </button>
+            </div>
           </div>
         </div>
 
@@ -89,7 +126,7 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-white animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
             <CardHeader>
               <CardTitle className="text-center text-white">
-                Comenzar el proceso
+                {t('settings.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">

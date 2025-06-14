@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import { emotionsData, getEmotionById } from '@/data/emotionsData';
 
 interface EmotionSelectorProps {
@@ -12,13 +13,15 @@ interface EmotionSelectorProps {
 }
 
 const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }: EmotionSelectorProps) => {
+  const { t } = useTranslation();
+  
   const toggleEmotion = (emotionId: string) => {
     if (selectedEmotions.includes(emotionId)) {
       onEmotionToggle(emotionId);
     } else if (selectedEmotions.length < 3) {
       onEmotionToggle(emotionId);
     } else {
-      toast.error('Solo puedes seleccionar máximo 3 emociones');
+      toast.error(t('emotionLogger.maxEmotions'));
     }
   };
 
@@ -27,16 +30,16 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
     selectedEmotions.forEach(emotionId => {
       onEmotionToggle(emotionId);
     });
-    toast.success('Emociones limpiadas');
+    toast.success(t('emotionLogger.clearEmotions'));
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>¿Cómo te sientes hoy?</CardTitle>
+        <CardTitle>{t('emotionLogger.title')}</CardTitle>
         {todayLog && (
           <p className="text-sm text-green-600">
-            ✓ Ya registraste tus emociones hoy a las {todayLog.timestamp}
+            {t('emotionLogger.alreadyLogged', { time: todayLog.timestamp })}
           </p>
         )}
       </CardHeader>
@@ -54,7 +57,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
               onClick={() => toggleEmotion(emotion.id)}
             >
               <span className="text-lg">{emotion.icon}</span>
-              <span>{emotion.name}</span>
+              <span>{t(`emotions.${emotion.id}`)}</span>
             </Button>
           ))}
         </div>
@@ -67,7 +70,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
                 const emotion = getEmotionById(emotionId);
                 return emotion ? (
                   <Badge key={emotionId} className="bg-blue-600 text-white">
-                    {emotion.icon} {emotion.name}
+                    {emotion.icon} {t(`emotions.${emotionId}`)}
                   </Badge>
                 ) : null;
               })}
@@ -83,7 +86,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
             disabled={selectedEmotions.length === 0}
             className="w-full bg-blue-600 hover:bg-blue-700"
           >
-            Guardar Estado
+            {t('emotionLogger.saveState')}
           </Button>
           
           {/* Botón secundario de limpiar */}
@@ -93,13 +96,13 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
               variant="outline"
               className="w-full text-red-600 border-red-300 hover:bg-red-50"
             >
-              Limpiar emociones
+              {t('emotionLogger.clearEmotions')}
             </Button>
           )}
         </div>
 
         <p className="text-sm text-gray-500">
-          Selecciona hasta 3 emociones que mejor describan cómo te sientes
+          {t('emotionLogger.selectLimit')}
         </p>
       </CardContent>
     </Card>

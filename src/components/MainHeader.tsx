@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Clock, TrendingUp, AlertTriangle, Trophy, User, Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 import PanicButton from './PanicButton';
 
@@ -48,6 +49,7 @@ const MainHeader = ({
   unlockedHealthAchievements,
   onRelapse 
 }: MainHeaderProps) => {
+  const { t } = useTranslation();
   const [userName, setUserName] = useState<string>('');
   const [showPanicButton, setShowPanicButton] = useState(false);
 
@@ -106,41 +108,43 @@ const MainHeader = ({
             <div className="flex items-center justify-center gap-2 mb-1">
               <Logo size="sm" className="text-white flex-shrink-0" />
               <h1 className={`text-base sm:text-lg font-bold leading-none tracking-wide ${textContrast.primaryText}`}>
-                UMBRAL
+                {t('app.name')}
               </h1>
             </div>
             <p className={`text-xs italic font-medium ${textContrast.accentText}`}>
-              acompaña tu proceso de abandono del vapeo
+              {t('app.tagline')}
             </p>
           </div>
 
           {/* Título principal */}
           <div className="text-center">
             <h2 className={`text-sm sm:text-base font-bold ${textContrast.primaryText}`}>
-              Ya sin nicotina, el cuerpo escucha:
+              {t('app.header.title')}
             </h2>
             <h3 className={`text-xs sm:text-sm font-semibold ${textContrast.accentText}`}>
-              hacia la sociabilidad mínima
+              {t('app.header.subtitle')}
             </h3>
           </div>
 
           {/* Tiempo transcurrido */}
           <div className="text-center">
             <h4 className={`text-lg sm:text-xl font-bold ${textContrast.primaryText}`}>
-              {time.days > 0 ? `${time.days} días sin vapear` : `${time.hours}h ${time.minutes}m sin vapear`}
+              {time.days > 0 
+                ? t('app.header.days', { count: time.days }) 
+                : t('app.header.hours', { hours: time.hours, minutes: time.minutes })}
             </h4>
           </div>
 
           {/* Progreso visual */}
           <div className="space-y-1">
             <div className={`flex justify-between text-xs ${textContrast.secondaryText}`}>
-              <span>Progreso hacia {progressInfo.targetLabel}</span>
+              <span>{t('app.header.progress', { target: progressInfo.targetLabel })}</span>
               <span className="font-semibold">{Math.min(progressPercentage, 100).toFixed(1)}%</span>
             </div>
             <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
             {!progressInfo.isFirstPhase && (
               <div className={`text-xs text-center ${textContrast.accentText}`}>
-                ¡Ya superaste los 90 días! Ahora hacia la meta de 2 años
+                {t('app.header.phase2')}
               </div>
             )}
           </div>
@@ -152,14 +156,14 @@ const MainHeader = ({
                 <Clock className={`w-4 h-4 ${textContrast.accentText}`} />
                 <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText}`}>{time.totalHours}</p>
               </div>
-              <p className={`text-xs ${textContrast.accentText}`}>horas totales</p>
+              <p className={`text-xs ${textContrast.accentText}`}>{t('app.header.totalHours')}</p>
             </div>
             <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
               <div className="flex items-center justify-center gap-1">
                 <Trophy className="w-4 h-4 text-yellow-300" />
                 <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText}`}>{totalMedals}</p>
               </div>
-              <p className={`text-xs ${textContrast.accentText}`}>medallas</p>
+              <p className={`text-xs ${textContrast.accentText}`}>{t('app.header.medals')}</p>
             </div>
           </div>
 
@@ -175,9 +179,9 @@ const MainHeader = ({
             <TooltipHelper
               content={
                 <div className="space-y-1">
-                  <p className="font-semibold">Protocolo Anti-Antojo</p>
-                  <p>Pasos inmediatos para superar momentos de antojo intenso:</p>
-                  <p>• Beber agua • Respirar 4-6 • Manipular objeto • Ejercicio rápido</p>
+                  <p className="font-semibold">{t('app.tooltips.panic.title')}</p>
+                  <p>{t('app.tooltips.panic.description')}</p>
+                  <p>{t('app.tooltips.panic.steps')}</p>
                 </div>
               }
             >
@@ -187,21 +191,21 @@ const MainHeader = ({
                 className="bg-orange-500 border-orange-600 text-white hover:bg-orange-600 text-xs px-3 py-2 h-8 min-w-[80px]"
               >
                 <Zap className="w-3 h-3 mr-1" />
-                Pánico
+                {t('app.header.panic')}
               </Button>
             </TooltipHelper>
 
             <TooltipHelper
               content={
                 <div className="space-y-1">
-                  <p className="font-semibold">Penalizaciones por recaída:</p>
-                  <p>• 1ª recaída: -1 semana</p>
-                  <p>• 2ª recaída: -1 mes</p>
-                  <p>• 3ª recaída: -3 meses</p>
-                  <p>• 4ª recaída: -9 meses</p>
-                  <p>• 5ª recaída: reinicia el proceso</p>
+                  <p className="font-semibold">{t('app.tooltips.relapse.title')}</p>
+                  <p>{t('app.tooltips.relapse.first')}</p>
+                  <p>{t('app.tooltips.relapse.second')}</p>
+                  <p>{t('app.tooltips.relapse.third')}</p>
+                  <p>{t('app.tooltips.relapse.fourth')}</p>
+                  <p>{t('app.tooltips.relapse.fifth')}</p>
                   <p className="text-muted-foreground text-xs mt-2">
-                    Si el retroceso supera los días acumulados, el contador se pondrá en cero.
+                    {t('app.tooltips.relapse.note')}
                   </p>
                 </div>
               }
@@ -212,7 +216,7 @@ const MainHeader = ({
                 className="bg-red-500 border-red-600 text-white hover:bg-red-600 text-xs px-3 py-2 h-8 min-w-[80px]"
               >
                 <AlertTriangle className="w-3 h-3 mr-1" />
-                Recaída
+                {t('app.header.relapse')}
               </Button>
             </TooltipHelper>
           </div>

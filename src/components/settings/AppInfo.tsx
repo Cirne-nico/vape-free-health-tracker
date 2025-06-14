@@ -1,38 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import PrivacyPolicyModal from '../PrivacyPolicyModal';
 import TermsModal from '../TermsModal';
 
 const AppInfo = () => {
+  const { t } = useTranslation();
+  
   return (
     <Card>
       <CardHeader>
-        <CardTitle>ℹ️ Acerca de la Aplicación</CardTitle>
+        <CardTitle>{t('settings.about.title')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <p className="text-sm text-gray-600">
-            <strong>UMBRAL - Libre de Vapeo</strong>
+            <strong>{t('settings.about.name')}</strong>
           </p>
           <p className="text-sm text-gray-600">
-            Versión 2.1 - Con seguimiento avanzado de salud y soporte para donaciones
+            {t('settings.about.version')}
           </p>
           <p className="text-sm text-gray-600">
-            Desarrollada para acompañarte en tu proceso de abandono del vapeo
+            {t('settings.about.purpose')}
           </p>
         </div>
         
         <div className="pt-3 border-t space-y-3">
           <p className="text-xs text-gray-500">
-            Los datos de recuperación de salud están basados en estudios científicos 
-            sobre los efectos de dejar el vapeo y el tabaco. Los valores son estimaciones 
-            y pueden variar según cada persona.
+            {t('settings.about.disclaimer')}
           </p>
           
           <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-400">
             <p className="text-xs text-red-700 font-medium">
-              <strong>Aviso Médico:</strong> Esta aplicación no sustituye el consejo médico profesional. 
-              Si experimentas síntomas graves durante tu proceso de abandono del vapeo, 
-              consulta con un profesional de la salud.
+              <strong>{t('settings.about.medicalWarning')}</strong>
             </p>
           </div>
         </div>

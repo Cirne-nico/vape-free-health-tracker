@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useTranslation } from 'react-i18next';
 
 interface CostSettingsProps {
   vaperType: string;
@@ -56,6 +57,8 @@ const CostSettings = ({
   onDevicePriceChange,
   onDeviceMonthsChange
 }: CostSettingsProps) => {
+  const { t } = useTranslation();
+  
   const calculateDailyCost = () => {
     let dailyCost = 0;
     
@@ -101,18 +104,18 @@ const CostSettings = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Cálculo de Ahorros</h3>
+      <h3 className="text-lg font-semibold">{t('settings.costs.title')}</h3>
       
       <div className="space-y-2">
-        <Label htmlFor="vaper-type">Tipo de vaper que usabas</Label>
+        <Label htmlFor="vaper-type">{t('settings.costs.vaperType')}</Label>
         <Select value={vaperType} onValueChange={onVaperTypeChange}>
           <SelectTrigger>
-            <SelectValue placeholder="Selecciona tipo" />
+            <SelectValue placeholder={t('settings.costs.vaperType')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="disposable">🗑️ Desechable</SelectItem>
-            <SelectItem value="pod">📦 Pod/Cartucho</SelectItem>
-            <SelectItem value="mod">🔧 Mod/Tanque</SelectItem>
+            <SelectItem value="disposable">{t('settings.costs.types.disposable')}</SelectItem>
+            <SelectItem value="pod">{t('settings.costs.types.pod')}</SelectItem>
+            <SelectItem value="mod">{t('settings.costs.types.mod')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -120,7 +123,7 @@ const CostSettings = ({
       {vaperType === 'disposable' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
           <div className="space-y-2">
-            <Label htmlFor="disposables-week">Desechables por semana</Label>
+            <Label htmlFor="disposables-week">{t('settings.costs.disposable.perWeek')}</Label>
             <Input
               id="disposables-week"
               type="number"
@@ -131,7 +134,7 @@ const CostSettings = ({
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="disposable-price">Precio por desechable (€)</Label>
+            <Label htmlFor="disposable-price">{t('settings.costs.disposable.price')}</Label>
             <Input
               id="disposable-price"
               type="number"
@@ -147,7 +150,7 @@ const CostSettings = ({
       {vaperType === 'pod' && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-lg">
           <div className="space-y-2">
-            <Label htmlFor="liquid-ml-week">Líquido por semana (ml)</Label>
+            <Label htmlFor="liquid-ml-week">{t('settings.costs.liquid.perWeek')}</Label>
             <Input
               id="liquid-ml-week"
               type="number"
@@ -157,7 +160,7 @@ const CostSettings = ({
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="liquid-size">Tamaño del bote (ml)</Label>
+            <Label htmlFor="liquid-size">{t('settings.costs.liquid.size')}</Label>
             <Input
               id="liquid-size"
               type="number"
@@ -167,7 +170,7 @@ const CostSettings = ({
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="liquid-price">Precio del bote (€)</Label>
+            <Label htmlFor="liquid-price">{t('settings.costs.liquid.price')}</Label>
             <Input
               id="liquid-price"
               type="number"
@@ -184,7 +187,7 @@ const CostSettings = ({
         <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="mod-liquid-ml">Líquido por semana (ml)</Label>
+              <Label htmlFor="mod-liquid-ml">{t('settings.costs.liquid.perWeek')}</Label>
               <Input
                 id="mod-liquid-ml"
                 type="number"
@@ -194,7 +197,7 @@ const CostSettings = ({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="mod-liquid-size">Tamaño del bote (ml)</Label>
+              <Label htmlFor="mod-liquid-size">{t('settings.costs.liquid.size')}</Label>
               <Input
                 id="mod-liquid-size"
                 type="number"
@@ -204,7 +207,7 @@ const CostSettings = ({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="mod-liquid-price">Precio del bote (€)</Label>
+              <Label htmlFor="mod-liquid-price">{t('settings.costs.liquid.price')}</Label>
               <Input
                 id="mod-liquid-price"
                 type="number"
@@ -218,7 +221,7 @@ const CostSettings = ({
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="coil-price">Precio de resistencia (€)</Label>
+              <Label htmlFor="coil-price">{t('settings.costs.coil.price')}</Label>
               <Input
                 id="coil-price"
                 type="number"
@@ -229,7 +232,7 @@ const CostSettings = ({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="coil-days">Duración resistencia (días)</Label>
+              <Label htmlFor="coil-days">{t('settings.costs.coil.duration')}</Label>
               <Input
                 id="coil-days"
                 type="number"
@@ -243,15 +246,15 @@ const CostSettings = ({
       )}
 
       <div className="space-y-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-        <h4 className="font-medium text-yellow-800">Componentes adicionales (opcional)</h4>
-        <p className="text-sm text-yellow-700">Incluye gastos en baterías, dispositivos, etc.</p>
+        <h4 className="font-medium text-yellow-800">{t('settings.costs.additional.title')}</h4>
+        <p className="text-sm text-yellow-700">{t('settings.costs.additional.description')}</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-3">
-            <h5 className="font-medium text-sm">Batería</h5>
+            <h5 className="font-medium text-sm">{t('settings.costs.additional.battery.title')}</h5>
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
-                <Label htmlFor="battery-price" className="text-xs">Precio (€)</Label>
+                <Label htmlFor="battery-price" className="text-xs">{t('settings.costs.additional.battery.price')}</Label>
                 <Input
                   id="battery-price"
                   type="number"
@@ -262,16 +265,16 @@ const CostSettings = ({
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="battery-months" className="text-xs">Duración (meses)</Label>
+                <Label htmlFor="battery-months" className="text-xs">{t('settings.costs.additional.battery.duration')}</Label>
                 <Select value={batteryMonths} onValueChange={onBatteryMonthsChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Meses" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="6">6 meses</SelectItem>
-                    <SelectItem value="12">12 meses</SelectItem>
-                    <SelectItem value="18">18 meses</SelectItem>
-                    <SelectItem value="24">24 meses</SelectItem>
+                    <SelectItem value="6">6</SelectItem>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="18">18</SelectItem>
+                    <SelectItem value="24">24</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -279,10 +282,10 @@ const CostSettings = ({
           </div>
 
           <div className="space-y-3">
-            <h5 className="font-medium text-sm">Dispositivo/Mod</h5>
+            <h5 className="font-medium text-sm">{t('settings.costs.additional.device.title')}</h5>
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
-                <Label htmlFor="device-price" className="text-xs">Precio (€)</Label>
+                <Label htmlFor="device-price" className="text-xs">{t('settings.costs.additional.device.price')}</Label>
                 <Input
                   id="device-price"
                   type="number"
@@ -293,17 +296,17 @@ const CostSettings = ({
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="device-months" className="text-xs">Duración (meses)</Label>
+                <Label htmlFor="device-months" className="text-xs">{t('settings.costs.additional.device.duration')}</Label>
                 <Select value={deviceMonths} onValueChange={onDeviceMonthsChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Meses" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="12">12 meses</SelectItem>
-                    <SelectItem value="18">18 meses</SelectItem>
-                    <SelectItem value="24">24 meses</SelectItem>
-                    <SelectItem value="36">36 meses</SelectItem>
-                    <SelectItem value="48">48 meses</SelectItem>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="18">18</SelectItem>
+                    <SelectItem value="24">24</SelectItem>
+                    <SelectItem value="36">36</SelectItem>
+                    <SelectItem value="48">48</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -314,10 +317,10 @@ const CostSettings = ({
 
       <div className="bg-blue-50 p-3 rounded-lg">
         <p className="text-sm text-blue-700">
-          <strong>Costo diario estimado:</strong> {calculateDailyCost().toFixed(2)}€
+          <strong>{t('settings.costs.estimatedCost')}</strong> {calculateDailyCost().toFixed(2)}€
         </p>
         <p className="text-xs text-blue-600 mt-1">
-          Este valor incluye TODOS los componentes configurados y se usa para calcular tus ahorros acumulados
+          {t('settings.costs.costExplanation')}
         </p>
       </div>
     </div>

@@ -1,0 +1,423 @@
+{
+  "app": {
+    "name": "UMBRAL",
+    "tagline": "accompanies your vaping cessation journey",
+    "header": {
+      "title": "Now nicotine-free, the body listens:",
+      "subtitle": "towards minimal sociability",
+      "days": "{{count}} days without vaping",
+      "hours": "{{hours}}h {{minutes}}m without vaping",
+      "progress": "Progress towards {{target}}",
+      "phase2": "You've already surpassed 90 days! Now towards the 2-year goal",
+      "totalHours": "total hours",
+      "medals": "medals",
+      "panic": "Panic",
+      "relapse": "Relapse"
+    },
+    "tooltips": {
+      "panic": {
+        "title": "Anti-Craving Protocol",
+        "description": "Immediate steps to overcome intense cravings:",
+        "steps": "• Drink water • 4-6 Breathing • Manipulate object • Quick exercise"
+      },
+      "relapse": {
+        "title": "Relapse penalties:",
+        "first": "• 1st relapse: -1 week",
+        "second": "• 2nd relapse: -1 month",
+        "third": "• 3rd relapse: -3 months",
+        "fourth": "• 4th relapse: -9 months",
+        "fifth": "• 5th relapse: restarts the process",
+        "note": "If the setback exceeds your accumulated days, the counter will be set to zero."
+      }
+    }
+  },
+  "tabs": {
+    "general": "General",
+    "emotivity": "Emotivity",
+    "health": "Health",
+    "epopeya": "Epic",
+    "gestas": "Feats",
+    "poderio": "Power",
+    "donate": "Donate",
+    "settings": "Settings"
+  },
+  "medals": {
+    "title": "Medals Earned",
+    "hide": "Hide",
+    "show": "View medals"
+  },
+  "emotionLogger": {
+    "title": "How do you feel today?",
+    "alreadyLogged": "✓ You've already logged your emotions today at {{time}}",
+    "saveState": "Save State",
+    "clearEmotions": "Clear emotions",
+    "selectLimit": "Select up to 3 emotions that best describe how you feel",
+    "maxEmotions": "You can only select a maximum of 3 emotions",
+    "success": "Emotional state recorded",
+    "selectAtLeast": "Select at least one emotion"
+  },
+  "socialStats": {
+    "title": "Epidemiological Data",
+    "successRate": "Long-term Success Rate",
+    "successRateTooltip": {
+      "title": "What does this mean?",
+      "description": "This percentage represents the proportion of people who, having reached the same point as you, manage to maintain permanent abstinence.",
+      "source": "Based on longitudinal studies on nicotine cessation."
+    },
+    "description": "of people who reach day {{days}} maintain permanent abstinence",
+    "source": "Data based on longitudinal studies on nicotine cessation (Hughes et al., 2014; West & Brown, 2013). The probability of success increases exponentially with each time milestone reached."
+  },
+  "virtualRewards": {
+    "title": "Emotional Progress System",
+    "tooltip": {
+      "title": "How does it work?",
+      "description": "This system analyzes your daily emotional records to identify progress patterns and award recognition badges.",
+      "purpose": "Motivate consistency in emotional recording and celebrate improvements in your psychological well-being during the vaping cessation process.",
+      "science": "Based on cognitive-behavioral therapy and studies on emotional self-regulation in addiction cessation processes (Marlatt & Gordon, 1985)."
+    },
+    "points": "Integral Progress Points",
+    "nextBadge": "Next Emotional State",
+    "unlockedBadges": "Emotional States Achieved",
+    "motivationalMessage": "🧠 Your progress is based on real emotional changes, not just time elapsed. Each unlocked state reflects an authentic transformation in your well-being.",
+    "registrationInfo": "📊 Record your emotions regularly to unlock emotional states. You have {{count}} records so far."
+  },
+  "predictiveAnalysis": {
+    "title": "Predictive Analysis",
+    "tooltip": {
+      "title": "What is this?",
+      "description": "An analysis based on your emotional patterns that predicts possible challenges and opportunities in your process.",
+      "note": "All predictions are indicative and improve with more data."
+    },
+    "notEnoughData": {
+      "title": "Predictive Analysis",
+      "description": "Record your emotions for at least 3 days to get personalized analysis and useful predictions.",
+      "progress": "{{current}}/3 minimum records"
+    },
+    "emotionalTrend": "Emotional Trend",
+    "improving": "📈 Improving",
+    "declining": "📉 Challenging",
+    "stable": "➡️ Stable",
+    "basedOn": "Based on your last {{count}} records",
+    "predictions": "Predictions",
+    "recommendations": "Personalized Recommendations",
+    "disclaimer": "🧠 This analysis is based on your unique patterns and improves with more data. All predictions are indicative and completely private."
+  },
+  "healthTracker": {
+    "title": "Your Health Recovery",
+    "tooltip": {
+      "title": "Medical monitoring",
+      "description": "This system monitors your physical recovery based on medical research on vaping cessation.",
+      "detail": "Each category shows your real progress according to the time elapsed since you quit vaping."
+    },
+    "dayProgress": "Day {{days}} - Progress based on medical studies on post-vaping recovery",
+    "categories": {
+      "respiratory": {
+        "title": "Lungs",
+        "tooltip": {
+          "function": "Monitors the recovery of your lung function after quitting vaping.",
+          "sense": "The lungs progressively recover by eliminating toxins and regenerating tissues.",
+          "science": "Based on post-cessation lung function studies (Respiratory Medicine, 2023)."
+        }
+      },
+      "cardiovascular": {
+        "title": "Heart",
+        "tooltip": {
+          "function": "Evaluates the improvement in your circulatory system and heart health.",
+          "sense": "The heart and blood vessels benefit immediately from eliminating nicotine.",
+          "science": "Based on research on cardiovascular recovery (JACC, 2022)."
+        }
+      },
+      "liver": {
+        "title": "Liver",
+        "tooltip": {
+          "function": "Tracks the recovery of your liver function and metabolism.",
+          "sense": "The liver processes toxins better and reverses damage caused by vaping chemicals.",
+          "science": "Based on studies of hepatic toxicology and recovery (Hepatology, 2021)."
+        }
+      },
+      "skinEyes": {
+        "title": "Skin & Eyes",
+        "tooltip": {
+          "function": "Monitors improvement in skin hydration and tear function.",
+          "sense": "Skin and eyes recover their natural hydration by eliminating vaping irritants.",
+          "science": "Based on clinical dermatology and ophthalmology (JAMA Dermatology, 2022)."
+        }
+      },
+      "mental": {
+        "title": "Mental Wellbeing",
+        "tooltip": {
+          "function": "Evaluates your neurological recovery and psychological well-being.",
+          "sense": "The brain gradually adapts without nicotine, improving mood and concentration.",
+          "science": "Based on neuroplasticity and addiction studies (Nature Neuroscience, 2023)."
+        }
+      }
+    },
+    "progressCard": {
+      "currentRecovery": "current recovery",
+      "currentState": "Current state:",
+      "medicalBasis": "Medical basis:",
+      "scientificInfo": "Scientific information",
+      "nextMilestone": "Next milestone (Day {{day}}):",
+      "daysRemaining": "In {{days}} days"
+    }
+  },
+  "epicQuests": {
+    "title": "Body Memory and Neuroplasticity",
+    "explanation": {
+      "question": "Why repeat each situation several times?",
+      "answer": "When you overcome a difficult situation without vaping 3 times (or as required), that experience is recorded in your body and brain memory as a new neurological pattern.",
+      "detail": "Your nervous system learns that it can live that experience and enjoy it even more without the need for nicotine. Repetition consolidates new neural connections that replace addictive associations.",
+      "science": "Neuroplasticity in action: Each time you repeat an experience without vaping, you strengthen the neural networks of autonomy and weaken those of dependence. After completing a feat, that situation will no longer be a \"trigger\" but a demonstration of your new psychophysical cartography."
+    },
+    "stats": {
+      "title": "Great feats",
+      "subtitle": "Difficult situations overcome without vaping",
+      "completed": "completed",
+      "total": "total",
+      "medals": "medals",
+      "progress": "Overall progress",
+      "categories": "Categories",
+      "medalsVisible": "🏆 You have {{count}} epic medal visible on the main screen",
+      "medalsVisiblePlural": "🏆 You have {{count}} epic medals visible on the main screen"
+    },
+    "customization": {
+      "title": "✨ Customize Your Process",
+      "description": "You can remove any feat that doesn't apply to your situation. For example, if you don't drink alcohol, remove feats related to alcoholic beverages."
+    },
+    "addCustomQuest": "Add Custom Feat",
+    "categories": {
+      "social": {
+        "title": "Social Situations",
+        "description": "Interactions with other people"
+      },
+      "emotional": {
+        "title": "Emotional Management",
+        "description": "Handling intense emotional states"
+      },
+      "substance": {
+        "title": "Other Substances",
+        "description": "Situations with alcohol or other substances"
+      },
+      "psychological": {
+        "title": "Psychological Challenges",
+        "description": "Thought patterns and specific contexts"
+      },
+      "ultimate": {
+        "title": "Total Mastery",
+        "description": "Final medal that unlocks automatically"
+      }
+    },
+    "questCard": {
+      "custom": "Custom",
+      "automatic": "Automatic",
+      "notRepresent": "Doesn't represent me",
+      "progress": "Progress:",
+      "rewardObtained": "Reward obtained:",
+      "medalVisible": "✨ Epic medal visible on the main screen",
+      "ultimateDescription": "Automatic Medal: Unlocks when you complete all other epic feats with medals.",
+      "status": "Status:",
+      "unlocked": "Unlocked",
+      "locked": "Locked"
+    },
+    "questForm": {
+      "title": "Create New Feat",
+      "titleField": "Title *",
+      "titlePlaceholder": "Ex: Important presentation at work",
+      "description": "Description",
+      "descriptionPlaceholder": "Detailed description of the situation",
+      "checks": "Required checks",
+      "category": "Category",
+      "icon": "Icon",
+      "iconPlaceholder": "Ex: ⚔️, 🎯, 💪",
+      "create": "Create Feat",
+      "cancel": "Cancel"
+    }
+  },
+  "habitsManager": {
+    "title": "⚡ Power - Scientific Habits",
+    "subtitle": "Validated routines to overcome nicotine withdrawal",
+    "tooltip": {
+      "title": "Science-Based Habits",
+      "description": "Scientifically validated routines to overcome nicotine withdrawal. The more you activate, the stronger your foundation.",
+      "effectiveness": "Effectiveness increases significantly if you combine 3 or more routines (Hajek et al., 2019)."
+    },
+    "stats": {
+      "activeHabits": "active habits",
+      "excellent": "🎉 Excellent! With {{count}} active habits you have a solid foundation for success",
+      "tip": "💡 Tip: Only activate those habits you want to implement. Don't overwhelm yourself, just the ones you think can help you"
+    },
+    "habitCard": {
+      "active": "Active",
+      "routine": "📋 Routine:",
+      "scientificBasis": "🔬 Scientific Basis:",
+      "vapeAdjustment": "💨 Vaping Adjustment:",
+      "reference": "Reference:",
+      "viewStudy": "View study"
+    },
+    "habitTracker": {
+      "tracking": "Tracking {{name}}",
+      "consolidated": "Consolidated",
+      "tooltip": {
+        "title": "How does it work?",
+        "description": "Mark as completed each day you achieve the habit. You can only mark once per day.",
+        "consolidation": "{{description}}",
+        "recountTitle": "Weekly count:",
+        "recountSocial": "For social commitment: 1 day per week = 100% completed",
+        "recountOthers": "Resets every 7 days, but keeps track of previous weeks."
+      },
+      "consecutiveDays": "consecutive days",
+      "thisWeek": "this week",
+      "doneToday": "Done today",
+      "markToday": "Mark today",
+      "weeklyProgress": "Weekly progress",
+      "weekCompleted": "✅ Week completed (1+ day)",
+      "needOneDay": "⏳ You need 1 day this week",
+      "progressToConsolidation": "Progress towards consolidation",
+      "lastWeeks": "Last {{count}} weeks:",
+      "consolidationTarget": "🎯 {{description}}",
+      "habitConsolidated": "Habit Consolidated!",
+      "medalObtained": "You've earned a medal for consolidating this scientific habit"
+    },
+    "successKey": {
+      "title": "💡 Key to Success",
+      "description": "All habits are validated for nicotine abstinence in vapers. Effectiveness increases if you combine ≥3 routines.",
+      "source": "Source: Hajek et al., 2019 - Specific studies on vaping cessation"
+    }
+  },
+  "donation": {
+    "title": "Support Development",
+    "description": "If this application has helped you on your journey to a vape-free life, you can support its development with a voluntary donation.",
+    "subtext": "Your support allows me to continue improving and maintaining this app completely free for the entire community.",
+    "button": "Donate on Liberapay",
+    "secureLink": "Secure link to Liberapay - Recurring or one-time donations"
+  },
+  "settings": {
+    "title": "⚙️ Application Settings",
+    "notifications": {
+      "title": "Notifications",
+      "enable": "Enable daily reminders",
+      "description": "Receive a notification to record your state",
+      "time": "Reminder time"
+    },
+    "costs": {
+      "title": "Savings Calculation",
+      "vaperType": "Type of vaper you used",
+      "types": {
+        "disposable": "🗑️ Disposable",
+        "pod": "📦 Pod/Cartridge",
+        "mod": "🔧 Mod/Tank"
+      },
+      "disposable": {
+        "perWeek": "Disposables per week",
+        "price": "Price per disposable (€)"
+      },
+      "liquid": {
+        "perWeek": "Liquid per week (ml)",
+        "size": "Bottle size (ml)",
+        "price": "Bottle price (€)"
+      },
+      "coil": {
+        "price": "Coil price (€)",
+        "duration": "Coil duration (days)"
+      },
+      "additional": {
+        "title": "Additional components (optional)",
+        "description": "Include expenses on batteries, devices, etc.",
+        "battery": {
+          "title": "Battery",
+          "price": "Price (€)",
+          "duration": "Duration (months)"
+        },
+        "device": {
+          "title": "Device/Mod",
+          "price": "Price (€)",
+          "duration": "Duration (months)"
+        }
+      },
+      "estimatedCost": "Estimated daily cost:",
+      "costExplanation": "This value includes ALL configured components and is used to calculate your accumulated savings"
+    },
+    "saveButton": "Save Settings",
+    "dataManagement": {
+      "title": "💾 Data Management",
+      "export": "Export All Data",
+      "reset": "Reset Application",
+      "info": "Information: All data is stored locally on your device. Export your data regularly as a backup."
+    },
+    "about": {
+      "title": "ℹ️ About the Application",
+      "name": "UMBRAL - Vape Free",
+      "version": "Version 2.1 - With advanced health tracking and donation support",
+      "purpose": "Developed to accompany you in your vaping cessation process",
+      "disclaimer": "Health recovery data is based on scientific studies on the effects of quitting vaping and smoking. Values are estimates and may vary for each person.",
+      "medicalWarning": "Medical Notice: This application does not substitute professional medical advice. If you experience severe symptoms during your vaping cessation process, consult a healthcare professional.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use"
+    }
+  },
+  "panicButton": {
+    "title": "Anti-Craving Protocol",
+    "instructions": "Follow these steps in order. Each one will help you overcome the craving:",
+    "actions": {
+      "water": {
+        "title": "Drink Water",
+        "description": "Take a full glass of water",
+        "time": "30 seconds"
+      },
+      "breathing": {
+        "title": "4-6 Breathing",
+        "description": "Inhale 4s → Hold 2s → Exhale 6s (5 times)",
+        "time": "1 minute"
+      },
+      "exercise": {
+        "title": "Quick Exercise",
+        "description": "10 squats or push-ups",
+        "time": "2 minutes"
+      },
+      "manipulate": {
+        "title": "Manipulate Object",
+        "description": "Use pen, coin or any object in your hands",
+        "time": "2 minutes"
+      }
+    },
+    "completed": {
+      "title": "🎉 Protocol Completed!",
+      "message": "You've overcome the craving. Your willpower has strengthened."
+    },
+    "closeButton": "Close",
+    "continueButton": "Continue Strong",
+    "reminder": "💡 Remember: Cravings last a maximum of 5 minutes. You're already closer to overcoming it."
+  },
+  "emotions": {
+    "happy": "Happy",
+    "excited": "Excited",
+    "calm": "Calm",
+    "confident": "Confident",
+    "grateful": "Grateful",
+    "motivated": "Motivated",
+    "proud": "Proud",
+    "energetic": "Energetic",
+    "anxious": "Anxious",
+    "sad": "Sad",
+    "angry": "Angry",
+    "stressed": "Stressed",
+    "frustrated": "Frustrated",
+    "lonely": "Lonely",
+    "overwhelmed": "Overwhelmed",
+    "restless": "Restless",
+    "depressed": "Depressed",
+    "foggy": "Mental Foggy",
+    "neutral": "Neutral",
+    "tired": "Tired",
+    "bored": "Bored",
+    "confused": "Confused",
+    "indifferent": "Indifferent"
+  },
+  "language": {
+    "title": "Language",
+    "es": "Español",
+    "en": "English",
+    "ca": "Català",
+    "el": "Ελληνικά"
+  }
+}

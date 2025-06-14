@@ -9,6 +9,7 @@ import MedalsSection from './MedalsSection';
 import GeneralTab from './tabs/GeneralTab';
 import EmotivityTab from './tabs/EmotivityTab';
 import { Clock, Trophy, Heart, Brain, Settings, Scroll, Zap, Gift } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface MainTabsProps {
   startDate: Date | null;
@@ -25,48 +26,50 @@ const MainTabs = ({
   unlockedAchievements,
   unlockedHealthAchievements 
 }: MainTabsProps) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-4 sm:space-y-6">
       <Tabs defaultValue="emotions" className="w-full">
         <TabsList className="grid w-full grid-cols-4 grid-rows-2 gap-1 bg-white shadow-sm h-auto p-2 sm:grid-cols-8 sm:grid-rows-1 sm:h-12">
           <TabsTrigger value="emotions">
             <Clock className="w-4 h-4" />
-            <span>General</span>
+            <span>{t('tabs.general')}</span>
           </TabsTrigger>
           
           <TabsTrigger value="emotivity">
             <Brain className="w-4 h-4" />
-            <span>Emotividad</span>
+            <span>{t('tabs.emotivity')}</span>
           </TabsTrigger>
           
           <TabsTrigger value="health">
             <Heart className="w-4 h-4" />
-            <span>Salud</span>
+            <span>{t('tabs.health')}</span>
           </TabsTrigger>
           
           <TabsTrigger value="achievements">
             <Trophy className="w-4 h-4" />
-            <span>Epopeya</span>
+            <span>{t('tabs.epopeya')}</span>
           </TabsTrigger>
 
           <TabsTrigger value="epic">
             <Scroll className="w-4 h-4" />
-            <span>Gestas</span>
+            <span>{t('tabs.gestas')}</span>
           </TabsTrigger>
           
           <TabsTrigger value="poderio">
             <Zap className="w-4 h-4" />
-            <span>Poderío</span>
+            <span>{t('tabs.poderio')}</span>
           </TabsTrigger>
           
           <TabsTrigger value="donate">
             <Gift className="w-4 h-4" />
-            <span>Donar</span>
+            <span>{t('tabs.donate')}</span>
           </TabsTrigger>
           
           <TabsTrigger value="settings">
             <Settings className="w-4 h-4" />
-            <span>Ajustes</span>
+            <span>{t('tabs.settings')}</span>
           </TabsTrigger>
         </TabsList>
 

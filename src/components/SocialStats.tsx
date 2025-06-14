@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Users, TrendingUp } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface SocialStatsProps {
   currentDay: number;
@@ -9,6 +10,8 @@ interface SocialStatsProps {
 }
 
 const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
+  const { t } = useTranslation();
+  
   // Porcentaje de personas que, habiendo llegado al día actual, logran dejar para siempre
   // Basado en estudios reales: solo 3-5% lo logra sin ayuda por un año completo
   const getSuccessRate = (day: number) => {
@@ -30,34 +33,33 @@ const SocialStats = ({ currentDay, totalSavings }: SocialStatsProps) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-blue-700">
           <Users className="w-5 h-5" />
-          Datos Epidemiológicos
+          {t('socialStats.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="bg-white/60 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-4 h-4 text-green-600" />
-            <span className="text-sm font-medium text-gray-700">Tasa de Éxito a Largo Plazo</span>
+            <span className="text-sm font-medium text-gray-700">{t('socialStats.successRate')}</span>
             <TooltipHelper
               content={
                 <div className="space-y-1">
-                  <p className="font-semibold">¿Qué significa esto?</p>
-                  <p className="text-sm">Este porcentaje representa la proporción de personas que, habiendo llegado al mismo punto que tú, logran mantener la abstinencia permanente.</p>
-                  <p className="text-sm">Basado en estudios longitudinales sobre cesación de nicotina.</p>
+                  <p className="font-semibold">{t('socialStats.successRateTooltip.title')}</p>
+                  <p className="text-sm">{t('socialStats.successRateTooltip.description')}</p>
+                  <p className="text-sm">{t('socialStats.successRateTooltip.source')}</p>
                 </div>
               }
             />
           </div>
           <p className="text-3xl font-bold text-green-600">{successRate}%</p>
           <p className="text-sm text-gray-600 mt-2">
-            de las personas que alcanzan el día {currentDay} mantienen la abstinencia permanente
+            {t('socialStats.description', { days: currentDay })}
           </p>
         </div>
 
         <div className="bg-blue-100/50 rounded-lg p-3">
           <p className="text-xs text-blue-700">
-            📊 Datos basados en estudios longitudinales sobre cesación de nicotina (Hughes et al., 2014; 
-            West & Brown, 2013). La probabilidad de éxito aumenta exponencialmente con cada hito temporal alcanzado.
+            📊 {t('socialStats.source')}
           </p>
         </div>
       </CardContent>

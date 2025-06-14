@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import NotificationSettings from './settings/NotificationSettings';
 import CostSettings from './settings/CostSettings';
 import DataManagement from './settings/DataManagement';
 import AppInfo from './settings/AppInfo';
+import LanguageSelector from './settings/LanguageSelector';
 
 const SettingsPanel = () => {
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState(true);
   const [notificationTime, setNotificationTime] = useState('09:00');
   
@@ -111,7 +114,7 @@ const SettingsPanel = () => {
     };
 
     localStorage.setItem('app-settings', JSON.stringify(settings));
-    toast.success('Configuración guardada correctamente');
+    toast.success(t('settings.saveButton'));
 
     if (notifications && 'Notification' in window) {
       Notification.requestPermission().then(permission => {
@@ -142,7 +145,7 @@ const SettingsPanel = () => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>⚙️ Configuración de la Aplicación</CardTitle>
+          <CardTitle>{t('settings.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           
@@ -181,11 +184,12 @@ const SettingsPanel = () => {
           />
 
           <Button onClick={saveSettings} className="w-full">
-            Guardar Configuración
+            {t('settings.saveButton')}
           </Button>
         </CardContent>
       </Card>
 
+      <LanguageSelector />
       <DataManagement />
       <AppInfo />
     </div>

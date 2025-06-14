@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle, Zap, Droplets, Dumbbell } from 'lucide-react';
 
 interface PanicButtonProps {
@@ -10,36 +11,37 @@ interface PanicButtonProps {
 }
 
 const PanicButton = ({ isOpen, onClose }: PanicButtonProps) => {
+  const { t } = useTranslation();
   const [completedActions, setCompletedActions] = useState<string[]>([]);
 
   const panicActions = [
     {
       id: 'water',
-      title: 'Bebe Agua',
-      description: 'Toma un vaso de agua completo',
+      title: t('panicButton.actions.water.title'),
+      description: t('panicButton.actions.water.description'),
       icon: <Droplets className="w-6 h-6 text-blue-500" />,
-      time: '30 segundos'
+      time: t('panicButton.actions.water.time')
     },
     {
       id: 'breathing',
-      title: 'Respira 4-6',
-      description: 'Inhala 4s → Aguanta 2s → Exhala 6s (5 veces)',
+      title: t('panicButton.actions.breathing.title'),
+      description: t('panicButton.actions.breathing.description'),
       icon: <Zap className="w-6 h-6 text-green-500" />,
-      time: '1 minuto'
+      time: t('panicButton.actions.breathing.time')
     },
     {
       id: 'exercise',
-      title: 'Ejercicio Rápido',
-      description: '10 sentadillas o flexiones',
+      title: t('panicButton.actions.exercise.title'),
+      description: t('panicButton.actions.exercise.description'),
       icon: <Dumbbell className="w-6 h-6 text-red-500" />,
-      time: '2 minutos'
+      time: t('panicButton.actions.exercise.time')
     },
     {
       id: 'manipulate',
-      title: 'Manipula Objeto',
-      description: 'Usa bolígrafo, moneda o cualquier objeto en tus manos',
+      title: t('panicButton.actions.manipulate.title'),
+      description: t('panicButton.actions.manipulate.description'),
       icon: <span className="text-2xl">✋</span>,
-      time: '2 minutos'
+      time: t('panicButton.actions.manipulate.time')
     }
   ];
 
@@ -62,14 +64,14 @@ const PanicButton = ({ isOpen, onClose }: PanicButtonProps) => {
         <DialogHeader>
           <DialogTitle className="text-center text-red-600 flex items-center justify-center gap-2">
             <AlertTriangle className="w-6 h-6" />
-            Protocolo Anti-Antojo
+            {t('panicButton.title')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           <div className="text-center">
             <p className="text-sm text-gray-600 mb-4">
-              Sigue estos pasos en orden. Cada uno te ayudará a superar el antojo:
+              {t('panicButton.instructions')}
             </p>
           </div>
 
@@ -114,9 +116,9 @@ const PanicButton = ({ isOpen, onClose }: PanicButtonProps) => {
           {allCompleted && (
             <Card className="bg-green-100 border-green-300">
               <CardContent className="p-4 text-center">
-                <h4 className="font-bold text-green-800 mb-2">🎉 ¡Protocolo Completado!</h4>
+                <h4 className="font-bold text-green-800 mb-2">{t('panicButton.completed.title')}</h4>
                 <p className="text-sm text-green-700">
-                  Has superado el antojo. Tu fuerza de voluntad se ha fortalecido.
+                  {t('panicButton.completed.message')}
                 </p>
               </CardContent>
             </Card>
@@ -124,12 +126,12 @@ const PanicButton = ({ isOpen, onClose }: PanicButtonProps) => {
 
           <div className="flex gap-2">
             <Button onClick={handleClose} className="flex-1">
-              {allCompleted ? 'Continuar Fuerte' : 'Cerrar'}
+              {allCompleted ? t('panicButton.continueButton') : t('panicButton.closeButton')}
             </Button>
           </div>
 
           <div className="text-xs text-gray-500 text-center">
-            💡 Recuerda: Los antojos duran máximo 5 minutos. Ya estás más cerca de superarlo.
+            {t('panicButton.reminder')}
           </div>
         </div>
       </DialogContent>

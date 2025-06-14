@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Calendar, CheckCircle, XCircle, Target, Trophy } from 'lucide-react';
+import { Calendar, CheckCircle, XCircle, Target, Trophy, Info } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 
 interface HabitTracking {
@@ -58,6 +59,8 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
   };
 
   const toggleToday = () => {
+    if (isConsolidated) return; // No permitir cambios si ya está consolidado
+    
     const today = new Date();
     const todayString = today.toDateString();
     const week = getWeekNumber(today);
@@ -76,6 +79,9 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         year
       };
       updatedData.push(newEntry);
+      toast.success(`✅ ${habitName} marcado como completado hoy`);
+    } else {
+      toast.info(`❌ ${habitName} desmarcado para hoy`);
     }
     
     setTrackingData(updatedData);
@@ -92,15 +98,27 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     const weeklyProgress = getWeeklyProgressData(data);
     const recentWeeks = weeklyProgress.slice(-6); // Últimas 6 semanas
 
-    // Criterio 1: 4 semanas seguidas con 5/7 días
-    const fourWeeksWith5Days = checkConsecutiveWeeks(recentWeeks.slice(-4), 5);
-    
-    // Criterio 2: 6 semanas con 4/7 días
-    const sixWeeksWith4Days = recentWeeks.length >= 6 && 
-      recentWeeks.every(week => week.completedDays >= 4);
+    // Criterio especial para compromiso social: solo necesita 1 vez por semana
+    if (habitId === 'social_commitment') {
+      const fourWeeksWith1Day = checkConsecutiveWeeks(recentWeeks.slice(-4), 1);
+      const sixWeeksWith1Day = recentWeeks.length >= 6 && 
+        recentWeeks.every(week => week.completedDays >= 1);
+      
+      if (fourWeeksWith1Day || sixWeeksWith1Day) {
+        consolidateHabit();
+        return;
+      }
+    } else {
+      // Criterio 1: 4 semanas seguidas con 5/7 días
+      const fourWeeksWith5Days = checkConsecutiveWeeks(recentWeeks.slice(-4), 5);
+      
+      // Criterio 2: 6 semanas con 4/7 días
+      const sixWeeksWith4Days = recentWeeks.length >= 6 && 
+        recentWeeks.every(week => week.completedDays >= 4);
 
-    if (fourWeeksWith5Days || sixWeeksWith4Days) {
-      consolidateHabit();
+      if (fourWeeksWith5Days || sixWeeksWith4Days) {
+        consolidateHabit();
+      }
     }
   };
 
@@ -208,114 +226,155 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     return streak;
   };
 
+  const getConsolidationCriteria = () => {
+    if (habitId === 'social_commitment') {
+      return {
+        description: 'Para compromiso social: 4 semanas seguidas con 1+ día O 6 semanas con 1+ día',
+        minDays: 1
+      };
+    }
+    return {
+      description: 'Para ejercicio y sueño: 4 semanas seguidas con 5+ días O 6 semanas con 4+ días',
+      minDays: habitId === 'daily_exercise' || habitId === 'strict_sleep_schedule' ? 5 : 4
+    };
+  };
+
   if (!isActive) return null;
 
   const weeklyProgress = getCurrentWeekProgress();
   const currentStreak = getStreak();
   const weeklyData = getWeeklyProgressData(trackingData);
   const recentWeeks = weeklyData.slice(-6);
+  const criteria = getConsolidationCriteria();
 
   return (
-    <Card className={`mt-3 ${isConsolidated ? 'bg-green-50 border-green-300' : 'bg-blue-50 border-blue-200'}`}>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-sm flex items-center gap-2">
-          <Calendar className="w-4 h-4" />
-          Seguimiento de {habitName}
-          {isConsolidated && (
-            <Badge className="bg-green-500 text-white">
-              <Trophy className="w-3 h-3 mr-1" />
-              Consolidado
+    <TooltipProvider>
+      <Card className={`mt-3 ${isConsolidated ? 'bg-green-50 border-green-300' : 'bg-blue-50 border-blue-200'}`}>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-sm flex items-center gap-2">
+            <Calendar className="w-4 h-4" />
+            Seguimiento de {habitName}
+            {isConsolidated && (
+              <Badge className="bg-green-500 text-white">
+                <Trophy className="w-3 h-3 mr-1" />
+                Consolidado
+              </Badge>
+            )}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 text-gray-500 hover:text-gray-700 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs p-3">
+                <div className="space-y-2">
+                  <p className="font-semibold">¿Cómo funciona?</p>
+                  <p className="text-sm">Marca como completado cada día que logres el hábito. Solo puedes marcar una vez por día.</p>
+                  <p className="font-semibold">Consolidación:</p>
+                  <p className="text-sm">{criteria.description}</p>
+                  <p className="font-semibold">Recuento semanal:</p>
+                  <p className="text-sm">Se reinicia cada 7 días, pero guarda el historial de semanas previas.</p>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="bg-white p-2 rounded">
+              <div className="text-lg font-bold text-blue-600">{currentStreak}</div>
+              <div className="text-xs text-gray-600">días seguidos</div>
+            </div>
+            <div className="bg-white p-2 rounded">
+              <div className="text-lg font-bold text-green-600">{Math.round(weeklyProgress)}%</div>
+              <div className="text-xs text-gray-600">esta semana</div>
+            </div>
+            <div className="bg-white p-2 rounded">
+              <Button
+                size="sm"
+                variant={todayCompleted ? "default" : "outline"}
+                onClick={toggleToday}
+                className="w-full h-8"
+                disabled={isConsolidated}
+                title={isConsolidated ? "Hábito ya consolidado" : "Marcar como completado hoy"}
+              >
+                {todayCompleted ? (
+                  <CheckCircle className="w-4 h-4" />
+                ) : (
+                  <XCircle className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex justify-between text-xs">
+              <span>Progreso semanal</span>
+              <span>{Math.round(weeklyProgress)}%</span>
+            </div>
+            <Progress value={weeklyProgress} className="h-2" />
+          </div>
+
+          {/* Progreso hacia consolidación */}
+          {!isConsolidated && recentWeeks.length > 0 && (
+            <div className="bg-white p-3 rounded-lg border">
+              <h4 className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
+                <Target className="w-3 h-3" />
+                Progreso hacia consolidación
+              </h4>
+              <div className="space-y-2">
+                <div className="text-xs text-gray-600">
+                  Últimas {recentWeeks.length} semanas:
+                </div>
+                <div className="flex gap-1">
+                  {recentWeeks.map((week, index) => {
+                    const isGood = habitId === 'social_commitment' ? 
+                      week.completedDays >= 1 : 
+                      week.completedDays >= criteria.minDays;
+                    const isOk = habitId === 'social_commitment' ? 
+                      false : 
+                      week.completedDays >= 4;
+                    
+                    return (
+                      <div
+                        key={`${week.year}-${week.week}`}
+                        className={`w-6 h-6 rounded text-xs flex items-center justify-center ${
+                          isGood ? 'bg-green-500 text-white' :
+                          isOk ? 'bg-yellow-500 text-white' :
+                          'bg-gray-300 text-gray-600'
+                        }`}
+                        title={`Semana ${week.week}: ${week.completedDays}/7 días`}
+                      >
+                        {week.completedDays}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="text-xs text-gray-500">
+                  🎯 {criteria.description}
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {todayCompleted && !isConsolidated && (
+            <Badge className="w-full justify-center bg-green-500">
+              ✅ Completado hoy
             </Badge>
           )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-3 gap-3 text-center">
-          <div className="bg-white p-2 rounded">
-            <div className="text-lg font-bold text-blue-600">{currentStreak}</div>
-            <div className="text-xs text-gray-600">días seguidos</div>
-          </div>
-          <div className="bg-white p-2 rounded">
-            <div className="text-lg font-bold text-green-600">{Math.round(weeklyProgress)}%</div>
-            <div className="text-xs text-gray-600">esta semana</div>
-          </div>
-          <div className="bg-white p-2 rounded">
-            <Button
-              size="sm"
-              variant={todayCompleted ? "default" : "outline"}
-              onClick={toggleToday}
-              className="w-full h-8"
-              disabled={isConsolidated}
-            >
-              {todayCompleted ? (
-                <CheckCircle className="w-4 h-4" />
-              ) : (
-                <XCircle className="w-4 h-4" />
-              )}
-            </Button>
-          </div>
-        </div>
-        
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs">
-            <span>Progreso semanal</span>
-            <span>{Math.round(weeklyProgress)}%</span>
-          </div>
-          <Progress value={weeklyProgress} className="h-2" />
-        </div>
 
-        {/* Progreso hacia consolidación */}
-        {!isConsolidated && recentWeeks.length > 0 && (
-          <div className="bg-white p-3 rounded-lg border">
-            <h4 className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
-              <Target className="w-3 h-3" />
-              Progreso hacia consolidación
-            </h4>
-            <div className="space-y-2">
-              <div className="text-xs text-gray-600">
-                Últimas {recentWeeks.length} semanas:
-              </div>
-              <div className="flex gap-1">
-                {recentWeeks.map((week, index) => (
-                  <div
-                    key={`${week.year}-${week.week}`}
-                    className={`w-6 h-6 rounded text-xs flex items-center justify-center ${
-                      week.completedDays >= 5 ? 'bg-green-500 text-white' :
-                      week.completedDays >= 4 ? 'bg-yellow-500 text-white' :
-                      'bg-gray-300 text-gray-600'
-                    }`}
-                    title={`Semana ${week.week}: ${week.completedDays}/7 días`}
-                  >
-                    {week.completedDays}
-                  </div>
-                ))}
-              </div>
-              <div className="text-xs text-gray-500">
-                🎯 Objetivo: 4 semanas seguidas con 5+ días O 6 semanas con 4+ días
+          {isConsolidated && (
+            <div className="bg-green-100 p-3 rounded-lg border border-green-300">
+              <div className="text-center">
+                <Trophy className="w-6 h-6 mx-auto text-green-600 mb-2" />
+                <p className="text-sm font-semibold text-green-800">¡Hábito Consolidado!</p>
+                <p className="text-xs text-green-700">
+                  Has obtenido una medalla por consolidar este hábito científico
+                </p>
               </div>
             </div>
-          </div>
-        )}
-        
-        {todayCompleted && !isConsolidated && (
-          <Badge className="w-full justify-center bg-green-500">
-            ✅ Completado hoy
-          </Badge>
-        )}
-
-        {isConsolidated && (
-          <div className="bg-green-100 p-3 rounded-lg border border-green-300">
-            <div className="text-center">
-              <Trophy className="w-6 h-6 mx-auto text-green-600 mb-2" />
-              <p className="text-sm font-semibold text-green-800">¡Hábito Consolidado!</p>
-              <p className="text-xs text-green-700">
-                Has obtenido una medalla por consolidar este hábito científico
-              </p>
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          )}
+        </CardContent>
+      </Card>
+    </TooltipProvider>
   );
 };
 

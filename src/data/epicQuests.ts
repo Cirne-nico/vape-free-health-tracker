@@ -9,7 +9,7 @@ export interface EpicQuest {
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
-  medalIcon?: string; // Nueva propiedad para la medalla épica
+  medalIcon?: string;
 }
 
 export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>[] = [
@@ -183,7 +183,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     reward: 'Satisfacción genuina por el trabajo intelectual',
     medalIcon: '/lovable-uploads/Acabas_de_escribir copy.png'
   },
-  // ✅ MOVIDA AL FINAL: La gesta "Crack!" debe estar al final de todas las demás
+  // ✅ GESTA FINAL AL FINAL DE LA LISTA
   {
     id: 'ultimate_achievement',
     title: 'CRACK! - Maestría Total',
@@ -224,7 +224,6 @@ export const getCategoryName = (category: EpicQuest['category']) => {
   }
 };
 
-// Función para obtener las gestas completadas con medallas
 export const getCompletedQuestsWithMedals = (): EpicQuest[] => {
   const savedQuests = localStorage.getItem('epic-quests');
   if (!savedQuests) return [];

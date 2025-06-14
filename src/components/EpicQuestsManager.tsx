@@ -10,9 +10,7 @@ import QuestCard from './quests/QuestCard';
 const EpicQuestsManager = () => {
   const { quests, saveQuests } = useQuestManager();
 
-  // Añadir check a una gesta
   const addCheck = (questId: string) => {
-    // No permitir interacción manual con la gesta ultimate
     if (questId === 'ultimate_achievement') {
       toast.error('Esta medalla se desbloquea automáticamente al completar todas las demás gestas');
       return;
@@ -24,7 +22,6 @@ const EpicQuestsManager = () => {
         const isCompleted = newChecks >= quest.requiredChecks;
         
         if (isCompleted && !quest.isCompleted) {
-          // Mostrar notificación especial para gestas con medalla
           if (quest.medalIcon) {
             toast.success(`¡Medalla épica desbloqueada: ${quest.title}!`, {
               description: `${quest.reward} - Tu medalla aparecerá en la pantalla principal`,
@@ -49,9 +46,7 @@ const EpicQuestsManager = () => {
     saveQuests(updatedQuests);
   };
 
-  // Quitar check de una gesta
   const removeCheck = (questId: string) => {
-    // No permitir interacción manual con la gesta ultimate
     if (questId === 'ultimate_achievement') {
       toast.error('Esta medalla se gestiona automáticamente');
       return;
@@ -71,17 +66,14 @@ const EpicQuestsManager = () => {
     saveQuests(updatedQuests);
   };
 
-  // Eliminar gesta - MODIFICADO para permitir eliminar cualquier gesta excepto ultimate_achievement
   const deleteQuest = (questId: string) => {
     const quest = quests.find(q => q.id === questId);
     
-    // No permitir eliminar la medalla final
     if (quest && quest.id === 'ultimate_achievement') {
       toast.error('No puedes eliminar la medalla de Maestría Total');
       return;
     }
     
-    // Confirmar eliminación
     const questTitle = quest?.title || 'esta gesta';
     if (!confirm(`¿Estás segura de que quieres eliminar "${questTitle}"? Esta acción no se puede deshacer.`)) {
       return;
@@ -97,7 +89,6 @@ const EpicQuestsManager = () => {
     }
   };
 
-  // Añadir nueva gesta personalizada
   const addCustomQuest = (questData: Omit<EpicQuest, 'id' | 'currentChecks' | 'isCompleted'>) => {
     const newQuest: EpicQuest = {
       ...questData,
@@ -111,7 +102,6 @@ const EpicQuestsManager = () => {
     toast.success('Nueva hazaña añadida');
   };
 
-  // Agrupar gestas por categoría
   const groupedQuests = {
     social: quests.filter(q => q.category === 'social'),
     emotional: quests.filter(q => q.category === 'emotional'),
@@ -162,7 +152,6 @@ const EpicQuestsManager = () => {
 
   return (
     <div className="space-y-6">
-      {/* Introducción explicativa */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
         <CardContent className="space-y-4 p-6">
           <div className="text-center">
@@ -189,7 +178,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>
@@ -198,7 +187,6 @@ const EpicQuestsManager = () => {
 
       <QuestStats quests={quests} />
 
-      {/* Información sobre personalización */}
       <Card className="bg-amber-50 border-amber-200">
         <CardContent className="p-4">
           <div className="text-center space-y-2">
@@ -214,12 +202,10 @@ const EpicQuestsManager = () => {
         </CardContent>
       </Card>
 
-      {/* Botón para añadir gesta personalizada */}
       <div className="flex justify-center">
         <QuestForm onAddQuest={addCustomQuest} />
       </div>
 
-      {/* Gestas agrupadas por categoría */}
       <div className="space-y-4">
         <QuestGroup category="emotional" quests={groupedQuests.emotional} />
         <QuestGroup category="social" quests={groupedQuests.social} />

@@ -11,7 +11,10 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  console.log('Rendering medal icon for:', medal.title, 'type:', medal.type, 'icon:', medal.icon);
+  // Ensure medal.icon is always a string to prevent undefined errors
+  const safeMedalIcon = typeof medal.icon === 'string' ? medal.icon : '';
+
+  console.log('Rendering medal icon for:', medal.title, 'type:', medal.type, 'icon:', safeMedalIcon);
   
   const getBackgroundStyle = () => {
     switch (medal.type) {
@@ -93,24 +96,24 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
   };
 
   const handleImageError = () => {
-    console.log('Image error for medal:', medal.title, 'icon:', medal.icon);
+    console.log('Image error for medal:', medal.title, 'icon:', safeMedalIcon);
     setImageError(true);
   };
 
   const handleImageLoad = () => {
-    console.log('Image loaded for medal:', medal.title, 'icon:', medal.icon);
+    console.log('Image loaded for medal:', medal.title, 'icon:', safeMedalIcon);
     setImageLoaded(true);
   };
 
   // Función para renderizar el contenido de la medalla
   const renderMedalContent = () => {
     // PRIORIDAD 1: Si el icono es una ruta de imagen válida y no ha fallado
-    if (medal.icon && medal.icon.startsWith('/') && !imageError) {
-      console.log('Rendering image for medal:', medal.title, 'icon:', medal.icon);
+    if (safeMedalIcon && safeMedalIcon.startsWith('/') && !imageError) {
+      console.log('Rendering image for medal:', medal.title, 'icon:', safeMedalIcon);
       return (
         <div className="relative w-12 h-12">
           <img 
-            src={medal.icon}
+            src={safeMedalIcon}
             alt={medal.title}
             className={`w-full h-full rounded-full object-cover object-center transition-opacity duration-300 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
@@ -138,7 +141,7 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
     console.log('Using fallback for medal:', medal.title, 'imageError:', imageError);
     
     // Para medallas específicas, usar iconos por defecto
-    let fallbackIcon = medal.icon;
+    let fallbackIcon = safeMedalIcon;
     
     // Si no hay icono o es una imagen que falló, usar iconos específicos por tipo
     if (!fallbackIcon || fallbackIcon.startsWith('/')) {

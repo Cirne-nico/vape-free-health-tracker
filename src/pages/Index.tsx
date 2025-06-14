@@ -68,7 +68,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      {/* Container principal con max-width más amplio para aprovechar el sidebar */}
+      {/* Container principal con max-width más amplio para el sidebar */}
       <div className="max-w-7xl mx-auto">
         <div className="space-y-4 sm:space-y-6">
           <MainHeader 
@@ -82,7 +82,8 @@ const Index = () => {
             onRelapse={handleRelapse}
           />
 
-          <div className="p-2 sm:p-4 space-y-4 sm:space-y-6">
+          {/* Padding lateral para el contenido principal */}
+          <div className="px-2 sm:px-4 space-y-4 sm:space-y-6">
             <MainTabs 
               startDate={startDate}
               currentDay={time.days}

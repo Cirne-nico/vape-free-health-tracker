@@ -115,7 +115,7 @@ const MainTabs = ({
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Sección de medallas movida aquí, debajo del header */}
+      {/* Sección de medallas - siempre visible */}
       <div className="block">
         <MedalsSection 
           unlockedAchievements={unlockedAchievements}
@@ -124,30 +124,32 @@ const MainTabs = ({
         />
       </div>
 
-      {/* Layout principal con sidebar */}
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Sidebar izquierdo - Solo visible en desktop */}
-        <div className="hidden lg:block lg:w-64 lg:flex-shrink-0">
+      {/* Layout principal - CORREGIDO */}
+      <div className="flex">
+        {/* Sidebar izquierdo - FIJO en desktop */}
+        <div className="hidden lg:flex lg:flex-col lg:w-64 lg:flex-shrink-0 lg:mr-6">
           <div className="sticky top-4">
-            <div className="bg-white rounded-lg shadow-sm border p-4">
-              <h3 className="font-semibold text-gray-800 mb-4 text-center">Navegación</h3>
-              <nav className="space-y-2">
+            <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
+                <h3 className="font-semibold text-center">Navegación</h3>
+              </div>
+              <nav className="p-2">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
                   return (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 ${
+                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 mb-1 ${
                         activeTab === tab.id
-                          ? 'bg-blue-600 text-white shadow-md'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? 'bg-blue-600 text-white shadow-md transform scale-[1.02]'
+                          : 'text-gray-700 hover:bg-gray-100 hover:transform hover:scale-[1.01]'
                       }`}
                     >
                       <Icon className="w-5 h-5 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium">{tab.label}</div>
-                        <div className={`text-xs ${
+                        <div className="font-medium text-sm">{tab.label}</div>
+                        <div className={`text-xs leading-tight ${
                           activeTab === tab.id ? 'text-blue-100' : 'text-gray-500'
                         }`}>
                           {tab.description}
@@ -161,9 +163,9 @@ const MainTabs = ({
           </div>
         </div>
 
-        {/* Contenido principal */}
+        {/* Contenido principal - FLEX-1 para ocupar el resto del espacio */}
         <div className="flex-1 min-w-0">
-          {/* Tabs horizontales para móvil */}
+          {/* Tabs horizontales para móvil - SOLO visible en móvil */}
           <div className="lg:hidden mb-6">
             <div className="bg-white rounded-lg shadow-sm border p-2">
               <div className="grid grid-cols-3 gap-1">
@@ -190,8 +192,8 @@ const MainTabs = ({
             </div>
           </div>
 
-          {/* Título de la sección activa */}
-          <div className="mb-6">
+          {/* Título de la sección activa - SOLO visible en desktop */}
+          <div className="hidden lg:block mb-6">
             <div className="bg-white rounded-lg shadow-sm border p-4">
               <div className="flex items-center gap-3">
                 {(() => {

@@ -31,7 +31,7 @@ const MainTabs = ({
         <TabsList className="grid w-full grid-cols-4 grid-rows-2 gap-1 bg-white shadow-sm h-auto p-2 sm:grid-cols-8 sm:grid-rows-1 sm:h-12">
           <TabsTrigger 
             value="emotions" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Clock className="w-4 h-4" />
             <span>General</span>
@@ -39,7 +39,7 @@ const MainTabs = ({
           
           <TabsTrigger 
             value="emotivity" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Brain className="w-4 h-4" />
             <span>Emotividad</span>
@@ -47,7 +47,7 @@ const MainTabs = ({
           
           <TabsTrigger 
             value="health" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Heart className="w-4 h-4" />
             <span>Salud</span>
@@ -55,7 +55,7 @@ const MainTabs = ({
           
           <TabsTrigger 
             value="achievements" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Trophy className="w-4 h-4" />
             <span>Epopeya</span>
@@ -63,7 +63,7 @@ const MainTabs = ({
 
           <TabsTrigger 
             value="epic" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Scroll className="w-4 h-4" />
             <span>Gestas</span>
@@ -71,7 +71,7 @@ const MainTabs = ({
           
           <TabsTrigger 
             value="poderio" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Zap className="w-4 h-4" />
             <span>Poderío</span>
@@ -79,7 +79,7 @@ const MainTabs = ({
           
           <TabsTrigger 
             value="donate" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Gift className="w-4 h-4" />
             <span>Donar</span>
@@ -87,7 +87,7 @@ const MainTabs = ({
           
           <TabsTrigger 
             value="settings" 
-            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+            className="flex flex-col items-center gap-1 p-2 text-xs min-h-12 leading-tight text-center"
           >
             <Settings className="w-4 h-4" />
             <span>Ajustes</span>

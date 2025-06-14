@@ -35,32 +35,31 @@ const CollapsibleQuestGroup = ({
   const completedCount = quests.filter(quest => quest.isCompleted).length;
 
   return (
-    <Card className="mb-6">
+    <Card className="mb-6 overflow-hidden">
       <CardContent className="p-0">
         {/* Header desplegable */}
         <Button
           variant="ghost"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full p-4 justify-between hover:bg-gray-50 rounded-lg"
+          className="w-full p-4 justify-between hover:bg-gray-50 rounded-none border-b"
         >
-          <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
             <span className="text-xl flex-shrink-0">{categoryInfo.icon}</span>
             <div className="text-left min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-lg font-semibold text-gray-800">
+                <h3 className="font-semibold text-gray-800 truncate">
                   {categoryInfo.title}
                 </h3>
                 {allCompleted && quests.length > 0 && (
-                  <div className="flex items-center gap-1 bg-green-100 px-2 py-1 rounded-full">
-                    <Check className="w-4 h-4 text-green-600" />
+                  <div className="flex items-center gap-1 bg-green-100 px-2 py-0.5 rounded-full">
+                    <Check className="w-3 h-3 text-green-600" />
                     <span className="text-xs text-green-700 font-medium">Completado</span>
                   </div>
                 )}
               </div>
-              <p className="text-sm text-gray-600 truncate">{categoryInfo.description}</p>
-              <p className="text-xs text-gray-500 mt-1">
-                {completedCount}/{quests.length} gestas completadas
-              </p>
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <span className="truncate">{completedCount}/{quests.length} gestas completadas</span>
+              </div>
             </div>
           </div>
           
@@ -75,7 +74,7 @@ const CollapsibleQuestGroup = ({
         
         {/* Contenido desplegable */}
         {isExpanded && (
-          <div className="px-4 pb-4 space-y-4">
+          <div className="px-4 pb-4 pt-2 space-y-4">
             {quests.map((quest) => (
               <QuestCard
                 key={quest.id}

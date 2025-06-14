@@ -15,7 +15,7 @@ const QuestProgress = ({ quest, onAddCheck, onRemoveCheck }: QuestProgressProps)
         <span className="text-sm font-medium">
           Progreso: {quest.currentChecks}/{quest.requiredChecks}
         </span>
-        <div className="flex gap-1 flex-wrap justify-end">
+        <div className="flex flex-wrap gap-1 justify-end">
           {Array.from({ length: quest.requiredChecks }, (_, i) => (
             <button
               key={i}
@@ -29,9 +29,9 @@ const QuestProgress = ({ quest, onAddCheck, onRemoveCheck }: QuestProgressProps)
               className="transition-colors hover:scale-110"
             >
               {i < quest.currentChecks ? (
-                <CheckCircle className="w-6 h-6 text-green-500" />
+                <CheckCircle className="w-5 h-5 text-green-500" />
               ) : (
-                <Circle className="w-6 h-6 text-gray-300 hover:text-green-400" />
+                <Circle className="w-5 h-5 text-gray-300 hover:text-green-400" />
               )}
             </button>
           ))}

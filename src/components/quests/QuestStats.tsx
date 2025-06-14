@@ -34,18 +34,18 @@ const QuestStats = ({ quests }: QuestStatsProps) => {
         <div className="grid grid-cols-3 gap-4 text-center">
           <div className="bg-white/70 p-3 rounded-lg">
             <div className="text-2xl font-bold text-amber-600">{completedQuests}</div>
-            <div className="text-sm text-amber-700">hazañas completadas</div>
+            <div className="text-sm text-amber-700">completadas</div>
           </div>
           <div className="bg-white/70 p-3 rounded-lg">
             <div className="text-2xl font-bold text-amber-600">{totalQuests}</div>
-            <div className="text-sm text-amber-700">hazañas totales</div>
+            <div className="text-sm text-amber-700">totales</div>
           </div>
           <div className="bg-white/70 p-3 rounded-lg">
             <div className="text-2xl font-bold text-orange-600 flex items-center justify-center gap-1">
               <Medal className="w-5 h-5" />
               {completedQuestsWithMedals}
             </div>
-            <div className="text-sm text-orange-700">medallas épicas</div>
+            <div className="text-sm text-orange-700">medallas</div>
           </div>
         </div>
         
@@ -61,15 +61,15 @@ const QuestStats = ({ quests }: QuestStatsProps) => {
           <div className="bg-amber-100 p-3 rounded-lg border border-amber-200">
             <div className="flex items-center gap-2 mb-1">
               <Check className="w-4 h-4 text-amber-600" />
-              <p className="text-sm font-medium text-amber-800">Categorías completadas</p>
+              <p className="text-sm font-medium text-amber-800">Categorías</p>
             </div>
-            <p className="text-center text-2xl font-bold text-amber-700">{categoriesCompleted}/{categories.length}</p>
+            <p className="text-center text-xl font-bold text-amber-700">{categoriesCompleted}/{categories.length}</p>
           </div>
 
           {completedQuestsWithMedals > 0 && (
             <div className="bg-orange-100 p-3 rounded-lg border border-orange-200">
               <p className="text-sm text-orange-800 text-center">
-                🏆 {completedQuestsWithMedals} medalla{completedQuestsWithMedals > 1 ? 's' : ''} épica{completedQuestsWithMedals > 1 ? 's' : ''} en pantalla principal
+                🏆 {completedQuestsWithMedals} medalla{completedQuestsWithMedals > 1 ? 's' : ''}
               </p>
             </div>
           )}

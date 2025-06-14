@@ -80,14 +80,11 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       .trim();
   };
 
-  // Función para generar pensamientos intrusivos que encajen EXACTAMENTE con las contrarréplicas
+  // FUNCIÓN COMPLETAMENTE REESCRITA - Pensamientos intrusivos más realistas y contrarréplicas sin sesgo neoliberal
   const getIntrusiveThoughtForResponse = (contrareplica: string) => {
-    // Mapeo EXACTO de contrarréplicas a pensamientos intrusivos coherentes
+    // Mapeo COMPLETAMENTE REESCRITO con contrarréplicas sobrias, realistas y sin pretensiones
     const responseToThoughtMap: { [key: string]: string } = {
-      // Día 158 - CORREGIDO: Genes y capacidad de elección
-      "No tengo genes de adicte. Tengo capacidad de elección y mi biología se adapta a mis decisiones.": "Tengo genes de adicte, no puedo cambiar mi naturaleza",
-      
-      // Primeras horas/días
+      // === PRIMERAS HORAS/DÍAS - REALISMO CRUDO ===
       "No es una pérdida. Es el comienzo de mi libertad.": "He perdido algo importante al dejar de vapear",
       "No es ansiedad. Es el cuerpo recuperando su ritmo autónomo.": "Esta ansiedad significa que algo va mal",
       "No estoy nervioso. Estoy transitando el reinicio bioquímico.": "Estos nervios son una señal de que necesito vapear",
@@ -99,7 +96,17 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es casualidad. Es una transformación lenta pero segura.": "Estos cambios son casuales, no reales",
       "No es un pequeño logro. Es un paso de gigante.": "Un día no es nada, es muy poco progreso",
       
-      // Días intermedios
+      // === CONTRARRÉPLICAS CORREGIDAS - SIN SESGO NEOLIBERAL ===
+      
+      // ANTES: "No es el fin. Es el comienzo de mi vida plenamente libre." (TERRIBLE)
+      // AHORA: Opciones sobrias y realistas
+      "Si esto es el fin, que venga alguien a aplaudir. Yo voy a hacerme una tostada.": "Esto es el fin del proceso",
+      "No es el fin ni el inicio. Es solo un día más sin propilenglicol en los bronquios.": "Esto es el fin del proceso", 
+      "Fin de proceso no hay. Lo que hay es menos interferencia. Y eso ya es bastante.": "Esto es el fin del proceso",
+      "Sí, el subidón se ha ido. Pero también se fue la ansiedad química. Algo se equilibra.": "Esto es el fin del proceso",
+      "Si esto es el fin, es de algo que no era mío. Y lo que viene, ya veremos si me gusta.": "Esto es el fin del proceso",
+      
+      // === DÍAS INTERMEDIOS - REALISMO CORPORAL ===
       "No es necesidad. Es automatismo que puede ser interrumpido.": "Realmente necesito vapear ahora",
       "No es déficit de atención. Es deshabituación del estímulo nicotínico constante.": "No puedo concentrarme sin nicotina",
       "No estoy perdiendo el control. Estoy aprendiendo a manejarme sin filtros químicos.": "Estoy perdiendo el control de mis emociones",
@@ -113,7 +120,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es alergia. Es mucosas recuperando protección natural.": "Debo ser alérgico a algo",
       "No estoy igual. Estoy en proceso activo de desintoxicación.": "No he cambiado nada, sigo igual",
       
-      // Días 30-60
+      // === CONTRARRÉPLICAS ADICIONALES CORREGIDAS ===
       "No es enfermedad. Es hígado metabolizando sin aditivos.": "Mi hígado debe estar enfermo",
       "No necesito vaporizar. Pulmones recomponiendo estructura alveolar.": "Necesito vapear para respirar mejor",
       "No es gingivitis. Es microbioma restaurando equilibrio.": "Tengo gingivitis por dejar de vapear",
@@ -129,7 +136,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No necesito vapear. Necesito reconfigurar respuestas contextuales.": "Necesito vapear en ciertas situaciones",
       "No soy invulnerable. Mantengo vigilancia atenta sin paranoia.": "Soy invulnerable a las recaídas",
       
-      // Identidad y consolidación
+      // === IDENTIDAD Y CONSOLIDACIÓN - SIN PRETENSIONES ===
       "No soy ex-vaper. Soy alguien que no vapea.": "Soy un ex-vaper, siempre lo seré",
       "No soy 'ex-adicte'. Soy alguien en recuperación consolidada.": "Siempre seré un ex-adicte",
       "No es ruido neuronal sin significado.": "Estos pensamientos tienen significado real",
@@ -138,7 +145,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No necesito escapar. Puedo sostener lo que sea temporalmente.": "Necesito escapar de este malestar",
       "No es permanente. Es el último intento de la adicción por sobrevivir.": "Esta tristeza es permanente",
       
-      // Tristeza y emociones - CORREGIDO: Eliminada la comilla extra
+      // === TRISTEZA Y EMOCIONES - CORREGIDAS ===
       "Prefiero vapear y no estar tan triste - Estudios muestran que la tristeza post-cesación es temporal (6-12 semanas), pero vapear perpetúa la disregulación dopaminérgica indefinidamente.": "Prefiero vapear y no estar tan triste",
       "No extraño vapear. Extraño la falsa solución emocional que ofrecía.": "Extraño vapear realmente",
       "No estoy reviviendo. Estoy recordando sin anestesia química.": "Estoy reviviendo traumas del pasado",
@@ -150,12 +157,11 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No necesito vapear para calmarme. Tengo recursos internos suficientes.": "Necesito vapear para calmarme",
       "No es insomnio residual. Es sueño natural sin alteraciones químicas.": "Tengo insomnio residual",
       
-      // Logros y progreso
+      // === LOGROS Y PROGRESO - REALISTAS ===
       "No es poco. Es suficiente para un cerebro en recalibración.": "Estos pequeños placeres no son suficientes",
       "No es peligro. Es oportunidad para reconfigurar asociaciones.": "Estar en estos lugares es peligroso",
       "No es premonición. Es cerebro procesando el cambio de identidad.": "Estos sueños son premoniciones de recaída",
       "No soy plane. Soy estable sin alteraciones químicas externas.": "Me he vuelto emocionalmente plane",
-      "No es el final. Es el comienzo de la fase de mantenimiento sólido.": "Ya terminé, esto es el final",
       "No es autoengaño. Es evidencia acumulada de mi capacidad de cambio.": "Me estoy autoengañando",
       "No es vacío. Es espacio para autoconocimiento sin intermediarios.": "Siento un vacío existencial",
       "No es tentación. Es el eco de un hábito moribundo.": "Esta es una tentación real",
@@ -165,7 +171,7 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es somatización. Es reconexión con sabiduría corporal.": "Estoy somatizando problemas",
       "No es inspiración repentina. Es mi mente liberada de bloqueos químicos.": "Esta creatividad es solo inspiración temporal",
       
-      // Mantenimiento y consolidación final
+      // === MANTENIMIENTO Y CONSOLIDACIÓN FINAL - SIN GRANDILOCUENCIA ===
       "No estoy 'curade'. Estoy en mantenimiento activo permanente.": "Ya estoy curade completamente",
       "No es esfuerzo. Es mantenimiento de logros.": "Mantener esto requiere demasiado esfuerzo",
       "No es autoengaño. Es reconocimiento de evidencia objetiva.": "Me estoy autoengañando con estos logros",
@@ -203,7 +209,6 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es esfuerzo. Es estilo de vida integrado.": "Esto requiere demasiado esfuerzo",
       "No es presunción. Es celebración legítima de victoria personal.": "Estoy siendo presuntuoso",
       "No es promesa. Es declaración de intención basada en evidencia.": "Esto es solo una promesa vacía",
-      "No es el fin. Es el comienzo de mi vida plenamente libre.": "Esto es el fin del proceso",
       "No es genética, simplemente decido no vapear, mi cuerpo hará el resto progresivamente": "Es genético, no puedo cambiar mi tendencia adictiva",
       "No soy ex-vaper. Soy alguien que una vez vapeo y eligió dejar de hacerlo.": "Siempre seré un ex-vaper"
     };

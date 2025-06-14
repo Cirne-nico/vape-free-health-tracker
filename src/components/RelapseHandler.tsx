@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
 interface RelapseHandlerProps {
   startDate: Date | null;
@@ -31,10 +32,11 @@ export const useRelapseHandler = ({
     
     // Si tiene menos de 7 días, reiniciar completamente
     if (currentDays < 7) {
-      setStartDate(new Date());
-      localStorage.setItem('vaping-quit-date', new Date().toISOString());
+      const newStartDate = new Date();
+      setStartDate(newStartDate);
+      localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
       resetAchievements();
-      alert('Proceso reiniciado. ¡Vuelve a empezar con fuerza!');
+      toast.success('Proceso reiniciado. ¡Vuelve a empezar con fuerza!');
       return;
     }
     
@@ -62,26 +64,30 @@ export const useRelapseHandler = ({
       case 4:
       default:
         // Quinta recaída o más: reiniciar completamente
-        setStartDate(new Date());
+        const newStartDate = new Date();
+        setStartDate(newStartDate);
         setRelapseCount(0); // Reiniciar contador de recaídas también
-        localStorage.setItem('vaping-quit-date', new Date().toISOString());
+        localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
         localStorage.setItem('relapse-count', '0');
         resetAchievements();
-        alert('Quinta recaída: se ha reiniciado todo el proceso completamente.');
+        toast.success('Quinta recaída: se ha reiniciado todo el proceso completamente.');
         return;
     }
     
     // CORRECCIÓN: Verificar si la penalización es mayor que el progreso actual
     if (daysToSubtract >= currentDays) {
-      // Si la penalización es mayor o igual al progreso, reiniciar a hoy
-      setStartDate(new Date());
-      localStorage.setItem('vaping-quit-date', new Date().toISOString());
+      // Si la penalización supera el progreso, reiniciar a hoy
+      const newStartDate = new Date();
+      setStartDate(newStartDate);
+      localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
       resetAchievements();
-      penaltyMessage += ' Como la penalización supera tu progreso actual, el contador se ha puesto en cero.';
+      
+      toast.success(`${penaltyMessage} Como la penalización supera tu progreso actual, el contador se ha puesto en cero.`);
     } else {
-      // Calcular nueva fecha de inicio restando los días de penalización
-      const millisecondsToSubtract = daysToSubtract * 24 * 60 * 60 * 1000;
-      const newStartDate = new Date(startDate.getTime() + millisecondsToSubtract);
+      // Calcular nueva fecha de inicio sumando los días de penalización
+      // CORRECCIÓN: Sumar días en lugar de restar para mover la fecha hacia adelante
+      const millisecondsToAdd = daysToSubtract * 24 * 60 * 60 * 1000;
+      const newStartDate = new Date(startDate.getTime() + millisecondsToAdd);
       
       setStartDate(newStartDate);
       localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
@@ -92,15 +98,13 @@ export const useRelapseHandler = ({
       // Ajustar medallas según los nuevos días
       adjustMedalsAfterRelapse(currentDays, newDays);
       
-      penaltyMessage += ` Ahora tienes ${newDays} días de progreso.`;
+      toast.success(`${penaltyMessage} Ahora tienes ${newDays} días de progreso.`);
     }
     
     // Incrementar contador de recaídas
     const newRelapseCount = relapseCount + 1;
     setRelapseCount(newRelapseCount);
     localStorage.setItem('relapse-count', newRelapseCount.toString());
-    
-    alert(penaltyMessage);
   };
 
   return { handleRelapse, relapseCount };

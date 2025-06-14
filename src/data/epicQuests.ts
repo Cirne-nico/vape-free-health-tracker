@@ -5,7 +5,7 @@ export interface EpicQuest {
   requiredChecks: number;
   currentChecks: number;
   icon: string;
-  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational' | 'ultimate';
+  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational';
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
@@ -16,7 +16,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'party',
     title: 'Going to a party',
-    description: 'Enjoy a party or celebration without needing to vape',
+    description: 'Enjoy a party or celebration without the need to vape',
     requiredChecks: 3,
     icon: '🎉',
     category: 'social',
@@ -25,7 +25,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   },
   {
     id: 'fight_friend',
-    title: 'Argument with a friend/partner',
+    title: 'Having an argument with a friend/partner',
     description: 'Managing an intense emotional conflict without resorting to vaping',
     requiredChecks: 2,
     icon: '💔',
@@ -56,11 +56,11 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'work_break',
     title: 'Work break',
-    description: 'Enjoying work breaks without needing to vape',
+    description: 'Enjoying work breaks without the need to vape',
     requiredChecks: 3,
     icon: '☕',
     category: 'situational',
-    reward: 'Genuine and restorative breaks',
+    reward: 'Genuinely restorative breaks',
     medalIcon: '/lovable-uploads/Descanso_trabajo copy.png'
   },
   {
@@ -80,7 +80,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 3,
     icon: '☕',
     category: 'substance',
-    reward: 'Decoupling from addictive rituals',
+    reward: 'Unlinking from addictive rituals',
     medalIcon: '/lovable-uploads/gesta_café.png'
   },
   {
@@ -120,7 +120,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 2,
     icon: '😴',
     category: 'emotional',
-    reward: 'Ability to be present without needing external stimuli',
+    reward: 'Ability to be present without the need for external stimuli',
     medalIcon: '/lovable-uploads/aburrimiento.png'
   },
   {
@@ -160,7 +160,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     requiredChecks: 1,
     icon: '😰',
     category: 'emotional',
-    reward: 'Natural tools for anxiety regulation',
+    reward: 'Natural tools for regulating anxiety',
     medalIcon: '/lovable-uploads/gesta_ansiedad.png'
   },
   {
@@ -189,7 +189,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'You have completed ALL available epic feats. You are a true master of recovery.',
     requiredChecks: 1,
     icon: '💥',
-    category: 'ultimate',
+    category: 'psychological',
     reward: 'Recognition as an absolute master of recovery. You have demonstrated that you can overcome any situation without vaping.',
     medalIcon: '/lovable-uploads/Crack.png'
   }

@@ -20,7 +20,7 @@ export const scientificHabits: Omit<Habit, 'isActive'>[] = [
     description: 'Daily physical activity to combat cravings',
     routine: 'Walk briskly, swim or bike for 20 min/day. If a vaping craving arises, do 5 min of intense activity (squats, jumps).',
     scientificBasis: 'Reduces cravings and stress by releasing endorphins',
-    vapeAdjustment: 'Accelerates recovery of respiratory passages irritated by vapor',
+    vapeAdjustment: 'Accelerates recovery of respiratory airways irritated by vapor',
     reference: 'Taylor et al., 2007',
     icon: '🏃‍♂️',
     category: 'physical'
@@ -68,7 +68,7 @@ export const scientificHabits: Omit<Habit, 'isActive'>[] = [
     description: 'Glycemic stabilization against anxiety',
     routine: 'Include egg, Greek yogurt or legumes in breakfast/lunch. Eat every 3-4 h.',
     scientificBasis: 'Stabilizes glucose and reduces anxiety by 24%',
-    vapeAdjustment: 'Counteracts "anxiety peaks" from fast liquid nicotine',
+    vapeAdjustment: 'Counteracts "anxiety spikes" from fast liquid nicotine',
     reference: 'Spring et al., 2008',
     icon: '🥚',
     category: 'physical'
@@ -89,7 +89,7 @@ export const scientificHabits: Omit<Habit, 'isActive'>[] = [
     id: 'nature_walks',
     name: 'Daily Nature Walks',
     shortName: 'Daily Nature',
-    description: 'Connection with nature against rumination',
+    description: 'Nature connection against rumination',
     routine: '15 min/day in park/trees (without bringing vaper). Observe plants/birds.',
     scientificBasis: 'Reduces mental rumination associated with relapses',
     vapeAdjustment: 'Decreases automatic vaping due to boredom',
@@ -103,8 +103,8 @@ export const scientificHabits: Omit<Habit, 'isActive'>[] = [
     shortName: 'Weekly Support',
     description: 'Support network for accountability',
     routine: 'Weekly date with someone who knows you quit vaping. Report your progress.',
-    scientificBasis: 'Increases success by 50% vs. solo attempts',
-    vapeAdjustment: 'Combats the isolation typical of solitary vaping',
+    scientificBasis: 'Increases success by 50% vs. solitary attempts',
+    vapeAdjustment: 'Combats the typical isolation of solitary vaping',
     reference: 'Stead et al., 2017',
     icon: '👥',
     category: 'social'

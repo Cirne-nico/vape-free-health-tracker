@@ -17,7 +17,7 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Overcome the illusion of immediate relief',
     days: 1,
     icon: '🌫️',
-    challenge: 'Like a smoke hydra that takes a thousand forms: anxiety, boredom, pleasure, sadness. Each face defeated reveals the next.',
+    challenge: 'Like a smoke hydra that takes a thousand forms: anxiety, boredom, pleasure, sadness. Each defeated face reveals the next.',
     reward: 'Recognition of self-deception patterns',
     nikotisInfluence: 'Nikotis whispers: "You just need one puff to feel better"',
     herculaResponse: 'Hercula observes: "The forms of smoke change, but the wind disperses them all the same"'
@@ -28,7 +28,7 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Break the automated daily habit',
     days: 3,
     icon: '🦁',
-    challenge: 'A sleeping beast at the foot of the desk, which roars every time the phone is turned on or the coffee is finished.',
+    challenge: 'A beast sleeping at the foot of the desk, roaring every time the phone is turned on or the coffee is finished.',
     reward: 'Freedom from conditioned automatisms',
     nikotisInfluence: 'Nikotis roars: "Your routine is incomplete without me"',
     herculaResponse: 'Hercula walks: "Paths open when we stop following yesterday\'s footprints"'
@@ -50,14 +50,14 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Get through the first workday without vaping',
     days: 7,
     icon: '🌊',
-    challenge: 'Emotional and nervous quagmire where feet sink and willpower slips.',
+    challenge: 'Emotional and nervous quagmire where feet sink and will slips.',
     reward: 'Demonstration that work is possible without nicotine',
     nikotisInfluence: 'Nikotis shouts: "You won\'t be able to concentrate or perform without me"',
     herculaResponse: 'Hercula advances: "Each step in the mud teaches where the firm ground is"'
   },
   {
     id: 'insomnia_serpent',
-    title: 'The Insomnia Serpent',
+    title: 'The Serpent of Insomnia',
     description: 'Sleep without the false calm of nighttime vaping',
     days: 10,
     icon: '🐍',
@@ -74,23 +74,23 @@ export const herculaWorks: HerculaWork[] = [
     icon: '🪞',
     challenge: 'A mirror that distorts daylight: everything seems more boring, slower, more useless. But you have to go through it.',
     reward: 'Understanding that sadness is temporary and adaptive',
-    nikotisInfluence: 'Nikotis reflects: "See how gray your life is without me"',
+    nikotisInfluence: 'Nikotis reflects: "Look how gray your life is without me"',
     herculaResponse: 'Hercula looks: "Foggy mirrors also clear with time"'
   },
   {
     id: 'celebrations_island',
     title: 'The Island of Celebrations',
-    description: 'Don\'t relapse during a party, birthday, or celebration',
+    description: 'Don\'t relapse during a party, birthday or celebration',
     days: 21,
     icon: '🎉',
     challenge: 'A place full of music and toasts, where Nikotis appears disguised as nostalgia and joy.',
-    reward: 'Ability to celebrate without substances',
+    reward: 'Ability to celebrate without the need for substances',
     nikotisInfluence: 'Nikotis sings: "Parties aren\'t the same without me"',
     herculaResponse: 'Hercula dances: "The music sounds the same, only the listener changes"'
   },
   {
     id: 'anxiety_bridge',
-    title: 'The Anxiety Bridge',
+    title: 'The Bridge of Anxiety',
     description: 'Endure a crisis without using vaping as anesthesia',
     days: 30,
     icon: '🌉',
@@ -105,10 +105,10 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Overcome the self-criticism that whispers: "You\'re going to fail"',
     days: 40,
     icon: '🐦‍⬛',
-    challenge: 'Black flocks that caw doubts over your shoulder. The challenge: not to fight them, but to let them pass.',
+    challenge: 'Black flocks that caw doubts over the shoulder. The challenge: not to fight them, but to let them pass.',
     reward: 'Liberation from destructive self-criticism',
     nikotisInfluence: 'Nikotis caws: "You\'re weak, you\'ve always been weak"',
-    herculaResponse: 'Hercula listens: "The crows fly, but the sky remains"'
+    herculaResponse: 'Hercula listens: "Crows fly, but the sky remains"'
   },
   {
     id: 'comparison_mountain',
@@ -127,7 +127,7 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Don\'t fall into the trap of "just one more time"',
     days: 60,
     icon: '🏞️',
-    challenge: 'Each drop in the lake is a rationalized excuse: "I had a bad day today," "I can control it," "just this once."',
+    challenge: 'Each drop of the lake is a rationalized excuse: "I had a bad day today", "I control it", "just this once".',
     reward: 'Mental clarity to recognize cognitive traps',
     nikotisInfluence: 'Nikotis drips: "Just once won\'t hurt"',
     herculaResponse: 'Hercula skirts: "Drops form lakes, lakes form oceans"'
@@ -140,7 +140,7 @@ export const herculaWorks: HerculaWork[] = [
     icon: '⏳',
     challenge: 'A giant that drags the minutes and challenges Hercula to stay the course even when nothing seems to improve.',
     reward: 'Patience and trust in natural processes',
-    nikotisInfluence: 'Nikotis slows: "Nothing changes, nothing improves without me"',
+    nikotisInfluence: 'Nikotis slows: "This rain will never stop without me"',
     herculaResponse: 'Hercula waits: "Oaks grow slowly, but last for centuries"'
   },
   {
@@ -149,7 +149,7 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Recover health without obsessively seeking it',
     days: 90,
     icon: '💎',
-    challenge: 'A sealed chamber that can only be entered when you stop chasing the benefits and walk through the process.',
+    challenge: 'A sealed chamber that can only be entered when one stops running after benefits and walks through the process.',
     reward: 'Complete recovery of respiratory function',
     nikotisInfluence: 'Nikotis hides: "You\'ll never recover what you lost"',
     herculaResponse: 'Hercula breathes: "Treasures appear when we stop looking for them"'
@@ -172,8 +172,8 @@ export const herculaWorks: HerculaWork[] = [
     days: 150,
     icon: '🌸',
     challenge: 'A gentle moment, without heroism or struggle. Just enjoyment: the sign that a new mythology has begun.',
-    reward: 'Full reconnection with senses and natural pleasures',
-    nikotisInfluence: 'Nikotis fades: "You no longer need me..."',
+    reward: 'Full reconnection with the senses and natural pleasures',
+    nikotisInfluence: 'Nikotis fades: "You don\'t need me anymore..."',
     herculaResponse: 'Hercula smells: "The flowers were always there, waiting"'
   },
   {
@@ -190,11 +190,11 @@ export const herculaWorks: HerculaWork[] = [
   {
     id: 'temptations_market',
     title: 'The Market of Temptations',
-    description: 'Resist offers, stores, external stimuli',
+    description: 'Resist the offers, the stores, the external stimuli',
     days: 210,
     icon: '🏪',
     challenge: 'A noisy market where colors and flavors promise instant happiness. But they\'re just smoke and expense.',
-    reward: 'Immunity to commercial stimuli from the industry',
+    reward: 'Immunity to the industry\'s commercial stimuli',
     nikotisInfluence: 'Nikotis sells: "New flavors, new experiences await you"',
     herculaResponse: 'Hercula walks: "Markets shout, but the pocket decides"'
   },
@@ -205,14 +205,14 @@ export const herculaWorks: HerculaWork[] = [
     days: 240,
     icon: '🔔',
     challenge: 'A glass bell isolates Hercula from the group. Her task: not to break it, but to make it transparent.',
-    reward: 'Social confidence without need for conformity',
+    reward: 'Social confidence without the need for conformity',
     nikotisInfluence: 'Nikotis isolates: "You\'re alone, different, excluded"',
     herculaResponse: 'Hercula coexists: "Glass separates, but also lets you see"'
   },
   {
     id: 'past_relapses_wall',
     title: 'The Wall of Past Relapses',
-    description: 'Not using old mistakes as a prophecy of failure',
+    description: 'Don\'t use old mistakes as a prophecy of failure',
     days: 270,
     icon: '🧱',
     challenge: 'A wall carved with the dates of each fall. Hercula passes through it without looking back.',
@@ -229,7 +229,7 @@ export const herculaWorks: HerculaWork[] = [
     challenge: 'Persistent rain, no storm, no sun. You walk wet, but you walk.',
     reward: 'Tolerance to discomfort and patience with processes',
     nikotisInfluence: 'Nikotis soaks: "This rain will never stop without me"',
-    herculaResponse: 'Hercula gets wet: "The rain wets everyone equally"'
+    herculaResponse: 'Hercula gets wet: "Rain soaks everyone equally"'
   },
   {
     id: 'autonomy_tower',
@@ -248,8 +248,8 @@ export const herculaWorks: HerculaWork[] = [
     description: 'Detect thoughts that seek to justify a relapse',
     days: 365,
     icon: '🌀',
-    challenge: 'Corridors that turn on themselves: "It\'s not so bad," "life is short." Exiting implies naming the trap.',
-    reward: 'Total mental clarity and self-honesty',
+    challenge: 'Corridors that turn on themselves: "It\'s not so bad", "life is short". Exiting implies naming the trap.',
+    reward: 'Total mental clarity and honesty with oneself',
     nikotisInfluence: 'Nikotis confuses: "Just once, to celebrate the year"',
     herculaResponse: 'Hercula finds: "Labyrinths have exits, you just have to walk"'
   }

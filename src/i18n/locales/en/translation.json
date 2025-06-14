@@ -150,8 +150,7 @@
           "function": "Monitors the recovery of your lung function after quitting vaping.",
           "sense": "The lungs progressively recover by eliminating toxins and regenerating tissues.",
           "science": "Based on post-cessation lung function studies (Respiratory Medicine, 2023)."
-        },
-        "description": "Pulmonary capacity and respiratory function"
+        }
       },
       "cardiovascular": {
         "title": "Heart",
@@ -159,8 +158,7 @@
           "function": "Evaluates the improvement in your circulatory system and heart health.",
           "sense": "The heart and blood vessels benefit immediately from eliminating nicotine.",
           "science": "Based on research on cardiovascular recovery (JACC, 2022)."
-        },
-        "description": "Blood pressure and cardiac function"
+        }
       },
       "liver": {
         "title": "Liver",
@@ -168,8 +166,7 @@
           "function": "Tracks the recovery of your liver function and metabolism.",
           "sense": "The liver processes toxins better and reverses damage caused by vaping chemicals.",
           "science": "Based on studies of hepatic toxicology and recovery (Hepatology, 2021)."
-        },
-        "description": "Liver function and ALT/GGT values"
+        }
       },
       "skinEyes": {
         "title": "Skin & Eyes",
@@ -177,8 +174,7 @@
           "function": "Monitors improvement in skin hydration and tear function.",
           "sense": "Skin and eyes recover their natural hydration by eliminating vaping irritants.",
           "science": "Based on clinical dermatology and ophthalmology (JAMA Dermatology, 2022)."
-        },
-        "description": "Hydration and dermatological health"
+        }
       },
       "mental": {
         "title": "Mental Wellbeing",
@@ -186,8 +182,7 @@
           "function": "Evaluates your neurological recovery and psychological well-being.",
           "sense": "The brain gradually adapts without nicotine, improving mood and concentration.",
           "science": "Based on neuroplasticity and addiction studies (Nature Neuroscience, 2023)."
-        },
-        "description": "Emotional stability and sleep quality"
+        }
       },
       "function": "Function",
       "sense": "Sense",
@@ -291,8 +286,7 @@
       "create": "Create Feat",
       "cancel": "Cancel"
     },
-    "noFeatsConfigured": "You don't have any feats configured",
-    "completed": "Completed"
+    "noFeatsConfigured": "You don't have any feats configured"
   },
   "habitsManager": {
     "title": "⚡ Power - Scientific Habits",
@@ -307,14 +301,6 @@
       "excellent": "🎉 Excellent! With {{count}} active habits you have a solid foundation for success",
       "tip": "💡 Tip: Only activate those habits you want to implement. Don't overwhelm yourself, just the ones you think can help you"
     },
-    "categories": {
-      "physical": "Physical",
-      "mental": "Mental",
-      "social": "Social",
-      "behavioral": "Behavioral",
-      "general": "General"
-    },
-    "categoryTitle": "{{category}} Habits",
     "habitCard": {
       "active": "Active",
       "routine": "📋 Routine:",
@@ -329,9 +315,7 @@
       "tooltip": {
         "title": "How does it work?",
         "description": "Mark as completed each day you achieve the habit. You can only mark once per day.",
-        "consolidation": {
-          "title": "Consolidation:"
-        },
+        "consolidation": "{{description}}",
         "recountTitle": "Weekly count:",
         "recountSocial": "For social commitment: 1 day per week = 100% completed",
         "recountOthers": "Resets every 7 days, but keeps track of previous weeks."
@@ -487,7 +471,9 @@
   "language": {
     "title": "Language",
     "es": "Español",
-    "en": "English"
+    "en": "English",
+    "ca": "Català",
+    "el": "Ελληνικά"
   },
   "setup": {
     "nameQuestion": "What would you like us to call you?",
@@ -504,5 +490,29 @@
     "reminder": "🔔 Reminder:",
     "intrusiveThought": "💭 Managing intrusive thoughts:",
     "counterResponse": "💪 Counter-response:"
+  },
+  "healthTracker": {
+    "categories": {
+      "respiratory": {
+        "title": "Lungs",
+        "description": "Lung capacity and respiratory function"
+      },
+      "cardiovascular": {
+        "title": "Heart",
+        "description": "Blood pressure and cardiac function"
+      },
+      "liver": {
+        "title": "Liver",
+        "description": "Liver function and ALT/GGT values"
+      },
+      "skinEyes": {
+        "title": "Skin and Eyes",
+        "description": "Hydration and dermatological health"
+      },
+      "mental": {
+        "title": "Mental Wellbeing",
+        "description": "Emotional stability and sleep quality"
+      }
+    }
   }
 }

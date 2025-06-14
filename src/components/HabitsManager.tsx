@@ -8,8 +8,10 @@ import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { ExternalLink } from 'lucide-react';
 import { scientificHabits, createHabit, Habit } from '@/data/habitsData';
 import HabitTracker from './habits/HabitTracker';
+import { useTranslation } from 'react-i18next';
 
 const HabitsManager = () => {
+  const { t } = useTranslation();
   const [habits, setHabits] = useState<Habit[]>([]);
 
   useEffect(() => {
@@ -50,11 +52,11 @@ const HabitsManager = () => {
 
   const getCategoryName = (category: string) => {
     switch (category) {
-      case 'physical': return 'Físico';
-      case 'mental': return 'Mental';
-      case 'social': return 'Social';
-      case 'behavioral': return 'Conductual';
-      default: return 'General';
+      case 'physical': return t('habitsManager.categories.physical', 'Physical');
+      case 'mental': return t('habitsManager.categories.mental', 'Mental');
+      case 'social': return t('habitsManager.categories.social', 'Social');
+      case 'behavioral': return t('habitsManager.categories.behavioral', 'Behavioral');
+      default: return t('habitsManager.categories.general', 'General');
     }
   };
 
@@ -72,20 +74,20 @@ const HabitsManager = () => {
       <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
         <CardHeader>
           <CardTitle className="text-center text-purple-700 flex items-center justify-center gap-2">
-            ⚡ Poderío - Hábitos Científicos
+            ⚡ {t('habitsManager.title')}
             <TooltipHelper
               content={
                 <div className="space-y-2">
-                  <p className="font-semibold">Hábitos Basados en Ciencia</p>
-                  <p className="text-sm">Rutinas validadas científicamente para superar la abstinencia de nicotina. Cuantos más actives, mayor será tu fortaleza.</p>
-                  <p className="font-semibold">Efectividad:</p>
-                  <p className="text-sm">La efectividad aumenta significativamente si combinas 3 o más rutinas (Hajek et al., 2019).</p>
+                  <p className="font-semibold">{t('habitsManager.tooltip.title')}</p>
+                  <p className="text-sm">{t('habitsManager.tooltip.description')}</p>
+                  <p className="font-semibold">{t('habitsManager.effectiveness', 'Effectiveness:')}</p>
+                  <p className="text-sm">{t('habitsManager.tooltip.effectiveness')}</p>
                 </div>
               }
             />
           </CardTitle>
           <p className="text-center text-purple-600">
-            Rutinas validadas para superar la abstinencia de nicotina
+            {t('habitsManager.subtitle')}
           </p>
         </CardHeader>
         
@@ -96,7 +98,7 @@ const HabitsManager = () => {
               <div className="text-2xl font-bold text-purple-600">
                 {activeHabitsCount}/{totalHabits}
               </div>
-              <div className="text-sm text-purple-700">hábitos activos</div>
+              <div className="text-sm text-purple-700">{t('habitsManager.stats.activeHabits')}</div>
               <Progress value={activationPercentage} className="h-2" />
             </div>
           </div>
@@ -104,14 +106,14 @@ const HabitsManager = () => {
           {activeHabitsCount >= 3 && (
             <div className="bg-green-100 p-3 rounded-lg border border-green-300">
               <p className="text-sm text-green-800 text-center">
-                🎉 ¡Excelente! Con {activeHabitsCount} hábitos activos tienes una base sólida para el éxito
+                {t('habitsManager.stats.excellent', { count: activeHabitsCount })}
               </p>
             </div>
           )}
 
           <div className="bg-blue-100 p-3 rounded-lg border border-blue-300">
             <p className="text-sm text-blue-800 text-center">
-              💡 <strong>Consejo:</strong> Activa solo aquellos hábitos que quieras implementar. No te agobies, solo los que creas que te pueden echar un cable
+              {t('habitsManager.stats.tip')}
             </p>
           </div>
         </CardContent>
@@ -123,7 +125,7 @@ const HabitsManager = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <span className="text-xl">{getCategoryIcon(category)}</span>
-              Hábitos {getCategoryName(category)}
+              {t('habitsManager.categoryTitle', { category: getCategoryName(category) })}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -136,7 +138,9 @@ const HabitsManager = () => {
                         <span className="text-xl">{habit.icon}</span>
                         <h3 className="font-semibold text-gray-800">{habit.name}</h3>
                         {habit.isActive && (
-                          <Badge className="bg-green-500 text-white">Activo</Badge>
+                          <Badge className="bg-green-500 text-white">
+                            {t('habitsManager.habitCard.active')}
+                          </Badge>
                         )}
                       </div>
                       <p className="text-sm text-gray-600 mb-3">{habit.description}</p>
@@ -152,27 +156,27 @@ const HabitsManager = () => {
                   {habit.isActive && (
                     <div className="space-y-3 border-t pt-3">
                       <div className="bg-blue-50 p-3 rounded-lg">
-                        <h4 className="font-medium text-blue-800 mb-2">📋 Rutina:</h4>
+                        <h4 className="font-medium text-blue-800 mb-2">{t('habitsManager.habitCard.routine')}</h4>
                         <p className="text-sm text-blue-700">{habit.routine}</p>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div className="bg-purple-50 p-3 rounded-lg">
-                          <h4 className="font-medium text-purple-800 mb-2">🔬 Base Científica:</h4>
+                          <h4 className="font-medium text-purple-800 mb-2">{t('habitsManager.habitCard.scientificBasis')}</h4>
                           <p className="text-sm text-purple-700">{habit.scientificBasis}</p>
                         </div>
                         
                         <div className="bg-orange-50 p-3 rounded-lg">
-                          <h4 className="font-medium text-orange-800 mb-2">💨 Ajuste para Vapeo:</h4>
+                          <h4 className="font-medium text-orange-800 mb-2">{t('habitsManager.habitCard.vapeAdjustment')}</h4>
                           <p className="text-sm text-orange-700">{habit.vapeAdjustment}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-center justify-between text-xs text-gray-500">
-                        <span>Referencia: {habit.reference}</span>
+                        <span>{t('habitsManager.habitCard.reference')} {habit.reference}</span>
                         <Button variant="ghost" size="sm" className="h-6 px-2">
                           <ExternalLink className="w-3 h-3 mr-1" />
-                          Ver estudio
+                          {t('habitsManager.habitCard.viewStudy')}
                         </Button>
                       </div>
                     </div>
@@ -197,13 +201,12 @@ const HabitsManager = () => {
       <Card className="bg-amber-50 border-amber-200">
         <CardContent className="p-4">
           <div className="text-center space-y-2">
-            <h4 className="font-semibold text-amber-800">💡 Clave del Éxito</h4>
+            <h4 className="font-semibold text-amber-800">{t('habitsManager.successKey.title')}</h4>
             <p className="text-sm text-amber-700">
-              Todos los hábitos están validados para abstinencia de nicotina en vapeadores. 
-              La efectividad aumenta si combinas ≥3 rutinas.
+              {t('habitsManager.successKey.description')}
             </p>
             <p className="text-xs text-amber-600">
-              Fuente: Hajek et al., 2019 - Estudios específicos sobre cesación de vapeo
+              {t('habitsManager.successKey.source')}
             </p>
           </div>
         </CardContent>

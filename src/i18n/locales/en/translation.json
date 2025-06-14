@@ -301,6 +301,14 @@
       "excellent": "🎉 Excellent! With {{count}} active habits you have a solid foundation for success",
       "tip": "💡 Tip: Only activate those habits you want to implement. Don't overwhelm yourself, just the ones you think can help you"
     },
+    "categories": {
+      "physical": "Physical",
+      "mental": "Mental",
+      "social": "Social",
+      "behavioral": "Behavioral",
+      "general": "General"
+    },
+    "categoryTitle": "{{category}} Habits",
     "habitCard": {
       "active": "Active",
       "routine": "📋 Routine:",
@@ -315,7 +323,9 @@
       "tooltip": {
         "title": "How does it work?",
         "description": "Mark as completed each day you achieve the habit. You can only mark once per day.",
-        "consolidation": "{{description}}",
+        "consolidation": {
+          "title": "Consolidation:"
+        },
         "recountTitle": "Weekly count:",
         "recountSocial": "For social commitment: 1 day per week = 100% completed",
         "recountOthers": "Resets every 7 days, but keeps track of previous weeks."
@@ -471,9 +481,7 @@
   "language": {
     "title": "Language",
     "es": "Español",
-    "en": "English",
-    "ca": "Català",
-    "el": "Ελληνικά"
+    "en": "English"
   },
   "setup": {
     "nameQuestion": "What would you like us to call you?",

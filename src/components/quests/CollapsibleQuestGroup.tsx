@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp, Check } from 'lucide-react';
 import { EpicQuest } from '@/data/epicQuests';
 import QuestCard from './QuestCard';
+import { useTranslation } from 'react-i18next';
 
 interface CollapsibleQuestGroupProps {
   category: string;
@@ -27,6 +28,7 @@ const CollapsibleQuestGroup = ({
   onDeleteQuest 
 }: CollapsibleQuestGroupProps) => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const { t } = useTranslation();
 
   if (quests.length === 0) return null;
 
@@ -53,12 +55,14 @@ const CollapsibleQuestGroup = ({
                 {allCompleted && quests.length > 0 && (
                   <div className="flex items-center gap-1 bg-green-100 px-2 py-0.5 rounded-full">
                     <Check className="w-3 h-3 text-green-600" />
-                    <span className="text-xs text-green-700 font-medium">Completado</span>
+                    <span className="text-xs text-green-700 font-medium">
+                      {t('epicQuests.completed', 'Completed')}
+                    </span>
                   </div>
                 )}
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-500">
-                <span className="truncate">{completedCount}/{quests.length} gestas completadas</span>
+                <span className="truncate">{completedCount}/{quests.length} {t('epicQuests.stats.completed')}</span>
               </div>
             </div>
           </div>

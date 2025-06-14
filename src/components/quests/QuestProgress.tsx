@@ -1,6 +1,7 @@
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Circle } from 'lucide-react';
 import { EpicQuest } from '@/data/epicQuests';
+import { useTranslation } from 'react-i18next';
 
 interface QuestProgressProps {
   quest: EpicQuest;
@@ -9,11 +10,13 @@ interface QuestProgressProps {
 }
 
 const QuestProgress = ({ quest, onAddCheck, onRemoveCheck }: QuestProgressProps) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">
-          Progreso: {quest.currentChecks}/{quest.requiredChecks}
+          {t('epicQuests.questCard.progress')} {quest.currentChecks}/{quest.requiredChecks}
         </span>
         <div className="flex flex-wrap gap-1 justify-end">
           {Array.from({ length: quest.requiredChecks }, (_, i) => (

@@ -301,6 +301,14 @@
       "excellent": "🎉 ¡Excelente! Con {{count}} hábitos activos tienes una base sólida para el éxito",
       "tip": "💡 Consejo: Activa solo aquellos hábitos que quieras implementar. No te agobies, solo los que creas que te pueden echar un cable"
     },
+    "categories": {
+      "physical": "Físico",
+      "mental": "Mental",
+      "social": "Social",
+      "behavioral": "Conductual",
+      "general": "General"
+    },
+    "categoryTitle": "Hábitos {{category}}",
     "habitCard": {
       "active": "Activo",
       "routine": "📋 Rutina:",
@@ -315,7 +323,9 @@
       "tooltip": {
         "title": "¿Cómo funciona?",
         "description": "Marca como completado cada día que logres el hábito. Solo puedes marcar una vez por día.",
-        "consolidation": "{{description}}",
+        "consolidation": {
+          "title": "Consolidación:"
+        },
         "recountTitle": "Recuento semanal:",
         "recountSocial": "Para compromiso social: 1 vez por semana = 100% completado",
         "recountOthers": "Se reinicia cada 7 días, pero guarda el historial de semanas previas."
@@ -471,9 +481,7 @@
   "language": {
     "title": "Idioma",
     "es": "Español",
-    "en": "English",
-    "ca": "Català",
-    "el": "Ελληνικά"
+    "en": "English"
   },
   "setup": {
     "nameQuestion": "¿Cómo te gustaría que te llamemos?",

@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
 import { Calendar, CheckCircle, Plus } from 'lucide-react';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 interface HabitTracking {
   habitId: string;
@@ -29,6 +30,7 @@ interface HabitTrackerProps {
 }
 
 const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
+  const { t } = useTranslation();
   const [trackingData, setTrackingData] = useState<HabitTracking[]>([]);
   const [todayCompleted, setTodayCompleted] = useState(false);
   const [isConsolidated, setIsConsolidated] = useState(false);
@@ -79,9 +81,9 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         year
       };
       updatedData.push(newEntry);
-      toast.success(`✅ ${habitName} marcado como completado hoy`);
+      toast.success(`✅ ${habitName} ${t('habitsManager.habitTracker.doneToday')}`);
     } else {
-      toast.info(`❌ ${habitName} desmarcado para hoy`);
+      toast.info(`❌ ${habitName} ${t('habitsManager.habitTracker.markToday')}`);
     }
     
     setTrackingData(updatedData);
@@ -150,8 +152,8 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       habitMedals.push(medalData);
       localStorage.setItem('habit-medals', JSON.stringify(habitMedals));
 
-      toast.success(`🏆 ¡Hábito "${habitName}" consolidado!`, {
-        description: 'Has obtenido una medalla por consolidar este hábito científico',
+      toast.success(`🏆 ${t('habitsManager.habitTracker.habitConsolidated')}`, {
+        description: t('habitsManager.habitTracker.medalObtained'),
         duration: 5000
       });
     }
@@ -240,13 +242,17 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
   const getConsolidationCriteria = () => {
     if (habitId === 'social_commitment') {
       return {
-        description: 'Para compromiso social: 8 semanas consecutivas con 1+ día por semana',
+        description: t('habitsManager.habitTracker.tooltip.consolidation', { 
+          description: 'For social commitment: 8 consecutive weeks with 1+ day per week'
+        }),
         minDays: 1,
         weeksRequired: 8
       };
     }
     return {
-      description: 'Para ejercicio y sueño: 4 semanas seguidas con 5+ días O 6 semanas con 4+ días',
+      description: t('habitsManager.habitTracker.tooltip.consolidation', { 
+        description: 'For exercise and sleep: 4 consecutive weeks with 5+ days OR 6 weeks with 4+ days'
+      }),
       minDays: habitId === 'daily_exercise' || habitId === 'strict_sleep_schedule' ? 5 : 4,
       weeksRequired: 4
     };
@@ -265,24 +271,24 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       <CardHeader className="pb-3">
         <CardTitle className="text-sm flex items-center gap-2">
           <Calendar className="w-4 h-4" />
-          Seguimiento de {habitName}
+          {t('habitsManager.habitTracker.tracking', { name: habitName })}
           {isConsolidated && (
             <Badge className="bg-green-500 text-white">
-              Consolidado
+              {t('habitsManager.habitTracker.consolidated')}
             </Badge>
           )}
           <TooltipHelper
             content={
               <div className="space-y-2">
-                <p className="font-semibold">¿Cómo funciona?</p>
-                <p className="text-sm">Marca como completado cada día que logres el hábito. Solo puedes marcar una vez por día.</p>
-                <p className="font-semibold">Consolidación:</p>
+                <p className="font-semibold">{t('habitsManager.habitTracker.tooltip.title')}</p>
+                <p className="text-sm">{t('habitsManager.habitTracker.tooltip.description')}</p>
+                <p className="font-semibold">{t('habitsManager.habitTracker.tooltip.consolidation.title')}</p>
                 <p className="text-sm">{criteria.description}</p>
-                <p className="font-semibold">Recuento semanal:</p>
+                <p className="font-semibold">{t('habitsManager.habitTracker.tooltip.recountTitle')}</p>
                 <p className="text-sm">
                   {habitId === 'social_commitment' 
-                    ? 'Para compromiso social: 1 vez por semana = 100% completado'
-                    : 'Se reinicia cada 7 días, pero guarda el historial de semanas previas.'
+                    ? t('habitsManager.habitTracker.tooltip.recountSocial')
+                    : t('habitsManager.habitTracker.tooltip.recountOthers')
                   }
                 </p>
               </div>
@@ -294,12 +300,12 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         <div className="grid grid-cols-3 gap-3 text-center">
           <div className="bg-white p-2 rounded">
             <div className="text-lg font-bold text-blue-600">{currentStreak}</div>
-            <div className="text-xs text-gray-600">días seguidos</div>
+            <div className="text-xs text-gray-600">{t('habitsManager.habitTracker.consecutiveDays')}</div>
           </div>
           <div className="bg-white p-2 rounded">
             <div className="text-lg font-bold text-green-600">{Math.round(weeklyProgress)}%</div>
             <div className="text-xs text-gray-600">
-              {habitId === 'social_commitment' ? 'esta semana' : 'esta semana'}
+              {t('habitsManager.habitTracker.thisWeek')}
             </div>
           </div>
           <div className="bg-white p-2 rounded">
@@ -323,7 +329,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                 )}
               </Button>
               <div className="text-xs text-gray-600">
-                {todayCompleted ? 'Hecho hoy' : 'Marcar hoy'}
+                {todayCompleted ? t('habitsManager.habitTracker.doneToday') : t('habitsManager.habitTracker.markToday')}
               </div>
             </div>
           </div>
@@ -331,13 +337,13 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         
         <div className="space-y-2">
           <div className="flex justify-between text-xs">
-            <span>Progreso semanal</span>
+            <span>{t('habitsManager.habitTracker.weeklyProgress')}</span>
             <span>{Math.round(weeklyProgress)}%</span>
           </div>
           <Progress value={weeklyProgress} className="h-2" />
           {habitId === 'social_commitment' && (
             <div className="text-xs text-gray-600 text-center">
-              {weeklyProgress === 100 ? '✅ Semana completada (1+ día)' : '⏳ Necesitas 1 día esta semana'}
+              {weeklyProgress === 100 ? t('habitsManager.habitTracker.weekCompleted') : t('habitsManager.habitTracker.needOneDay')}
             </div>
           )}
         </div>
@@ -346,11 +352,11 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         {!isConsolidated && recentWeeks.length > 0 && (
           <div className="bg-white p-3 rounded-lg border">
             <h4 className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
-              Progreso hacia consolidación
+              {t('habitsManager.habitTracker.progressToConsolidation')}
             </h4>
             <div className="space-y-2">
               <div className="text-xs text-gray-600">
-                Últimas {Math.min(recentWeeks.length, criteria.weeksRequired)} semanas:
+                {t('habitsManager.habitTracker.lastWeeks', { count: Math.min(recentWeeks.length, criteria.weeksRequired) })}
               </div>
               <div className="flex gap-1 flex-wrap">
                 {recentWeeks.slice(-criteria.weeksRequired).map((week, index) => {
@@ -377,7 +383,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                 })}
               </div>
               <div className="text-xs text-gray-500">
-                🎯 {criteria.description}
+                {t('habitsManager.habitTracker.consolidationTarget', { description: criteria.description })}
               </div>
             </div>
           </div>
@@ -386,9 +392,9 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         {isConsolidated && (
           <div className="bg-green-100 p-3 rounded-lg border border-green-300">
             <div className="text-center">
-              <p className="text-sm font-semibold text-green-800">¡Hábito Consolidado!</p>
+              <p className="text-sm font-semibold text-green-800">{t('habitsManager.habitTracker.habitConsolidated')}</p>
               <p className="text-xs text-green-700">
-                Has obtenido una medalla por consolidar este hábito científico
+                {t('habitsManager.habitTracker.medalObtained')}
               </p>
             </div>
           </div>

@@ -42,8 +42,8 @@ const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCar
             </div>
           </div>
           
-          {/* Botón para eliminar - SOLO para gestas personalizadas */}
-          {quest.isCustom && (
+          {/* Botón para eliminar - AHORA PARA TODAS LAS GESTAS excepto ultimate_achievement */}
+          {quest.id !== 'ultimate_achievement' && (
             <Button
               variant="outline"
               size="sm"

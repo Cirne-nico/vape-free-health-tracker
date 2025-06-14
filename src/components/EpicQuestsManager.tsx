@@ -59,17 +59,30 @@ const EpicQuestsManager = () => {
     saveQuests(updatedQuests);
   };
 
-  // Eliminar gesta
+  // Eliminar gesta - MODIFICADO para permitir eliminar cualquier gesta excepto ultimate_achievement
   const deleteQuest = (questId: string) => {
     const quest = quests.find(q => q.id === questId);
-    if (quest && !quest.isCustom) {
-      toast.error('No puedes eliminar hazañas predefinidas');
+    
+    // No permitir eliminar la medalla final
+    if (quest && quest.id === 'ultimate_achievement') {
+      toast.error('No puedes eliminar la medalla de Maestría Total');
+      return;
+    }
+    
+    // Confirmar eliminación
+    const questTitle = quest?.title || 'esta gesta';
+    if (!confirm(`¿Estás segura de que quieres eliminar "${questTitle}"? Esta acción no se puede deshacer.`)) {
       return;
     }
     
     const updatedQuests = quests.filter(q => q.id !== questId);
     saveQuests(updatedQuests);
-    toast.success('Hazaña eliminada');
+    
+    if (quest?.isCustom) {
+      toast.success('Gesta personalizada eliminada');
+    } else {
+      toast.success(`Gesta "${questTitle}" eliminada - No se aplicaba a tu situación`);
+    }
   };
 
   // Añadir nueva gesta personalizada
@@ -164,7 +177,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>
@@ -172,6 +185,22 @@ const EpicQuestsManager = () => {
       </Card>
 
       <QuestStats quests={quests} />
+
+      {/* Información sobre personalización */}
+      <Card className="bg-amber-50 border-amber-200">
+        <CardContent className="p-4">
+          <div className="text-center space-y-2">
+            <h4 className="font-semibold text-amber-800">✨ Personaliza tu Proceso</h4>
+            <p className="text-sm text-amber-700">
+              Puedes eliminar cualquier gesta que no se aplique a tu situación. Por ejemplo, 
+              si no bebes alcohol, elimina las gestas relacionadas con bebidas alcohólicas.
+            </p>
+            <p className="text-xs text-amber-600">
+              Solo la medalla de "Maestría Total" no se puede eliminar, ya que se desbloquea automáticamente.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Botón para añadir gesta personalizada */}
       <div className="flex justify-center">

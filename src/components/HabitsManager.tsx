@@ -69,7 +69,7 @@ const HabitsManager = () => {
   return (
     <TooltipProvider>
       <div className="space-y-6">
-        {/* Header sin botón de pánico */}
+        {/* Header */}
         <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
           <CardHeader>
             <CardTitle className="text-center text-purple-700 flex items-center justify-center gap-2">
@@ -94,7 +94,7 @@ const HabitsManager = () => {
           </CardHeader>
           
           <CardContent className="space-y-4">
-            {/* Solo estadísticas */}
+            {/* Estadísticas */}
             <div className="bg-white/70 p-4 rounded-lg">
               <div className="text-center space-y-2">
                 <div className="text-2xl font-bold text-purple-600">
@@ -113,10 +113,10 @@ const HabitsManager = () => {
               </div>
             )}
 
-            {/* Recordatorio del botón de pánico */}
-            <div className="bg-orange-100 p-3 rounded-lg border border-orange-300">
-              <p className="text-sm text-orange-800 text-center">
-                🚨 <strong>Recordatorio:</strong> El botón de pánico está disponible en la parte superior de la app para momentos de antojo intenso
+            {/* MENSAJE CORREGIDO */}
+            <div className="bg-blue-100 p-3 rounded-lg border border-blue-300">
+              <p className="text-sm text-blue-800 text-center">
+                💡 <strong>Consejo:</strong> Activa solo aquellos hábitos que quieras implementar. No te agobies, solo los que creas que te pueden echar un cable
               </p>
             </div>
           </CardContent>

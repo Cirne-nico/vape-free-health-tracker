@@ -28,17 +28,17 @@ const PanicButton = ({ isOpen, onClose }: PanicButtonProps) => {
       time: '1 minuto'
     },
     {
-      id: 'manipulate',
-      title: 'Manipula Objeto',
-      description: 'Usa bolígrafo, moneda o cualquier objeto en tus manos',
-      icon: <span className="text-2xl">✋</span>,
-      time: '2 minutos'
-    },
-    {
       id: 'exercise',
       title: 'Ejercicio Rápido',
       description: '10 sentadillas o flexiones',
       icon: <Dumbbell className="w-6 h-6 text-red-500" />,
+      time: '2 minutos'
+    },
+    {
+      id: 'manipulate',
+      title: 'Manipula Objeto',
+      description: 'Usa bolígrafo, moneda o cualquier objeto en tus manos',
+      icon: <span className="text-2xl">✋</span>,
       time: '2 minutos'
     }
   ];

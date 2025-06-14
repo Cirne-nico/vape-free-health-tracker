@@ -156,7 +156,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'anxiety_periods',
     title: 'Períodos de ansiedad',
-    description: 'Gestionar episodios de ansiedad sin vapear como ansiolítico',
+    description: 'Sobrellevar episodio prolongado de ansiedad sin vapear como ansiolítico',
     requiredChecks: 1,
     icon: '😰',
     category: 'emotional',

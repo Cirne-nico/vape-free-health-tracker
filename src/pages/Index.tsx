@@ -68,34 +68,30 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-      {/* Container principal con max-width más amplio para el sidebar */}
-      <div className="max-w-7xl mx-auto">
-        <div className="space-y-4 sm:space-y-6">
-          <MainHeader 
-            time={time}
-            savings={savings}
-            progressPercentage={progressPercentage}
-            progressInfo={progressInfo}
-            blurLevel={blurLevel}
-            unlockedAchievements={unlockedAchievements}
-            unlockedHealthAchievements={unlockedHealthAchievements}
-            onRelapse={handleRelapse}
-          />
-
-          {/* Padding lateral para el contenido principal */}
-          <div className="px-2 sm:px-4 space-y-4 sm:space-y-6">
-            <MainTabs 
-              startDate={startDate}
-              currentDay={time.days}
-              totalSavings={savings.total}
-              unlockedAchievements={unlockedAchievements}
-              unlockedHealthAchievements={unlockedHealthAchievements}
-            />
-          </div>
-        </div>
+      {/* HEADER FIJO EN LA PARTE SUPERIOR */}
+      <div className="relative z-40">
+        <MainHeader 
+          time={time}
+          savings={savings}
+          progressPercentage={progressPercentage}
+          progressInfo={progressInfo}
+          blurLevel={blurLevel}
+          unlockedAchievements={unlockedAchievements}
+          unlockedHealthAchievements={unlockedHealthAchievements}
+          onRelapse={handleRelapse}
+        />
       </div>
 
-      {/* Alertas y popups */}
+      {/* CONTENIDO PRINCIPAL CON SIDEBAR */}
+      <MainTabs 
+        startDate={startDate}
+        currentDay={time.days}
+        totalSavings={savings.total}
+        unlockedAchievements={unlockedAchievements}
+        unlockedHealthAchievements={unlockedHealthAchievements}
+      />
+
+      {/* ALERTAS Y POPUPS */}
       <FirstDayAlert startDate={startDate} />
       
       <AchievementPopup 

@@ -1,5 +1,4 @@
 import { EpicQuestMedal } from './medalTypes';
-import { useHabitMedals } from '@/hooks/useHabitMedals';
 
 export const getSuccessRate = (days: number): number => {
   // Datos aproximados basados en estadísticas generales sobre dejar de fumar/vapear
@@ -45,13 +44,13 @@ export const getSpecialMedals = (currentDays: number) => {
     console.log('Added Athena medal:', athenaMedal);
   }
 
-  // Medalla de Victoria (Nike) para el año (365 días) - RUTA CORREGIDA
+  // Medalla de Victoria (Nike) para el año (365 días) - RUTA CORREGIDA DEFINITIVAMENTE
   if (currentDays >= 365) {
     const victoryMedal = {
       id: 'one_year_victory',
       type: 'victory' as const,
       title: 'Victoria de Nike',
-      icon: '/lovable-uploads/Nike_365 copy.png', // RUTA CORREGIDA
+      icon: '/lovable-uploads/Nike_365 copy.png', // ✅ RUTA CORREGIDA FINAL
       description: '¡Un año completo sin vapear!',
       reward: 'Salud de hierro y bienestar total',
       hasEconomicBenefits: true,
@@ -226,7 +225,7 @@ export const debugEpicMedals = () => {
     const updatedQuests = quests.map((quest: any) => {
       let updated = { ...quest };
       
-      // Asignar medallas faltantes con rutas corregidas
+      // Asignar medallas faltantes con rutas corregidas FINALES
       if (!quest.medalIcon) {
         switch (quest.id) {
           case 'with_coffee':
@@ -236,7 +235,7 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/gesta_birra.png';
             break;
           case 'sixth_beer':
-            updated.medalIcon = '/lovable-uploads/6a_birra.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/6a_birra.png'; // ✅ CORREGIDA FINAL
             break;
           case 'other_substances':
             updated.medalIcon = '/lovable-uploads/Otras_sustancias.png';
@@ -245,12 +244,15 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/Estres_laboral.png';
             break;
           case 'work_break':
-            updated.medalIcon = '/lovable-uploads/Descanso_trabajo copy.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/Descanso_trabajo copy.png'; // ✅ CORREGIDA FINAL
             break;
           case 'anxiety_periods':
             updated.medalIcon = '/lovable-uploads/gesta_ansiedad.png';
             break;
           case 'party':
+            updated.medalIcon = '/lovable-uploads/situación_social.png';
+            break;
+          case 'social_situation':
             updated.medalIcon = '/lovable-uploads/situación_social.png';
             break;
           case 'fight_friend':
@@ -265,23 +267,20 @@ export const debugEpicMedals = () => {
           case 'prolonged_sadness':
             updated.medalIcon = '/lovable-uploads/tristeza.png';
             break;
-          case 'ultimate_achievement':
-            updated.medalIcon = '/lovable-uploads/Crack.png';
-            break;
-          case 'social_situation':
-            updated.medalIcon = '/lovable-uploads/situación_social.png';
-            break;
           case 'euphoria_moment':
             updated.medalIcon = '/lovable-uploads/euforia.png';
             break;
           case 'pelimanta':
-            updated.medalIcon = '/lovable-uploads/Pelimanta copy.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/Pelimanta copy.png'; // ✅ CORREGIDA FINAL
             break;
           case 'writing_effort':
-            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir copy.png'; // CORREGIDA
+            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir copy.png'; // ✅ CORREGIDA FINAL
             break;
           case 'bad_news':
             updated.medalIcon = '/lovable-uploads/mala_noticia.png';
+            break;
+          case 'ultimate_achievement':
+            updated.medalIcon = '/lovable-uploads/Crack.png';
             break;
         }
       }

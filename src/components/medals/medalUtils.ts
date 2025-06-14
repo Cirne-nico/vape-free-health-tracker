@@ -44,13 +44,13 @@ export const getSpecialMedals = (currentDays: number) => {
     console.log('Added Athena medal:', athenaMedal);
   }
 
-  // Medalla de Victoria (Nike) para el año (365 días) - SOLO si han pasado 365 días o más
+  // Medalla de Victoria (Nike) para el año (365 días) - CORREGIDA LA RUTA
   if (currentDays >= 365) {
     const victoryMedal = {
       id: 'one_year_victory',
       type: 'victory' as const,
       title: 'Victoria de Nike',
-      icon: '/lovable-uploads/Nike_365.png',
+      icon: '/lovable-uploads/Nike_365 copy.png', // RUTA CORREGIDA
       description: '¡Un año completo sin vapear!',
       reward: 'Salud de hierro y bienestar total',
       hasEconomicBenefits: true,
@@ -163,7 +163,7 @@ export const debugEpicMedals = () => {
     const quests = JSON.parse(savedQuests);
     console.log('Parsed quests:', quests);
     
-    // Actualizar gestas con medallas faltantes - CORREGIDAS LAS RUTAS
+    // Actualizar gestas con medallas faltantes - RUTAS CORREGIDAS
     const updatedQuests = quests.map((quest: any) => {
       let updated = { ...quest };
       

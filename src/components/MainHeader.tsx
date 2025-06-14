@@ -106,8 +106,8 @@ const MainHeader = ({
 
   return (
     <TooltipProvider>
-      {/* Header principal con imagen de fondo y sin márgenes exteriores */}
-      <Card className="relative overflow-hidden text-white rounded-none -m-2 sm:-m-4">
+      {/* Header principal con imagen de fondo y optimizado para Android */}
+      <Card className="relative overflow-hidden text-white rounded-none mx-0">
         {/* Imagen de fondo con blur */}
         <div 
           className="absolute inset-0"
@@ -122,9 +122,9 @@ const MainHeader = ({
         {/* Overlay para mejorar legibilidad */}
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/80 to-blue-600/80" />
         
-        <CardContent className="relative p-3 sm:p-4 z-10">
-          <div className="flex flex-col space-y-3 sm:space-y-4">
-            {/* Logo y título de la app reorganizado */}
+        <CardContent className="relative p-4 sm:p-6 z-10">
+          <div className="flex flex-col space-y-4">
+            {/* Logo y título de la app centrado para Android */}
             <div className="text-center mb-3">
               <div className="flex items-center justify-center gap-3 mb-2">
                 <Logo size="sm" className="text-white flex-shrink-0" />
@@ -147,7 +147,7 @@ const MainHeader = ({
               </h3>
             </div>
 
-            {/* Tiempo transcurrido con mejor jerarquía - CAMBIO AQUÍ */}
+            {/* Tiempo transcurrido con mejor jerarquía */}
             <div className="text-center py-2">
               <h4 className="text-2xl sm:text-3xl font-bold mb-1">
                 {time.days > 0 ? `${time.days} días sin vapear` : `${time.hours}h ${time.minutes}m sin vapear`}

@@ -272,7 +272,7 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
           )}
         </div>
 
-        {/* Footer épico */}
+        {/* Footer épico CORREGIDO - Nike en lugar de segunda Atenea */}
         <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
           <CardContent className="text-center py-6">
             <div className="flex justify-center items-center gap-4 mb-4">
@@ -282,7 +282,7 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
                 className="w-12 h-12 rounded-full"
               />
               <img 
-                src="/lovable-uploads/ChatGPT Image 9 jun 2025, 01_29_39.png" 
+                src="/lovable-uploads/Nike_365 copy.png" 
                 alt="Nike" 
                 className="w-12 h-12 rounded-full"
               />

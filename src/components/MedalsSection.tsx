@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trophy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Trophy, ChevronDown, ChevronUp } from 'lucide-react';
 import MedalDisplay from './MedalDisplay';
 import { Achievement, HealthAchievement } from './medals/medalTypes';
 
@@ -14,25 +16,52 @@ const MedalsSection = ({
   unlockedHealthAchievements, 
   totalSavings 
 }: MedalsSectionProps) => {
-  if (unlockedAchievements.length === 0 && unlockedHealthAchievements.length === 0) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
+  
+  if (totalMedals === 0) {
     return null;
   }
 
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="text-center text-lg flex items-center justify-center gap-2">
-          <Trophy className="w-5 h-5" />
-          Medallas Obtenidas
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Trophy className="w-5 h-5" />
+            Medallas Obtenidas ({totalMedals})
+          </CardTitle>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center gap-1"
+          >
+            {isExpanded ? (
+              <>
+                <span className="text-sm">Ocultar</span>
+                <ChevronUp className="w-4 h-4" />
+              </>
+            ) : (
+              <>
+                <span className="text-sm">Ver medallas</span>
+                <ChevronDown className="w-4 h-4" />
+              </>
+            )}
+          </Button>
+        </div>
       </CardHeader>
-      <CardContent className="pt-0">
-        <MedalDisplay 
-          unlockedAchievements={unlockedAchievements}
-          unlockedHealthAchievements={unlockedHealthAchievements}
-          totalSavings={totalSavings}
-        />
-      </CardContent>
+      
+      {isExpanded && (
+        <CardContent className="pt-0">
+          <MedalDisplay 
+            unlockedAchievements={unlockedAchievements}
+            unlockedHealthAchievements={unlockedHealthAchievements}
+            totalSavings={totalSavings}
+          />
+        </CardContent>
+      )}
     </Card>
   );
 };

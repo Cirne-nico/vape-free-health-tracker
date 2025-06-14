@@ -3,13 +3,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Brain, Heart } from 'lucide-react';
 import { EpicQuest } from '@/data/epicQuests';
 import { useQuestManager } from '@/hooks/useQuestManager';
-import DebugPanel from './quests/DebugPanel';
 import QuestStats from './quests/QuestStats';
 import QuestForm from './quests/QuestForm';
 import QuestCard from './quests/QuestCard';
 
 const EpicQuestsManager = () => {
-  const { quests, debugInfo, saveQuests, updateQuestsWithMedals, debugMedalSystem } = useQuestManager();
+  const { quests, saveQuests } = useQuestManager();
 
   // Añadir check a una gesta
   const addCheck = (questId: string) => {
@@ -138,12 +137,6 @@ const EpicQuestsManager = () => {
 
   return (
     <div className="space-y-6">
-      <DebugPanel 
-        debugInfo={debugInfo}
-        onUpdateMedals={updateQuestsWithMedals}
-        onDebugSystem={debugMedalSystem}
-      />
-
       {/* Introducción explicativa */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
         <CardContent className="space-y-4 p-6">
@@ -171,7 +164,7 @@ const EpicQuestsManager = () => {
               <p className="text-xs text-blue-700 italic">
                 💡 <strong>Neuroplasticidad en acción:</strong> Cada vez que repites una experiencia sin vapear, 
                 fortaleces las redes neuronales de autonomía y debilitas las de dependencia. Después de completar 
-                una gesta, esa situación ya no será un "disparador\" sino una demostración de tu nueva cartografía psicofísica.
+                una gesta, esa situación ya no será un "disparador" sino una demostración de tu nueva cartografía psicofísica.
               </p>
             </div>
           </div>

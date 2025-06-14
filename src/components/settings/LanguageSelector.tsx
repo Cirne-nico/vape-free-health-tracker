@@ -21,9 +21,7 @@ const LanguageSelector = () => {
 
   const languages = [
     { code: 'es', name: t('language.es'), flag: '🇪🇸' },
-    { code: 'en', name: t('language.en'), flag: '🇬🇧' },
-    { code: 'ca', name: t('language.ca'), flag: '🏴󠁥󠁳󠁣󠁴󠁿' },
-    { code: 'el', name: t('language.el'), flag: '🇬🇷' }
+    { code: 'en', name: t('language.en'), flag: '🇬🇧' }
   ];
 
   return (

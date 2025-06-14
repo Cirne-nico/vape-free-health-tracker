@@ -11,15 +11,14 @@ import "./i18n";
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Ensure RTL direction for Greek language
+  // Remove RTL direction handling since we no longer have Greek
   useEffect(() => {
     const handleLanguageChange = () => {
       const lang = localStorage.getItem('umbral-language') || 'es';
       document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'el' ? 'rtl' : 'ltr';
     };
 
-    // Set initial direction
+    // Set initial language
     handleLanguageChange();
 
     // Listen for language changes

@@ -57,7 +57,6 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
   const changeLanguage = (lang: string) => {
     setLanguage(lang);
     i18n.changeLanguage(lang);
-    document.documentElement.dir = lang === 'el' ? 'rtl' : 'ltr';
   };
 
   if (showSurvey) {
@@ -105,18 +104,6 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
                 onClick={() => changeLanguage('en')}
               >
                 🇬🇧 EN
-              </button>
-              <button 
-                className={`px-3 py-1 rounded-full text-sm ${language === 'ca' ? 'bg-white text-blue-900' : 'text-white'}`}
-                onClick={() => changeLanguage('ca')}
-              >
-                🏴󠁥󠁳󠁣󠁴󠁿 CA
-              </button>
-              <button 
-                className={`px-3 py-1 rounded-full text-sm ${language === 'el' ? 'bg-white text-blue-900' : 'text-white'}`}
-                onClick={() => changeLanguage('el')}
-              >
-                🇬🇷 EL
               </button>
             </div>
           </div>

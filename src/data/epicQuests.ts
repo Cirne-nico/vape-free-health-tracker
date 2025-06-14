@@ -5,11 +5,11 @@ export interface EpicQuest {
   requiredChecks: number;
   currentChecks: number;
   icon: string;
-  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'ultimate';
+  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational';
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
-  medalIcon?: string;
+  medalIcon?: string; // Nueva propiedad para la medalla épica
 }
 
 export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>[] = [
@@ -21,7 +21,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🎉',
     category: 'social',
     reward: 'La diversión no depende al menos de esta sustancia',
-    medalIcon: '/lovable-uploads/fiesta copy.png'
+    medalIcon: '/lovable-uploads/fiesta.png'
   },
   {
     id: 'fight_friend',
@@ -49,7 +49,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Manejar presión, deadlines o conflictos en el trabajo sin vapear',
     requiredChecks: 3,
     icon: '💼',
-    category: 'psychological',
+    category: 'situational',
     reward: 'Herramientas de gestión del estrés profesional',
     medalIcon: '/lovable-uploads/Estres_laboral.png'
   },
@@ -59,7 +59,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Disfrutar de los descansos laborales sin necesidad de vapear',
     requiredChecks: 3,
     icon: '☕',
-    category: 'psychological',
+    category: 'situational',
     reward: 'Descansos genuinos y reparadores',
     medalIcon: '/lovable-uploads/Descanso_trabajo copy.png'
   },
@@ -156,7 +156,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
   {
     id: 'anxiety_periods',
     title: 'Períodos de ansiedad',
-    description: 'Sobrellevar episodio prolongado de ansiedad sin vapear como ansiolítico',
+    description: 'Gestionar episodios de ansiedad sin vapear como ansiolítico',
     requiredChecks: 1,
     icon: '😰',
     category: 'emotional',
@@ -169,7 +169,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Disfrutar de momentos de relajación en casa sin vapear',
     requiredChecks: 3,
     icon: '🛋️',
-    category: 'psychological',
+    category: 'situational',
     reward: 'Relajación auténtica sin dependencias químicas',
     medalIcon: '/lovable-uploads/Pelimanta copy.png'
   },
@@ -189,7 +189,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Has completado TODAS las gestas épicas disponibles. Eres une verdadere maestre de la recuperación.',
     requiredChecks: 1,
     icon: '💥',
-    category: 'ultimate',
+    category: 'psychological',
     reward: 'Reconocimiento como maestre absolute de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
     medalIcon: '/lovable-uploads/Crack.png'
   }
@@ -207,7 +207,7 @@ export const getCategoryColor = (category: EpicQuest['category']) => {
     case 'emotional': return 'bg-red-100 text-red-800 border-red-300';
     case 'substance': return 'bg-orange-100 text-orange-800 border-orange-300';
     case 'psychological': return 'bg-purple-100 text-purple-800 border-purple-300';
-    case 'ultimate': return 'bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 border-purple-300';
+    case 'situational': return 'bg-green-100 text-green-800 border-green-300';
     default: return 'bg-gray-100 text-gray-800 border-gray-300';
   }
 };
@@ -218,11 +218,12 @@ export const getCategoryName = (category: EpicQuest['category']) => {
     case 'emotional': return 'Emocional';
     case 'substance': return 'Sustancias';
     case 'psychological': return 'Psicológico';
-    case 'ultimate': return 'Maestría Total';
+    case 'situational': return 'Situacional';
     default: return 'General';
   }
 };
 
+// Función para obtener las gestas completadas con medallas
 export const getCompletedQuestsWithMedals = (): EpicQuest[] => {
   const savedQuests = localStorage.getItem('epic-quests');
   if (!savedQuests) return [];

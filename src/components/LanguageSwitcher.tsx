@@ -20,17 +20,12 @@ const LanguageSwitcher = () => {
     i18n.changeLanguage(language);
     setCurrentLanguage(language);
     localStorage.setItem('umbral-language', language);
-    
-    // Ensure RTL direction for Greek language
-    document.documentElement.dir = language === 'el' ? 'rtl' : 'ltr';
   };
 
   const getLanguageFlag = (code: string) => {
     switch (code) {
       case 'es': return '🇪🇸';
       case 'en': return '🇬🇧';
-      case 'ca': return '🏴󠁥󠁳󠁣󠁴󠁿';
-      case 'el': return '🇬🇷';
       default: return '🇪🇸';
     }
   };
@@ -52,12 +47,6 @@ const LanguageSwitcher = () => {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => changeLanguage('en')}>
           <span className="mr-2">🇬🇧</span> English
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage('ca')}>
-          <span className="mr-2">🏴󠁥󠁳󠁣󠁴󠁿</span> Català
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage('el')}>
-          <span className="mr-2">🇬🇷</span> Ελληνικά
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

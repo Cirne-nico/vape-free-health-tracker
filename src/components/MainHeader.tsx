@@ -50,7 +50,7 @@ const MainHeader = ({
   unlockedHealthAchievements,
   onRelapse 
 }: MainHeaderProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [userName, setUserName] = useState<string>('');
   const [showPanicButton, setShowPanicButton] = useState(false);
 
@@ -64,7 +64,7 @@ const MainHeader = ({
   const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
 
   const getCriticalQuote = () => {
-    const quotes = [
+    const quotesES = [
       "El poder no es algo que se posea, sino algo que actúa. — M. Foucault",
       "La repetición nunca es meramente mecánica. — J. Butler",
       "La libertad es una lucha constante. — A. Davis",
@@ -82,9 +82,27 @@ const MainHeader = ({
       "Resistir es crear mundos alternativos. — M. Lugones"
     ];
     
-    // Usar el día para seleccionar la cita, pero con cierta rotación
-    const index = (time.days + Math.floor(time.hours / 6)) % quotes.length;
-    return quotes[index];
+    const quotesEN = [
+      "Power is not something that is possessed, but something that acts. — M. Foucault",
+      "Repetition is never merely mechanical. — J. Butler",
+      "Freedom is a constant struggle. — A. Davis",
+      "Caring for myself is not self-indulgence, it is self-preservation. — A. Lorde",
+      "The body is the first territory we must reclaim. — S. Federici",
+      "Response-ability requires cultivating the capacity to respond. — D. Haraway",
+      "The neoliberal subject exploits itself more efficiently than any external power. — B-C. Han",
+      "Power corresponds to the human ability to act in concert. — H. Arendt",
+      "My body belongs to me. This simple phrase is revolutionary. — V. Despentes",
+      "Decolonization is also a decolonization of desire. — R. Segato",
+      "Cultivating a relationship with oneself is the first ethical gesture. — L. Irigaray",
+      "Knowledge emerges from lived experience. — P. Hill Collins",
+      "Autonomy is not isolation, it is self-determination. — O. Curiel",
+      "Real freedom includes freedom from destructive dependencies. — V. Shiva",
+      "To resist is to create alternative worlds. — M. Lugones"
+    ];
+    
+    // Use the day to select the quote, but with some rotation
+    const index = (time.days + Math.floor(time.hours / 6)) % quotesES.length;
+    return i18n.language === 'en' ? quotesEN[index] : quotesES[index];
   };
 
   return (

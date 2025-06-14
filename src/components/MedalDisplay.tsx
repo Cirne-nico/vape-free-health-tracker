@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MedalModal from './medals/MedalModal';
 import { MedalIcon } from './medals/MedalIcon';
 import { MedalTooltip } from './medals/MedalTooltip';
-import { getSpecialMedals, getEpicQuestMedals } from './medals/medalUtils';
+import { getSpecialMedals, getEpicQuestMedals, getHabitMedals } from './medals/medalUtils';
 import { Achievement, HealthAchievement, Medal } from './medals/medalTypes';
 
 interface MedalDisplayProps {
@@ -21,6 +21,7 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
   // Obtener todas las medallas
   const specialMedals = getSpecialMedals(currentDays);
   const epicQuestMedals = getEpicQuestMedals();
+  const habitMedals = getHabitMedals();
   
   // Procesar medallas con tipos específicos
   const processedAchievements = unlockedAchievements.map(achievement => ({
@@ -39,7 +40,8 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
     ...processedAchievements, 
     ...processedHealthAchievements, 
     ...specialMedals,
-    ...epicQuestMedals
+    ...epicQuestMedals,
+    ...habitMedals
   ];
 
   // Agrupar medallas por tipo
@@ -47,7 +49,8 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
     vigor: allMedals.filter(m => m.type === 'vigor'),
     health: allMedals.filter(m => m.type === 'health'),
     special: allMedals.filter(m => ['victory', 'athena', 'chronos'].includes(m.type)),
-    epic: allMedals.filter(m => m.type === 'epic')
+    epic: allMedals.filter(m => m.type === 'epic'),
+    habit: allMedals.filter(m => m.type === 'habit')
   };
 
   const handleMedalClick = (medal: Medal) => {
@@ -107,6 +110,12 @@ const MedalDisplay = ({ unlockedAchievements, unlockedHealthAchievements, totalS
           title="Gestas Épicas" 
           medals={groupedMedals.epic} 
           icon="⚔️" 
+        />
+        
+        <MedalGroup 
+          title="Hábitos Científicos" 
+          medals={groupedMedals.habit} 
+          icon="⚡" 
         />
       </div>
 

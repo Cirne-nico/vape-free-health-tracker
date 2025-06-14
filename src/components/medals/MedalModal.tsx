@@ -9,6 +9,7 @@ import { VictoryMedalContent } from './VictoryMedalContent';
 import { VigorMedalContent } from './VigorMedalContent';
 import { HealthMedalContent } from './HealthMedalContent';
 import EpicMedalContent from './EpicMedalContent';
+import HabitMedalContent from './HabitMedalContent';
 import { MedalIcon } from './MedalIcon';
 import { useState } from 'react';
 
@@ -52,6 +53,10 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
 
     if (medal.type === 'epic') {
       return <EpicMedalContent medal={medal} />;
+    }
+
+    if (medal.type === 'habit') {
+      return <HabitMedalContent medal={medal} />;
     }
     
     // Para el resto de categorías
@@ -153,7 +158,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
             <Card>
               <CardContent className="p-4 sm:p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {medal.type !== 'epic' && (
+                  {medal.type !== 'epic' && medal.type !== 'habit' && (
                     <div className="flex items-center space-x-3">
                       <Calendar className="w-5 h-5 text-blue-500" />
                       <div>
@@ -163,7 +168,7 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                     </div>
                   )}
                   
-                  <div className={`flex items-center space-x-3 ${medal.type === 'epic' ? 'sm:col-span-2' : 'sm:col-span-2'}`}>
+                  <div className={`flex items-center space-x-3 ${medal.type === 'epic' || medal.type === 'habit' ? 'sm:col-span-2' : 'sm:col-span-2'}`}>
                     <TrendingUp className="w-5 h-5 text-purple-500" />
                     <div className="flex-1">
                       <p className="text-sm text-gray-600">Categoría</p>
@@ -173,7 +178,8 @@ const MedalModal = ({ selectedMedal, totalSavings, onClose }: MedalModalProps) =
                          medal.category === 'chronos' ? 'Tiempo' : 
                          medal.category === 'victory' ? 'Victoria' : 
                          medal.type === 'vigor' || (!medal.category && medal.days) ? 'Vigor' : 
-                         medal.type === 'epic' ? 'Gesta Épica' : 'Logro'}
+                         medal.type === 'epic' ? 'Gesta Épica' : 
+                         medal.type === 'habit' ? 'Hábito Científico' : 'Logro'}
                       </Badge>
                     </div>
                   </div>

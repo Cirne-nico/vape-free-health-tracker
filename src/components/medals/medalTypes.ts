@@ -65,6 +65,17 @@ export interface EpicQuestMedal {
   category: string;
 }
 
+export interface HabitMedal {
+  id: string;
+  type: 'habit';
+  title: string;
+  icon: string;
+  description: string;
+  reward: string;
+  habitType: string;
+  dateObtained: string;
+}
+
 export interface ProcessedAchievement extends Achievement {
   type: 'vigor';
 }
@@ -73,7 +84,7 @@ export interface ProcessedHealthAchievement extends HealthAchievement {
   type: 'health';
 }
 
-export type Medal = ProcessedAchievement | ProcessedHealthAchievement | SpecialMedal | AthenaMedal | ChronosMedal | EpicQuestMedal;
+export type Medal = ProcessedAchievement | ProcessedHealthAchievement | SpecialMedal | AthenaMedal | ChronosMedal | EpicQuestMedal | HabitMedal;
 
 export interface DetailedHealthInfo {
   scientificBasis: string;

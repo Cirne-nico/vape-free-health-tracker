@@ -19,6 +19,8 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
         return 'Medalla de Vigor - Dioniso';
       case 'epic':
         return 'Medalla Épica - Gesta Heroica';
+      case 'habit':
+        return 'Medalla de Hábito Científico';
       default:
         return '';
     }
@@ -36,6 +38,8 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
         return 'text-purple-600';
       case 'epic':
         return 'text-orange-600';
+      case 'habit':
+        return 'text-indigo-600';
       default:
         return '';
     }

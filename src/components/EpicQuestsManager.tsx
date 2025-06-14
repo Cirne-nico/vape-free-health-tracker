@@ -12,6 +12,12 @@ const EpicQuestsManager = () => {
 
   // Añadir check a una gesta
   const addCheck = (questId: string) => {
+    // No permitir interacción manual con la gesta ultimate
+    if (questId === 'ultimate_achievement') {
+      toast.error('Esta medalla se desbloquea automáticamente al completar todas las demás gestas');
+      return;
+    }
+    
     const updatedQuests = quests.map(quest => {
       if (quest.id === questId && quest.currentChecks < quest.requiredChecks) {
         const newChecks = quest.currentChecks + 1;
@@ -45,6 +51,12 @@ const EpicQuestsManager = () => {
 
   // Quitar check de una gesta
   const removeCheck = (questId: string) => {
+    // No permitir interacción manual con la gesta ultimate
+    if (questId === 'ultimate_achievement') {
+      toast.error('Esta medalla se gestiona automáticamente');
+      return;
+    }
+    
     const updatedQuests = quests.map(quest => {
       if (quest.id === questId && quest.currentChecks > 0) {
         return {
@@ -112,8 +124,8 @@ const EpicQuestsManager = () => {
     social: { title: 'Situaciones Sociales', icon: '👥', description: 'Interacciones con otras personas' },
     emotional: { title: 'Gestión Emocional', icon: '💭', description: 'Manejo de estados emocionales intensos' },
     substance: { title: 'Otras Sustancias', icon: '🍺', description: 'Situaciones con alcohol u otras sustancias' },
-    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y autoengaño' },
-    situational: { title: 'Contextos Específicos', icon: '📍', description: 'Lugares y momentos particulares' }
+    psychological: { title: 'Desafíos Psicológicos', icon: '🧠', description: 'Patrones de pensamiento y contextos específicos' },
+    situational: { title: 'Contextos Laborales', icon: '📍', description: 'Situaciones específicas del trabajo' }
   };
 
   const QuestGroup = ({ category, quests: categoryQuests }: { category: keyof typeof categoryInfo; quests: EpicQuest[] }) => {

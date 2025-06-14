@@ -61,7 +61,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '☕',
     category: 'situational',
     reward: 'Descansos genuinos y reparadores',
-    medalIcon: '/lovable-uploads/descanso_trabajo.png'
+    medalIcon: '/lovable-uploads/Descanso_trabajo copy.png'
   },
   {
     id: 'control_illusion',
@@ -101,7 +101,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🍻',
     category: 'substance',
     reward: 'Autocontrol en estados alterados de conciencia',
-    medalIcon: '/lovable-uploads/sexta_birra.png'
+    medalIcon: '/lovable-uploads/6a_birra.png'
   },
   {
     id: 'other_substances',
@@ -169,9 +169,9 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Disfrutar de momentos de relajación en casa sin vapear',
     requiredChecks: 3,
     icon: '🛋️',
-    category: 'situational',
+    category: 'psychological',
     reward: 'Relajación auténtica sin dependencias químicas',
-    medalIcon: '/lovable-uploads/pelimanta.png'
+    medalIcon: '/lovable-uploads/Pelimanta copy.png'
   },
   {
     id: 'writing_effort',
@@ -181,7 +181,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '✍️',
     category: 'psychological',
     reward: 'Satisfacción genuina por el trabajo intelectual',
-    medalIcon: '/lovable-uploads/escritura.png'
+    medalIcon: '/lovable-uploads/Acabas_de_escribir copy.png'
   },
   {
     id: 'ultimate_achievement',

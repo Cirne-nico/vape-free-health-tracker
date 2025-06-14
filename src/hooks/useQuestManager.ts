@@ -54,7 +54,13 @@ export const useQuestManager = () => {
                         questsWithMedals.length > 0 && 
                         allMedalQuestsCompleted;
     
+    // Condiciones para DESACTIVAR la medalla final (si alguna gesta pierde un check)
+    const shouldDeactivate = ultimateQuest && 
+                            ultimateQuest.isCompleted && 
+                            !allMedalQuestsCompleted;
+    
     console.log('Should unlock ultimate achievement:', shouldUnlock);
+    console.log('Should deactivate ultimate achievement:', shouldDeactivate);
     
     if (shouldUnlock) {
       console.log('🎉 UNLOCKING ULTIMATE ACHIEVEMENT!');
@@ -80,7 +86,31 @@ export const useQuestManager = () => {
       return finalUpdatedQuests;
     }
     
-    console.log('🏆 === ULTIMATE ACHIEVEMENT NOT UNLOCKED ===\n');
+    if (shouldDeactivate) {
+      console.log('❌ DEACTIVATING ULTIMATE ACHIEVEMENT!');
+      
+      // Desactivar automáticamente la medalla final
+      const finalUpdatedQuests = updatedQuests.map(quest => {
+        if (quest.id === 'ultimate_achievement') {
+          return {
+            ...quest,
+            currentChecks: 0,
+            isCompleted: false
+          };
+        }
+        return quest;
+      });
+      
+      toast.info('La medalla de Maestría Total se ha desactivado', {
+        description: 'Completa todas las gestas épicas para volver a desbloquearla.',
+        duration: 5000
+      });
+      
+      console.log('❌ === ULTIMATE ACHIEVEMENT DEACTIVATED ===\n');
+      return finalUpdatedQuests;
+    }
+    
+    console.log('🏆 === ULTIMATE ACHIEVEMENT STATUS UNCHANGED ===\n');
     return updatedQuests;
   };
 

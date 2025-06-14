@@ -183,6 +183,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     reward: 'Satisfacción genuina por el trabajo intelectual',
     medalIcon: '/lovable-uploads/Acabas_de_escribir copy.png'
   },
+  // ✅ MOVIDA AL FINAL: La gesta "Crack!" debe estar al final de todas las demás
   {
     id: 'ultimate_achievement',
     title: 'CRACK! - Maestría Total',

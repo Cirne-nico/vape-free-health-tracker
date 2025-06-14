@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import SetupModal from '@/components/SetupModal';
 import AchievementPopup from '@/components/AchievementPopup';
+import FirstDayAlert from '@/components/FirstDayAlert';
 import MainHeader from '@/components/MainHeader';
 import MainTabs from '@/components/MainTabs';
 import { useQuitProgress } from '@/hooks/useQuitProgress';
@@ -92,6 +93,9 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Alertas y popups */}
+      <FirstDayAlert startDate={startDate} />
+      
       <AchievementPopup 
         achievement={newAchievement}
         savings={savings.total}

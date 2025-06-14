@@ -9,7 +9,8 @@ import VirtualRewards from './VirtualRewards';
 import PredictiveAnalysis from './PredictiveAnalysis';
 import MedalsSection from './MedalsSection';
 import EpicQuestsManager from './EpicQuestsManager';
-import { Clock, Trophy, Heart, Brain, Settings, Scroll } from 'lucide-react';
+import HabitsManager from './HabitsManager';
+import { Clock, Trophy, Heart, Brain, Settings, Scroll, Zap } from 'lucide-react';
 
 interface MainTabsProps {
   startDate: Date | null;
@@ -29,7 +30,7 @@ const MainTabs = ({
   return (
     <div className="space-y-4 sm:space-y-6">
       <Tabs defaultValue="general" className="w-full">
-        <TabsList className="grid w-full grid-cols-6 bg-white shadow-sm h-14 sm:h-12">
+        <TabsList className="grid w-full grid-cols-7 bg-white shadow-sm h-14 sm:h-12">
           <TabsTrigger value="general" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="leading-tight">General</span>
@@ -49,6 +50,10 @@ const MainTabs = ({
           <TabsTrigger value="epic" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Scroll className="w-3 h-3 sm:w-4 sm:h-4" />
             <span className="leading-tight">La épica</span>
+          </TabsTrigger>
+          <TabsTrigger value="poderio" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
+            <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="leading-tight">Poderío</span>
           </TabsTrigger>
           <TabsTrigger value="settings" className="flex flex-col sm:flex-row items-center gap-0.5 sm:gap-2 p-1 sm:p-2 text-xs sm:text-sm min-h-12" style={{ fontFamily: 'Arial Narrow, Arial, sans-serif' }}>
             <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -97,6 +102,10 @@ const MainTabs = ({
 
         <TabsContent value="epic" className="mt-4 sm:mt-6">
           <EpicQuestsManager />
+        </TabsContent>
+
+        <TabsContent value="poderio" className="mt-4 sm:mt-6">
+          <HabitsManager />
         </TabsContent>
 
         <TabsContent value="settings" className="mt-4 sm:mt-6">

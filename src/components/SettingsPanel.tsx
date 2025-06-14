@@ -22,6 +22,12 @@ const SettingsPanel = () => {
   const [liquidMlPerWeek, setLiquidMlPerWeek] = useState('20');
   const [coilPrice, setCoilPrice] = useState('4');
   const [coilDays, setCoilDays] = useState('10');
+  
+  // ✅ NUEVOS ESTADOS PARA COMPONENTES ADICIONALES
+  const [batteryPrice, setBatteryPrice] = useState('');
+  const [batteryMonths, setBatteryMonths] = useState('');
+  const [devicePrice, setDevicePrice] = useState('');
+  const [deviceMonths, setDeviceMonths] = useState('');
 
   useEffect(() => {
     // Cargar configuración guardada
@@ -39,21 +45,31 @@ const SettingsPanel = () => {
     setLiquidMlPerWeek(settings.liquidMlPerWeek?.toString() || '20');
     setCoilPrice(settings.coilPrice?.toString() || '4');
     setCoilDays(settings.coilDays?.toString() || '10');
+    
+    // ✅ CARGAR COMPONENTES ADICIONALES
+    setBatteryPrice(settings.batteryPrice?.toString() || '');
+    setBatteryMonths(settings.batteryMonths?.toString() || '');
+    setDevicePrice(settings.devicePrice?.toString() || '');
+    setDeviceMonths(settings.deviceMonths?.toString() || '');
   }, []);
 
   const calculateDailyCost = () => {
+    let dailyCost = 0;
+    
     switch (vaperType) {
       case 'disposable':
         const weeklyDisposables = parseFloat(disposablesPerWeek) || 2;
         const pricePerDisposable = parseFloat(disposablePrice) || 8;
-        return (weeklyDisposables * pricePerDisposable) / 7;
+        dailyCost = (weeklyDisposables * pricePerDisposable) / 7;
+        break;
         
       case 'pod':
         const weeklyLiquid = parseFloat(liquidMlPerWeek) || 20;
         const bottleSize = parseFloat(liquidSize) || 30;
         const bottlePrice = parseFloat(liquidPrice) || 12;
         const bottlesPerWeek = weeklyLiquid / bottleSize;
-        return (bottlesPerWeek * bottlePrice) / 7;
+        dailyCost = (bottlesPerWeek * bottlePrice) / 7;
+        break;
         
       case 'mod':
         const modWeeklyLiquid = parseFloat(liquidMlPerWeek) || 20;
@@ -63,11 +79,22 @@ const SettingsPanel = () => {
         const liquidDailyCost = (modBottlesPerWeek * modBottlePrice) / 7;
         
         const coilDailyCost = (parseFloat(coilPrice) || 4) / (parseFloat(coilDays) || 10);
-        return liquidDailyCost + coilDailyCost;
+        dailyCost = liquidDailyCost + coilDailyCost;
+        break;
         
       default:
-        return 0;
+        dailyCost = 0;
     }
+    
+    // ✅ AÑADIR COMPONENTES ADICIONALES AL CÁLCULO
+    if (batteryPrice && batteryMonths) {
+      dailyCost += parseFloat(batteryPrice) / (parseFloat(batteryMonths) * 30);
+    }
+    if (devicePrice && deviceMonths) {
+      dailyCost += parseFloat(devicePrice) / (parseFloat(deviceMonths) * 30);
+    }
+    
+    return dailyCost;
   };
 
   const saveSettings = () => {
@@ -84,6 +111,13 @@ const SettingsPanel = () => {
       liquidMlPerWeek: parseFloat(liquidMlPerWeek),
       coilPrice: parseFloat(coilPrice),
       coilDays: parseFloat(coilDays),
+      
+      // ✅ GUARDAR COMPONENTES ADICIONALES
+      batteryPrice: batteryPrice ? parseFloat(batteryPrice) : undefined,
+      batteryMonths: batteryMonths ? parseFloat(batteryMonths) : undefined,
+      devicePrice: devicePrice ? parseFloat(devicePrice) : undefined,
+      deviceMonths: deviceMonths ? parseFloat(deviceMonths) : undefined,
+      
       dailyCost,
       // Mantener compatibilidad con versiones anteriores
       costPerWeek: dailyCost * 7,
@@ -333,12 +367,85 @@ const SettingsPanel = () => {
               </div>
             )}
 
+            {/* ✅ NUEVA SECCIÓN: COMPONENTES ADICIONALES */}
+            <div className="space-y-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+              <h4 className="font-medium text-yellow-800">Componentes adicionales (opcional)</h4>
+              <p className="text-sm text-yellow-700">Incluye gastos en baterías, dispositivos, etc.</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Batería */}
+                <div className="space-y-3">
+                  <h5 className="font-medium text-sm">Batería</h5>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="battery-price" className="text-xs">Precio (€)</Label>
+                      <Input
+                        id="battery-price"
+                        type="number"
+                        step="0.01"
+                        value={batteryPrice}
+                        onChange={(e) => setBatteryPrice(e.target.value)}
+                        placeholder="15.00"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="battery-months" className="text-xs">Duración (meses)</Label>
+                      <Select value={batteryMonths} onValueChange={setBatteryMonths}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Meses" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="6">6 meses</SelectItem>
+                          <SelectItem value="12">12 meses</SelectItem>
+                          <SelectItem value="18">18 meses</SelectItem>
+                          <SelectItem value="24">24 meses</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dispositivo */}
+                <div className="space-y-3">
+                  <h5 className="font-medium text-sm">Dispositivo/Mod</h5>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="device-price" className="text-xs">Precio (€)</Label>
+                      <Input
+                        id="device-price"
+                        type="number"
+                        step="0.01"
+                        value={devicePrice}
+                        onChange={(e) => setDevicePrice(e.target.value)}
+                        placeholder="50.00"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="device-months" className="text-xs">Duración (meses)</Label>
+                      <Select value={deviceMonths} onValueChange={setDeviceMonths}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Meses" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="12">12 meses</SelectItem>
+                          <SelectItem value="18">18 meses</SelectItem>
+                          <SelectItem value="24">24 meses</SelectItem>
+                          <SelectItem value="36">36 meses</SelectItem>
+                          <SelectItem value="48">48 meses</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-blue-50 p-3 rounded-lg">
               <p className="text-sm text-blue-700">
                 <strong>Costo diario estimado:</strong> {dailyCost.toFixed(2)}€
               </p>
               <p className="text-xs text-blue-600 mt-1">
-                Este valor se usa para calcular tus ahorros acumulados
+                Este valor incluye TODOS los componentes configurados y se usa para calcular tus ahorros acumulados
               </p>
             </div>
           </div>

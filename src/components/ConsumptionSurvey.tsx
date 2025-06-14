@@ -137,7 +137,7 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
         break;
     }
     
-    // Añadir costes adicionales (batería, dispositivo)
+    // ✅ CORRECCIÓN CRÍTICA: Añadir costes adicionales (batería, dispositivo)
     if (data.batteryPrice && data.batteryMonths) {
       dailyCost += data.batteryPrice / (data.batteryMonths * 30);
     }
@@ -152,13 +152,37 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
     const dailyCost = calculateCosts();
     const settings = {
       vaperType: data.vaperType,
+      
+      // Datos específicos por tipo
+      disposablePrice: data.disposablePrice,
+      disposablesPerWeek: data.disposablesPerWeek,
+      podPrice: data.podPrice,
+      podDuration: data.podDuration,
+      liquidMlPerWeek: data.liquidMlPerWeek || data.modLiquidMlPerWeek,
+      liquidPrice: data.liquidPrice || data.modLiquidPrice,
+      liquidSize: data.liquidSize || data.modLiquidSize,
+      coilPrice: data.coilPrice,
+      coilDurationDays: data.coilDurationDays,
+      makeOwnCoils: data.makeOwnCoils,
+      cottonPrice: data.cottonPrice,
+      cottonDuration: data.cottonDuration,
+      wirePrice: data.wirePrice,
+      wireDuration: data.wireDuration,
+      
+      // ✅ CORRECCIÓN: Guardar componentes adicionales
+      batteryPrice: data.batteryPrice,
+      batteryMonths: data.batteryMonths,
+      devicePrice: data.devicePrice,
+      deviceMonths: data.deviceMonths,
+      
+      // Cálculos finales
+      dailyCost: dailyCost,
       costPerWeek: dailyCost * 7,
       coilCost: data.coilPrice || 0,
       coilDays: data.coilDurationDays || 7,
       additionalDailyCost: 0,
       notifications: true,
-      notificationTime: '09:00',
-      dailyCost: dailyCost
+      notificationTime: '09:00'
     };
     
     localStorage.setItem('app-settings', JSON.stringify(settings));
@@ -653,6 +677,21 @@ const ConsumptionSurvey = ({ onComplete, onBack }: ConsumptionSurveyProps) => {
                     </div>
                   )}
                 </>
+              )}
+              
+              {/* ✅ MOSTRAR COMPONENTES ADICIONALES EN EL RESUMEN */}
+              {data.batteryPrice && data.batteryMonths && (
+                <div className="flex justify-between">
+                  <span>Batería:</span>
+                  <span>{data.batteryPrice}€ cada {data.batteryMonths} meses</span>
+                </div>
+              )}
+              
+              {data.devicePrice && data.deviceMonths && (
+                <div className="flex justify-between">
+                  <span>Dispositivo:</span>
+                  <span>{data.devicePrice}€ cada {data.deviceMonths} meses</span>
+                </div>
               )}
               
               <div className="border-t pt-2 flex justify-between font-semibold text-base">

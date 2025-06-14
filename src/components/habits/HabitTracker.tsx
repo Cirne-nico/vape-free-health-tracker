@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Calendar, CheckCircle, XCircle, Target, Trophy, Info } from 'lucide-react';
+import { Calendar, CheckCircle, Target, Trophy, Info, Plus } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 
@@ -288,20 +288,29 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
               <div className="text-xs text-gray-600">esta semana</div>
             </div>
             <div className="bg-white p-2 rounded">
-              <Button
-                size="sm"
-                variant={todayCompleted ? "default" : "outline"}
-                onClick={toggleToday}
-                className="w-full h-8"
-                disabled={isConsolidated}
-                title={isConsolidated ? "Hábito ya consolidado" : "Marcar como completado hoy"}
-              >
-                {todayCompleted ? (
-                  <CheckCircle className="w-4 h-4" />
-                ) : (
-                  <XCircle className="w-4 h-4" />
-                )}
-              </Button>
+              <div className="space-y-1">
+                <Button
+                  size="sm"
+                  variant={todayCompleted ? "default" : "outline"}
+                  onClick={toggleToday}
+                  className={`w-full h-8 ${
+                    todayCompleted 
+                      ? 'bg-green-500 hover:bg-green-600 text-white' 
+                      : 'border-green-300 text-green-700 hover:bg-green-50'
+                  }`}
+                  disabled={isConsolidated}
+                  title={isConsolidated ? "Hábito ya consolidado" : "Marcar como completado hoy"}
+                >
+                  {todayCompleted ? (
+                    <CheckCircle className="w-4 h-4" />
+                  ) : (
+                    <Plus className="w-4 h-4" />
+                  )}
+                </Button>
+                <div className="text-xs text-gray-600">
+                  {todayCompleted ? 'Hecho hoy' : 'Marcar hoy'}
+                </div>
+              </div>
             </div>
           </div>
           
@@ -353,12 +362,6 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                 </div>
               </div>
             </div>
-          )}
-          
-          {todayCompleted && !isConsolidated && (
-            <Badge className="w-full justify-center bg-green-500">
-              ✅ Completado hoy
-            </Badge>
           )}
 
           {isConsolidated && (

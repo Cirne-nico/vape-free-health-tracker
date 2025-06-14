@@ -21,7 +21,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     icon: '🎉',
     category: 'social',
     reward: 'La diversión no depende al menos de esta sustancia',
-    medalIcon: '/lovable-uploads/situación_social.png'
+    medalIcon: '/lovable-uploads/fiesta copy.png'
   },
   {
     id: 'fight_friend',

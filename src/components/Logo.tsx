@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface LogoProps {
@@ -34,11 +33,11 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
           opacity="0.8"
         />
         
-        {/* Líneas de transición con mejor contraste */}
+        {/* Líneas de transición con mejor contraste - AHORA EN PÚRPURA */}
         <g>
           <path
             d="M12 24 L20 16 L28 24 L36 16"
-            stroke="white"
+            stroke="#8B5CF6"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -47,7 +46,7 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
           />
           <path
             d="M12 28 L20 20 L28 28 L36 20"
-            stroke="white"
+            stroke="#8B5CF6"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -56,7 +55,7 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
           />
           <path
             d="M12 32 L20 24 L28 32 L36 24"
-            stroke="white"
+            stroke="#8B5CF6"
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -79,7 +78,7 @@ const Logo = ({ size = 'md', className = '' }: LogoProps) => {
           cx="24"
           cy="24"
           r="1"
-          fill="rgba(59, 130, 246, 0.6)"
+          fill="rgba(139, 92, 246, 0.6)"
         />
       </svg>
     </div>

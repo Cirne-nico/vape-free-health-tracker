@@ -25,7 +25,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'excited',
-    name: 'Emocionade',
+    name: 'Eufórique',
     category: 'positive',
     type: 'positive',
     intensity: 9,

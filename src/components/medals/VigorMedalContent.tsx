@@ -34,7 +34,7 @@ export const VigorMedalContent = ({ medal, totalSavings }: VigorMedalContentProp
     if (amount < 20) return "Tu estómago ya no está solo: puedes invitarle a un ramen decente.";
     if (amount < 40) return "Por este precio te montas una cenita digna.";
     if (amount < 70) return "Un masaje, una peli buena, o diez tés con alguien interesante.";
-    if (amount < 80) return "Valora pillarte un día libre en el curro.";
+    if (amount >= 90 && amount <= 100) return "Píllate un día libre en el curro.";
     if (amount < 100) return "Bienvenido al club de la gente que paga el alquiler y además respira.";
     if (amount < 150) return "Este pulmón ya merece una escapada de finde.";
     if (amount < 200) return "Ya no solo has dejado de vapear. También podrías dejar de compartir piso.";

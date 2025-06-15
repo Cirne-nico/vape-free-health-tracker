@@ -102,7 +102,7 @@ const EmotionSelector = ({ selectedEmotions, onEmotionToggle, onSave, todayLog }
         </div>
 
         <p className="text-sm text-gray-500">
-          {t('emotionLogger.selectLimit', 'Selecciona hasta 3 emociones que mejor describan cómo te has sentido a lo largo del día')}
+          {t('emotionLogger.selectLimit')}
         </p>
       </CardContent>
     </Card>

@@ -92,12 +92,12 @@ export const useQuitProgress = (startDate: Date | null) => {
     const totalDays = days + (hours / 24); // Incluir las horas para una transición más suave
     
     // Reducir el blur gradualmente a medida que pasan los días
-    // CORREGIDO: Ahora llega a 0 al año (365 días) en lugar de a los 2 años
+    // Llega a 0 al año (365 días)
     if (totalDays <= 90) {
       // De 8px a 4px en los primeros 90 días
       return 8 - ((totalDays / 90) * 4);
     } else if (totalDays <= 365) {
-      // De 4px a 0px entre 90 días y 1 año (antes era 2 años)
+      // De 4px a 0px entre 90 días y 1 año
       const daysAfter90 = totalDays - 90;
       const daysTo1Year = 365 - 90;
       return Math.max(0, 4 - ((daysAfter90 / daysTo1Year) * 4)); // Asegurar que no sea negativo

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTranslation } from 'react-i18next';
 import contenidosData from '@/data/contenidos.json';
@@ -170,8 +171,10 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
         "I'm not 'cured'. I'm transitioning to emotional maintenance.",
       "No estoy 'curade'. Estoy en mantenimiento activo permanente.": 
         "I'm not 'cured'. I'm in permanent active maintenance.",
-      "Si esto es el fin, que venga alguien a aplaudir. Yo voy a hacerme una tostada.": 
-        "If this is the end, let someone come and applaud. I'm going to make myself some toast.",
+      "Si esto es estar curade, vaya m*.": 
+        "If this is being cured, it sucks.",
+      "No estoy curade, estoy reequilibrando mi sistema emocional. Jode, pero ten paciencia: se pasa y mejora.": 
+        "I'm not cured, I'm rebalancing my emotional system. It sucks, but be patient: it passes and improves.",
       "No es mejora. Es funcionamiento óptimo recuperado.": 
         "It's not improvement. It's recovered optimal functioning.",
       "No soy ex-vaper. Soy alguien que una vez vapeo y eligió dejar de hacerlo.": 

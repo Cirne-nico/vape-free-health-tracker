@@ -16,7 +16,7 @@ const QuestStats = ({ quests }: QuestStatsProps) => {
   const completedQuestsWithMedals = quests.filter(q => q.isCompleted && q.medalIcon).length;
 
   // Calcular cuántas categorías tienen todas sus gestas completadas
-  const categories = ['social', 'emotional', 'substance', 'psychological'];
+  const categories = ['social', 'emotional', 'substance', 'psychological', 'situational'];
   const categoriesCompleted = categories.filter(category => {
     const categoryQuests = quests.filter(q => q.category === category);
     return categoryQuests.length > 0 && categoryQuests.every(q => q.isCompleted);

@@ -5,6 +5,7 @@ import { Trophy, Medal, Crown, Trash2 } from 'lucide-react';
 import { EpicQuest } from '@/data/epicQuests';
 import QuestProgress from './QuestProgress';
 import QuestReward from './QuestReward';
+import { useTranslation } from 'react-i18next';
 
 interface QuestCardProps {
   quest: EpicQuest;
@@ -14,6 +15,8 @@ interface QuestCardProps {
 }
 
 const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCardProps) => {
+  const { t } = useTranslation();
+  
   // La gesta ultimate_achievement no debe permitir interacción manual
   const isUltimateQuest = quest.id === 'ultimate_achievement';
   
@@ -40,12 +43,12 @@ const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCar
               <div className="flex flex-wrap gap-1 mt-1">
                 {quest.isCustom && (
                   <Badge variant="outline" className="text-xs">
-                    Personalizada
+                    {t('epicQuests.questCard.custom')}
                   </Badge>
                 )}
                 {isUltimateQuest && (
                   <Badge className="bg-purple-500 text-white text-xs">
-                    Automática
+                    {t('epicQuests.questCard.automatic')}
                   </Badge>
                 )}
               </div>
@@ -62,7 +65,7 @@ const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCar
               title="Esta gesta no me representa - Eliminar"
             >
               <Trash2 className="w-3 h-3" />
-              <span className="text-xs hidden sm:inline">No me representa</span>
+              <span className="text-xs hidden sm:inline">{t('epicQuests.questCard.notRepresent')}</span>
             </Button>
           )}
         </div>
@@ -82,13 +85,13 @@ const QuestCard = ({ quest, onAddCheck, onRemoveCheck, onDeleteQuest }: QuestCar
             <div className="bg-purple-100 p-3 rounded-lg border border-purple-200">
               <p className="text-sm text-purple-800 text-center">
                 <Crown className="w-4 h-4 inline mr-1" />
-                <strong>Medalla Automática:</strong> Se desbloquea cuando completes todas las demás gestas épicas con medalla.
+                <strong>{t('epicQuests.questCard.ultimateDescription')}</strong>
               </p>
             </div>
             
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">
-                Estado: {quest.isCompleted ? 'Desbloqueada' : 'Bloqueada'}
+                {t('epicQuests.questCard.status')} {quest.isCompleted ? t('epicQuests.questCard.unlocked') : t('epicQuests.questCard.locked')}
               </span>
               <div className="flex gap-1">
                 {quest.isCompleted ? (

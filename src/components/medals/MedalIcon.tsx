@@ -13,8 +13,6 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
 
   // Ensure medal.icon is always a string to prevent undefined errors
   const safeMedalIcon = typeof medal.icon === 'string' ? medal.icon : '';
-
-  console.log('Rendering medal icon for:', medal.title, 'type:', medal.type, 'icon:', safeMedalIcon);
   
   const getBackgroundStyle = () => {
     switch (medal.type) {
@@ -30,6 +28,8 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
         return 'bg-blue-100/80 border-blue-300';
       case 'epic':
         return 'bg-gradient-to-br from-orange-100/80 to-red-100/80 border-orange-300';
+      case 'habit':
+        return 'bg-purple-100/80 border-purple-300';
       default:
         return 'bg-white/20 border-white/30';
     }
@@ -87,6 +87,11 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           ...baseStyle,
           backgroundImage: 'linear-gradient(145deg, #FED7AA 0%, #FB923C 30%, #EA580C  60%, #C2410C 100%)',
         };
+      case 'habit':
+        return {
+          ...baseStyle,
+          backgroundImage: 'linear-gradient(145deg, #C4B5FD 0%, #8B5CF6 30%, #6D28D9  60%, #4C1D95 100%)',
+        };
       default:
         return {
           ...baseStyle,
@@ -96,12 +101,10 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
   };
 
   const handleImageError = () => {
-    console.log('Image error for medal:', medal.title, 'icon:', safeMedalIcon);
     setImageError(true);
   };
 
   const handleImageLoad = () => {
-    console.log('Image loaded for medal:', medal.title, 'icon:', safeMedalIcon);
     setImageLoaded(true);
   };
 
@@ -109,7 +112,6 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
   const renderMedalContent = () => {
     // PRIORIDAD 1: Si el icono es una ruta de imagen válida y no ha fallado
     if (safeMedalIcon && safeMedalIcon.startsWith('/') && !imageError) {
-      console.log('Rendering image for medal:', medal.title, 'icon:', safeMedalIcon);
       return (
         <div className="relative w-12 h-12">
           <img 
@@ -138,7 +140,6 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
     }
 
     // PRIORIDAD 2: Fallback con emoji o icono de texto
-    console.log('Using fallback for medal:', medal.title, 'imageError:', imageError);
     
     // Para medallas específicas, usar iconos por defecto
     let fallbackIcon = safeMedalIcon;
@@ -163,6 +164,9 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           break;
         case 'epic':
           fallbackIcon = '⚔️';
+          break;
+        case 'habit':
+          fallbackIcon = '⚡';
           break;
         default:
           fallbackIcon = '🏆';
@@ -228,6 +232,13 @@ export const MedalIcon = ({ medal, onClick, isEnlarged = false }: MedalIconProps
           {medal.type === 'epic' && (
             <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-orange-300 shadow-sm">
               <span className="text-xs">🏆</span>
+            </div>
+          )}
+
+          {/* Ícono para medallas de hábitos */}
+          {medal.type === 'habit' && (
+            <div className="absolute -bottom-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center border border-purple-300 shadow-sm">
+              <span className="text-xs">⚡</span>
             </div>
           )}
         </>

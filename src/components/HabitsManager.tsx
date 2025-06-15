@@ -51,13 +51,7 @@ const HabitsManager = () => {
   };
 
   const getCategoryName = (category: string) => {
-    switch (category) {
-      case 'physical': return t('habitsManager.categories.physical', 'Physical');
-      case 'mental': return t('habitsManager.categories.mental', 'Mental');
-      case 'social': return t('habitsManager.categories.social', 'Social');
-      case 'behavioral': return t('habitsManager.categories.behavioral', 'Behavioral');
-      default: return t('habitsManager.categories.general', 'General');
-    }
+    return t(`habitsManager.categories.${category}`, category);
   };
 
   const groupedHabits = habits.reduce((acc, habit) => {
@@ -80,7 +74,7 @@ const HabitsManager = () => {
                 <div className="space-y-2">
                   <p className="font-semibold">{t('habitsManager.tooltip.title')}</p>
                   <p className="text-sm">{t('habitsManager.tooltip.description')}</p>
-                  <p className="font-semibold">{t('habitsManager.effectiveness', 'Effectiveness:')}</p>
+                  <p className="font-semibold">{t('habitsManager.effectiveness')}</p>
                   <p className="text-sm">{t('habitsManager.tooltip.effectiveness')}</p>
                 </div>
               }

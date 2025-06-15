@@ -221,11 +221,11 @@ export const debugEpicMedals = () => {
     const quests = JSON.parse(savedQuests);
     console.log('Parsed quests:', quests);
     
-    // Actualizar gestas con medallas faltantes - RUTAS CORREGIDAS DEFINITIVAMENTE
+    // Actualizar gestas con medallas faltantes
     const updatedQuests = quests.map((quest: any) => {
       let updated = { ...quest };
       
-      // Asignar medallas faltantes con rutas corregidas FINALES
+      // Asignar medallas faltantes con rutas corregidas
       if (!quest.medalIcon) {
         switch (quest.id) {
           case 'with_coffee':

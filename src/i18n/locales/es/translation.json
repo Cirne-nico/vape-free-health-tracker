@@ -44,7 +44,69 @@
   "medals": {
     "title": "Medallas Obtenidas",
     "hide": "Ocultar",
-    "show": "Ver medallas"
+    "show": "Ver medallas",
+    "types": {
+      "victory": "Medalla de Victoria - Nike",
+      "athena": "Medalla de Sabiduría - Atenea",
+      "chronos": "Medalla de Tiempo - Cronos",
+      "health": "Medalla de Salud - Higiea",
+      "vigor": "Medalla de Vigor - Dioniso",
+      "epic": "Medalla Épica - Gesta Heroica",
+      "habit": "Medalla de Hábito Científico"
+    },
+    "habitTypes": {
+      "exercise": {
+        "title": "Ejercicio Diario",
+        "description": "Actividad física como herramienta anti-antojo",
+        "benefits": {
+          "1": "Libera endorfinas naturales que reducen antojos",
+          "2": "Acelera la recuperación de vías respiratorias",
+          "3": "Mejora el estado de ánimo y reduce el estrés",
+          "4": "Fortalece la disciplina y autocontrol"
+        },
+        "scientificBasis": "Taylor et al., 2007 - Ejercicio reduce antojos de nicotina al liberar endorfinas"
+      },
+      "sleep": {
+        "title": "Horario Estricto de Sueño",
+        "description": "Rutina de sueño para control de impulsos",
+        "benefits": {
+          "1": "Mejora significativamente el control de impulsos",
+          "2": "Reduce las probabilidades de recaída",
+          "3": "Rompe el hábito de vapear en la cama",
+          "4": "Optimiza la recuperación neurológica nocturna"
+        },
+        "scientificBasis": "Jaehne et al., 2009 - Sueño regular mejora control de impulsos y reduce recaídas"
+      },
+      "social": {
+        "title": "Compromiso Social Semanal",
+        "description": "Red de apoyo para accountability",
+        "benefits": {
+          "1": "Aumenta el éxito en un 50% vs intentos solitarios",
+          "2": "Combate el aislamiento típico del vapeo",
+          "3": "Proporciona accountability y motivación externa",
+          "4": "Fortalece vínculos sociales saludables"
+        },
+        "scientificBasis": "Stead et al., 2017 - Apoyo social aumenta éxito en cesación de nicotina"
+      },
+      "default": {
+        "title": "Hábito Científico",
+        "description": "Rutina validada para superar abstinencia",
+        "benefits": "Hábito consolidado permanentemente",
+        "scientificBasis": "Validado científicamente para cesación de nicotina"
+      }
+    },
+    "habitConsolidated": "Hábito Científico Consolidado",
+    "masteryAchieved": "Maestría Alcanzada",
+    "achievementReached": "Logro Alcanzado",
+    "consolidationCriteria": "Criterio de Consolidación",
+    "consolidationDescription": "4 semanas consecutivas con 5+ días completados O 6 semanas con 4+ días completados",
+    "scientificBenefits": "🔬 Beneficios Científicos",
+    "scientificBasis": "Base científica",
+    "permanentConsolidation": "🏆 Consolidación Permanente",
+    "whatIsConsolidated": "¿Qué significa \"consolidado\"?",
+    "consolidationExplanation": "Has demostrado consistencia suficiente para que este hábito se convierta en parte permanente de tu rutina anti-antojo.",
+    "neuroplasticityExplanation": "La neuroplasticidad ha creado nuevos circuitos neuronales que hacen este comportamiento automático y natural, proporcionándote una herramienta permanente contra los antojos.",
+    "neurologicalArsenal": "🧠 Este hábito ahora forma parte de tu \"arsenal neurológico\" permanente contra la adicción"
   },
   "emotionLogger": {
     "title": "¿Cómo te sientes hoy?",
@@ -241,7 +303,7 @@
         "description": "Manejo de estados emocionales intensos"
       },
       "substance": {
-        "title": "Otras Sustancias",
+        "title": "Sustancias",
         "description": "Situaciones con alcohol u otras sustancias"
       },
       "psychological": {
@@ -524,7 +586,7 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar recaída",
     "relapseProcessed": "Recaída procesada",
-    "processed": "Tu recaída ha sido procesada. Recuerda que cada tropiezo es una oportunidad para aprender.",
+    "processed": "Recuerda que cada tropiezo es una oportunidad para aprender.",
     "continue": "Continuar"
   }
 }

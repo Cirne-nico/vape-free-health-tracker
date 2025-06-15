@@ -44,7 +44,69 @@
   "medals": {
     "title": "Medals Earned",
     "hide": "Hide",
-    "show": "View medals"
+    "show": "View medals",
+    "types": {
+      "victory": "Victory Medal - Nike",
+      "athena": "Wisdom Medal - Athena",
+      "chronos": "Time Medal - Chronos",
+      "health": "Health Medal - Hygieia",
+      "vigor": "Vigor Medal - Dionysus",
+      "epic": "Epic Medal - Heroic Feat",
+      "habit": "Scientific Habit Medal"
+    },
+    "habitTypes": {
+      "exercise": {
+        "title": "Daily Exercise",
+        "description": "Physical activity as an anti-craving tool",
+        "benefits": {
+          "1": "Releases natural endorphins that reduce cravings",
+          "2": "Accelerates respiratory tract recovery",
+          "3": "Improves mood and reduces stress",
+          "4": "Strengthens discipline and self-control"
+        },
+        "scientificBasis": "Taylor et al., 2007 - Exercise reduces nicotine cravings by releasing endorphins"
+      },
+      "sleep": {
+        "title": "Strict Sleep Schedule",
+        "description": "Sleep routine for impulse control",
+        "benefits": {
+          "1": "Significantly improves impulse control",
+          "2": "Reduces chances of relapse",
+          "3": "Breaks the habit of vaping in bed",
+          "4": "Optimizes nighttime neurological recovery"
+        },
+        "scientificBasis": "Jaehne et al., 2009 - Regular sleep improves impulse control and reduces relapses"
+      },
+      "social": {
+        "title": "Weekly Social Commitment",
+        "description": "Support network for accountability",
+        "benefits": {
+          "1": "Increases success by 50% vs. solitary attempts",
+          "2": "Combats the isolation typical of vaping",
+          "3": "Provides accountability and external motivation",
+          "4": "Strengthens healthy social bonds"
+        },
+        "scientificBasis": "Stead et al., 2017 - Social support increases success in nicotine cessation"
+      },
+      "default": {
+        "title": "Scientific Habit",
+        "description": "Validated routine to overcome withdrawal",
+        "benefits": "Permanently consolidated habit",
+        "scientificBasis": "Scientifically validated for nicotine cessation"
+      }
+    },
+    "habitConsolidated": "Scientific Habit Consolidated",
+    "masteryAchieved": "Mastery Achieved",
+    "achievementReached": "Achievement Reached",
+    "consolidationCriteria": "Consolidation Criteria",
+    "consolidationDescription": "4 consecutive weeks with 5+ days completed OR 6 weeks with 4+ days completed",
+    "scientificBenefits": "🔬 Scientific Benefits",
+    "scientificBasis": "Scientific basis",
+    "permanentConsolidation": "🏆 Permanent Consolidation",
+    "whatIsConsolidated": "What does \"consolidated\" mean?",
+    "consolidationExplanation": "You have demonstrated sufficient consistency for this habit to become a permanent part of your anti-craving routine.",
+    "neuroplasticityExplanation": "Neuroplasticity has created new neural circuits that make this behavior automatic and natural, providing you with a permanent tool against cravings.",
+    "neurologicalArsenal": "🧠 This habit is now part of your permanent \"neurological arsenal\" against addiction"
   },
   "emotionLogger": {
     "title": "How do you feel today?",
@@ -524,7 +586,7 @@
     "cancel": "Cancel",
     "confirm": "Confirm relapse",
     "relapseProcessed": "Relapse processed",
-    "processed": "Your relapse has been processed. Remember that each stumble is an opportunity to learn.",
+    "processed": "Remember that each stumble is an opportunity to learn.",
     "continue": "Continue"
   }
 }

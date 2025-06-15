@@ -1,5 +1,6 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Medal } from './medalTypes';
+import { useTranslation } from 'react-i18next';
 
 interface MedalTooltipProps {
   medal: Medal;
@@ -7,20 +8,24 @@ interface MedalTooltipProps {
 }
 
 export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
+  const { t } = useTranslation();
+  
   const getMedalTypeLabel = () => {
     switch (medal.type) {
       case 'victory':
-        return 'Medalla de Victoria - Nike';
+        return t('medals.types.victory', 'Medalla de Victoria - Nike');
       case 'athena':
-        return 'Medalla de Sabiduría - Atenea';
+        return t('medals.types.athena', 'Medalla de Sabiduría - Atenea');
+      case 'chronos':
+        return t('medals.types.chronos', 'Medalla de Tiempo - Cronos');
       case 'health':
-        return 'Medalla de Salud - Higiea';
+        return t('medals.types.health', 'Medalla de Salud - Higiea');
       case 'vigor':
-        return 'Medalla de Vigor - Dioniso';
+        return t('medals.types.vigor', 'Medalla de Vigor - Dioniso');
       case 'epic':
-        return 'Medalla Épica - Gesta Heroica';
+        return t('medals.types.epic', 'Medalla Épica - Gesta Heroica');
       case 'habit':
-        return 'Medalla de Hábito Científico';
+        return t('medals.types.habit', 'Medalla de Hábito Científico');
       default:
         return '';
     }
@@ -32,10 +37,12 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
         return 'text-yellow-600';
       case 'athena':
         return 'text-amber-600';
+      case 'chronos':
+        return 'text-orange-600';
       case 'health':
         return 'text-green-600';
       case 'vigor':
-        return 'text-purple-600';
+        return 'text-blue-600';
       case 'epic':
         return 'text-orange-600';
       case 'habit':

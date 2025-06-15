@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
-import { healthCategories, HealthCategoryKey } from './HealthCategories';
+import { useHealthCategories, HealthCategoryKey } from './HealthCategories';
 import { useHealthData } from '@/hooks/useHealthData';
 import { useTranslation } from 'react-i18next';
 import HealthProgressCard from './health/HealthProgressCard';
@@ -15,6 +15,7 @@ interface HealthTrackerProps {
 const HealthTracker = ({ startDate }: HealthTrackerProps) => {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState<HealthCategoryKey>('respiratory');
+  const healthCategories = useHealthCategories();
 
   const daysSince = useMemo(() => {
     if (!startDate) return 0;
@@ -50,7 +51,7 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
           {Object.entries(healthCategories).map(([key, cat]) => (
             <TabsTrigger key={key} value={key} className="text-xs">
               <span className="mr-1">{cat.icon}</span>
-              <span className="hidden sm:inline">{t(`healthTracker.categories.${key}.title`)}</span>
+              <span className="hidden sm:inline">{cat.title}</span>
             </TabsTrigger>
           ))}
         </TabsList>
@@ -68,7 +69,7 @@ const HealthTracker = ({ startDate }: HealthTrackerProps) => {
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <span className="text-xl">{healthCategories[categoryKey].icon}</span>
-                      {t(`healthTracker.categories.${categoryKey}.title`)}
+                      {healthCategories[categoryKey].title}
                       <TooltipHelper
                         content={
                           <div className="space-y-2">

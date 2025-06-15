@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import { HealthCategoryKey, healthCategories } from '@/components/HealthCategories';
+import { HealthCategoryKey, useHealthCategories } from '@/components/HealthCategories';
 import { useTranslation } from 'react-i18next';
 
 interface HealthChartCardProps {
@@ -11,6 +11,7 @@ interface HealthChartCardProps {
 
 const HealthChartCard = ({ category, chartData, daysSince }: HealthChartCardProps) => {
   const { t } = useTranslation();
+  const healthCategories = useHealthCategories();
   const categoryData = healthCategories[category];
 
   return (

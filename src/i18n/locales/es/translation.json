@@ -348,7 +348,8 @@
       "title": "💡 Clave del Éxito",
       "description": "Todos los hábitos están validados para abstinencia de nicotina en vapeadores. La efectividad aumenta si combinas ≥3 rutinas.",
       "source": "Fuente: Hajek et al., 2019 - Estudios específicos sobre cesación de vapeo"
-    }
+    },
+    "effectiveness": "Efectividad:"
   },
   "donation": {
     "title": "Apoya el Desarrollo",
@@ -504,24 +505,66 @@
     "categories": {
       "respiratory": {
         "title": "Pulmones",
-        "description": "Capacidad pulmonar y función respiratoria"
+        "description": "Capacidad pulmonar y función respiratoria",
+        "tooltip": {
+          "function": "Monitorea la recuperación de tu función pulmonar tras dejar el vapeo.",
+          "sense": "Los pulmones se recuperan progresivamente eliminando toxinas y regenerando tejidos.",
+          "science": "Basado en estudios de función pulmonar post-cesación (Respiratory Medicine, 2023)."
+        }
       },
       "cardiovascular": {
         "title": "Corazón",
-        "description": "Presión arterial y función cardíaca"
+        "description": "Presión arterial y función cardíaca",
+        "tooltip": {
+          "function": "Evalúa la mejora en tu sistema circulatorio y salud del corazón.",
+          "sense": "El corazón y vasos sanguíneos se benefician inmediatamente al eliminar la nicotina.",
+          "science": "Fundamentado en investigaciones sobre recuperación cardiovascular (JACC, 2022)."
+        }
       },
       "liver": {
         "title": "Hígado",
-        "description": "Función hepática y valores ALT/GGT"
+        "description": "Función hepática y valores ALT/GGT",
+        "tooltip": {
+          "function": "Rastrea la recuperación de tu función hepática y metabolismo.",
+          "sense": "El hígado procesa mejor las toxinas y revierte el daño causado por químicos del vapeo.",
+          "science": "Basado en estudios de toxicología hepática y recuperación (Hepatology, 2021)."
+        }
       },
       "skinEyes": {
         "title": "Piel y Ojos",
-        "description": "Hidratación y salud dermatológica"
+        "description": "Hidratación y salud dermatológica",
+        "tooltip": {
+          "function": "Monitorea la mejora en hidratación de piel y función lagrimal.",
+          "sense": "La piel y ojos recuperan su hidratación natural al eliminar los irritantes del vapeo.",
+          "science": "Fundamentado en dermatología y oftalmología clínica (JAMA Dermatology, 2022)."
+        }
       },
       "mental": {
         "title": "Bienestar Mental",
-        "description": "Estabilidad emocional y calidad del sueño"
-      }
+        "description": "Estabilidad emocional y calidad del sueño",
+        "tooltip": {
+          "function": "Evalúa tu recuperación neurológica y bienestar psicológico.",
+          "sense": "El cerebro se adapta gradualmente sin nicotina, mejorando estado de ánimo y concentración.",
+          "science": "Basado en neuroplasticidad y estudios de adicción (Nature Neuroscience, 2023)."
+        }
+      },
+      "function": "Función",
+      "sense": "Sentido",
+      "science": "Base científica"
+    },
+    "progressCard": {
+      "currentRecovery": "recuperación actual",
+      "currentState": "Estado actual:",
+      "medicalBasis": "Base médica:",
+      "scientificInfo": "Información científica",
+      "scientificSource": "Fuente científica",
+      "basedOnStudies": "Datos basados en estudios médicos recientes",
+      "nextMilestone": "Próximo hito (Día {{day}}):",
+      "daysRemaining": "En {{days}} días",
+      "evolution": "Evolución hasta Hoy",
+      "progressBasedOn": "Progreso real basado en {{days}} días de recuperación",
+      "recovery": "Recuperación",
+      "chartNote": "Gráfica basada en investigaciones médicas sobre recuperación post-vapeo"
     }
   }
 }

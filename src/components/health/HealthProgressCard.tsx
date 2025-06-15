@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
-import { HealthCategoryKey, healthCategories } from '@/components/HealthCategories';
+import { HealthCategoryKey, useHealthCategories } from '@/components/HealthCategories';
 import { scientificReferences } from '@/data/healthRecovery';
 import { useTranslation } from 'react-i18next';
 
@@ -23,6 +23,7 @@ interface HealthProgressCardProps {
 
 const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }: HealthProgressCardProps) => {
   const { t } = useTranslation();
+  const healthCategories = useHealthCategories();
   const categoryData = healthCategories[category];
   const reference = scientificReferences[category];
 
@@ -44,7 +45,7 @@ const HealthProgressCard = ({ category, currentData, nextMilestone, daysSince }:
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span className="text-2xl">{categoryData.icon}</span>
-          {t(`healthTracker.categories.${category}.title`)}
+          {categoryData.title}
         </CardTitle>
         <p className="text-sm text-gray-600">{categoryData.description}</p>
       </CardHeader>

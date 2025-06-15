@@ -122,6 +122,7 @@ const EpicQuestsManager = () => {
     emotional: filteredQuests.filter(q => q.category === 'emotional'),
     substance: filteredQuests.filter(q => q.category === 'substance'),
     psychological: filteredQuests.filter(q => q.category === 'psychological'),
+    situational: filteredQuests.filter(q => q.category === 'situational'),
     ultimate: filteredQuests.filter(q => q.category === 'ultimate')
   };
 
@@ -145,6 +146,11 @@ const EpicQuestsManager = () => {
       title: t('epicQuests.categories.psychological.title'), 
       icon: '🧠', 
       description: t('epicQuests.categories.psychological.description') 
+    },
+    situational: { 
+      title: t('epicQuests.categories.situational.title'), 
+      icon: '📍', 
+      description: t('epicQuests.categories.situational.description') 
     },
     ultimate: { 
       title: t('epicQuests.categories.ultimate.title'), 
@@ -228,6 +234,14 @@ const EpicQuestsManager = () => {
           category="psychological" 
           quests={groupedQuests.psychological}
           categoryInfo={categoryInfo.psychological}
+          onAddCheck={addCheck}
+          onRemoveCheck={removeCheck}
+          onDeleteQuest={deleteQuest}
+        />
+        <CollapsibleQuestGroup 
+          category="situational" 
+          quests={groupedQuests.situational}
+          categoryInfo={categoryInfo.situational}
           onAddCheck={addCheck}
           onRemoveCheck={removeCheck}
           onDeleteQuest={deleteQuest}

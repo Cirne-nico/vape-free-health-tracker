@@ -5,7 +5,7 @@ export interface EpicQuest {
   requiredChecks: number;
   currentChecks: number;
   icon: string;
-  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational';
+  category: 'social' | 'emotional' | 'substance' | 'psychological' | 'situational' | 'ultimate';
   isCustom?: boolean;
   isCompleted: boolean;
   reward?: string;
@@ -49,7 +49,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Manejar presión, plazos o conflictos en el trabajo sin vapear',
     requiredChecks: 3,
     icon: '💼',
-    category: 'situational',
+    category: 'psychological',
     reward: 'Herramientas de gestión del estrés profesional',
     medalIcon: '/lovable-uploads/Estres_laboral.png'
   },
@@ -59,7 +59,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Disfrutar de los descansos laborales sin necesidad de vapear',
     requiredChecks: 3,
     icon: '☕',
-    category: 'situational',
+    category: 'psychological',
     reward: 'Descansos genuinamente restauradores',
     medalIcon: '/lovable-uploads/Descanso_trabajo copy.png'
   },
@@ -169,7 +169,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Disfrutar de momentos de relajación en casa sin vapear',
     requiredChecks: 3,
     icon: '🛋️',
-    category: 'situational',
+    category: 'psychological',
     reward: 'Relajación auténtica sin dependencias químicas',
     medalIcon: '/lovable-uploads/Pelimanta copy.png'
   },
@@ -189,7 +189,7 @@ export const defaultEpicQuests: Omit<EpicQuest, 'currentChecks' | 'isCompleted'>
     description: 'Has completado TODAS las gestas épicas disponibles. Eres un verdadero maestro de la recuperación.',
     requiredChecks: 1,
     icon: '💥',
-    category: 'psychological',
+    category: 'ultimate',
     reward: 'Reconocimiento como maestro absoluto de la recuperación. Has demostrado que puedes superar cualquier situación sin vapear.',
     medalIcon: '/lovable-uploads/Crack.png'
   }
@@ -208,6 +208,7 @@ export const getCategoryColor = (category: EpicQuest['category']) => {
     case 'substance': return 'bg-orange-100 text-orange-800 border-orange-300';
     case 'psychological': return 'bg-purple-100 text-purple-800 border-purple-300';
     case 'situational': return 'bg-green-100 text-green-800 border-green-300';
+    case 'ultimate': return 'bg-yellow-100 text-yellow-800 border-yellow-300';
     default: return 'bg-gray-100 text-gray-800 border-gray-300';
   }
 };
@@ -219,6 +220,7 @@ export const getCategoryName = (category: EpicQuest['category']) => {
     case 'substance': return 'Sustancias';
     case 'psychological': return 'Psicológico';
     case 'situational': return 'Situacional';
+    case 'ultimate': return 'Maestría Total';
     default: return 'General';
   }
 };

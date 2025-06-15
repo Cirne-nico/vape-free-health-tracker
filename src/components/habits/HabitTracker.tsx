@@ -314,7 +314,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
           )}
           <TooltipHelper
             content={
-              <div className="space-y-2">
+              <div className="space-y-2 max-w-[250px]">
                 <p className="font-semibold">{t('habitsManager.habitTracker.tooltip.title')}</p>
                 <p className="text-sm">{t('habitsManager.habitTracker.tooltip.description')}</p>
                 <p className="font-semibold">{t('habitsManager.habitTracker.tooltip.consolidation.title')}</p>

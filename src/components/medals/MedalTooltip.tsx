@@ -59,7 +59,7 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
           {children}
         </div>
       </TooltipTrigger>
-      <TooltipContent side="top" className="max-w-xs p-3">
+      <TooltipContent side="top" align="center" className="max-w-[200px] text-xs p-2">
         <div className="space-y-1">
           <p className="font-medium text-sm">{medal.title}</p>
           <p className="text-xs text-muted-foreground leading-relaxed">{medal.description}</p>

@@ -34,11 +34,13 @@ export function MobileTooltipDialog({ children, content, className }: MobileTool
           {children}
         </div>
       </DialogTrigger>
-      <DialogContent className={cn("p-4 max-w-[90vw] w-auto", className)}>
+      <DialogContent className={cn("p-4 max-w-[90vw] max-h-[80vh] overflow-y-auto w-auto", className)}>
         <DialogHeader className="sr-only">
           <DialogTitle>Tooltip Information</DialogTitle>
         </DialogHeader>
-        {content}
+        <div className="text-sm">
+          {content}
+        </div>
       </DialogContent>
     </Dialog>
   )

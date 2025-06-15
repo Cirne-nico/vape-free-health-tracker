@@ -254,7 +254,7 @@ const MainHeader = ({
           <div className="flex justify-center gap-3">
             <TooltipHelper
               content={
-                <div className="space-y-1">
+                <div className="space-y-1 max-w-[250px]">
                   <p className="font-semibold">{t('app.tooltips.panic.title')}</p>
                   <p>{t('app.tooltips.panic.description')}</p>
                   <p>{t('app.tooltips.panic.steps')}</p>
@@ -273,7 +273,7 @@ const MainHeader = ({
 
             <TooltipHelper
               content={
-                <div className="space-y-1">
+                <div className="space-y-1 max-w-[250px]">
                   <p className="font-semibold">{t('app.tooltips.relapse.title')}</p>
                   <p>{t('app.tooltips.relapse.first')}</p>
                   <p>{t('app.tooltips.relapse.second')}</p>

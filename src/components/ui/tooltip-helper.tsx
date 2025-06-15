@@ -40,7 +40,7 @@ export function TooltipHelper({
         <TooltipTrigger asChild>
           {children || icon}
         </TooltipTrigger>
-        <TooltipContent className={className}>
+        <TooltipContent side="top" align="center" className={cn("max-w-[260px] text-xs", className)}>
           {content}
         </TooltipContent>
       </Tooltip>

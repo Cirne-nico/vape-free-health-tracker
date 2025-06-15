@@ -286,7 +286,8 @@
       "create": "Crear Hazaña",
       "cancel": "Cancelar"
     },
-    "noFeatsConfigured": "No tienes hazañas configuradas"
+    "noFeatsConfigured": "No tienes hazañas configuradas",
+    "completed": "Completada"
   },
   "habitsManager": {
     "title": "⚡ Poderío - Hábitos Científicos",
@@ -498,5 +499,29 @@
     "reminder": "🔔 Recordatorio:",
     "intrusiveThought": "💭 Gestión de pensamientos intrusivos:",
     "counterResponse": "💪 Contrarréplica:"
+  },
+  "healthTracker": {
+    "categories": {
+      "respiratory": {
+        "title": "Pulmones",
+        "description": "Capacidad pulmonar y función respiratoria"
+      },
+      "cardiovascular": {
+        "title": "Corazón",
+        "description": "Presión arterial y función cardíaca"
+      },
+      "liver": {
+        "title": "Hígado",
+        "description": "Función hepática y valores ALT/GGT"
+      },
+      "skinEyes": {
+        "title": "Piel y Ojos",
+        "description": "Hidratación y salud dermatológica"
+      },
+      "mental": {
+        "title": "Bienestar Mental",
+        "description": "Estabilidad emocional y calidad del sueño"
+      }
+    }
   }
 }

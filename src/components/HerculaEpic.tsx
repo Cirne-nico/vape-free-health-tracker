@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Info, Crown, Sword } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Info, Crown, Sword, X } from 'lucide-react';
 import { herculaWorks, getCompletedWorks, getNextWork } from '@/data/herculaWorks';
 
 interface HerculaEpicProps {
@@ -13,6 +15,7 @@ interface HerculaEpicProps {
 const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
   const completedWorks = getCompletedWorks(days);
   const nextWork = getNextWork(days);
+  const [enlargedCharacter, setEnlargedCharacter] = useState<'hercula' | 'nikotis' | null>(null);
 
   // Función para obtener la imagen de batalla según el cuarto
   const getBattleImage = (quarter: number) => {
@@ -51,6 +54,16 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
     return 4;
   };
 
+  // Función para mostrar el personaje ampliado
+  const showEnlargedCharacter = (character: 'hercula' | 'nikotis') => {
+    setEnlargedCharacter(character);
+  };
+
+  // Función para cerrar el diálogo
+  const closeEnlargedView = () => {
+    setEnlargedCharacter(null);
+  };
+
   return (
     <TooltipProvider>
       <div className="space-y-6">
@@ -61,11 +74,16 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
             <div className="flex justify-center items-center gap-8 mb-4">
               {/* Hércula */}
               <div className="flex flex-col items-center">
-                <img 
-                  src="/lovable-uploads/Hercula.png" 
-                  alt="Hércula" 
-                  className="w-20 h-20 rounded-full border-4 border-green-400 shadow-lg"
-                />
+                <div 
+                  className="cursor-pointer transition-transform hover:scale-110"
+                  onClick={() => showEnlargedCharacter('hercula')}
+                >
+                  <img 
+                    src="/lovable-uploads/Hercula.png" 
+                    alt="Hércula" 
+                    className="w-20 h-20 rounded-full border-4 border-green-400 shadow-lg"
+                  />
+                </div>
                 <Badge className="mt-2 bg-green-500 text-white">
                   <Crown className="w-3 h-3 mr-1" />
                   Hércula
@@ -79,11 +97,16 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
               
               {/* Nikotis */}
               <div className="flex flex-col items-center">
-                <img 
-                  src="/lovable-uploads/Dios Nikotis.png" 
-                  alt="Nikotis" 
-                  className="w-20 h-20 rounded-full border-4 border-red-400 shadow-lg opacity-75"
-                />
+                <div 
+                  className="cursor-pointer transition-transform hover:scale-110"
+                  onClick={() => showEnlargedCharacter('nikotis')}
+                >
+                  <img 
+                    src="/lovable-uploads/Dios Nikotis.png" 
+                    alt="Nikotis" 
+                    className="w-20 h-20 rounded-full border-4 border-red-400 shadow-lg opacity-75"
+                  />
+                </div>
                 <Badge className="mt-2 bg-red-500 text-white">
                   Nikotis
                 </Badge>
@@ -298,6 +321,50 @@ const HerculaEpic = ({ days, savings }: HerculaEpicProps) => {
             </p>
           </CardContent>
         </Card>
+
+        {/* Diálogo para mostrar personaje ampliado */}
+        <Dialog open={enlargedCharacter !== null} onOpenChange={closeEnlargedView}>
+          <DialogContent className="max-w-md bg-black/90 border-0 p-0 overflow-hidden">
+            <div className="relative flex flex-col items-center justify-center p-8 min-h-[60vh]">
+              <button
+                onClick={closeEnlargedView}
+                className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-50"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              {enlargedCharacter === 'hercula' && (
+                <>
+                  <img 
+                    src="/lovable-uploads/Hercula.png" 
+                    alt="Hércula" 
+                    className="w-64 h-64 object-contain mb-6"
+                  />
+                  <h3 className="text-white text-xl font-bold">Hércula</h3>
+                  <p className="text-white/80 text-center mt-2 max-w-xs">
+                    Heroína de la voluntad, símbolo de la fuerza interior que supera la dependencia. 
+                    Cada trabajo completado fortalece su determinación.
+                  </p>
+                </>
+              )}
+              
+              {enlargedCharacter === 'nikotis' && (
+                <>
+                  <img 
+                    src="/lovable-uploads/Dios Nikotis.png" 
+                    alt="Nikotis" 
+                    className="w-64 h-64 object-contain mb-6"
+                  />
+                  <h3 className="text-white text-xl font-bold">Nikotis</h3>
+                  <p className="text-white/80 text-center mt-2 max-w-xs">
+                    Dios de la nicotina, representa la dependencia y los desafíos que impone. 
+                    Sus susurros son los pensamientos intrusivos que intentan provocar recaídas.
+                  </p>
+                </>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </TooltipProvider>
   );

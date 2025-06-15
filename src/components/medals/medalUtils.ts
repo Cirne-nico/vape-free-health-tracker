@@ -146,6 +146,8 @@ const getHabitMedalIcon = (type: string) => {
       return '/lovable-uploads/Sueño.png';
     case 'social':
       return '/lovable-uploads/social.png';
+    case 'nature':
+      return '/lovable-uploads/Naturaleza.png'; // Icono para paseos en naturaleza
     default:
       return '/lovable-uploads/Ejercicio.png';
   }
@@ -159,6 +161,8 @@ const getHabitMedalTitle = (type: string, habitName: string) => {
       return 'Maestría del Sueño';
     case 'social':
       return 'Maestría Social';
+    case 'nature':
+      return 'Maestría de la Naturaleza'; // Título para paseos en naturaleza
     default:
       return `Maestría de ${habitName}`;
   }
@@ -172,6 +176,8 @@ const getHabitMedalDescription = (type: string) => {
       return 'Has consolidado un horario estricto de sueño para mejor control de impulsos';
     case 'social':
       return 'Has consolidado el compromiso social semanal como red de apoyo';
+    case 'nature':
+      return 'Has consolidado los paseos en naturaleza como práctica de bienestar mental'; // Descripción para paseos en naturaleza
     default:
       return 'Has consolidado este hábito científico';
   }

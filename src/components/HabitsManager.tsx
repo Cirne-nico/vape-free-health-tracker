@@ -38,7 +38,7 @@ const HabitsManager = () => {
   const activationPercentage = (activeHabitsCount / totalHabits) * 100;
 
   // Hábitos que necesitan seguimiento
-  const trackableHabits = ['daily_exercise', 'strict_sleep_schedule', 'social_commitment'];
+  const trackableHabits = ['daily_exercise', 'strict_sleep_schedule', 'social_commitment', 'nature_walks'];
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -195,7 +195,7 @@ const HabitsManager = () => {
       <Card className="bg-amber-50 border-amber-200">
         <CardContent className="p-4">
           <div className="text-center space-y-2">
-            <h4 className="font-semibold text-amber-800">{t('habitsManager.successKey.title')}</h4>
+            <h4 className="font-semibold text-amber-800">Clave</h4>
             <p className="text-sm text-amber-700">
               {t('habitsManager.successKey.description')}
             </p>

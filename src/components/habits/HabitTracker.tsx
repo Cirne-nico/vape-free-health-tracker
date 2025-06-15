@@ -100,14 +100,17 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     const weeklyProgress = getWeeklyProgressData(data);
     const recentWeeks = weeklyProgress.slice(-8); // Últimas 8 semanas para tener margen
 
-    // Criterio especial para compromiso social: solo necesita 1 vez por semana
-    if (habitId === 'social_commitment') {
-      // Buscar 8 semanas consecutivas con al menos 1 día completado
+    // Criterio especial para compromiso social y paseos en naturaleza: solo necesitan 2 veces por semana
+    if (habitId === 'social_commitment' || habitId === 'nature_walks') {
+      // Buscar 8 semanas consecutivas con al menos 2 días completados para nature_walks
+      // o 1 día para social_commitment
       let consecutiveWeeks = 0;
+      const minDaysRequired = habitId === 'nature_walks' ? 2 : 1;
+      
       for (let i = recentWeeks.length - 1; i >= 0; i--) {
-        if (recentWeeks[i].completedDays >= 1) {
+        if (recentWeeks[i].completedDays >= minDaysRequired) {
           consecutiveWeeks++;
-          if (consecutiveWeeks >= 8) {
+          if (consecutiveWeeks >= (habitId === 'nature_walks' ? 6 : 8)) {
             consolidateHabit();
             return;
           }
@@ -164,6 +167,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       case 'daily_exercise': return 'exercise';
       case 'strict_sleep_schedule': return 'sleep';
       case 'social_commitment': return 'social';
+      case 'nature_walks': return 'nature';
       default: return 'general';
     }
   };
@@ -204,9 +208,13 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       entry.completed
     );
     
-    // Para compromiso social, 1 día = 100%
+    // Para compromiso social y paseos en naturaleza, criterios especiales
     if (habitId === 'social_commitment') {
       return weekData.length >= 1 ? 100 : 0;
+    }
+    
+    if (habitId === 'nature_walks') {
+      return (weekData.length / 2) * 100; // 2 días = 100%
     }
     
     // Para otros hábitos, mantener el cálculo normal
@@ -249,6 +257,15 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         weeksRequired: 8
       };
     }
+    if (habitId === 'nature_walks') {
+      return {
+        description: t('habitsManager.habitTracker.tooltip.consolidation', { 
+          description: 'For nature walks: 6 consecutive weeks with 2+ days per week'
+        }),
+        minDays: 2,
+        weeksRequired: 6
+      };
+    }
     return {
       description: t('habitsManager.habitTracker.tooltip.consolidation', { 
         description: 'For exercise and sleep: 4 consecutive weeks with 5+ days OR 6 weeks with 4+ days'
@@ -288,6 +305,8 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                 <p className="text-sm">
                   {habitId === 'social_commitment' 
                     ? t('habitsManager.habitTracker.tooltip.recountSocial')
+                    : habitId === 'nature_walks'
+                    ? "Para paseos en naturaleza: 2 días por semana = 100% completado"
                     : t('habitsManager.habitTracker.tooltip.recountOthers')
                   }
                 </p>
@@ -346,6 +365,11 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
               {weeklyProgress === 100 ? t('habitsManager.habitTracker.weekCompleted') : t('habitsManager.habitTracker.needOneDay')}
             </div>
           )}
+          {habitId === 'nature_walks' && (
+            <div className="text-xs text-gray-600 text-center">
+              {weeklyProgress === 100 ? "✅ Semana completada (2+ días)" : `⏳ Necesitas ${2 - Math.floor(weeklyProgress / 50)} día(s) más esta semana`}
+            </div>
+          )}
         </div>
 
         {/* Progreso hacia consolidación */}
@@ -360,10 +384,12 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
               </div>
               <div className="flex gap-1 flex-wrap">
                 {recentWeeks.slice(-criteria.weeksRequired).map((week, index) => {
-                  const isGood = habitId === 'social_commitment' ? 
-                    week.completedDays >= 1 : 
-                    week.completedDays >= criteria.minDays;
-                  const isOk = habitId === 'social_commitment' ? 
+                  const minDaysRequired = habitId === 'nature_walks' ? 2 : 
+                                         habitId === 'social_commitment' ? 1 : 
+                                         criteria.minDays;
+                  
+                  const isGood = week.completedDays >= minDaysRequired;
+                  const isOk = habitId === 'social_commitment' || habitId === 'nature_walks' ? 
                     false : 
                     week.completedDays >= 4;
                   

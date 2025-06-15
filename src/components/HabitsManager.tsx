@@ -5,7 +5,6 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { TooltipHelper } from '@/components/ui/tooltip-helper';
-import { ExternalLink } from 'lucide-react';
 import { scientificHabits, createHabit, Habit } from '@/data/habitsData';
 import HabitTracker from './habits/HabitTracker';
 import { useTranslation } from 'react-i18next';
@@ -61,24 +60,6 @@ const HabitsManager = () => {
     acc[habit.category].push(habit);
     return acc;
   }, {} as Record<string, Habit[]>);
-
-  // Función para obtener la URL del estudio científico
-  const getStudyUrl = (reference: string) => {
-    // Mapeo de referencias a URLs reales
-    const referenceUrls: Record<string, string> = {
-      'Taylor et al., 2007': 'https://pubmed.ncbi.nlm.nih.gov/17454548/',
-      'Zope & Zope, 2013': 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3573542/',
-      'Jaehne et al., 2009': 'https://pubmed.ncbi.nlm.nih.gov/19345999/',
-      'Spring et al., 2008': 'https://pubmed.ncbi.nlm.nih.gov/18426563/',
-      'American Lung Association': 'https://www.lung.org/quit-smoking/smoking-facts/health-effects/what-happens-when-you-quit',
-      'Bratman et al., 2015': 'https://www.pnas.org/doi/10.1073/pnas.1510459112',
-      'Stead et al., 2017': 'https://pubmed.ncbi.nlm.nih.gov/28417491/',
-      'Bowen & Marlatt, 2009': 'https://pubmed.ncbi.nlm.nih.gov/19586163/',
-      'NIH/NIDA': 'https://nida.nih.gov/publications/research-reports/tobacco-nicotine-e-cigarettes/nicotine-addictive'
-    };
-
-    return referenceUrls[reference] || '#';
-  };
 
   return (
     <div className="space-y-6">
@@ -186,15 +167,6 @@ const HabitsManager = () => {
                       
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <span>{t('habitsManager.habitCard.reference')} {habit.reference}</span>
-                        <a 
-                          href={getStudyUrl(habit.reference)} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                        >
-                          <ExternalLink className="w-3 h-3 mr-1" />
-                          {t('habitsManager.habitCard.viewStudy')}
-                        </a>
                       </div>
                     </div>
                   )}

@@ -588,5 +588,18 @@
     "relapseProcessed": "Recaída procesada",
     "processed": "Recuerda que cada tropiezo es una oportunidad para aprender.",
     "continue": "Continuar"
+  },
+  "dorsalStateMessages": {
+    "title1": "Dejar la nicotina como arma de doble filo",
+    "message1": "A veces, dejar la nicotina se siente como un arma de doble filo. Te vuelves más despierte, más atente, más vive. Pero esa misma sensibilidad puede abrir puertas que creías cerradas. Heridas antiguas, miedos que se asoman, silencios que ahora gritan. Es fácil pensar que estabas mejor antes, cuando fumabas o vapeabas. Pero muchas veces, lo que echamos de menos no es la nicotina en sí, sino el velo que ponía sobre lo que dolía. La nicotina distrae. Adormece. Nos mantiene lejos de ciertos rincones de nosotres mismes. Pero al dejarla, aunque los fantasmas aparezcan, también tenemos más recursos para verlos, nombrarlos, atravesarlos. No estás empeorando. Estás sintiendo. Y eso, aunque duela, es también una forma de sanar.",
+    
+    "title2": "Mayor sensibilidad emocional tras el abandono",
+    "message2": "Al dejar la nicotina, se produce una desregulación temporal de neurotransmisores como la dopamina y la serotonina. Esto puede generar mayor reactividad emocional, tristeza, ansiedad o incluso un aumento en recuerdos reprimidos o emociones difíciles.",
+    
+    "title3": "La nicotina como evitación emocional",
+    "message3": "Varios estudios han mostrado que el tabaquismo (y por extensión, el vapeo) no solo es una adicción fisiológica, sino también una estrategia de regulación emocional. En otras palabras, muchas personas fuman para evitar sentir, para distraerse, o para "borrar el malestar".",
+    
+    "title4": "Mejora de la atención y percepción",
+    "message4": "Aunque al principio se siente "niebla mental", muchas personas experimentan con el tiempo una mayor claridad cognitiva y emocional, que permite enfrentar las situaciones de forma más directa y lúcida. Es como si el velo se levantara, pero eso también deja ver heridas."
   }
 }

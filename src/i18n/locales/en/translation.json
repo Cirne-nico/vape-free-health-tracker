@@ -303,7 +303,7 @@
         "description": "Handling intense emotional states"
       },
       "substance": {
-        "title": "Other Substances",
+        "title": "Substances",
         "description": "Situations with alcohol or other substances"
       },
       "psychological": {
@@ -588,5 +588,18 @@
     "relapseProcessed": "Relapse processed",
     "processed": "Remember that each stumble is an opportunity to learn.",
     "continue": "Continue"
+  },
+  "dorsalStateMessages": {
+    "title1": "Nicotine cessation as a double-edged sword",
+    "message1": "Sometimes, quitting nicotine feels like a double-edged sword. You become more awake, more attentive, more alive. But that same sensitivity can open doors you thought were closed. Old wounds, emerging fears, silences that now scream. It's easy to think you were better before, when you smoked or vaped. But often, what we miss isn't nicotine itself, but the veil it placed over what hurt. Nicotine distracts. It numbs. It keeps us away from certain corners of ourselves. But when we leave it, although the ghosts appear, we also have more resources to see them, name them, go through them. You're not getting worse. You're feeling. And that, even if it hurts, is also a way of healing.",
+    
+    "title2": "Increased emotional sensitivity after quitting",
+    "message2": "When quitting nicotine, there is a temporary dysregulation of neurotransmitters such as dopamine and serotonin. This can generate greater emotional reactivity, sadness, anxiety, or even an increase in repressed memories or difficult emotions.",
+    
+    "title3": "Nicotine as emotional avoidance",
+    "message3": "Several studies have shown that smoking (and by extension, vaping) is not only a physiological addiction, but also an emotional regulation strategy. In other words, many people smoke to avoid feeling, to distract themselves, or to 'erase discomfort'.",
+    
+    "title4": "Improvement in attention and perception",
+    "message4": "Although at first it feels like 'mental fog', many people experience over time greater cognitive and emotional clarity, which allows them to face situations more directly and lucidly. It's as if the veil were lifted, but that also reveals wounds."
   }
 }

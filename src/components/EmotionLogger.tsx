@@ -14,10 +14,12 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [todayLog, setTodayLog] = useState<any>(null);
   const [emotionLogs, setEmotionLogs] = useState<any[]>([]);
+  const [consecutiveDorsalDays, setConsecutiveDorsalDays] = useState(0);
 
   useEffect(() => {
     loadTodayLog();
     loadEmotionLogs();
+    loadConsecutiveDorsalDays();
   }, []);
 
   const loadTodayLog = () => {
@@ -35,6 +37,11 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
   const loadEmotionLogs = () => {
     const logs = JSON.parse(localStorage.getItem('emotion-logs') || '[]');
     setEmotionLogs(logs);
+  };
+
+  const loadConsecutiveDorsalDays = () => {
+    const count = parseInt(localStorage.getItem('consecutive-dorsal-days') || '0');
+    setConsecutiveDorsalDays(count);
   };
 
   const handleEmotionToggle = (emotionId: string) => {
@@ -79,6 +86,22 @@ const EmotionLogger = ({ startDate }: EmotionLoggerProps) => {
     setTodayLog(newLog);
     setEmotionLogs(updatedLogs);
     toast.success(t('emotionLogger.success'));
+
+    // Comprobar si el registro actual contiene emociones dorsales
+    const hasDorsalEmotions = selectedEmotions.some(id => 
+      ['depressed', 'sad', 'indifferent', 'foggy'].includes(id)
+    );
+
+    // Actualizar contador de días dorsales consecutivos
+    if (hasDorsalEmotions) {
+      const newCount = consecutiveDorsalDays + 1;
+      setConsecutiveDorsalDays(newCount);
+      localStorage.setItem('consecutive-dorsal-days', newCount.toString());
+    } else {
+      // Si no hay emociones dorsales, reiniciar el contador
+      setConsecutiveDorsalDays(0);
+      localStorage.setItem('consecutive-dorsal-days', '0');
+    }
   };
 
   return (

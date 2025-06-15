@@ -259,35 +259,27 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
   const getConsolidationCriteria = () => {
     if (habitId === 'social_commitment') {
       return {
-        description: t('habitsManager.habitTracker.tooltip.consolidation', { 
-          description: 'For social commitment: 8 consecutive weeks with 1+ day per week'
-        }),
+        description: '8 semanas consecutivas con 1+ día por semana',
         minDays: 1,
         weeksRequired: 8
       };
     }
     if (habitId === 'nature_walks') {
       return {
-        description: t('habitsManager.habitTracker.tooltip.consolidation', { 
-          description: 'For nature walks: 6 consecutive weeks with 2+ days per week'
-        }),
+        description: '6 semanas consecutivas con 2+ días por semana',
         minDays: 2,
         weeksRequired: 6
       };
     }
     if (habitId === 'programmed_hydration') {
       return {
-        description: t('habitsManager.habitTracker.tooltip.consolidation', { 
-          description: 'For programmed hydration: 3 consecutive weeks with 5+ days per week'
-        }),
+        description: '3 semanas consecutivas con 5+ días por semana',
         minDays: 5,
         weeksRequired: 3
       };
     }
     return {
-      description: t('habitsManager.habitTracker.tooltip.consolidation', { 
-        description: 'For exercise and sleep: 4 consecutive weeks with 5+ days OR 6 weeks with 4+ days'
-      }),
+      description: '4 semanas consecutivas con 5+ días O 6 semanas con 4+ días',
       minDays: habitId === 'daily_exercise' || habitId === 'strict_sleep_schedule' ? 5 : 4,
       weeksRequired: 4
     };

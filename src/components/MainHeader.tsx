@@ -64,6 +64,7 @@ const MainHeader = ({
   const totalMedals = unlockedAchievements.length + unlockedHealthAchievements.length;
 
   const getCriticalQuote = () => {
+    // Definir citas en español e inglés
     const quotes = {
       es: [
         "El poder no es algo que se posea, sino algo que actúa. — M. Foucault",
@@ -105,7 +106,7 @@ const MainHeader = ({
     const currentLanguage = i18n.language;
     
     // Seleccionar las citas según el idioma actual
-    const quotesForLanguage = quotes[currentLanguage as keyof typeof quotes] || quotes.es;
+    const quotesForLanguage = currentLanguage === 'es' ? quotes.es : quotes.en;
     
     // Usar el día para seleccionar la cita, pero con cierta rotación
     const index = (time.days + Math.floor(time.hours / 6)) % quotesForLanguage.length;

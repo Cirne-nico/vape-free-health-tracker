@@ -46,7 +46,7 @@ export const MedalTooltip = ({ medal, children }: MedalTooltipProps) => {
       case 'epic':
         return 'text-orange-600';
       case 'habit':
-        return 'text-indigo-600';
+        return 'text-purple-600';
       default:
         return '';
     }

@@ -97,13 +97,13 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
                 className={`px-3 py-1 rounded-full text-sm ${language === 'es' ? 'bg-white text-blue-900' : 'text-white'}`}
                 onClick={() => changeLanguage('es')}
               >
-                🇪🇸 ES
+                ES
               </button>
               <button 
                 className={`px-3 py-1 rounded-full text-sm ${language === 'en' ? 'bg-white text-blue-900' : 'text-white'}`}
                 onClick={() => changeLanguage('en')}
               >
-                🇬🇧 EN
+                EN
               </button>
             </div>
           </div>

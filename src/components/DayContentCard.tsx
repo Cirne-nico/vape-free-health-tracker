@@ -190,9 +190,9 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
     return text;
   };
 
-  // FUNCIÓN COMPLETAMENTE REESCRITA - Pensamientos intrusivos más realistas y contrarréplicas sin sesgo neoliberal
+  // Función para obtener el pensamiento intrusivo correspondiente a una contrarréplica
   const getIntrusiveThoughtForResponse = (contrareplica: string) => {
-    // Mapeo COMPLETAMENTE REESCRITO con contrarréplicas sobrias, realistas y sin pretensiones
+    // Mapeo de contrarréplicas a pensamientos intrusivos
     const responseToThoughtMap: { [key: string]: string } = {
       // === PRIMERAS HORAS/DÍAS - REALISMO CRUDO ===
       "No es una pérdida. Es el comienzo de mi libertad.": i18n.language === 'en' ? "I've lost something important by quitting vaping" : "He perdido algo importante al dejar de vapear",

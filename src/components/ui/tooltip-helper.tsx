@@ -2,6 +2,7 @@ import * as React from "react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip"
 import { MobileTooltipDialog } from "./mobile-tooltip"
 import { Info } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface TooltipHelperProps {
   content: React.ReactNode

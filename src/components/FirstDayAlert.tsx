@@ -3,12 +3,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { AlertTriangle, Lock, Users, Eye } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface FirstDayAlertProps {
   startDate: Date | null;
 }
 
 const FirstDayAlert = ({ startDate }: FirstDayAlertProps) => {
+  const { t } = useTranslation();
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -54,8 +56,8 @@ const FirstDayAlert = ({ startDate }: FirstDayAlertProps) => {
   ];
 
   return (
-    <Dialog open={showAlert} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg">
+    <Dialog open={showAlert} onOpenChange={setShowAlert}>
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-center text-red-600 flex items-center justify-center gap-2">
             <AlertTriangle className="w-6 h-6" />

@@ -5,6 +5,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Brain, AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import DorsalStateContent from './DorsalStateContent';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface DorsalStateAlertProps {
   emotionLogs: any[];
@@ -161,7 +162,7 @@ const DorsalStateAlert = ({ emotionLogs }: DorsalStateAlertProps) => {
 
   return (
     <Dialog open={showAlert} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl max-h-[90vh]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-blue-700">
             <Brain className="w-6 h-6" />
@@ -169,58 +170,60 @@ const DorsalStateAlert = ({ emotionLogs }: DorsalStateAlertProps) => {
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
-          <Alert className="border-blue-200 bg-blue-50">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertDescription>
-              <strong>{content.useCustomContent ? 
-                t(`dorsalStateMessages.title${content.contentIndex + 1}`) : 
-                content.title}</strong>
-            </AlertDescription>
-          </Alert>
+        <ScrollArea className="max-h-[70vh]">
+          <div className="space-y-4">
+            <Alert className="border-blue-200 bg-blue-50">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                <strong>{content.useCustomContent ? 
+                  t(`dorsalStateMessages.title${content.contentIndex + 1}`) : 
+                  content.title}</strong>
+              </AlertDescription>
+            </Alert>
 
-          {content.useCustomContent ? (
-            <DorsalStateContent contentIndex={content.contentIndex} />
-          ) : (
-            <div className="space-y-4 text-sm">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-800 mb-2">
-                  {i18n.language === 'en' ? "Dorsal state detected" : "Estado dorsal detectado"}
-                </h4>
-                <p className="text-gray-700">{content.neurobiological}</p>
+            {content.useCustomContent ? (
+              <DorsalStateContent contentIndex={content.contentIndex} />
+            ) : (
+              <div className="space-y-4 text-sm">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-800 mb-2">
+                    {i18n.language === 'en' ? "Dorsal state detected" : "Estado dorsal detectado"}
+                  </h4>
+                  <p className="text-gray-700">{content.neurobiological}</p>
+                </div>
+
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <h4 className="font-semibold text-blue-800 mb-2">
+                    {i18n.language === 'en' ? "Neuroscientific basis" : "Base neurocientífica"}
+                  </h4>
+                  <p className="text-blue-700">{content.scientific}</p>
+                </div>
+
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <h4 className="font-semibold text-green-800 mb-2">
+                    {i18n.language === 'en' ? "Normal adaptive process" : "Proceso adaptativo normal"}
+                  </h4>
+                  <p className="text-green-700">{content.adaptive}</p>
+                </div>
+
+                <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                  <h4 className="font-semibold text-purple-800 mb-2">
+                    {i18n.language === 'en' ? "Recovery timeline" : "Cronología de recuperación"}
+                  </h4>
+                  <p className="text-purple-700">{content.timeline}</p>
+                </div>
+
+                <div className="text-xs text-gray-500 italic">
+                  <p>{content.references}</p>
+                </div>
               </div>
+            )}
+          </div>
+        </ScrollArea>
 
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-blue-800 mb-2">
-                  {i18n.language === 'en' ? "Neuroscientific basis" : "Base neurocientífica"}
-                </h4>
-                <p className="text-blue-700">{content.scientific}</p>
-              </div>
-
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">
-                  {i18n.language === 'en' ? "Normal adaptive process" : "Proceso adaptativo normal"}
-                </h4>
-                <p className="text-green-700">{content.adaptive}</p>
-              </div>
-
-              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <h4 className="font-semibold text-purple-800 mb-2">
-                  {i18n.language === 'en' ? "Recovery timeline" : "Cronología de recuperación"}
-                </h4>
-                <p className="text-purple-700">{content.timeline}</p>
-              </div>
-
-              <div className="text-xs text-gray-500 italic">
-                <p>{content.references}</p>
-              </div>
-            </div>
-          )}
-
-          <Button onClick={handleClose} className="w-full">
-            {i18n.language === 'en' ? "Understood" : "Entendido"}
-          </Button>
-        </div>
+        <Button onClick={handleClose} className="w-full mt-4">
+          {i18n.language === 'en' ? "Understood" : "Entendido"}
+        </Button>
       </DialogContent>
     </Dialog>
   );

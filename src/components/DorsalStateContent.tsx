@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface DorsalStateContentProps {
   contentIndex: number;
@@ -23,7 +24,9 @@ const DorsalStateContent = ({ contentIndex }: DorsalStateContentProps) => {
   return (
     <div className="space-y-4">
       <h3 className="font-semibold text-blue-800">{content.title}</h3>
-      <p className="text-blue-700 text-sm leading-relaxed">{content.message}</p>
+      <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+        <p className="text-blue-700 text-sm leading-relaxed">{content.message}</p>
+      </div>
       
       <div className="bg-blue-100 p-3 rounded-lg">
         <p className="text-xs text-blue-800 italic">

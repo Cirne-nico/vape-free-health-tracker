@@ -14,7 +14,7 @@ export const emotionsData: Emotion[] = [
   // Positive emotions
   {
     id: 'happy',
-    name: 'Feliz',
+    name: 'Alegre',
     category: 'positive',
     type: 'positive',
     intensity: 8,
@@ -25,7 +25,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'excited',
-    name: 'Emocionado',
+    name: 'Emocionade',
     category: 'positive',
     type: 'positive',
     intensity: 9,
@@ -36,7 +36,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'calm',
-    name: 'Tranquilo',
+    name: 'Tranquile',
     category: 'positive',
     type: 'positive',
     intensity: 6,
@@ -46,8 +46,19 @@ export const emotionsData: Emotion[] = [
     icon: '😌'
   },
   {
+    id: 'serene',
+    name: 'Serene',
+    category: 'positive',
+    type: 'positive',
+    intensity: 5,
+    energy: -0.5,
+    valence: 0.7,
+    color: '#0EA5E9',
+    icon: '🧘'
+  },
+  {
     id: 'confident',
-    name: 'Confiado',
+    name: 'Confiade',
     category: 'positive',
     type: 'positive',
     intensity: 7,
@@ -58,7 +69,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'grateful',
-    name: 'Agradecido',
+    name: 'Agradecide',
     category: 'positive',
     type: 'positive',
     intensity: 7,
@@ -69,7 +80,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'motivated',
-    name: 'Motivado',
+    name: 'Motivade',
     category: 'positive',
     type: 'positive',
     intensity: 8,
@@ -80,7 +91,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'proud',
-    name: 'Orgulloso',
+    name: 'Orgullose',
     category: 'positive',
     type: 'positive',
     intensity: 7,
@@ -91,7 +102,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'energetic',
-    name: 'Enérgico',
+    name: 'Enérgice',
     category: 'positive',
     type: 'positive',
     intensity: 8,
@@ -104,7 +115,7 @@ export const emotionsData: Emotion[] = [
   // Negative emotions
   {
     id: 'anxious',
-    name: 'Ansioso',
+    name: 'Ansiose',
     category: 'negative',
     type: 'negative',
     intensity: 7,
@@ -126,7 +137,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'angry',
-    name: 'Enojado',
+    name: 'Enojade',
     category: 'negative',
     type: 'negative',
     intensity: 8,
@@ -137,7 +148,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'stressed',
-    name: 'Estresado',
+    name: 'Estresade',
     category: 'negative',
     type: 'negative',
     intensity: 8,
@@ -148,7 +159,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'frustrated',
-    name: 'Frustrado',
+    name: 'Frustrade',
     category: 'negative',
     type: 'negative',
     intensity: 7,
@@ -159,7 +170,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'lonely',
-    name: 'Solo',
+    name: 'Sole',
     category: 'negative',
     type: 'negative',
     intensity: 6,
@@ -170,7 +181,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'overwhelmed',
-    name: 'Abrumado',
+    name: 'Abrumade',
     category: 'negative',
     type: 'negative',
     intensity: 8,
@@ -181,7 +192,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'restless',
-    name: 'Inquieto',
+    name: 'Inquiete',
     category: 'negative',
     type: 'negative',
     intensity: 7,
@@ -192,7 +203,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'depressed',
-    name: 'Deprimido',
+    name: 'Deprimide',
     category: 'negative',
     type: 'negative',
     intensity: 8,
@@ -203,7 +214,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'foggy',
-    name: 'Mental Nublado',
+    name: 'Mental Nublade',
     category: 'negative',
     type: 'negative',
     intensity: 6,
@@ -227,7 +238,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'tired',
-    name: 'Cansado',
+    name: 'Cansade',
     category: 'neutral',
     type: 'neutral',
     intensity: 4,
@@ -238,7 +249,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'bored',
-    name: 'Aburrido',
+    name: 'Aburride',
     category: 'neutral',
     type: 'neutral',
     intensity: 3,
@@ -249,7 +260,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'confused',
-    name: 'Confundido',
+    name: 'Confundide',
     category: 'neutral',
     type: 'neutral',
     intensity: 5,

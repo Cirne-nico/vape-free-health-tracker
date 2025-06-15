@@ -44,6 +44,7 @@ export const useHealthCategories = () => {
   } as const;
 };
 
+// Mantener esta versión estática para compatibilidad con código existente
 export const healthCategories = {
   respiratory: {
     title: 'Pulmones',

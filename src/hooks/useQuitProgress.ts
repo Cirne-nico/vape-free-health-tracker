@@ -3,153 +3,162 @@ import { useState, useEffect } from 'react';
 export const useQuitProgress = (startDate: Date | null) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Actualizar tiempo cada minuto
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 60000); // Actualizar cada minuto
+
     return () => clearInterval(timer);
   }, []);
 
   const calculateTimeSince = () => {
-    if (!startDate) return { days: 0, hours: 0, minutes: 0, totalHours: 0 };
-    
-    const diff = currentTime.getTime() - startDate.getTime();
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const totalHours = Math.floor(diff / (1000 * 60 * 60));
-    
-    return { days, hours, minutes, totalHours };
+    if (!startDate) {
+      return { days: 0, hours: 0, minutes: 0, totalHours: 0 };
+    }
+
+    const diffMs = currentTime.getTime() - startDate.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+    return {
+      days: diffDays,
+      hours: diffHours,
+      minutes: diffMinutes,
+      totalHours
+    };
   };
 
   const calculateSavings = () => {
-    if (!startDate) return { total: 0, daily: 0 };
-    const days = Math.floor((currentTime.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-    
+    if (!startDate) {
+      return { total: 0, daily: 0 };
+    }
+
+    // Obtener configuración de costos del usuario
     const settings = JSON.parse(localStorage.getItem('app-settings') || '{}');
-    
-    if (settings.costPerWeek && settings.coilCost && settings.coilDays) {
-      const dailyLiquidCost = settings.costPerWeek / 7;
-      const dailyCoilCost = settings.coilCost / settings.coilDays;
-      const additionalDailyCost = settings.additionalDailyCost || 0;
-      const totalDailyCost = dailyLiquidCost + dailyCoilCost + additionalDailyCost;
-      
-      return {
-        total: days * totalDailyCost,
-        daily: totalDailyCost
-      };
-    } else {
-      const dailyCost = (20/7) + (4/10);
-      return {
-        total: days * dailyCost,
-        daily: dailyCost
-      };
-    }
-  };
+    const dailyCost = settings.dailyCost || ((20/7) + (4/10)); // Valor por defecto si no hay configuración
 
-  // ✅ FUNCIÓN CORREGIDA: Blur se elimina completamente a los 365 días
-  const calculateBlurLevel = () => {
-    const time = calculateTimeSince();
-    const maxBlur = 8;
+    const diffMs = currentTime.getTime() - startDate.getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
     
-    // A los 365 días, blur = 0 (completamente nítido)
-    if (time.days >= 365) {
-      return 0;
-    }
-    
-    // Reducción progresiva del blur hasta los 365 días
-    const blurReduction = (time.days / 365) * maxBlur;
-    return Math.max(0, maxBlur - blurReduction);
-  };
+    const totalSavings = diffDays * dailyCost;
 
-  // ✅ NUEVA FUNCIÓN: Calcular contraste del texto según la nitidez de la imagen
-  const calculateTextContrast = () => {
-    const time = calculateTimeSince();
-    
-    // A medida que la imagen se vuelve más nítida, necesitamos más contraste
-    if (time.days >= 365) {
-      // Imagen completamente nítida = máximo contraste
-      return {
-        primaryText: 'text-white drop-shadow-lg',
-        secondaryText: 'text-white drop-shadow-md',
-        accentText: 'text-purple-100 drop-shadow-md',
-        overlayIntensity: 'from-purple-800/90 to-indigo-800/90' // Overlay más oscuro
-      };
-    } else if (time.days >= 270) {
-      // 75% del camino - aumentar contraste significativamente
-      return {
-        primaryText: 'text-white drop-shadow-md',
-        secondaryText: 'text-white drop-shadow-sm',
-        accentText: 'text-purple-100 drop-shadow-sm',
-        overlayIntensity: 'from-purple-700/85 to-indigo-700/85'
-      };
-    } else if (time.days >= 180) {
-      // 50% del camino - contraste moderado
-      return {
-        primaryText: 'text-white drop-shadow-sm',
-        secondaryText: 'text-white',
-        accentText: 'text-purple-100',
-        overlayIntensity: 'from-purple-600/80 to-indigo-600/80'
-      };
-    } else if (time.days >= 90) {
-      // 25% del camino - ligero aumento de contraste
-      return {
-        primaryText: 'text-white',
-        secondaryText: 'text-white',
-        accentText: 'text-purple-100',
-        overlayIntensity: 'from-purple-600/80 to-indigo-600/80'
-      };
-    } else {
-      // Primeros días - contraste normal
-      return {
-        primaryText: 'text-white',
-        secondaryText: 'text-white',
-        accentText: 'text-purple-100',
-        overlayIntensity: 'from-purple-600/80 to-indigo-600/80'
-      };
-    }
+    return {
+      total: totalSavings,
+      daily: dailyCost
+    };
   };
 
   const calculateProgressPercentage = () => {
-    const time = calculateTimeSince();
+    if (!startDate) return 0;
     
-    // Si aún no ha llegado a los 90 días, mostrar progreso hacia 90 días
-    if (time.days < 90) {
-      return Math.min((time.days / 90) * 100, 100);
+    const { days } = calculateTimeSince();
+    
+    // Fase 1: Primeros 90 días (objetivo inicial)
+    if (days <= 90) {
+      return (days / 90) * 100;
     }
     
-    // Si ya pasó los 90 días, mostrar progreso hacia 2 años (730 días)
-    // El progreso va desde los 90 días hasta los 730 días
-    const progressFrom90To730 = ((time.days - 90) / (730 - 90)) * 100;
-    return Math.min(progressFrom90To730, 100);
+    // Fase 2: De 90 días a 2 años (objetivo final)
+    const daysAfter90 = days - 90;
+    const daysTo2Years = 730 - 90; // 2 años - 90 días
+    
+    return 100 + ((daysAfter90 / daysTo2Years) * 100);
   };
 
   const getProgressInfo = () => {
-    const time = calculateTimeSince();
+    const { days } = calculateTimeSince();
     
-    if (time.days < 90) {
+    if (days <= 90) {
       return {
         target: 90,
-        targetLabel: "90 días",
+        targetLabel: '90 días',
         isFirstPhase: true
       };
     }
     
     return {
       target: 730,
-      targetLabel: "2 años",
+      targetLabel: '2 años',
       isFirstPhase: false
     };
+  };
+
+  const calculateBlurLevel = () => {
+    if (!startDate) return 8;
+    
+    const { days } = calculateTimeSince();
+    
+    // Reducir el blur gradualmente a medida que pasan los días
+    if (days <= 90) {
+      // De 8px a 4px en los primeros 90 días
+      return 8 - ((days / 90) * 4);
+    } else if (days <= 365) {
+      // De 4px a 2px entre 90 días y 1 año
+      const daysAfter90 = days - 90;
+      const daysTo1Year = 365 - 90;
+      return 4 - ((daysAfter90 / daysTo1Year) * 2);
+    } else {
+      // De 2px a 0px después del primer año
+      const daysAfter1Year = days - 365;
+      const daysTo2Years = 730 - 365;
+      const remainingBlur = Math.max(0, 2 - ((daysAfter1Year / daysTo2Years) * 2));
+      return remainingBlur;
+    }
+  };
+
+  const calculateTextContrast = () => {
+    if (!startDate) {
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white/80',
+        accentText: 'text-white/70',
+        overlayIntensity: 'from-black/60 to-black/40'
+      };
+    }
+    
+    const { days } = calculateTimeSince();
+    
+    // Ajustar el contraste gradualmente
+    if (days <= 30) {
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white/80',
+        accentText: 'text-white/70',
+        overlayIntensity: 'from-black/60 to-black/40'
+      };
+    } else if (days <= 90) {
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white/90',
+        accentText: 'text-white/80',
+        overlayIntensity: 'from-black/50 to-black/30'
+      };
+    } else if (days <= 180) {
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white/90',
+        accentText: 'text-white/80',
+        overlayIntensity: 'from-black/40 to-black/20'
+      };
+    } else {
+      return {
+        primaryText: 'text-white',
+        secondaryText: 'text-white',
+        accentText: 'text-white/90',
+        overlayIntensity: 'from-black/30 to-black/10'
+      };
+    }
   };
 
   return {
     currentTime,
     calculateTimeSince,
     calculateSavings,
-    calculateBlurLevel,
-    calculateTextContrast, // ✅ NUEVA FUNCIÓN EXPORTADA
     calculateProgressPercentage,
-    getProgressInfo
+    getProgressInfo,
+    calculateBlurLevel,
+    calculateTextContrast
   };
 };

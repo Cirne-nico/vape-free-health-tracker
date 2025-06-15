@@ -161,11 +161,11 @@ export const getHabitMedals = () => {
   return habitMedals.map((medal: any) => ({
     id: medal.id,
     type: 'habit' as const,
-    title: getHabitMedalTitle(medal.type, medal.habitName),
-    icon: getHabitMedalIcon(medal.type),
-    description: getHabitMedalDescription(medal.type),
+    title: getHabitMedalTitle(medal.habitType, medal.habitName),
+    icon: getHabitMedalIcon(medal.habitType),
+    description: getHabitMedalDescription(medal.habitType),
     reward: `Hábito "${medal.habitName}" consolidado permanentemente`,
-    habitType: medal.type,
+    habitType: medal.habitType,
     dateObtained: medal.dateObtained
   }));
 };
@@ -250,7 +250,7 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/gesta_ansiedad.png';
             break;
           case 'party':
-            updated.medalIcon = '/lovable-uploads/situación_social.png';
+            updated.medalIcon = '/lovable-uploads/fiesta.png';
             break;
           case 'social_situation':
             updated.medalIcon = '/lovable-uploads/situación_social.png';

@@ -56,7 +56,7 @@ const CollapsibleQuestGroup = ({
                   <div className="flex items-center gap-1 bg-green-100 px-2 py-0.5 rounded-full">
                     <Check className="w-3 h-3 text-green-600" />
                     <span className="text-xs text-green-700 font-medium">
-                      {t('epicQuests.completed', 'Completed')}
+                      {t('epicQuests.completed')}
                     </span>
                   </div>
                 )}

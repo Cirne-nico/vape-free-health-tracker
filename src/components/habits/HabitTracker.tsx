@@ -147,7 +147,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         habitId,
         habitName,
         dateObtained: new Date().toISOString(),
-        type: getHabitMedalType(habitId)
+        habitType: getHabitMedalType(habitId)
       };
       habitMedals.push(medalData);
       localStorage.setItem('habit-medals', JSON.stringify(habitMedals));

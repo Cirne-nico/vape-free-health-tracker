@@ -44,13 +44,13 @@ export const getSpecialMedals = (currentDays: number) => {
     console.log('Added Athena medal:', athenaMedal);
   }
 
-  // Medalla de Victoria (Nike) para el año (365 días) - RUTA CORREGIDA DEFINITIVAMENTE
+  // Medalla de Victoria (Nike) para el año (365 días)
   if (currentDays >= 365) {
     const victoryMedal = {
       id: 'one_year_victory',
       type: 'victory' as const,
       title: 'Victoria de Nike',
-      icon: '/lovable-uploads/Nike_365 copy.png', // ✅ RUTA CORREGIDA FINAL
+      icon: '/lovable-uploads/Nike_365 copy.png',
       description: '¡Un año completo sin vapear!',
       reward: 'Salud de hierro y bienestar total',
       hasEconomicBenefits: true,
@@ -235,7 +235,7 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/gesta_birra.png';
             break;
           case 'sixth_beer':
-            updated.medalIcon = '/lovable-uploads/6a_birra.png'; // ✅ CORREGIDA FINAL
+            updated.medalIcon = '/lovable-uploads/6a_birra.png';
             break;
           case 'other_substances':
             updated.medalIcon = '/lovable-uploads/Otras_sustancias.png';
@@ -244,7 +244,7 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/Estres_laboral.png';
             break;
           case 'work_break':
-            updated.medalIcon = '/lovable-uploads/Descanso_trabajo copy.png'; // ✅ CORREGIDA FINAL
+            updated.medalIcon = '/lovable-uploads/Descanso_trabajo copy.png';
             break;
           case 'anxiety_periods':
             updated.medalIcon = '/lovable-uploads/gesta_ansiedad.png';
@@ -271,10 +271,10 @@ export const debugEpicMedals = () => {
             updated.medalIcon = '/lovable-uploads/euforia.png';
             break;
           case 'pelimanta':
-            updated.medalIcon = '/lovable-uploads/Pelimanta copy.png'; // ✅ CORREGIDA FINAL
+            updated.medalIcon = '/lovable-uploads/Pelimanta copy.png';
             break;
           case 'writing_effort':
-            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir copy.png'; // ✅ CORREGIDA FINAL
+            updated.medalIcon = '/lovable-uploads/Acabas_de_escribir copy.png';
             break;
           case 'bad_news':
             updated.medalIcon = '/lovable-uploads/mala_noticia.png';

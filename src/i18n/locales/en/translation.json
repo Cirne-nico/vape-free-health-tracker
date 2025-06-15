@@ -146,6 +146,7 @@
     "categories": {
       "respiratory": {
         "title": "Lungs",
+        "description": "Pulmonary capacity and respiratory function",
         "tooltip": {
           "function": "Monitors the recovery of your lung function after quitting vaping.",
           "sense": "The lungs progressively recover by eliminating toxins and regenerating tissues.",
@@ -154,6 +155,7 @@
       },
       "cardiovascular": {
         "title": "Heart",
+        "description": "Blood pressure and cardiac function",
         "tooltip": {
           "function": "Evaluates the improvement in your circulatory system and heart health.",
           "sense": "The heart and blood vessels benefit immediately from eliminating nicotine.",
@@ -162,6 +164,7 @@
       },
       "liver": {
         "title": "Liver",
+        "description": "Liver function and ALT/GGT values",
         "tooltip": {
           "function": "Tracks the recovery of your liver function and metabolism.",
           "sense": "The liver processes toxins better and reverses damage caused by vaping chemicals.",
@@ -170,6 +173,7 @@
       },
       "skinEyes": {
         "title": "Skin & Eyes",
+        "description": "Hydration and dermatological health",
         "tooltip": {
           "function": "Monitors improvement in skin hydration and tear function.",
           "sense": "Skin and eyes recover their natural hydration by eliminating vaping irritants.",
@@ -178,6 +182,7 @@
       },
       "mental": {
         "title": "Mental Wellbeing",
+        "description": "Emotional stability and sleep quality",
         "tooltip": {
           "function": "Evaluates your neurological recovery and psychological well-being.",
           "sense": "The brain gradually adapts without nicotine, improving mood and concentration.",
@@ -305,6 +310,14 @@
       "excellent": "🎉 Excellent! With {{count}} active habits you have a solid foundation for success",
       "tip": "💡 Tip: Only activate those habits you want to implement. Don't overwhelm yourself, just the ones you think can help you"
     },
+    "categories": {
+      "physical": "Physical",
+      "mental": "Mental",
+      "social": "Social",
+      "behavioral": "Behavioral",
+      "general": "General"
+    },
+    "categoryTitle": "{{category}} Habits",
     "habitCard": {
       "active": "Active",
       "routine": "📋 Routine:",
@@ -478,9 +491,7 @@
   "language": {
     "title": "Language",
     "es": "Español",
-    "en": "English",
-    "ca": "Català",
-    "el": "Ελληνικά"
+    "en": "English"
   },
   "setup": {
     "nameQuestion": "What would you like us to call you?",

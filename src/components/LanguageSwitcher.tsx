@@ -22,14 +22,6 @@ const LanguageSwitcher = () => {
     localStorage.setItem('umbral-language', language);
   };
 
-  const getLanguageFlag = (code: string) => {
-    switch (code) {
-      case 'es': return '🇪🇸';
-      case 'en': return '🇬🇧';
-      default: return '🇪🇸';
-    }
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,15 +30,15 @@ const LanguageSwitcher = () => {
           size="icon" 
           className="h-8 w-8 rounded-full bg-white/20 backdrop-blur-sm"
         >
-          <span className="text-lg">{getLanguageFlag(currentLanguage)}</span>
+          <span className="text-lg">{currentLanguage === 'es' ? 'ES' : 'EN'}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         <DropdownMenuItem onClick={() => changeLanguage('es')}>
-          <span className="mr-2">🇪🇸</span> Español
+          <span className="mr-2">ES</span> Español
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => changeLanguage('en')}>
-          <span className="mr-2">🇬🇧</span> English
+          <span className="mr-2">EN</span> English
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

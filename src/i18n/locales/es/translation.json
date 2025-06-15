@@ -36,7 +36,7 @@
     "emotivity": "Emotividad",
     "health": "Salud",
     "epopeya": "Epopeya",
-    "gestas": "La épica",
+    "gestas": "Gestas",
     "poderio": "Poderío",
     "donate": "Donar",
     "settings": "Ajustes"
@@ -146,6 +146,7 @@
     "categories": {
       "respiratory": {
         "title": "Pulmones",
+        "description": "Capacidad pulmonar y función respiratoria",
         "tooltip": {
           "function": "Monitorea la recuperación de tu función pulmonar tras dejar el vapeo.",
           "sense": "Los pulmones se recuperan progresivamente eliminando toxinas y regenerando tejidos.",
@@ -154,6 +155,7 @@
       },
       "cardiovascular": {
         "title": "Corazón",
+        "description": "Presión arterial y función cardíaca",
         "tooltip": {
           "function": "Evalúa la mejora en tu sistema circulatorio y salud del corazón.",
           "sense": "El corazón y vasos sanguíneos se benefician inmediatamente al eliminar la nicotina.",
@@ -162,6 +164,7 @@
       },
       "liver": {
         "title": "Hígado",
+        "description": "Función hepática y valores ALT/GGT",
         "tooltip": {
           "function": "Rastrea la recuperación de tu función hepática y metabolismo.",
           "sense": "El hígado procesa mejor las toxinas y revierte el daño causado por químicos del vapeo.",
@@ -170,6 +173,7 @@
       },
       "skinEyes": {
         "title": "Piel y Ojos",
+        "description": "Hidratación y salud dermatológica",
         "tooltip": {
           "function": "Monitorea la mejora en hidratación de piel y función lagrimal.",
           "sense": "La piel y ojos recuperan su hidratación natural al eliminar los irritantes del vapeo.",
@@ -178,6 +182,7 @@
       },
       "mental": {
         "title": "Bienestar Mental",
+        "description": "Estabilidad emocional y calidad del sueño",
         "tooltip": {
           "function": "Evalúa tu recuperación neurológica y bienestar psicológico.",
           "sense": "El cerebro se adapta gradualmente sin nicotina, mejorando estado de ánimo y concentración.",
@@ -243,6 +248,10 @@
       "psychological": {
         "title": "Desafíos Psicológicos",
         "description": "Patrones de pensamiento y contextos específicos"
+      },
+      "situational": {
+        "title": "Situaciones Cotidianas",
+        "description": "Contextos específicos del día a día"
       },
       "ultimate": {
         "title": "Maestría Total",
@@ -501,70 +510,22 @@
     "intrusiveThought": "💭 Gestión de pensamientos intrusivos:",
     "counterResponse": "💪 Contrarréplica:"
   },
-  "healthTracker": {
-    "categories": {
-      "respiratory": {
-        "title": "Pulmones",
-        "description": "Capacidad pulmonar y función respiratoria",
-        "tooltip": {
-          "function": "Monitorea la recuperación de tu función pulmonar tras dejar el vapeo.",
-          "sense": "Los pulmones se recuperan progresivamente eliminando toxinas y regenerando tejidos.",
-          "science": "Basado en estudios de función pulmonar post-cesación (Respiratory Medicine, 2023)."
-        }
-      },
-      "cardiovascular": {
-        "title": "Corazón",
-        "description": "Presión arterial y función cardíaca",
-        "tooltip": {
-          "function": "Evalúa la mejora en tu sistema circulatorio y salud del corazón.",
-          "sense": "El corazón y vasos sanguíneos se benefician inmediatamente al eliminar la nicotina.",
-          "science": "Fundamentado en investigaciones sobre recuperación cardiovascular (JACC, 2022)."
-        }
-      },
-      "liver": {
-        "title": "Hígado",
-        "description": "Función hepática y valores ALT/GGT",
-        "tooltip": {
-          "function": "Rastrea la recuperación de tu función hepática y metabolismo.",
-          "sense": "El hígado procesa mejor las toxinas y revierte el daño causado por químicos del vapeo.",
-          "science": "Basado en estudios de toxicología hepática y recuperación (Hepatology, 2021)."
-        }
-      },
-      "skinEyes": {
-        "title": "Piel y Ojos",
-        "description": "Hidratación y salud dermatológica",
-        "tooltip": {
-          "function": "Monitorea la mejora en hidratación de piel y función lagrimal.",
-          "sense": "La piel y ojos recuperan su hidratación natural al eliminar los irritantes del vapeo.",
-          "science": "Fundamentado en dermatología y oftalmología clínica (JAMA Dermatology, 2022)."
-        }
-      },
-      "mental": {
-        "title": "Bienestar Mental",
-        "description": "Estabilidad emocional y calidad del sueño",
-        "tooltip": {
-          "function": "Evalúa tu recuperación neurológica y bienestar psicológico.",
-          "sense": "El cerebro se adapta gradualmente sin nicotina, mejorando estado de ánimo y concentración.",
-          "science": "Basado en neuroplasticidad y estudios de adicción (Nature Neuroscience, 2023)."
-        }
-      },
-      "function": "Función",
-      "sense": "Sentido",
-      "science": "Base científica"
-    },
-    "progressCard": {
-      "currentRecovery": "recuperación actual",
-      "currentState": "Estado actual:",
-      "medicalBasis": "Base médica:",
-      "scientificInfo": "Información científica",
-      "scientificSource": "Fuente científica",
-      "basedOnStudies": "Datos basados en estudios médicos recientes",
-      "nextMilestone": "Próximo hito (Día {{day}}):",
-      "daysRemaining": "En {{days}} días",
-      "evolution": "Evolución hasta Hoy",
-      "progressBasedOn": "Progreso real basado en {{days}} días de recuperación",
-      "recovery": "Recuperación",
-      "chartNote": "Gráfica basada en investigaciones médicas sobre recuperación post-vapeo"
-    }
+  "relapseHandler": {
+    "restartMessage": "Proceso reiniciado. ¡Vuelve a empezar con fuerza!",
+    "firstRelapse": "Primera recaída: se han restado 7 días de tu progreso.",
+    "secondRelapse": "Segunda recaída: se ha restado 1 mes (30 días) de tu progreso.",
+    "thirdRelapse": "Tercera recaída: se han restado 3 meses (90 días) de tu progreso.",
+    "fourthRelapse": "Cuarta recaída: se han restado 9 meses (270 días) de tu progreso.",
+    "fifthRelapse": "Quinta recaída: se ha reiniciado todo el proceso completamente.",
+    "penaltyExceedsProgress": "Como la penalización supera tu progreso actual, el contador se ha puesto en cero.",
+    "newProgress": "Ahora tienes {{days}} días de progreso.",
+    "confirmRelapse": "¿Confirmar recaída?",
+    "confirmMessage": "¿Estás seguro de que quieres registrar una recaída? Esto afectará tu progreso actual.",
+    "penaltyWarning": "Dependiendo del número de recaídas previas, la penalización puede ser de 7 días a un reinicio completo.",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar recaída",
+    "relapseProcessed": "Recaída procesada",
+    "processed": "Tu recaída ha sido procesada. Recuerda que cada tropiezo es una oportunidad para aprender.",
+    "continue": "Continuar"
   }
 }

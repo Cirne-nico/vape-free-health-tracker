@@ -192,7 +192,6 @@
       "currentRecovery": "current recovery",
       "currentState": "Current state:",
       "medicalBasis": "Medical basis:",
-      "scientificInfo": "Scientific information",
       "scientificSource": "Scientific source",
       "basedOnStudies": "Data based on recent medical studies",
       "nextMilestone": "Next milestone (Day {{day}}):",
@@ -244,6 +243,10 @@
         "title": "Psychological Challenges",
         "description": "Thought patterns and specific contexts"
       },
+      "situational": {
+        "title": "Daily Situations",
+        "description": "Specific everyday contexts"
+      },
       "ultimate": {
         "title": "Total Mastery",
         "description": "Final medal that unlocks automatically"
@@ -286,7 +289,8 @@
       "create": "Create Feat",
       "cancel": "Cancel"
     },
-    "noFeatsConfigured": "You don't have any feats configured"
+    "noFeatsConfigured": "You don't have any feats configured",
+    "completed": "Completed"
   },
   "habitsManager": {
     "title": "⚡ Power - Scientific Habits",
@@ -315,7 +319,9 @@
       "tooltip": {
         "title": "How does it work?",
         "description": "Mark as completed each day you achieve the habit. You can only mark once per day.",
-        "consolidation": "{{description}}",
+        "consolidation": {
+          "title": "Consolidation:"
+        },
         "recountTitle": "Weekly count:",
         "recountSocial": "For social commitment: 1 day per week = 100% completed",
         "recountOthers": "Resets every 7 days, but keeps track of previous weeks."
@@ -337,7 +343,8 @@
       "title": "💡 Key to Success",
       "description": "All habits are validated for nicotine abstinence in vapers. Effectiveness increases if you combine ≥3 routines.",
       "source": "Source: Hajek et al., 2019 - Specific studies on vaping cessation"
-    }
+    },
+    "effectiveness": "Effectiveness:"
   },
   "donation": {
     "title": "Support Development",
@@ -491,28 +498,22 @@
     "intrusiveThought": "💭 Managing intrusive thoughts:",
     "counterResponse": "💪 Counter-response:"
   },
-  "healthTracker": {
-    "categories": {
-      "respiratory": {
-        "title": "Lungs",
-        "description": "Lung capacity and respiratory function"
-      },
-      "cardiovascular": {
-        "title": "Heart",
-        "description": "Blood pressure and cardiac function"
-      },
-      "liver": {
-        "title": "Liver",
-        "description": "Liver function and ALT/GGT values"
-      },
-      "skinEyes": {
-        "title": "Skin and Eyes",
-        "description": "Hydration and dermatological health"
-      },
-      "mental": {
-        "title": "Mental Wellbeing",
-        "description": "Emotional stability and sleep quality"
-      }
-    }
+  "relapseHandler": {
+    "restartMessage": "Process restarted. Start again with strength!",
+    "firstRelapse": "First relapse: 7 days have been subtracted from your progress.",
+    "secondRelapse": "Second relapse: 1 month (30 days) has been subtracted from your progress.",
+    "thirdRelapse": "Third relapse: 3 months (90 days) have been subtracted from your progress.",
+    "fourthRelapse": "Fourth relapse: 9 months (270 days) have been subtracted from your progress.",
+    "fifthRelapse": "Fifth relapse: the entire process has been completely restarted.",
+    "penaltyExceedsProgress": "Since the penalty exceeds your current progress, the counter has been set to zero.",
+    "newProgress": "You now have {{days}} days of progress.",
+    "confirmRelapse": "Confirm relapse?",
+    "confirmMessage": "Are you sure you want to record a relapse? This will affect your current progress.",
+    "penaltyWarning": "Depending on the number of previous relapses, the penalty can range from 7 days to a complete restart.",
+    "cancel": "Cancel",
+    "confirm": "Confirm relapse",
+    "relapseProcessed": "Relapse processed",
+    "processed": "Your relapse has been processed. Remember that each stumble is an opportunity to learn.",
+    "continue": "Continue"
   }
 }

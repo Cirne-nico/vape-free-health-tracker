@@ -17,7 +17,7 @@ const Index = () => {
     calculateTimeSince, 
     calculateSavings, 
     calculateBlurLevel,
-    calculateTextContrast, // ✅ NUEVA FUNCIÓN IMPORTADA
+    calculateTextContrast,
     calculateProgressPercentage,
     getProgressInfo
   } = useQuitProgress(startDate);
@@ -31,7 +31,7 @@ const Index = () => {
     adjustMedalsAfterRelapse
   } = useAchievements(startDate, currentTime);
 
-  const { handleRelapse } = useRelapseHandler({
+  const { handleRelapse, RelapseDialog } = useRelapseHandler({
     startDate,
     setStartDate,
     currentTime,
@@ -60,7 +60,7 @@ const Index = () => {
   const progressPercentage = calculateProgressPercentage();
   const progressInfo = getProgressInfo();
   const blurLevel = calculateBlurLevel();
-  const textContrast = calculateTextContrast(); // ✅ NUEVO CÁLCULO DE CONTRASTE
+  const textContrast = calculateTextContrast();
   const unlockedAchievements = getUnlockedAchievements(time.days);
   const unlockedHealthAchievements = getUnlockedHealthAchievements(time.days);
 
@@ -78,7 +78,7 @@ const Index = () => {
             progressPercentage={progressPercentage}
             progressInfo={progressInfo}
             blurLevel={blurLevel}
-            textContrast={textContrast} // ✅ NUEVA PROP PASADA AL HEADER
+            textContrast={textContrast}
             unlockedAchievements={unlockedAchievements}
             unlockedHealthAchievements={unlockedHealthAchievements}
             onRelapse={handleRelapse}
@@ -102,6 +102,9 @@ const Index = () => {
         savings={savings.total}
         onClose={handleCloseAchievementPopup}
       />
+
+      {/* Diálogo de confirmación de recaída */}
+      <RelapseDialog />
     </div>
   );
 };

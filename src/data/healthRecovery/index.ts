@@ -2,34 +2,41 @@ import { respiratoryData, HealthRecoveryPoint } from './respiratoryData';
 import { cardiovascularData } from './cardiovascularData';
 
 const liverData: HealthRecoveryPoint[] = [
-  { day: 0, value: 0, description: "Elevated ALT/GGT values (1.5-2x normal)", medicalBasis: "Metabolism of vaping solvents", timeline: "Initial state" },
-  { day: 7, value: 15, description: "Reduction of hepatic inflammation", medicalBasis: "20% decrease in oxidative stress markers", timeline: "One week" },
-  { day: 14, value: 25, description: "Improved processing", medicalBasis: "Normalization of CYP450 enzymes", timeline: "Two weeks" },
-  { day: 30, value: 45, description: "ALT values normalizing", medicalBasis: "40-50% reduction from baseline levels", timeline: "One month" },
-  { day: 60, value: 70, description: "Improved liver function", medicalBasis: "Restored protein synthesis", timeline: "Two months" },
-  { day: 90, value: 85, description: "Reversal of hepatic steatosis", medicalBasis: "60% reduction in fat accumulation", timeline: "Three months" },
-  { day: 180, value: 95, description: "Optimal liver function", medicalBasis: "Restored detoxifying capacity", timeline: "Six months" }
+  { day: 0, value: 0, description: "Valores ALT/GGT elevados (1.5-2x normal)", medicalBasis: "Metabolismo de solventes del vapeo", timeline: "Estado inicial" },
+  { day: 0.5, value: 2, description: "Inicio de procesamiento de toxinas", medicalBasis: "Activación de enzimas de fase I", timeline: "Primeras 12 horas" },
+  { day: 1, value: 5, description: "Primeras señales de desintoxicación", medicalBasis: "Activación de vías metabólicas hepáticas", timeline: "24 horas" },
+  { day: 7, value: 15, description: "Reducción de inflamación hepática", medicalBasis: "20% de disminución en marcadores de estrés oxidativo", timeline: "Una semana" },
+  { day: 14, value: 25, description: "Procesamiento mejorado", medicalBasis: "Normalización de enzimas CYP450", timeline: "Dos semanas" },
+  { day: 30, value: 45, description: "Valores ALT normalizándose", medicalBasis: "40-50% de reducción desde niveles basales", timeline: "Un mes" },
+  { day: 60, value: 70, description: "Función hepática mejorada", medicalBasis: "Síntesis proteica restaurada", timeline: "Dos meses" },
+  { day: 90, value: 85, description: "Reversión de esteatosis hepática", medicalBasis: "60% de reducción en acumulación de grasa", timeline: "Tres meses" },
+  { day: 180, value: 95, description: "Función hepática óptima", medicalBasis: "Capacidad detoxificante restaurada", timeline: "Seis meses" }
 ];
 
 const skinEyesData: HealthRecoveryPoint[] = [
-  { day: 0, value: 0, description: "Severe dryness and irritation", medicalBasis: "Transdermal dehydration from glycerin", timeline: "Initial state" },
-  { day: 3, value: 15, description: "Initial hydration", medicalBasis: "20% improvement in moisture retention", timeline: "72 hours" },
-  { day: 7, value: 30, description: "Significant reduction in eye dryness", medicalBasis: "30% increase in tear production", timeline: "One week" },
-  { day: 14, value: 50, description: "Skin elasticity improves", medicalBasis: "Collagen synthesis increased by 25%", timeline: "Two weeks" },
-  { day: 30, value: 70, description: "Normalized tear production", medicalBasis: "Restoration of tear film", timeline: "One month" },
-  { day: 60, value: 85, description: "Visibly healthier skin", medicalBasis: "50% reduction in dilated pores", timeline: "Two months" },
-  { day: 90, value: 92, description: "Optimal hydration", medicalBasis: "Restored skin barrier function", timeline: "Three months" }
+  { day: 0, value: 0, description: "Sequedad e irritación severa", medicalBasis: "Deshidratación transdérmica por glicerina", timeline: "Estado inicial" },
+  { day: 0.5, value: 5, description: "Primeros signos de rehidratación", medicalBasis: "Inicio de recuperación de barrera cutánea", timeline: "Primeras 12 horas" },
+  { day: 1, value: 10, description: "Mejora inicial en hidratación", medicalBasis: "Reducción de irritantes en superficie ocular", timeline: "24 horas" },
+  { day: 3, value: 15, description: "Hidratación inicial", medicalBasis: "20% de mejora en retención de humedad", timeline: "72 horas" },
+  { day: 7, value: 30, description: "Reducción significativa en sequedad ocular", medicalBasis: "30% de aumento en producción lagrimal", timeline: "Una semana" },
+  { day: 14, value: 50, description: "Elasticidad cutánea mejora", medicalBasis: "Síntesis de colágeno aumentada en 25%", timeline: "Dos semanas" },
+  { day: 30, value: 70, description: "Producción lagrimal normalizada", medicalBasis: "Restauración de película lagrimal", timeline: "Un mes" },
+  { day: 60, value: 85, description: "Piel visiblemente más saludable", medicalBasis: "50% de reducción en poros dilatados", timeline: "Dos meses" },
+  { day: 90, value: 92, description: "Hidratación óptima", medicalBasis: "Función barrera cutánea restaurada", timeline: "Tres meses" }
 ];
 
 const mentalData: HealthRecoveryPoint[] = [
-  { day: 0, value: 0, description: "Severe anxiety and irritability", medicalBasis: "Acute dopaminergic dysregulation in limbic system", timeline: "Initial state" },
-  { day: 1, value: 5, description: "Initial withdrawal symptoms", medicalBasis: "Desensitization of nicotinic receptors", timeline: "24 hours" },
-  { day: 3, value: 10, description: "Peak anxiety", medicalBasis: "Reorganization of dopaminergic circuits", timeline: "72 hours" },
-  { day: 7, value: 25, description: "Initial emotional stabilization", medicalBasis: "30% reduction in irritability episodes", timeline: "One week" },
-  { day: 14, value: 45, description: "Significant improvement in sleep quality", medicalBasis: "Restoration of REM architecture", timeline: "Two weeks" },
-  { day: 30, value: 65, description: "Improved concentration", medicalBasis: "Executive function recovered to 80%", timeline: "One month" },
-  { day: 60, value: 80, description: "Consolidated emotional stability", medicalBasis: "Mood regulation without dependence", timeline: "Two months" },
-  { day: 90, value: 90, description: "Optimal mental wellbeing", medicalBasis: "Recalibrated reward system", timeline: "Three months" }
+  { day: 0, value: 0, description: "Ansiedad e irritabilidad severa", medicalBasis: "Desregulación dopaminérgica aguda en sistema límbico", timeline: "Estado inicial" },
+  { day: 0.08, value: 2, description: "Primeros cambios en neurotransmisores", medicalBasis: "Inicio de reajuste de receptores nicotínicos", timeline: "Primeras 2 horas" },
+  { day: 0.33, value: 3, description: "Cambios en actividad cerebral", medicalBasis: "Modificación de patrones de activación frontal", timeline: "Primeras 8 horas" },
+  { day: 0.5, value: 4, description: "Inicio de adaptación neurológica", medicalBasis: "Cambios en sensibilidad de receptores", timeline: "Primeras 12 horas" },
+  { day: 1, value: 5, description: "Síntomas iniciales de abstinencia", medicalBasis: "Desensibilización de receptores nicotínicos", timeline: "24 horas" },
+  { day: 3, value: 10, description: "Pico de ansiedad", medicalBasis: "Reorganización de circuitos dopaminérgicos", timeline: "72 horas" },
+  { day: 7, value: 25, description: "Estabilización emocional inicial", medicalBasis: "30% de reducción en episodios de irritabilidad", timeline: "Una semana" },
+  { day: 14, value: 45, description: "Mejora significativa en calidad del sueño", medicalBasis: "Restauración de arquitectura REM", timeline: "Dos semanas" },
+  { day: 30, value: 65, description: "Concentración mejorada", medicalBasis: "Función ejecutiva recuperada al 80%", timeline: "Un mes" },
+  { day: 60, value: 80, description: "Estabilidad emocional consolidada", medicalBasis: "Regulación del estado de ánimo sin dependencia", timeline: "Dos meses" },
+  { day: 90, value: 90, description: "Bienestar mental óptimo", medicalBasis: "Sistema de recompensa recalibrado", timeline: "Tres meses" }
 ];
 
 export interface HealthRecoveryData {

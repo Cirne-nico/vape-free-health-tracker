@@ -88,23 +88,22 @@ export const useQuitProgress = (startDate: Date | null) => {
   const calculateBlurLevel = () => {
     if (!startDate) return 8;
     
-    const { days } = calculateTimeSince();
+    const { days, hours } = calculateTimeSince();
+    const totalDays = days + (hours / 24); // Incluir las horas para una transición más suave
     
     // Reducir el blur gradualmente a medida que pasan los días
-    if (days <= 90) {
+    // CORREGIDO: Ahora llega a 0 al año (365 días) en lugar de a los 2 años
+    if (totalDays <= 90) {
       // De 8px a 4px en los primeros 90 días
-      return 8 - ((days / 90) * 4);
-    } else if (days <= 365) {
-      // De 4px a 2px entre 90 días y 1 año
-      const daysAfter90 = days - 90;
+      return 8 - ((totalDays / 90) * 4);
+    } else if (totalDays <= 365) {
+      // De 4px a 0px entre 90 días y 1 año (antes era 2 años)
+      const daysAfter90 = totalDays - 90;
       const daysTo1Year = 365 - 90;
-      return 4 - ((daysAfter90 / daysTo1Year) * 2);
+      return Math.max(0, 4 - ((daysAfter90 / daysTo1Year) * 4)); // Asegurar que no sea negativo
     } else {
-      // De 2px a 0px después del primer año
-      const daysAfter1Year = days - 365;
-      const daysTo2Years = 730 - 365;
-      const remainingBlur = Math.max(0, 2 - ((daysAfter1Year / daysTo2Years) * 2));
-      return remainingBlur;
+      // Después del año, mantener en 0 (completamente nítido)
+      return 0;
     }
   };
 

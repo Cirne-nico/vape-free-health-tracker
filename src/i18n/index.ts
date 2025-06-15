@@ -23,7 +23,7 @@ i18n
   // init i18next
   .init({
     resources,
-    fallbackLng: 'es',
+    fallbackLng: 'es', // Establecer español como idioma por defecto
     debug: false,
     
     interpolation: {

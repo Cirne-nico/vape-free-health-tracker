@@ -19,13 +19,16 @@ const SetupModal = ({ onComplete }: SetupModalProps) => {
   const [time, setTime] = useState('');
   const [userName, setUserName] = useState('');
   const [showMain, setShowMain] = useState(false);
-  const [language, setLanguage] = useState(i18n.language || 'es');
+  const [language, setLanguage] = useState('es'); // Establecer español como idioma por defecto
 
   useEffect(() => {
     // Pequeña animación inicial
     setTimeout(() => {
       setShowMain(true);
     }, 500);
+    
+    // Asegurar que el idioma por defecto sea español
+    i18n.changeLanguage('es');
   }, []);
   
   const handleDateTimeSubmit = () => {

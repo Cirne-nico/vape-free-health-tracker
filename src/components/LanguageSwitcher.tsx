@@ -13,7 +13,8 @@ const LanguageSwitcher = () => {
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language || 'es');
 
   useEffect(() => {
-    setCurrentLanguage(i18n.language);
+    // Asegurarse de que el idioma actual se refleje correctamente
+    setCurrentLanguage(i18n.language || 'es');
   }, [i18n.language]);
 
   const changeLanguage = (language: string) => {

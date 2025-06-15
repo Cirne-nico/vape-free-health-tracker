@@ -11,17 +11,18 @@ import "./i18n";
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Remove RTL direction handling since we no longer have Greek
+  // Configurar el idioma por defecto
   useEffect(() => {
     const handleLanguageChange = () => {
+      // Usar español como idioma por defecto si no hay uno guardado
       const lang = localStorage.getItem('umbral-language') || 'es';
       document.documentElement.lang = lang;
     };
 
-    // Set initial language
+    // Establecer idioma inicial
     handleLanguageChange();
 
-    // Listen for language changes
+    // Escuchar cambios de idioma
     window.addEventListener('languagechange', handleLanguageChange);
     
     return () => {
@@ -30,7 +31,7 @@ const App = () => {
   }, []);
 
   return (
-    <Suspense fallback="Loading...">
+    <Suspense fallback="Cargando...">
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <TooltipProvider>

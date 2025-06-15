@@ -61,10 +61,15 @@ export const useQuitProgress = (startDate: Date | null) => {
     }
     
     // Fase 2: De 90 días a 2 años (objetivo final)
+    // CORREGIDO: Calcular correctamente el porcentaje para la fase 2
     const daysAfter90 = days - 90;
-    const daysTo2Years = 730 - 90; // 2 años - 90 días
+    const daysTo2Years = 730 - 90; // 2 años (730 días) - 90 días
     
-    return 100 + ((daysAfter90 / daysTo2Years) * 100);
+    // Calcular el porcentaje de la segunda fase (de 0 a 100%)
+    const phase2Percentage = (daysAfter90 / daysTo2Years) * 100;
+    
+    // Limitar a 100% máximo
+    return Math.min(100, phase2Percentage);
   };
 
   const getProgressInfo = () => {

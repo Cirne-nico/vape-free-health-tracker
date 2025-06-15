@@ -204,7 +204,8 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       "No es un pequeño logro. Es un paso de gigante.": i18n.language === 'en' ? "One day is nothing, it's very little progress" : "Un día no es nada, es muy poco progreso",
       
       // === CONTRARRÉPLICAS CORREGIDAS - SIN SESGO NEOLIBERAL ===
-      "Si esto es el fin, que venga alguien a aplaudir. Yo voy a hacerme una tostada.": i18n.language === 'en' ? "This is the end of the process" : "Esto es el fin del proceso",
+      "Si esto es estar curade, vaya m*.": i18n.language === 'en' ? "If this is being cured, it sucks" : "Si esto es estar curade, vaya m*",
+      "No estoy curade, estoy reequilibrando mi sistema emocional. Jode, pero ten paciencia: se pasa y mejora.": i18n.language === 'en' ? "I'm not cured, I'm rebalancing my emotional system. It sucks, but be patient: it passes and improves." : "No estoy curade, estoy reequilibrando mi sistema emocional. Jode, pero ten paciencia: se pasa y mejora.",
       "No es el fin ni el inicio. Es solo un día más sin propilenglicol en los bronquios.": i18n.language === 'en' ? "This is the end of the process" : "Esto es el fin del proceso", 
       "Fin de proceso no hay. Lo que hay es menos interferencia. Y eso ya es bastante.": i18n.language === 'en' ? "This is the end of the process" : "Esto es el fin del proceso",
       "Sí, el subidón se ha ido. Pero también se fue la ansiedad química. Algo se equilibra.": i18n.language === 'en' ? "This is the end of the process" : "Esto es el fin del proceso",

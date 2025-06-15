@@ -67,7 +67,7 @@ const MainHeader = ({
     // Definir citas en español e inglés
     const quotes = {
       es: [
-        "El poder no es algo que se posea, sino algo que actúa. — M. Foucault",
+        "El poder no es algo que se posee, sino algo que se ejerce. — M. Foucault",
         "La repetición nunca es meramente mecánica. — J. Butler",
         "La libertad es una lucha constante. — A. Davis",
         "Cuidar de mí misma no es autocomplacencia, es autopreservación. — A. Lorde",
@@ -81,10 +81,32 @@ const MainHeader = ({
         "El conocimiento surge de la experiencia vivida. — P. Hill Collins",
         "La autonomía no es aislamiento, es autodeterminación. — O. Curiel",
         "La libertad real incluye la libertad de las dependencias destructivas. — V. Shiva",
-        "Resistir es crear mundos alternativos. — M. Lugones"
+        "Resistir es crear mundos alternativos. — M. Lugones",
+        // Citas de Lola Flores
+        "Si me queréis, irse. — Lola Flores",
+        "Yo no me he ido nunca, ni me iré. Yo me quedo siempre. — Lola Flores",
+        "Que me quiten lo bailao. — Lola Flores",
+        // Citas de Mariem Hassan
+        "La música es el arma más poderosa que tenemos para resistir. — Mariem Hassan",
+        "Cantar es mi forma de luchar por la libertad. — Mariem Hassan",
+        // Citas de Las Reguetoneras Rurales
+        "Somos las que somos, no las que quieren que seamos. — Las Reguetoneras Rurales",
+        "El campo también es nuestro territorio de resistencia. — Las Reguetoneras Rurales",
+        // Citas de La Niña de los Peines
+        "El cante no se aprende, se lleva dentro. — La Niña de los Peines",
+        "Cuando canto, no soy yo, es mi alma la que habla. — La Niña de los Peines",
+        // Citas de Rocío Jurado
+        "Lo importante no es llegar, sino mantenerse. — Rocío Jurado",
+        "Yo no me rindo ante nada ni ante nadie. — Rocío Jurado",
+        // Citas de Carmen Amaya
+        "Bailo como si me fuera la vida en ello, porque así es. — Carmen Amaya",
+        "El arte es libertad, y la libertad no tiene precio. — Carmen Amaya",
+        // Citas de La Argentinita
+        "El baile es la expresión más sincera del alma. — La Argentinita",
+        "Cada paso es una declaración de independencia. — La Argentinita"
       ],
       en: [
-        "Power is not something that is possessed, but something that acts. — M. Foucault",
+        "Power is not something that is possessed, but something that is exercised. — M. Foucault",
         "Repetition is never merely mechanical. — J. Butler",
         "Freedom is a constant struggle. — A. Davis",
         "Caring for myself is not self-indulgence, it is self-preservation. — A. Lorde",
@@ -98,7 +120,29 @@ const MainHeader = ({
         "Knowledge emerges from lived experience. — P. Hill Collins",
         "Autonomy is not isolation, it is self-determination. — O. Curiel",
         "Real freedom includes freedom from destructive dependencies. — V. Shiva",
-        "To resist is to create alternative worlds. — M. Lugones"
+        "To resist is to create alternative worlds. — M. Lugones",
+        // Lola Flores quotes
+        "If you love me, leave. — Lola Flores",
+        "I have never left, nor will I leave. I always stay. — Lola Flores",
+        "No one can take away what I've danced. — Lola Flores",
+        // Mariem Hassan quotes
+        "Music is the most powerful weapon we have to resist. — Mariem Hassan",
+        "Singing is my way of fighting for freedom. — Mariem Hassan",
+        // Las Reguetoneras Rurales quotes
+        "We are who we are, not who they want us to be. — Las Reguetoneras Rurales",
+        "The countryside is also our territory of resistance. — Las Reguetoneras Rurales",
+        // La Niña de los Peines quotes
+        "Singing is not learned, it's carried within. — La Niña de los Peines",
+        "When I sing, it's not me, it's my soul that speaks. — La Niña de los Peines",
+        // Rocío Jurado quotes
+        "What matters is not to arrive, but to stay. — Rocío Jurado",
+        "I don't surrender to anything or anyone. — Rocío Jurado",
+        // Carmen Amaya quotes
+        "I dance as if my life depended on it, because it does. — Carmen Amaya",
+        "Art is freedom, and freedom has no price. — Carmen Amaya",
+        // La Argentinita quotes
+        "Dance is the most sincere expression of the soul. — La Argentinita",
+        "Each step is a declaration of independence. — La Argentinita"
       ]
     };
     

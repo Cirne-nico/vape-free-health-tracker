@@ -147,7 +147,7 @@ const getHabitMedalIcon = (type: string) => {
     case 'social':
       return '/lovable-uploads/social.png';
     case 'nature':
-      return '/lovable-uploads/Naturaleza.png'; // Icono para paseos en naturaleza
+      return '/lovable-uploads/maestría_naturaleza.png'; // Icono para paseos en naturaleza
     case 'hydration':
       return '/lovable-uploads/Hidratacion.png'; // Icono para hidratación programada
     default:

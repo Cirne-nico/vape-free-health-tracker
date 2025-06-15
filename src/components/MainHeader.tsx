@@ -183,28 +183,28 @@ const MainHeader = ({
           <div className="text-center mb-1">
             <div className="flex items-center justify-center gap-2 mb-1">
               <Logo size="sm" className="text-white flex-shrink-0" />
-              <h1 className={`text-base sm:text-lg font-bold leading-none tracking-wide ${textContrast.primaryText}`}>
+              <h1 className={`text-base sm:text-lg font-bold leading-none tracking-wide ${textContrast.primaryText} text-shadow-sm`}>
                 {t('app.name')}
               </h1>
             </div>
-            <p className={`text-xs italic font-medium ${textContrast.accentText}`}>
+            <p className={`text-xs italic font-medium ${textContrast.accentText} text-shadow-sm`}>
               {t('app.tagline')}
             </p>
           </div>
 
           {/* Título principal */}
           <div className="text-center">
-            <h2 className={`text-sm sm:text-base font-bold ${textContrast.primaryText}`}>
+            <h2 className={`text-sm sm:text-base font-bold ${textContrast.primaryText} text-shadow-sm`}>
               {t('app.header.title')}
             </h2>
-            <h3 className={`text-xs sm:text-sm font-semibold ${textContrast.accentText}`}>
+            <h3 className={`text-xs sm:text-sm font-semibold ${textContrast.accentText} text-shadow-sm`}>
               {t('app.header.subtitle')}
             </h3>
           </div>
 
           {/* Tiempo transcurrido */}
           <div className="text-center">
-            <h4 className={`text-lg sm:text-xl font-bold ${textContrast.primaryText}`}>
+            <h4 className={`text-lg sm:text-xl font-bold ${textContrast.primaryText} text-shadow-sm`}>
               {time.days > 0 
                 ? t('app.header.days', { count: time.days }) 
                 : t('app.header.hours', { hours: time.hours, minutes: time.minutes })}
@@ -213,13 +213,13 @@ const MainHeader = ({
 
           {/* Progreso visual */}
           <div className="space-y-1">
-            <div className={`flex justify-between text-xs ${textContrast.secondaryText}`}>
+            <div className={`flex justify-between text-xs ${textContrast.secondaryText} text-shadow-sm`}>
               <span>{t('app.header.progress', { target: progressInfo.targetLabel })}</span>
               <span className="font-semibold">{Math.min(progressPercentage, 100).toFixed(1)}%</span>
             </div>
             <Progress value={Math.min(progressPercentage, 100)} className="h-2" />
             {!progressInfo.isFirstPhase && (
-              <div className={`text-xs text-center ${textContrast.accentText}`}>
+              <div className={`text-xs text-center ${textContrast.accentText} text-shadow-sm`}>
                 {t('app.header.phase2')}
               </div>
             )}
@@ -230,22 +230,22 @@ const MainHeader = ({
             <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
               <div className="flex items-center justify-center gap-1">
                 <Clock className={`w-4 h-4 ${textContrast.accentText}`} />
-                <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText}`}>{time.totalHours}</p>
+                <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText} text-shadow-sm`}>{time.totalHours}</p>
               </div>
-              <p className={`text-xs ${textContrast.accentText}`}>{t('app.header.totalHours')}</p>
+              <p className={`text-xs ${textContrast.accentText} text-shadow-sm`}>{t('app.header.totalHours')}</p>
             </div>
             <div className="bg-black/20 backdrop-blur-sm rounded-lg p-2">
               <div className="flex items-center justify-center gap-1">
                 <Trophy className="w-4 h-4 text-yellow-300" />
-                <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText}`}>{totalMedals}</p>
+                <p className={`text-base sm:text-lg font-bold ${textContrast.primaryText} text-shadow-sm`}>{totalMedals}</p>
               </div>
-              <p className={`text-xs ${textContrast.accentText}`}>{t('app.header.medals')}</p>
+              <p className={`text-xs ${textContrast.accentText} text-shadow-sm`}>{t('app.header.medals')}</p>
             </div>
           </div>
 
           {/* Cita crítica */}
           <div className="text-center">
-            <p className={`text-xs italic font-light leading-relaxed ${textContrast.accentText}`}>
+            <p className={`text-xs italic font-light leading-relaxed ${textContrast.accentText} text-shadow-sm`}>
               {getCriticalQuote()}
             </p>
           </div>

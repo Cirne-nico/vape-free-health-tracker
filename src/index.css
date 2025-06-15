@@ -101,3 +101,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Añadir sombra de texto para mejorar contraste */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}

@@ -60,7 +60,7 @@ const PanicButton = ({ isOpen, onClose }: PanicButtonProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-center text-red-600 flex items-center justify-center gap-2">
             <AlertTriangle className="w-6 h-6" />

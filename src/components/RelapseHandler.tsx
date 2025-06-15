@@ -94,10 +94,11 @@ export const useRelapseHandler = ({
       
       setRelapseResult(penaltyMessage + (t('relapseHandler.penaltyExceedsProgress') || ' Como la penalización supera tu progreso actual, el contador se ha puesto en cero.'));
     } else {
-      // CORREGIDO: Calcular nueva fecha de inicio RESTANDO los días de penalización
-      // en lugar de sumarlos, para mover la fecha hacia adelante (más reciente)
+      // CORREGIDO: Calcular nueva fecha de inicio sumando los días de penalización al día actual
+      // para simular que empezó más tarde (menos días de progreso)
+      const today = new Date();
       const millisecondsToSubtract = daysToSubtract * 24 * 60 * 60 * 1000;
-      const newStartDate = new Date(startDate.getTime() + millisecondsToSubtract);
+      const newStartDate = new Date(today.getTime() - (currentDays - daysToSubtract) * 24 * 60 * 60 * 1000);
       
       setStartDate(newStartDate);
       localStorage.setItem('vaping-quit-date', newStartDate.toISOString());

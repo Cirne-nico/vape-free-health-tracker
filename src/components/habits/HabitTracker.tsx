@@ -100,17 +100,19 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
     const weeklyProgress = getWeeklyProgressData(data);
     const recentWeeks = weeklyProgress.slice(-8); // Últimas 8 semanas para tener margen
 
-    // Criterio especial para compromiso social y paseos en naturaleza: solo necesitan 2 veces por semana
-    if (habitId === 'social_commitment' || habitId === 'nature_walks') {
-      // Buscar 8 semanas consecutivas con al menos 2 días completados para nature_walks
-      // o 1 día para social_commitment
+    // Criterio especial para compromiso social, paseos en naturaleza e hidratación programada
+    if (habitId === 'social_commitment' || habitId === 'nature_walks' || habitId === 'programmed_hydration') {
+      // Buscar semanas consecutivas con al menos los días requeridos completados
       let consecutiveWeeks = 0;
-      const minDaysRequired = habitId === 'nature_walks' ? 2 : 1;
+      const minDaysRequired = habitId === 'nature_walks' ? 2 : 
+                             habitId === 'programmed_hydration' ? 5 : 1;
+      const weeksRequired = habitId === 'nature_walks' ? 6 : 
+                           habitId === 'programmed_hydration' ? 3 : 8;
       
       for (let i = recentWeeks.length - 1; i >= 0; i--) {
         if (recentWeeks[i].completedDays >= minDaysRequired) {
           consecutiveWeeks++;
-          if (consecutiveWeeks >= (habitId === 'nature_walks' ? 6 : 8)) {
+          if (consecutiveWeeks >= weeksRequired) {
             consolidateHabit();
             return;
           }
@@ -168,6 +170,7 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       case 'strict_sleep_schedule': return 'sleep';
       case 'social_commitment': return 'social';
       case 'nature_walks': return 'nature';
+      case 'programmed_hydration': return 'hydration';
       default: return 'general';
     }
   };
@@ -208,13 +211,19 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
       entry.completed
     );
     
-    // Para compromiso social y paseos en naturaleza, criterios especiales
+    // Para compromiso social, 1 día = 100%
     if (habitId === 'social_commitment') {
       return weekData.length >= 1 ? 100 : 0;
     }
     
+    // Para paseos en naturaleza, 2 días = 100%
     if (habitId === 'nature_walks') {
       return (weekData.length / 2) * 100; // 2 días = 100%
+    }
+    
+    // Para hidratación programada, 5 días = 100%
+    if (habitId === 'programmed_hydration') {
+      return (weekData.length / 5) * 100; // 5 días = 100%
     }
     
     // Para otros hábitos, mantener el cálculo normal
@@ -266,6 +275,15 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
         weeksRequired: 6
       };
     }
+    if (habitId === 'programmed_hydration') {
+      return {
+        description: t('habitsManager.habitTracker.tooltip.consolidation', { 
+          description: 'For programmed hydration: 3 consecutive weeks with 5+ days per week'
+        }),
+        minDays: 5,
+        weeksRequired: 3
+      };
+    }
     return {
       description: t('habitsManager.habitTracker.tooltip.consolidation', { 
         description: 'For exercise and sleep: 4 consecutive weeks with 5+ days OR 6 weeks with 4+ days'
@@ -307,6 +325,8 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                     ? t('habitsManager.habitTracker.tooltip.recountSocial')
                     : habitId === 'nature_walks'
                     ? "Para paseos en naturaleza: 2 días por semana = 100% completado"
+                    : habitId === 'programmed_hydration'
+                    ? "Para hidratación programada: 5 días por semana = 100% completado"
                     : t('habitsManager.habitTracker.tooltip.recountOthers')
                   }
                 </p>
@@ -370,6 +390,11 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
               {weeklyProgress === 100 ? "✅ Semana completada (2+ días)" : `⏳ Necesitas ${2 - Math.floor(weeklyProgress / 50)} día(s) más esta semana`}
             </div>
           )}
+          {habitId === 'programmed_hydration' && (
+            <div className="text-xs text-gray-600 text-center">
+              {weeklyProgress === 100 ? "✅ Semana completada (5+ días)" : `⏳ Necesitas ${5 - Math.floor(weeklyProgress / 20)} día(s) más esta semana`}
+            </div>
+          )}
         </div>
 
         {/* Progreso hacia consolidación */}
@@ -386,10 +411,11 @@ const HabitTracker = ({ habitId, habitName, isActive }: HabitTrackerProps) => {
                 {recentWeeks.slice(-criteria.weeksRequired).map((week, index) => {
                   const minDaysRequired = habitId === 'nature_walks' ? 2 : 
                                          habitId === 'social_commitment' ? 1 : 
+                                         habitId === 'programmed_hydration' ? 5 :
                                          criteria.minDays;
                   
                   const isGood = week.completedDays >= minDaysRequired;
-                  const isOk = habitId === 'social_commitment' || habitId === 'nature_walks' ? 
+                  const isOk = habitId === 'social_commitment' || habitId === 'nature_walks' || habitId === 'programmed_hydration' ? 
                     false : 
                     week.completedDays >= 4;
                   

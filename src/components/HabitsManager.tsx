@@ -38,7 +38,7 @@ const HabitsManager = () => {
   const activationPercentage = (activeHabitsCount / totalHabits) * 100;
 
   // Hábitos que necesitan seguimiento
-  const trackableHabits = ['daily_exercise', 'strict_sleep_schedule', 'social_commitment', 'nature_walks'];
+  const trackableHabits = ['daily_exercise', 'strict_sleep_schedule', 'social_commitment', 'nature_walks', 'programmed_hydration'];
 
   const getCategoryIcon = (category: string) => {
     switch (category) {

@@ -148,6 +148,8 @@ const getHabitMedalIcon = (type: string) => {
       return '/lovable-uploads/social.png';
     case 'nature':
       return '/lovable-uploads/Naturaleza.png'; // Icono para paseos en naturaleza
+    case 'hydration':
+      return '/lovable-uploads/Hidratacion.png'; // Icono para hidratación programada
     default:
       return '/lovable-uploads/Ejercicio.png';
   }
@@ -163,6 +165,8 @@ const getHabitMedalTitle = (type: string, habitName: string) => {
       return 'Maestría Social';
     case 'nature':
       return 'Maestría de la Naturaleza'; // Título para paseos en naturaleza
+    case 'hydration':
+      return 'Maestría de la Hidratación'; // Título para hidratación programada
     default:
       return `Maestría de ${habitName}`;
   }
@@ -177,7 +181,9 @@ const getHabitMedalDescription = (type: string) => {
     case 'social':
       return 'Has consolidado el compromiso social semanal como red de apoyo';
     case 'nature':
-      return 'Has consolidado los paseos en naturaleza como práctica de bienestar mental'; // Descripción para paseos en naturaleza
+      return 'Has consolidado los paseos en naturaleza como práctica de bienestar mental';
+    case 'hydration':
+      return 'Has consolidado la hidratación programada como estrategia contra antojos';
     default:
       return 'Has consolidado este hábito científico';
   }

@@ -194,10 +194,10 @@ const DayContentCard = ({ startDate }: DayContentCardProps) => {
       // === PRIMERAS HORAS/DÍAS - REALISMO CRUDO ===
       "No es una pérdida. Es el comienzo de mi libertad.": i18n.language === 'en' ? "I've lost something important by quitting vaping" : "He perdido algo importante al dejar de vapear",
       "No es ansiedad. Es el cuerpo recuperando su ritmo autónomo.": i18n.language === 'en' ? "This anxiety means something is wrong" : "Esta ansiedad significa que algo va mal",
-      "No estoy nervioso. Estoy transitando el reinicio bioquímico.": i18n.language === 'en' ? "These nerves are a sign that I need to vape" : "Estos nervios son una señal de que necesito vapear",
+      "No estoy nerviose. Estoy transitando el reinicio bioquímico.": i18n.language === 'en' ? "These nerves are a sign that I need to vape" : "Estos nervios son una señal de que necesito vapear",
       "Cada vez que he cedido 'solo una calada', he vuelto a vapear en días. Este pensamiento no funciona.": i18n.language === 'en' ? "Just one puff won't hurt" : "Solo una calada no hará daño",
-      "No estoy enfermo. Estoy drenando residuos químicos acumulados.": i18n.language === 'en' ? "I'm getting sick without vaping" : "Me estoy poniendo enfermo sin el vapeo",
-      "No estoy agotade. Mi cuerpo está trabajando en su limpieza interna.": i18n.language === 'en' ? "I'm too tired, I need energy from vaping" : "Estoy demasiado cansado, necesito energía del vapeo",
+      "No estoy enferme. Estoy drenando residuos químicos acumulados.": i18n.language === 'en' ? "I'm getting sick without vaping" : "Me estoy poniendo enferme sin el vapeo",
+      "No estoy agotade. Mi cuerpo está trabajando en su limpieza interna.": i18n.language === 'en' ? "I'm too tired, I need energy from vaping" : "Estoy demasiado cansade, necesito energía del vapeo",
       "No es hambre real. Es mi sistema buscando estabilidad.": i18n.language === 'en' ? "I'm constantly hungry without vaping" : "Tengo hambre constante sin vapear",
       "No es una recaída en la salud. Es una mejora que se manifiesta con limpieza.": i18n.language === 'en' ? "This cough means I'm getting worse" : "Esta tos significa que estoy empeorando",
       "No es casualidad. Es una transformación lenta pero segura.": i18n.language === 'en' ? "These changes are coincidental, not real" : "Estos cambios son casuales, no reales",

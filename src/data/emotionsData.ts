@@ -214,7 +214,7 @@ export const emotionsData: Emotion[] = [
   },
   {
     id: 'foggy',
-    name: 'Mental Nublade',
+    name: 'Embotade',
     category: 'negative',
     type: 'negative',
     intensity: 6,

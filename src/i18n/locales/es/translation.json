@@ -197,7 +197,6 @@
       "currentRecovery": "recuperación actual",
       "currentState": "Estado actual:",
       "medicalBasis": "Base médica:",
-      "scientificInfo": "Información científica",
       "scientificSource": "Fuente científica",
       "basedOnStudies": "Datos basados en estudios médicos recientes",
       "nextMilestone": "Próximo hito (Día {{day}}):",

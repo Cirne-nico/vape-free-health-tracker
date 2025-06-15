@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { AlertTriangle } from 'lucide-react';
 
 interface RelapseHandlerProps {
   startDate: Date | null;
@@ -23,6 +24,7 @@ export const useRelapseHandler = ({
   const [relapseCount, setRelapseCount] = useState(0);
   const [showRelapseDialog, setShowRelapseDialog] = useState(false);
   const [relapseCompleted, setRelapseCompleted] = useState(false);
+  const [relapseResult, setRelapseResult] = useState('');
 
   useEffect(() => {
     const savedRelapseCount = localStorage.getItem('relapse-count');
@@ -42,7 +44,7 @@ export const useRelapseHandler = ({
       setStartDate(newStartDate);
       localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
       resetAchievements();
-      toast.success(t('relapseHandler.restartMessage') || 'Proceso reiniciado. ¡Vuelve a empezar con fuerza!');
+      setRelapseResult(t('relapseHandler.restartMessage') || 'Proceso reiniciado. ¡Vuelve a empezar con fuerza!');
       setRelapseCompleted(true);
       return;
     }
@@ -77,7 +79,7 @@ export const useRelapseHandler = ({
         localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
         localStorage.setItem('relapse-count', '0');
         resetAchievements();
-        toast.success(t('relapseHandler.fifthRelapse') || 'Quinta recaída: se ha reiniciado todo el proceso completamente.');
+        setRelapseResult(t('relapseHandler.fifthRelapse') || 'Quinta recaída: se ha reiniciado todo el proceso completamente.');
         setRelapseCompleted(true);
         return;
     }
@@ -90,11 +92,12 @@ export const useRelapseHandler = ({
       localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
       resetAchievements();
       
-      toast.success(penaltyMessage + (t('relapseHandler.penaltyExceedsProgress') || ' Como la penalización supera tu progreso actual, el contador se ha puesto en cero.'));
+      setRelapseResult(penaltyMessage + (t('relapseHandler.penaltyExceedsProgress') || ' Como la penalización supera tu progreso actual, el contador se ha puesto en cero.'));
     } else {
-      // Calcular nueva fecha de inicio sumando los días de penalización
-      const millisecondsToAdd = daysToSubtract * 24 * 60 * 60 * 1000;
-      const newStartDate = new Date(startDate.getTime() + millisecondsToAdd);
+      // CORREGIDO: Calcular nueva fecha de inicio RESTANDO los días de penalización
+      // en lugar de sumarlos, para mover la fecha hacia adelante (más reciente)
+      const millisecondsToSubtract = daysToSubtract * 24 * 60 * 60 * 1000;
+      const newStartDate = new Date(startDate.getTime() + millisecondsToSubtract);
       
       setStartDate(newStartDate);
       localStorage.setItem('vaping-quit-date', newStartDate.toISOString());
@@ -105,7 +108,7 @@ export const useRelapseHandler = ({
       // Ajustar medallas según los nuevos días
       adjustMedalsAfterRelapse(currentDays, newDays);
       
-      toast.success(`${penaltyMessage} ${t('relapseHandler.newProgress', {days: newDays}) || `Ahora tienes ${newDays} días de progreso.`}`);
+      setRelapseResult(`${penaltyMessage} ${t('relapseHandler.newProgress', {days: newDays}) || `Ahora tienes ${newDays} días de progreso.`}`);
     }
     
     // Incrementar contador de recaídas
@@ -117,6 +120,8 @@ export const useRelapseHandler = ({
 
   const handleRelapse = () => {
     setShowRelapseDialog(true);
+    setRelapseCompleted(false);
+    setRelapseResult('');
   };
 
   const closeRelapseDialog = () => {
@@ -131,7 +136,8 @@ export const useRelapseHandler = ({
       <Dialog open={showRelapseDialog} onOpenChange={closeRelapseDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-center text-red-600">
+            <DialogTitle className="text-center text-red-600 flex items-center justify-center gap-2">
+              <AlertTriangle className="w-5 h-5" />
               {relapseCompleted ? 
                 (t('relapseHandler.relapseProcessed') || "Recaída procesada") : 
                 (t('relapseHandler.confirmRelapse') || "¿Confirmar recaída?")}
@@ -145,9 +151,16 @@ export const useRelapseHandler = ({
               </p>
               
               <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                <p className="text-sm text-yellow-700">
+                <p className="text-sm text-yellow-700 font-medium mb-2">
                   {t('relapseHandler.penaltyWarning') || "Dependiendo del número de recaídas previas, la penalización puede ser de 7 días a un reinicio completo."}
                 </p>
+                <ul className="text-xs text-yellow-600 space-y-1">
+                  <li>• 1ª recaída: -1 semana</li>
+                  <li>• 2ª recaída: -1 mes</li>
+                  <li>• 3ª recaída: -3 meses</li>
+                  <li>• 4ª recaída: -9 meses</li>
+                  <li>• 5ª recaída: reinicio completo</li>
+                </ul>
               </div>
               
               <div className="flex gap-3">
@@ -171,7 +184,10 @@ export const useRelapseHandler = ({
             <div className="space-y-4">
               <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                 <p className="text-center text-green-700">
-                  {t('relapseHandler.processed') || "Tu recaída ha sido procesada. Recuerda que cada tropiezo es una oportunidad para aprender."}
+                  {relapseResult}
+                </p>
+                <p className="text-center text-green-600 text-sm mt-2">
+                  {t('relapseHandler.processed') || "Recuerda que cada tropiezo es una oportunidad para aprender."}
                 </p>
               </div>
               

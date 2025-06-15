@@ -62,6 +62,24 @@ const HabitsManager = () => {
     return acc;
   }, {} as Record<string, Habit[]>);
 
+  // Función para obtener la URL del estudio científico
+  const getStudyUrl = (reference: string) => {
+    // Mapeo de referencias a URLs reales
+    const referenceUrls: Record<string, string> = {
+      'Taylor et al., 2007': 'https://pubmed.ncbi.nlm.nih.gov/17454548/',
+      'Zope & Zope, 2013': 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3573542/',
+      'Jaehne et al., 2009': 'https://pubmed.ncbi.nlm.nih.gov/19345999/',
+      'Spring et al., 2008': 'https://pubmed.ncbi.nlm.nih.gov/18426563/',
+      'American Lung Association': 'https://www.lung.org/quit-smoking/smoking-facts/health-effects/what-happens-when-you-quit',
+      'Bratman et al., 2015': 'https://www.pnas.org/doi/10.1073/pnas.1510459112',
+      'Stead et al., 2017': 'https://pubmed.ncbi.nlm.nih.gov/28417491/',
+      'Bowen & Marlatt, 2009': 'https://pubmed.ncbi.nlm.nih.gov/19586163/',
+      'NIH/NIDA': 'https://nida.nih.gov/publications/research-reports/tobacco-nicotine-e-cigarettes/nicotine-addictive'
+    };
+
+    return referenceUrls[reference] || '#';
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -71,7 +89,7 @@ const HabitsManager = () => {
             ⚡ {t('habitsManager.title')}
             <TooltipHelper
               content={
-                <div className="space-y-2">
+                <div className="space-y-2 max-w-[250px]">
                   <p className="font-semibold">{t('habitsManager.tooltip.title')}</p>
                   <p className="text-sm">{t('habitsManager.tooltip.description')}</p>
                   <p className="font-semibold">{t('habitsManager.effectiveness')}</p>
@@ -168,10 +186,15 @@ const HabitsManager = () => {
                       
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <span>{t('habitsManager.habitCard.reference')} {habit.reference}</span>
-                        <Button variant="ghost" size="sm" className="h-6 px-2">
+                        <a 
+                          href={getStudyUrl(habit.reference)} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                        >
                           <ExternalLink className="w-3 h-3 mr-1" />
                           {t('habitsManager.habitCard.viewStudy')}
-                        </Button>
+                        </a>
                       </div>
                     </div>
                   )}
@@ -195,7 +218,7 @@ const HabitsManager = () => {
       <Card className="bg-amber-50 border-amber-200">
         <CardContent className="p-4">
           <div className="text-center space-y-2">
-            <h4 className="font-semibold text-amber-800">Clave</h4>
+            <h4 className="font-semibold text-amber-800">💡 {t('habitsManager.successKey.title')}</h4>
             <p className="text-sm text-amber-700">
               {t('habitsManager.successKey.description')}
             </p>

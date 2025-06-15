@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Dialog, DialogContent, DialogTrigger } from "./dialog"
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "./dialog"
 import { cn } from "@/lib/utils"
 
 interface MobileTooltipProps {
@@ -35,6 +35,9 @@ export function MobileTooltipDialog({ children, content, className }: MobileTool
         </div>
       </DialogTrigger>
       <DialogContent className={cn("p-4 max-w-[90vw] w-auto", className)}>
+        <DialogHeader className="sr-only">
+          <DialogTitle>Tooltip Information</DialogTitle>
+        </DialogHeader>
         {content}
       </DialogContent>
     </Dialog>
